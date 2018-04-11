@@ -51,7 +51,7 @@ export class AdminorderdeliverPage {
   }
   getOrderDetail(orderid: any, u_token: any) {
     this.appService.httpPost_token(AppGlobal.API.postOrderInfoByID, u_token, { orderid: orderid }, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('AdminloginPage');
       }
       if (rs.isSuccess) {

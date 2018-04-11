@@ -79,7 +79,7 @@ export class AftersalePage {
     }
     this.orderRefundViewModel.OrderRefundContent = this.pagedatamodle.reason
     this.appService.httpPost_token(AppGlobal.API.postReturnApply, this.c_token, { ordersrefund: this.orderRefundViewModel }, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
       }
       if (rs.isSuccess) {

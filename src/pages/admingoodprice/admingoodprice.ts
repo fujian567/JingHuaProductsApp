@@ -67,7 +67,7 @@ export class AdmingoodpricePage {
   }
   getLocationPrice(u_token) {
     this.appService.httpPost_token(AppGlobal.API.postGoodsPriceInfo, u_token, { commParamId: this.CommParamId, pages: this.PagesInfoViewModel }, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('AdminloginPage');
       }
       if (rs.isSuccess) {
@@ -98,7 +98,7 @@ export class AdmingoodpricePage {
   deleteParmas(item: any) {
     this.appConfigCtrl.popAlertConfirmView('你确定要删除该价格吗？', '我在考虑下', '立刻删除', () => {
       this.appService.httpPost_token(AppGlobal.API.getGoodsPriceDet, this.u_token, { priceId:item.priceId }, rs => {
-        if (rs.status === 401 || rs.status === 403) {
+        if (rs.status == 401 || rs.status == 403) {
           this.app.getRootNav().setRoot('AdminloginPage');
         }
         if (rs.isSuccess) {
@@ -129,7 +129,7 @@ export class AdmingoodpricePage {
         submitArray.push(ProductRegionalPrice)
       }
       this.appService.httpPost_token(AppGlobal.API.postGoodsPrice, this.u_token, { productPrice: submitArray }, rs => {
-        if (rs.status === 401 || rs.status === 403) {
+        if (rs.status == 401 || rs.status == 403) {
           this.app.getRootNav().setRoot('AdminloginPage');
         }
         if (rs.isSuccess) {

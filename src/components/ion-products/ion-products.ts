@@ -16,6 +16,7 @@ export class IonProductsComponent {
     console.log('Hello IonProductsComponent Component');
   }
   goDetails(item) {
+    console.log(item)
     this.navCtrl.push('GoodsdetailPage', { item: item });
   }
 }

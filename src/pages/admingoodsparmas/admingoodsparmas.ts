@@ -47,7 +47,7 @@ export class AdmingoodsparmasPage {
   }
   getGoodsParmas(u_token) {
     this.appService.httpPost_token(AppGlobal.API.postGoodsBaseParmasInfo, u_token, { commBaseInfoId: this._commBaseInfoId, pages: this.PagesInfoViewModel }, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('AdminloginPage');
       }
       if (rs.isSuccess) {
@@ -80,7 +80,7 @@ export class AdmingoodsparmasPage {
   deleteParmas(commParamId: number) {
     this.appConfigCtrl.popAlertConfirmView('你确定要删除该参数吗？删除后不可恢复。', '我在考虑下', '残忍删除', () => {
       this.appService.httpPost_token(AppGlobal.API.postGoodsBaseParmasDel, this.u_token, { commParamId: commParamId }, rs => {
-        if (rs.status === 401 || rs.status === 403) {
+        if (rs.status == 401 || rs.status == 403) {
           this.app.getRootNav().setRoot('AdminloginPage');
         }
         if (rs.isSuccess) {
@@ -105,7 +105,7 @@ export class AdmingoodsparmasPage {
       temparray.push(data.CommSpecData)
     }
     this.appService.httpPost_token(AppGlobal.API.postGoodsBaseParmas, this.u_token, { commId: this._commBaseInfoId, CommSpecData: data.CommSpecData, EnterprisesData: data.EnterprisesData, ApprovedNumData: data.ApprovedNumData ,commupc:data.CommUPC,commpackaging:data.CommPackaging}, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('AdminloginPage');
       }
       if (rs.isSuccess) {

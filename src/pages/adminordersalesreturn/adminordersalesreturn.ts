@@ -49,7 +49,7 @@ export class AdminordersalesreturnPage {
   }
   getOrderDetail(processMainId: any, u_token: any) {
     this.appService.httpPost_token(AppGlobal.API.getRefundWaitAuditOrderInfo, u_token, { processmainid: processMainId }, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('AdminloginPage');
       }
       if (rs.isSuccess) {

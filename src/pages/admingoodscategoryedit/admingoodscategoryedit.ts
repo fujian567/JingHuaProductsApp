@@ -43,7 +43,7 @@ export class AdmingoodscategoryeditPage {
   }
   getCategoryData(u_token) {
     this.appService.httpGet_token(AppGlobal.API.getGoodsClassInfo, u_token, {}, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('AdminloginPage');
       }
       if (rs.isSuccess) {
@@ -141,7 +141,7 @@ export class AdmingoodscategoryeditPage {
       postUrl = AppGlobal.API.postGoodsClassModify;
     }
     this.appService.httpPost_token(postUrl, this.u_token, this.ProductClassViewModel, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('AdminloginPage');
       }
       if (rs.isSuccess) {

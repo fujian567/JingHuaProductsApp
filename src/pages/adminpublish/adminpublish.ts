@@ -178,7 +178,7 @@ export class AdminpublishPage {
     this.pageSubimtModel.ImagesList = tempImg;
     this.pageSubimtModel.MedianPrice = Math.floor(this.pageModel.goodPrice * 100) / 100;
     this.appService.httpPost_Img_token(AppGlobal.API.postGoodsPublish, this.u_token, { productPublish: this.pageSubimtModel, publish: true }, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('AdminloginPage');
       }
       if (rs.isSuccess) {

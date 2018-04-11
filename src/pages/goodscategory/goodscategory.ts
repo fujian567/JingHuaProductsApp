@@ -61,7 +61,7 @@ export class GoodscategoryPage {
   // 获取左侧菜单
   getCategories(c_token) {
     this.appService.httpGet_token(AppGlobal.API.getGoodsClassInfoC, c_token, {}, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
       }
       if (rs.isSuccess) {

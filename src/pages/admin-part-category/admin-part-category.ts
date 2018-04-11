@@ -96,7 +96,7 @@ export class AdminPartCategoryPage {
   }
   submitData() {
     this.appService.httpPost_token(AppGlobal.API.postGoodsClassSubimt, this.u_token, this.ProductClassViewModel, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.navCtrl.setRoot('AdminloginPage');
       }
       if (rs.isSuccess) {
@@ -106,7 +106,7 @@ export class AdminPartCategoryPage {
   }
   getCategoryData(u_token) {
     this.appService.httpGet_token(AppGlobal.API.getGoodsClassInfo, u_token, {}, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.navCtrl.setRoot('AdminloginPage');
       }
       if (rs.isSuccess) {

@@ -37,7 +37,7 @@ export class ShippingaddressPage {
   }
   getDelivery(c_token) {
     this.appService.httpGet_token(AppGlobal.API.getDeliveryAll, c_token, {}, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
       }
       console.log(rs)
@@ -63,7 +63,7 @@ export class ShippingaddressPage {
   deleteAddress(item: any) {
     this.appConfigCtrl.popAlertConfirmView('你确定要删除该地址吗？删除后不可恢复。', '在考虑下', '残忍删除', () => {
       this.appService.httpPost_token(AppGlobal.API.postDeliveDel, this.c_token, { deliveryAddressId: item.deliveryAddressId }, rs => {
-        if (rs.status === 401 || rs.status === 403) {
+        if (rs.status == 401 || rs.status == 403) {
           this.app.getRootNav().setRoot('LoginPage');
         }
         console.log(rs)
@@ -75,7 +75,7 @@ export class ShippingaddressPage {
   }
   default(item: any) {
     this.appService.httpPost_token(AppGlobal.API.postDeliveDefault, this.c_token, { deliveryAddressId: item.deliveryAddressId }, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
       }
       console.log(rs)

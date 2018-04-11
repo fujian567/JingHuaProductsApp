@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, App,Navbar } from 'ionic-angular';
 import { AppConfig } from '../../app/app.config';
 import { AppService, AppGlobal } from './../../app/app.service';
 import { Storage } from '@ionic/storage';
@@ -14,6 +14,7 @@ import { ImageViewerController } from 'ionic-img-viewer';
   templateUrl: 'goodsdetail.html',
 })
 export class GoodsdetailPage {
+  @ViewChild(Navbar) navBar: Navbar;
   _imageViewerCtrl: ImageViewerController;
   imagesPath: Array<any> = [];//['./../../assets/imgs/dchkl.jpg', './../../assets/imgs/jdssyp.jpg', './../../assets/imgs/nnzchykl.jpg', './../../assets/imgs/wsbcw.jpg'];
   goodsdetil: any = "detail";
@@ -160,7 +161,12 @@ export class GoodsdetailPage {
     }
     this.tempComment=this.Goodscomment.slice(0,2)
   }
-
+  ionViewDidLoad() {
+    this.navBar.backButtonClick = this.backButtonClick;
+  }
+  backButtonClick = (e: UIEvent) => {
+    this.navCtrl.push('TabsPage');
+  }
   getGoodsDetail(c_token) {
     this.appService.httpPost_token(AppGlobal.API.postGoodsDetailInfoC, c_token, { commParamId: this.CommParamId }, rs => {
       console.log(rs)

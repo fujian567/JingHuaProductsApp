@@ -71,7 +71,7 @@ export class AdminorderPage {
   //待审核
   getOrderInfo(u_token) {
     this.appService.httpGet_token(AppGlobal.API.getWaitAuditOrder, u_token, {}, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('AdminloginPage');
       }
       if (rs.isSuccess) {
@@ -193,7 +193,7 @@ export class AdminorderPage {
   //待发货
   getOrderInfoDeliver(u_token) {
     this.appService.httpGet_token(AppGlobal.API.getWaitDeliveryOrder, u_token, {}, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('AdminloginPage');
       }
       if (rs.isSuccess) {
@@ -206,7 +206,7 @@ export class AdminorderPage {
   //退货审核
   getOrderAfterSale(u_token) {
     this.appService.httpGet_token(AppGlobal.API.getRefundWaitAuditOrder, u_token, {}, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('AdminloginPage');
       }
       if (rs.isSuccess) {

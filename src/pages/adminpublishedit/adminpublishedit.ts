@@ -182,7 +182,7 @@ export class AdminpublisheditPage {
     this.pageSubimtModel.MedianPrice = Math.floor(this.pageSubimtModel.MedianPrice * 100) / 100;
 
     this.appService.httpPost_Img_token(AppGlobal.API.postGoodsPublishModify, this.u_token, { productPublish: this.pageSubimtModel, publish: true }, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('AdminloginPage');
       }
       if (rs.isSuccess) {
@@ -194,7 +194,7 @@ export class AdminpublisheditPage {
     this.appConfigCtrl.popAlertConfirmView('您确定要取消发布该商品?取消后已上传的商品将被删除并且不可恢复！', '我在考虑下', '残忍删除', () => {
       this.pageSubimtModel.MedianPrice = Math.floor(this.pageSubimtModel.MedianPrice * 100) / 100;
       this.appService.httpPost_Img_token(AppGlobal.API.postGoodsPublish, this.u_token, { productPublish: this.pageSubimtModel, publish: false }, rs => {
-        if (rs.status === 401 || rs.status === 403) {
+        if (rs.status == 401 || rs.status == 403) {
           this.app.getRootNav().setRoot('AdminloginPage');
         }
         if (rs.isSuccess) {

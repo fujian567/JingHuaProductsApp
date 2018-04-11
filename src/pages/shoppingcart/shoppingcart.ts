@@ -44,7 +44,7 @@ export class ShoppingcartPage {
   }
   getShoppingCartInfo(c_token) {
     this.appService.httpGet_token(AppGlobal.API.getShoppingCartAll, c_token, {}, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
       }
       if (rs.isSuccess) {
@@ -144,7 +144,7 @@ export class ShoppingcartPage {
         sCartIdList: temparray
       }
       this.appService.httpPost_token(AppGlobal.API.postShoppingCartDel, this.c_token, { delSCData: delSCData }, rs => {
-        if (rs.status === 401 || rs.status === 403) {
+        if (rs.status == 401 || rs.status == 403) {
           this.app.getRootNav().setRoot('LoginPage');
         }
         if (rs.isSuccess) {
@@ -159,7 +159,7 @@ export class ShoppingcartPage {
       DecreaseQuantity: num
     }
     this.appService.httpPost_token_fade(AppGlobal.API.postShoppingCartGoodsNum, this.c_token, { sCQuantity: subimtModel }, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
       }
       if (rs.isSuccess) {
@@ -173,7 +173,7 @@ export class ShoppingcartPage {
       IsSelect: IsSelect
     }
     this.appService.httpPost_token(AppGlobal.API.postShoppingCartOrder, this.c_token, { sCSelect: subimtModel }, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
       }
       if (rs.isSuccess) {
@@ -191,7 +191,7 @@ export class ShoppingcartPage {
       tempArray.push(subimtModel);
     }
     this.appService.httpPost_token(AppGlobal.API.postShoppingCartOrderAll, this.c_token, { sCSelect: tempArray }, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
       }
       if (rs.isSuccess) {

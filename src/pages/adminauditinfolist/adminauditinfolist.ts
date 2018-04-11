@@ -50,7 +50,7 @@ export class AdminauditinfolistPage {
   }
   getAuditInfoList(u_token) {
     this.appService.httpPost_token(AppGlobal.API.getFbenterpriseWait, u_token, { pages: this.pagingModel,fbusinessstate: 60}, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('AdminloginPage');
       }
       console.log(rs)
@@ -64,7 +64,7 @@ export class AdminauditinfolistPage {
   }
   getAllAuditInfoList(u_token) {
     this.appService.httpPost_token(AppGlobal.API.postEnterpriseInfo, u_token, { pages: this.pagingModel }, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('AdminloginPage');
       }
       if (rs.isSuccess) {

@@ -139,7 +139,7 @@ export class OrdermanagePage {
   }
   getOrderInfo(c_token) {
     this.appService.httpPost_token(AppGlobal.API.postOrderInfoByAccount, c_token, { pages: this.pages }, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
       }
       if (rs.isSuccess) {
@@ -150,7 +150,7 @@ export class OrdermanagePage {
   //待付款
   getOrderInfoNoPay(c_token) {
     this.appService.httpPost_token(AppGlobal.API.postOrderInfoByStatus, c_token, { pages: this.pages, orderstateId: orderStatus.OrderPayment }, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
       }
       if (rs.isSuccess) {
@@ -164,7 +164,7 @@ export class OrdermanagePage {
   //待审核
   getOrderInfoNoAudit(c_token) {
     this.appService.httpPost_token(AppGlobal.API.postOrderInfoByStatus, c_token, { pages: this.pages, orderstateId: orderStatus.OrderWaitAudit }, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
       }
       if (rs.isSuccess) {
@@ -178,7 +178,7 @@ export class OrdermanagePage {
   //待发货
   getOrderInfoNoDeliver(c_token) {
     this.appService.httpPost_token(AppGlobal.API.postOrderInfoByStatus, c_token, { pages: this.pages, orderstateId: orderStatus.OrderWaitDelivery }, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
       }
       if (rs.isSuccess) {
@@ -192,7 +192,7 @@ export class OrdermanagePage {
   //待收货
   getOrderInfoNoTakeDelivery(c_token) {
     this.appService.httpPost_token(AppGlobal.API.postOrderInfoByStatus, c_token, { pages: this.pages, orderstateId: orderStatus.OrderWaitReceipt }, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
       }
       if (rs.isSuccess) {
@@ -207,7 +207,7 @@ export class OrdermanagePage {
   //待评价
   getOrderInfoNoComment(c_token) {
     this.appService.httpPost_token(AppGlobal.API.postOrderInfoByStatus, c_token, { pages: this.pages, orderstateId: orderStatus.OrderEvaluation }, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
       }
       if (rs.isSuccess) {
@@ -222,7 +222,7 @@ export class OrdermanagePage {
   //售后
   getOrderInfoAfterSale(c_token) {
     this.appService.httpGet_token(AppGlobal.API.postOrderInfoAfterSale, c_token, { pages: this.pages }, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
       }
       if (rs.isSuccess) {

@@ -139,7 +139,7 @@ export class OrderPage {
   }
   getOrderInfo(c_token) {
     this.appService.httpGet_token(AppGlobal.API.getOederinfo, c_token, {}, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
       }
       if (rs.isSuccess) {
@@ -170,7 +170,7 @@ export class OrderPage {
   }
   getPayMethod(c_token) {
     this.appService.httpGet_token(AppGlobal.API.getPayMethod, c_token, {}, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
       }
       if (rs.isSuccess) {
@@ -182,7 +182,7 @@ export class OrderPage {
   }
   getDistribution(c_token) {
     this.appService.httpGet_token(AppGlobal.API.getDistribution, c_token, {}, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
       }
       if (rs.isSuccess) {
@@ -210,7 +210,7 @@ export class OrderPage {
   getDeliveryDef(c_token) {
     if (this.navParams.data.address == undefined) {
       this.appService.httpGet_token(AppGlobal.API.getDeliveryDef, c_token, {}, rs => {
-        if (rs.status === 401 || rs.status === 403) {
+        if (rs.status == 401 || rs.status == 403) {
           this.app.getRootNav().setRoot('LoginPage');
         }
         if (rs.isSuccess) {
@@ -304,7 +304,7 @@ export class OrderPage {
       }
       console.log(OrderInfoSubmitViewModel)
       this.appService.httpPost_Img_token(AppGlobal.API.postOrderInfo, this.c_token, { orderInfo: OrderInfoSubmitViewModel }, rs => {
-        if (rs.status === 401 || rs.status === 403) {
+        if (rs.status == 401 || rs.status == 403) {
           this.app.getRootNav().setRoot('LoginPage');
         }
         if (rs.isSuccess) {

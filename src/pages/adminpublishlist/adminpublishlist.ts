@@ -56,7 +56,7 @@ export class AdminpublishlistPage {
   }
   getGoodsClass(u_token) {
     this.appService.httpGet_token(AppGlobal.API.getGoodsClassInfo, u_token, {}, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('AdminloginPage');
       }
       if (rs.isSuccess) {
@@ -72,7 +72,7 @@ export class AdminpublishlistPage {
   }
   getGoodsList(classify: any, status: any) {
     this.appService.httpPost_token(AppGlobal.API.postGoodsPublishInfo, this.u_token, { classId: classify, publish: true, pages: this.PagesInfoViewModelp }, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('AdminloginPage');
       }
       if (rs.isSuccess) {
@@ -89,7 +89,7 @@ export class AdminpublishlistPage {
   getGoodsListNP(classify: any, status: any) {
     console.log(classify)
     this.appService.httpPost_token(AppGlobal.API.postGoodsPublishInfo, this.u_token, { classId: classify, publish: false, pages: this.PagesInfoViewModeln }, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('AdminloginPage');
       }
       if (rs.isSuccess) {

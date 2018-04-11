@@ -61,6 +61,7 @@ export class AppGlobal {
         posLogisticsInfo: '/api/order/courier/info/', //获取快递变化
         postReturnApply: '/api/order/refund/postinfo/', //退货申请
         getMyPointInfo: '/api/customer/integralrecords/info/', //获取积分
+        postGoodsSQ: '/api/products/upc/Info/', //获取二维码商品
 
         postUeserlogin: '/api/users/login/post/',//管-登录
         getFbenterpriseWait: '/api/enterprise/fbenterprise/minfo/',//管-首营审核

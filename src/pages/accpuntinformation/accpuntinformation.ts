@@ -68,7 +68,7 @@ export class AccpuntinformationPage {
   }
   getClinetStatus(c_token) {
     this.appService.httpGet_token(AppGlobal.API.getfbenterpriseStatus, c_token, {}, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
       }
       if (rs.isSuccess) {
@@ -95,7 +95,7 @@ export class AccpuntinformationPage {
   }
   getClinetInfo(c_token) {
     this.appService.httpGet_token(AppGlobal.API.getfbenterprise, c_token, {}, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
       }
       if (rs.isSuccess) {
@@ -214,7 +214,7 @@ export class AccpuntinformationPage {
         this.ClientInfoViewModel.SalesmanCode = "无"
       }
       this.appService.httpPost_Img_token(AppGlobal.API.postClientInfo, this.c_token, this.ClientInfoViewModel, rs => {
-        if (rs.status === 401 || rs.status === 403) {
+        if (rs.status == 401 || rs.status == 403) {
           this.imagesTempPath = [];
           this.app.getRootNav().setRoot('LoginPage');
         }

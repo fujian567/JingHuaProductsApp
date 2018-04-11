@@ -48,7 +48,7 @@ export class AdmingoodslistPage {
   }
   getGoodsClass(u_token) {
     this.appService.httpGet_token(AppGlobal.API.getGoodsClassInfo, u_token, {}, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('AdminloginPage');
       }
       if (rs.isSuccess) {
@@ -70,7 +70,7 @@ export class AdmingoodslistPage {
   getGoodsList(classify: any) {
     let goodsList: any;
     this.appService.httpPost_token(AppGlobal.API.postGoodsList, this.u_token, { classId: classify, pages: this.PagesInfoViewModel }, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('AdminloginPage');
       }
       if (rs.isSuccess) {
@@ -113,7 +113,7 @@ export class AdmingoodslistPage {
   deletegood(item:any) {
     this.appConfigCtrl.popAlertConfirmView('你确定要删除该商品吗？删除后不可恢复。', '我在考虑下', '残忍删除', () => {
       this.appService.httpPost_token(AppGlobal.API.postGoodsBaseInfoDet, this.u_token, {baseInfoId:item.commId}, rs => {
-        if (rs.status === 401 || rs.status === 403) {
+        if (rs.status == 401 || rs.status == 403) {
           this.app.getRootNav().setRoot('AdminloginPage');
         }
         if (rs.isSuccess) {
@@ -142,7 +142,7 @@ export class AdmingoodslistPage {
   getGoodsList_doInfin(classify: any) {
     let goodsList: any;
     this.appService.httpPost_token(AppGlobal.API.postGoodsList, this.u_token, { classId: classify, pages: this.PagesInfoViewModel }, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('AdminloginPage');
       }
       if (rs.isSuccess) {

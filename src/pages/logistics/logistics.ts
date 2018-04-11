@@ -19,19 +19,7 @@ export class LogisticsPage {
   pagedatamodle: any = {
 
   }
-  logisticsData: any = [
-    { date: '04-08', time: '07:46', log: '186****3906-已签收', status: '1' },
-    { date: '04-08', time: '07:46', log: '快件派送至快递柜【丰巢】，派件员:杨国胜', status: '0' },
-    { date: '04-08', time: '07:46', log: '甘肃兰州七里河区公司-杨国胜-派件中', status: '0' },
-    { date: '04-08', time: '07:46', log: '已到达-甘肃兰州七里河区公司', status: '0' },
-    { date: '04-08', time: '07:46', log: '甘肃兰州中转部-已发往-甘肃兰州七里河区公司', status: '0' },
-    { date: '04-08', time: '07:46', log: '已到达-甘肃兰州中转部', status: '0' },
-    { date: '04-08', time: '07:46', log: '福建泉州航空部-已装袋发往-甘肃兰州航空部', status: '0' },
-    { date: '04-08', time: '07:46', log: '福建安海公司-已装袋发往-福建泉州航空部', status: '0' },
-    { date: '04-08', time: '07:46', log: '福建安海公司-已发往-福建泉州航空部', status: '0' },
-    { date: '04-08', time: '07:46', log: '福建安海公司-已进行装袋扫描', status: '0' },
-    { date: '04-08', time: '07:46', log: '福建安海公司-已收件', status: '0' },
-  ]
+  logisticsData: any = [];
   constructor(
     public navCtrl: NavController,
     public imageViewerCtrl: ImageViewerController,

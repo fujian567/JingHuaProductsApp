@@ -37,7 +37,7 @@ export class MypointPage {
   }
   getMyPoint(c_token) {
     this.appService.httpPost_token(AppGlobal.API.getMyPointInfo, c_token, { pages: this.pages }, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
       }
       if (rs.isSuccess) {

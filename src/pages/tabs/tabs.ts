@@ -49,7 +49,7 @@ export class TabsPage {
   }
   getSystemRegional(u_token) {
     // this.appService.httpGet_token(AppGlobal.API.getSystemRegional, u_token, {}, rs => {
-    //   if (rs.status === 401 || rs.status === 403) {
+    //   if (rs.status == 401 || rs.status == 403) {
     //     this.app.getRootNav().setRoot('LoginPage');
     //   }
     //   if (rs.isSuccess) {

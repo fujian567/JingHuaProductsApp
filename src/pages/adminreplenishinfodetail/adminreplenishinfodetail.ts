@@ -52,7 +52,7 @@ export class AdminreplenishinfodetailPage {
     } else {
       console.log(this.pageModel)
       this.appService.httpPost_token(AppGlobal.API.postDataCompletionSubmit, this.u_token, { _fbusinessState: 1 }, rs => {
-        if (rs.status === 401 || rs.status === 403) {
+        if (rs.status == 401 || rs.status == 403) {
           this.app.getRootNav().setRoot('AdminloginPage');
         }
         if (rs.isSuccess) {

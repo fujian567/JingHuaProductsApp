@@ -86,7 +86,7 @@ export class CommentPage {
 
     console.log(this.c_token)
     this.appService.httpPost_token(AppGlobal.API.postOrderCommentInfo, this.c_token, { ordersassessment: this.pagedatamodle }, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
       }
       console.log(rs)

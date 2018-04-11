@@ -33,7 +33,7 @@ export class AdminreplenishinfolistPage {
   }
   getReplenishList(u_token) {
     this.appService.httpGet_token(AppGlobal.API.getDataCompletionInfo, u_token, { _fbusinessState: 1 }, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('AdminloginPage');
       }
       if (rs.isSuccess) {
@@ -44,7 +44,7 @@ export class AdminreplenishinfolistPage {
   }
   getAllReplenishList(u_token) {
     this.appService.httpGet_token(AppGlobal.API.getDataCompletionInfo, u_token, { _fbusinessState: 2 }, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('AdminloginPage');
       }
       if (rs.isSuccess) {

@@ -54,7 +54,7 @@ export class ExpressPage {
   }
   getLogisticsDetail(orderid: any, c_token: any) {
     this.appService.httpPost_token(AppGlobal.API.postExpressInfo, c_token, { orderId: orderid }, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
       }
       console.log(rs.objectData)
@@ -66,7 +66,7 @@ export class ExpressPage {
   }
   getExpressInfo(expressNum: any,express:any){
     this.appService.httpPost_token(AppGlobal.API.posLogisticsInfo, this.c_token, { orderLogisticsNumber: expressNum, couriercompanycode:express}, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
       }
       

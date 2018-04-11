@@ -38,7 +38,7 @@ export class AdmingoodpricelistPage {
   }
   getGoodsClass(u_token) {
     this.appService.httpGet_token(AppGlobal.API.getGoodsClassInfo, u_token, {}, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('AdminloginPage');
       }
       if (rs.isSuccess) {
@@ -52,7 +52,7 @@ export class AdmingoodpricelistPage {
   }
   getGoodsList(classify: any) {
     this.appService.httpPost_token(AppGlobal.API.postGoodsPublishInfo, this.u_token, { classId: classify, publish: true, pages: this.PagesInfoViewModel }, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('AdminloginPage');
       }
       if (rs.isSuccess) {

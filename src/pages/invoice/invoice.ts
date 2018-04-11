@@ -88,7 +88,7 @@ export class InvoicePage {
   }
   getInvoiceInfoType(c_token) {
     this.appService.httpGet_token(AppGlobal.API.getInvoiceType, c_token, {}, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.navCtrl.setRoot('LoginPage');
       }
       if (rs.isSuccess) {
@@ -115,7 +115,7 @@ export class InvoicePage {
   }
   getInvoiceInfoN(c_token) {
     this.appService.httpGet_token(AppGlobal.API.getInvoiceNInfo, c_token, {}, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.navCtrl.setRoot('LoginPage');
       }
       if (rs.isSuccess) {
@@ -125,7 +125,7 @@ export class InvoicePage {
   }
   getInvoiceInfoE(c_token) {
     this.appService.httpGet_token(AppGlobal.API.getInvoiceEInfo, c_token, {}, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
       }
       if (rs.isSuccess) {

@@ -147,7 +147,7 @@ export class ShippingaddresseditPage {
       url = AppGlobal.API.postDelivery;
     }
     this.appService.httpPost_token(url, this.c_token, this.clientDeliveryInfo, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
       }
       if (rs.isSuccess) {

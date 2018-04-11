@@ -58,7 +58,7 @@ export class AdmingoodputawayPage {
   }
   getGoodsClass(u_token) {
     this.appService.httpGet_token(AppGlobal.API.getGoodsClassInfo, u_token, {}, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('AdminloginPage');
       }
       if (rs.isSuccess) {
@@ -73,7 +73,7 @@ export class AdmingoodputawayPage {
   }
   getGoodsList(classify: any, status: any) {
     this.appService.httpPost_token(AppGlobal.API.postGoodsShelvesInfo, this.u_token, { classId: classify, shelves: true, pages: this.PagesInfoViewModelp }, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('AdminloginPage');
       }
       if (rs.isSuccess) {
@@ -88,7 +88,7 @@ export class AdmingoodputawayPage {
   }
   getGoodsListD(classify: any, status: any) {
     this.appService.httpPost_token(AppGlobal.API.postGoodsShelvesInfo, this.u_token, { classId: classify, shelves: false, pages: this.PagesInfoViewModels }, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('AdminloginPage');
       }
       if (rs.isSuccess) {
@@ -233,7 +233,7 @@ export class AdmingoodputawayPage {
   }
   subimtPutAwayData() {
     this.appService.httpPost_token(AppGlobal.API.postGoodsShelves, this.u_token, this.productShelves, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('AdminloginPage');
       }
       if (rs.isSuccess) {

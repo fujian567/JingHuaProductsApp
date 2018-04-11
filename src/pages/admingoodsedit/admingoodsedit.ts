@@ -107,7 +107,7 @@ export class AdmingoodseditPage {
   }
   getCategoryData(u_token) {
     this.appService.httpGet_token(AppGlobal.API.getGoodsClassInfo, u_token, {}, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('AdminloginPage');
       }
       if (rs.isSuccess) {
@@ -255,7 +255,7 @@ export class AdmingoodseditPage {
       this.ProductBaseInfoViewModel.Eaid = this._guid;
     }
     this.appService.httpPost_Img_token(postUrl, this.u_token, this.ProductBaseInfoViewModel, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('AdminloginPage');
       }
       if (rs.isSuccess) {

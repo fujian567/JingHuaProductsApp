@@ -27,7 +27,7 @@ export class PersonalcenterPage {
     // private appUpdate: AppUpdate,
     // private fileCtrl: File,
     // private fileTransfer: FileTransfer,
-    private appConfigCtrl: AppConfig,
+    // private appConfigCtrl: AppConfig,
     private callNumber: CallNumber,
     private storageCtrl: Storage,
     public appService: AppService,

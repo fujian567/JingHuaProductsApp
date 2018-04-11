@@ -108,7 +108,7 @@ export class AdmingoodsmodifyPage {
   }
   getCategoryData(u_token) {
     this.appService.httpGet_token(AppGlobal.API.getGoodsClassInfo, u_token, {}, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('AdminloginPage');
       }
       if (rs.isSuccess) {
@@ -286,7 +286,7 @@ export class AdmingoodsmodifyPage {
     this.ProductParamListViewModel.ProductParamModelViewModel = this.paramsList;
     console.log(this.ProductParamListViewModel)
     this.appService.httpPost_token(AppGlobal.API.postGoodsBaseInfo, this.u_token, this.ProductParamListViewModel, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('AdminloginPage');
       }
       if (rs.isSuccess) {

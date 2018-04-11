@@ -45,7 +45,7 @@ export class AdminPartPublishPage {
 
   getgoodsParmas(u_token, ) {
     this.appService.httpPost_token(AppGlobal.API.postGoodsPublishParmas, u_token, { commId: this._commId, publish: this._publish, pages: this.PagesInfoViewModel }, rs => {
-      if (rs.status === 401 || rs.status === 403) {
+      if (rs.status == 401 || rs.status == 403) {
         this.navCtrl.setRoot('AdminloginPage');
       }
       if (rs.isSuccess) {
