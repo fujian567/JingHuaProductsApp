@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>订单发货</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-grid class="goods-grid">
+    <ion-row>
+      <ion-col col-8>订单编号：{{pagedatamodle.ordernum}}</ion-col> 
+      <ion-col col-4></ion-col>
+    </ion-row>
+    <ion-row class="goods-line" *ngFor="let item of goodsList">
+      <ion-col col-4 class="border-padding">
+          <img src="{{'data:image/jpeg;base64,'+item.productImageData}}" class="goods-img">
+      </ion-col>
+      <ion-col col-8 class="border-padding">
+        <ion-row>
+          <ion-col col-12 class="goods-name">{{item.commName}}</ion-col>
+          <ion-col col-12 class="goods-othername">{{item.commSpecName}}</ion-col>
+          <ion-col col-12 class="goods-othername">{{item.approvedNumName}}</ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12 class="list-title">共{{pagedatamodle.orderNumber}}件商品 合计¥{{pagedatamodle.orderAmount}}（含运费¥{{pagedatamodle.freightAmount}}）</ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="goods-grid">
+    <ion-row>
+      <ion-col>
+        <ion-item class="box-right">
+          <ion-label style="flex:none;">快递公司</ion-label>
+          <ion-multi-picker class="multi-picker" id="expressname" [(ngModel)]="pageSubimtModel.OrderCourierCompanyCode" item-content [multiPickerColumns]="dependentColumns"
+            [cancelText]="'取消'" [doneText]="'完成'" [placeholder]="'请选择快递公司'"></ion-multi-picker>
+        </ion-item>
+        <ion-item class="box-right">
+          <ion-label>运单号</ion-label>
+          <ion-input placeholder="请输入运单号" clearInput [(ngModel)]="pageSubimtModel.OrderLogisticsNumber"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-4></ion-col>
+      <ion-col col-4>
+        <button color="danger" (click)="publish()" ion-button block outline class="pay-btn">发货</button>
+      </ion-col>
+      <ion-col col-4></ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

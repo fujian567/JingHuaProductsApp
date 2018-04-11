@@ -1,0 +1,64 @@
+page-admin-part-publish {
+    .part-title {
+        background-color: #d6d6d6;
+        padding-left: 20px;
+      }
+      .part-title .toolbar-title-ios {
+        color: #989898 !important;
+        font-weight: normal !important;
+        font-size: 1.7rem !important;
+        text-align: left !important;
+      }
+      .ad-p-c-item {
+        font-size: 2rem;
+      }
+}
+.parmasstyle .alert-wrapper {
+    max-width: 82% !important;
+    background-color: #fff;
+  }
+  
+  .alert-wrapper {
+    min-width: 82%;
+  }
+  
+  .parmasstyle .alert-head {
+    text-align: left;
+    padding-left: 23px;
+  }
+  
+  .parmasstyle .alert-input-group {
+    font-size: 1.5rem;
+  }
+  
+  .parmasstyle .alert-input {
+    margin-top: 10px;
+    border-radius: 0px;
+    border: none;
+    background-color: #fff;
+    padding: 6px;
+  }
+  
+  .parmasstyle .alert-button {
+    margin: 0;
+    border-radius: 0;
+    overflow: hidden;
+    flex: 1 1 auto;
+    min-width: 50%;
+    height: 44px;
+    border: none;
+    font-size: 1.4rem;
+    color: #999;
+  }
+  .parmasstyle .alert-button:first-child {
+    min-width:65%;
+    text-align: right;
+    
+  }
+  .parmasstyle .alert-button:first-child .button-inner{
+    justify-content: flex-end;
+  }
+  .parmasstyle .alert-button:last-child {
+    color: #e4393c;
+    min-width:20%;
+  }

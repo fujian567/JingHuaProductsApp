@@ -1,0 +1,42 @@
+page-adminhome {
+  .auto-image {
+    width: 65%;
+  }
+  .imglogog {
+    text-align: center;
+  }
+  .page-content {
+    background-color: #f8f8f8;
+  }
+  .segment-ios .segment-button {
+    border: none;
+    font-size: 1.4rem;
+    line-height: 3rem;
+    border-bottom: 1.4px solid #c8c7cc;
+  }
+  .segment-ios .segment-button.segment-activated {
+    background-color: #fff;
+    color: #e4393c;
+    border-bottom: 1.4px solid #e4393c;
+    border-bottom-left-radius: 0;
+  }
+  .list-ios .item-block .item-inner {
+    border-bottom: 0.55px solid #c8c7cc;
+  }
+  ion-label {
+    font-size: 1.4rem;
+  }
+  .segment-ios .segment-button:first-of-type {
+    border-bottom-left-radius: 0px;
+  }
+  .segment-ios .segment-button:last-of-type {
+    border-bottom-right-radius: 0px;
+  }
+  .list-ios {
+    margin: 0px 0 15px;
+  }
+  .goods-name{
+    font-size:1.6rem;padding: 0;
+  }
+}
+

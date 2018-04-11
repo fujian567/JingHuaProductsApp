@@ -1,0 +1,52 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>退货管理</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-grid class="goods-grid">
+    <ion-row>
+      <ion-col col-8>订单编号：{{pagedatamodle.ordernum}}</ion-col>
+      <ion-col col-4></ion-col>
+    </ion-row>
+    <ion-row class="goods-line" *ngFor="let item of goodsList">
+      <ion-col col-4 class="border-padding">
+        <img src="{{'data:image/jpeg;base64,'+item.productImageData}}" class="goods-img">
+      </ion-col>
+      <ion-col col-8 class="border-padding">
+        <ion-row>
+          <ion-col col-12 class="goods-name">{{item.commName}}</ion-col>
+          <ion-col col-12 class="goods-othername">{{item.commSpecName}}</ion-col>
+          <ion-col col-12 class="goods-othername">{{item.approvedNumName}}</ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12 class="list-title">共{{pagedatamodle.orderNumber}}件商品 合计¥{{pagedatamodle.orderAmount}}（含运费¥{{pagedatamodle.freightAmount}}）</ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="specify-grid">
+    <ion-row class="item">
+      <ion-col col-12>退货原因：7天无理由退货</ion-col>
+    </ion-row>
+    <ion-row class="item">
+      <ion-col col-12>退货联系人：测试人</ion-col>
+    </ion-row>
+    <ion-row class="item">
+      <ion-col col-12>联系方式：18600000918</ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-3></ion-col>
+      <ion-col col-4>
+        <button color="dark" (click)="noAudit()" ion-button block outline class="pay-btn">不同意退货</button>
+      </ion-col>
+      <ion-col col-1></ion-col>
+      <ion-col col-4>
+        <button color="danger" (click)="audit()" ion-button block outline class="pay-btn">同意退货</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

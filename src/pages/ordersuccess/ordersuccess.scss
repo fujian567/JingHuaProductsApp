@@ -1,0 +1,22 @@
+page-ordersuccess {
+  .top-bg {
+    padding-top: 10px;
+    background-image: linear-gradient(39deg, #FE5538 0%, #FF414B 62%, #FC2761 100%);
+    height: 130px;
+    color: #fff;
+    .icon {
+      text-align: end;
+    }
+    .title {
+      font-size: 1.9rem;
+    }
+    .content {
+      font-size: 1.3rem;
+    }
+    .ion-ios-checkmark-circle-outline:before {
+      font-size: 3rem;
+      content: "\f149";
+    }
+  }
+}
+

@@ -1,17 +1,171 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>Home</ion-title>
+  <ion-navbar class="top-pos" color="danger">
+    <ion-title>
+      <ion-grid style="padding:0;text-align:center">
+        <ion-row style="padding:0;">
+          <!-- <ion-col col-2></ion-col> -->
+          <!-- <ion-col col-12 class="search">
+            请输入您要搜索的内容
+          </ion-col> -->
+          <!-- <ion-col col-2></ion-col> -->
+          <ion-col col-12 >
+             精华制药直销系统
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-title>
+    <ion-buttons end class="message">
+      <ion-grid style="padding:0;text-align:center">
+        <ion-row style="padding:0;">
+          <ion-col col-12 style="padding:0;">
+            <ion-icon name="message"></ion-icon>
+          </ion-col>
+          <ion-col col-12 style="padding:0;font-size:1.2rem;color:#fff">消息</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-buttons>
+    <ion-buttons start class="scan">
+      <button ion-button (click)="qrScannerPage()">
+        <ion-grid style="padding:0;">
+          <ion-row style="padding:0;">
+            <ion-col col-12 style="padding:0;">
+              <ion-icon name="scan"></ion-icon>
+            </ion-col>
+            <ion-col col-12 style="padding:0;font-size:1.2rem;">扫一扫</ion-col>
+          </ion-row>
+        </ion-grid>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
-
-<ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+<ion-content>
+  <ion-grid class="grid-ad">
+    <ion-row>
+      <ion-slides loop page paginationType="fraction">
+        <ion-slide>
+          <img src="assets/imgs/head1.jpg" alt="" (click)="goodsDetail()">
+        </ion-slide>
+        <ion-slide>
+          <img src="assets/imgs/head2.jpg" alt="" (click)="goodsDetail()">
+        </ion-slide>
+        <ion-slide>
+          <img src="assets/imgs/head3.jpg" alt="" (click)="goodsDetail()">
+        </ion-slide>
+      </ion-slides>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="grid-ad">
+    <ion-row>
+      <ion-col col-6>
+        <img src="assets/imgs/ad1.jpg" alt="" (click)="goodsDetail1()">
+      </ion-col>
+      <ion-col col-6>
+        <img src="assets/imgs/ad2.jpg" alt="" (click)="goodsDetail1()">
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <!-- <ion-grid class="grid-new">
+    <ion-row>
+      <ion-col col-4 class="block-title">精华快讯
+        <span style="color:#e4393c">HOT</span>
+      </ion-col>
+      <ion-col col-6 class="title">
+        <ion-item no-lines>南通精华制药总裁周云中：制传世</ion-item>
+      </ion-col>
+      <ion-col col-2 class="more">更多</ion-col>
+    </ion-row>
+  </ion-grid> -->
+  <ion-grid class="grid-hot">
+    <ion-row>
+      <ion-col class="title">中药
+        <ion-icon style="padding-left:5px;" name="arrow-dropright"></ion-icon>
+        <span class="subtitle">当季热销中药</span>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-3>
+        <img src="assets/imgs/hot1.jpg" alt="" (click)="goodsDetail2()">
+        <p>王氏保赤丸</p>
+        <p class="red">每120丸重0.3g 每支60丸</p>
+      </ion-col>
+      <ion-col col-3>
+        <img src="assets/imgs/hot2.jpg" alt="" (click)="goodsDetail2()">
+        <p>王氏保赤丸</p>
+        <p class="red">每120丸重0.3g 每支60丸</p>
+      </ion-col>
+      <ion-col col-3>
+        <img src="assets/imgs/hot1.jpg" alt="" (click)="goodsDetail2()">
+        <p>王氏保赤丸</p>
+        <p class="red">每120丸重0.3g 每支60丸</p>
+      </ion-col>
+      <ion-col col-3>
+        <img src="assets/imgs/hot2.jpg" alt="" (click)="goodsDetail2()">
+        <p>王氏保赤丸</p>
+        <p class="red">每120丸重0.3g 每支60丸</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="grid-mad">
+    <ion-row>
+      <ion-col col-4>
+        <img src="assets/imgs/mad1.jpg" alt="" (click)="goodsDetail3()">
+      </ion-col>
+      <ion-col col-4>
+        <img src="assets/imgs/mad2.jpg" alt="" (click)="goodsDetail3()">
+      </ion-col>
+      <ion-col col-4>
+        <img src="assets/imgs/mad3.jpg" alt="" (click)="goodsDetail3()">
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="grid-hot">
+      <ion-row>
+        <ion-col class="title">西药
+          <ion-icon style="padding-left:5px;" name="arrow-dropright"></ion-icon>
+          <span class="subtitle">当季热销西药</span>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-3>
+          <img src="assets/imgs/hot1.jpg" alt="" (click)="goodsDetail4()">
+          <p>王氏保赤丸</p>
+          <p class="red">每120丸重0.3g 每支60丸</p>
+        </ion-col>
+        <ion-col col-3>
+          <img src="assets/imgs/hot2.jpg" alt="" (click)="goodsDetail4()">
+          <p>王氏保赤丸</p>
+          <p class="red">每120丸重0.3g 每支60丸</p>
+        </ion-col>
+        <ion-col col-3>
+          <img src="assets/imgs/hot1.jpg" alt="" (click)="goodsDetail4()">
+          <p>王氏保赤丸</p>
+          <p class="red">每120丸重0.3g 每支60丸</p>
+        </ion-col>
+        <ion-col col-3>
+          <img src="assets/imgs/hot2.jpg" alt="" (click)="goodsDetail4()">
+          <p>王氏保赤丸</p>
+          <p class="red">每120丸重0.3g 每支60丸</p>
+        </ion-col>
+        <ion-col col-3>
+            <img src="assets/imgs/hot1.jpg" alt="" (click)="goodsDetail4()">
+            <p>王氏保赤丸</p>
+            <p class="red">每120丸重0.3g 每支60丸</p>
+          </ion-col>
+          <ion-col col-3>
+            <img src="assets/imgs/hot2.jpg" alt="" (click)="goodsDetail4()">
+            <p>王氏保赤丸</p>
+            <p class="red">每120丸重0.3g 每支60丸</p>
+          </ion-col>
+          <ion-col col-3>
+            <img src="assets/imgs/hot1.jpg" alt="" (click)="goodsDetail4()">
+            <p>王氏保赤丸</p>
+            <p class="red">每120丸重0.3g 每支60丸</p>
+          </ion-col>
+          <ion-col col-3>
+            <img src="assets/imgs/hot2.jpg" alt="" (click)="goodsDetail4()">
+            <p>王氏保赤丸</p>
+            <p class="red">每120丸重0.3g 每支60丸</p>
+          </ion-col>
+      </ion-row>
+    </ion-grid>
 </ion-content>

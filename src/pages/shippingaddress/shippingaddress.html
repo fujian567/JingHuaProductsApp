@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{pageTitle}}</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-item class="page-item" *ngFor="let item of deliverdata,let i=index">
+      <ion-grid class="page-grid">
+        <ion-row>
+          <ion-col col-12>
+            <ion-row (click)="selectAddress(item)">
+              <ion-col col-3>{{item.deliveryName}}</ion-col>
+              <ion-col col-7>{{item.deliveryMobile}}</ion-col>
+              <ion-col col-12 class="specify">{{item.pccName+item.address}}</ion-col>
+            </ion-row>
+            <ion-row class="icon-row">
+              <ion-col col-6>
+                <button ion-button icon-start outline (click)="default(item)">
+                  <ion-icon *ngIf="item.scDeliveryDefault" name="checkmark-circle"></ion-icon>
+                  <ion-icon *ngIf="!item.scDeliveryDefault" name="checkmark-circle1"></ion-icon>
+                  默认地址
+                </button>
+              </ion-col>
+              <ion-col col-3>
+                <button ion-button icon-start outline (click)=" editAddress(item)">
+                  <ion-icon name="ios-create-outline"></ion-icon>
+                  编辑
+                </button>
+              </ion-col>
+              <ion-col col-3>
+                <button ion-button icon-start outline (click)=" deleteAddress(item)">
+                  <ion-icon name="ios-trash-outline"></ion-icon>
+                  删除
+                </button>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+</ion-content>
+<ion-footer>
+  <ion-grid class="footergrid">
+    <ion-row>
+      <ion-col col-12 style="padding-left:15px;padding-right:15px;">
+        <ion-item no-lines color="danger" style="text-align:center" (click)="addnewAddress()">
+          新建地址
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

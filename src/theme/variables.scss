@@ -5,6 +5,10 @@
 // roboto, and noto sans fonts
 $font-path: "../assets/fonts";
 
+ion-header {
+background-color: #fff;
+}
+$toast-width:100%;
 
 // The app direction is used to include
 // rtl styles in your app. For more info, please see:
@@ -36,11 +40,17 @@ $app-direction: ltr;
 $colors: (
   primary:    #488aff,
   secondary:  #32db64,
-  danger:     #f53d3d,
+  danger:     #e4393c,
   light:      #f4f4f4,
-  dark:       #222
+  dark:       #222,
+  verify:     #d7d7d7,
+  cyellow:    #e3c44c,
+  cblock:     #272727,
+  cgrayk:     #d3d3d3,
+  c6btn:      #d6d6d6
+  
 );
-
+$checkbox-ios-background-color-on:#e4393c;
 
 // App iOS Variables
 // --------------------------------------------------
@@ -86,3 +96,4 @@ $colors: (
 
 @import "roboto";
 @import "noto-sans";
+

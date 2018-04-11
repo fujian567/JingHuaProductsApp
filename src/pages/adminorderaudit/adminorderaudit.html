@@ -1,0 +1,96 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>订单审核</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-grid class="goods-grid">
+    <ion-row>
+      <ion-col col-8>订单编号：{{pagedatamodle.ordernum}}</ion-col>
+      <ion-col col-4></ion-col>
+    </ion-row>
+    <ion-row class="goods-line" *ngFor="let item of goodsList">
+      <ion-col col-4 class="border-padding">
+        <img src="{{'data:image/jpeg;base64,'+item.productImageData}}" class="goods-img">
+      </ion-col>
+      <ion-col col-8 class="border-padding">
+        <ion-row>
+          <ion-col col-12 class="goods-name">{{item.commName}}</ion-col>
+          <ion-col col-12 class="goods-othername">{{item.commSpecName}}</ion-col>
+          <ion-col col-12 class="goods-othername">{{item.approvedNumName}}</ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12 class="list-title">共{{pagedatamodle.orderNumber}}件商品 合计¥{{pagedatamodle.orderAmount}}（含运费¥{{pagedatamodle.freightAmount}}）</ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="loca-grid">
+    <ion-row class="item">
+      <ion-col col-3>{{pagedatamodle.deliveryInfoName}}</ion-col>
+      <ion-col col-5>{{pagedatamodle.deliveryInfoMobile}}</ion-col>
+      <ion-col col-4></ion-col>
+    </ion-row>
+    <ion-row class="loca-item">
+      <ion-col col-12>
+        地址：{{pagedatamodle.address}}</ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="specify-grid">
+    <ion-row class="item">
+      <ion-col>支付方式：{{pagedatamodle.payMethodName}}</ion-col>
+      <ion-col>
+        <ion-thumbnail>
+          <img src="{{'data:image/jpeg;base64,'+pagedatamodle.voucherImg}}" class="auto-image" #myImage (click)="showOriginal(myImage)"
+            height="80" width="80" />
+        </ion-thumbnail>
+      </ion-col>
+    </ion-row>
+    <ion-row class="item">
+      <ion-col col-12>配送方式：{{pagedatamodle.distributionInfoName}}</ion-col>
+    </ion-row>
+    <ion-row class="item" style="border-bottom: none;" *ngIf="pagedatamodle.invoiceTypeId==4">
+      <ion-col col-12>不需要开发票</ion-col>
+    </ion-row>
+    <ion-row class="item" style="border-bottom: none;" *ngIf="pagedatamodle.invoiceTypeId==1&&pagedatamodle.orderInvoiceInfo==false">
+      <ion-col col-12>发票类型：{{pagedatamodle.invoiceTypeName}}</ion-col>
+      <ion-col col-12>发票抬头：{{pagedatamodle.orderInvoiceHeader}}</ion-col>
+      <ion-col col-12>发票内容：{{pagedatamodle.orderInvoiceContent}}</ion-col>
+    </ion-row>
+    <ion-row class="item" style="border-bottom: none;" *ngIf="pagedatamodle.invoiceTypeId==2&&pagedatamodle.orderInvoiceInfo==false">
+      <ion-col col-12>发票类型：{{pagedatamodle.invoiceTypeName}}</ion-col>
+      <ion-col col-12>发票抬头：{{pagedatamodle.orderInvoiceHeader}}</ion-col>
+      <ion-col col-12>发票内容：{{pagedatamodle.orderInvoiceContent}}</ion-col>
+      <ion-col col-12>发票人手机号：{{pagedatamodle.orderInvoiceMobile}}</ion-col>
+      <ion-col col-12>接收发票人邮箱：{{pagedatamodle.orderInvoiceEmail}}</ion-col>
+    </ion-row>
+    <ion-row class="item" style="border-bottom: none;" *ngIf="pagedatamodle.invoiceTypeId==1&&pagedatamodle.orderInvoiceInfo==true">
+      <ion-col col-12>发票类型：{{pagedatamodle.invoiceTypeName}}</ion-col>
+      <ion-col col-12>发票抬头：{{pagedatamodle.orderInvoiceHeader}}</ion-col>
+      <ion-col col-12>发票内容：{{pagedatamodle.orderInvoiceContent}}</ion-col>
+      <ion-col col-12>企业名称：{{pagedatamodle.enterpriseName}}</ion-col>
+      <ion-col col-12>纳税识别号：{{pagedatamodle.taxIdeNumber}}</ion-col>
+    </ion-row>
+    <ion-row class="item" style="border-bottom: none;" *ngIf="pagedatamodle.invoiceTypeId==2&&pagedatamodle.orderInvoiceInfo==true">
+      <ion-col col-12>发票类型：{{pagedatamodle.invoiceTypeName}}</ion-col>
+      <ion-col col-12>发票抬头：{{pagedatamodle.orderInvoiceHeader}}</ion-col>
+      <ion-col col-12>发票内容：{{pagedatamodle.orderInvoiceContent}}</ion-col>
+      <ion-col col-12>企业名称：{{pagedatamodle.enterpriseName}}</ion-col>
+      <ion-col col-12>纳税识别号：{{pagedatamodle.taxIdeNumber}}</ion-col>
+      <ion-col col-12>发票人手机号：{{pagedatamodle.orderInvoiceMobile}}</ion-col>
+      <ion-col col-12>接收发票人邮箱：{{pagedatamodle.orderInvoiceEmail}}</ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid *ngIf="pagedatamodle.orderStateId==4">
+    <ion-row>
+      <ion-col col-5></ion-col>
+      <ion-col col-3>
+        <button color="dark" (click)="noAudit()" ion-button block outline class="pay-btn">不通过</button>
+      </ion-col>
+      <ion-col col-1></ion-col>
+      <ion-col col-3>
+        <button color="danger" (click)="audit()" ion-button block outline class="pay-btn">通过</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

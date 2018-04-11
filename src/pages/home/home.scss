@@ -1,3 +1,83 @@
 page-home {
-
+  background-color: #f8f8f8;
+  .header-ios .toolbar-ios:last-child .toolbar-background-ios {
+    border-width: 0;
+  }
+  .search {
+    padding: 0;
+    font-size: 1.2rem;
+    color: #989898;
+    border: 1px solid #fff;
+    border-radius: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 28px;
+    background-color: #fff;
+    line-height: 28px;
+    text-align: left;
+    padding-left: 23px;
+  }
+  .toolbar-ios ion-title {
+    padding-top: 0;
+    padding-left: 78px;
+    padding-right: 64px;
+    padding-bottom: 1px;
+  }
+  .grid-ad {
+    padding: 0px;
+    background-color: #ffffff;
+  }
+  .grid-new {
+    margin-top: 8px;
+    padding: 0px;
+    background-color: #ffffff;
+    .block-title {
+      font-size: 1.6rem;
+      padding-left: 12px;
+    }
+    .label-ios {
+      margin: 0 !important;
+    }
+    .item-block {
+      min-height: 2.4rem;
+    }
+    .item-ios {
+      padding-left: 6px;
+    }
+    .more {
+      font-size: 1.6rem;
+      line-height:28px;
+    }
+  }
+  .grid-hot {
+    padding: 0px;
+    margin-top: 8px;
+    background-color: #ffffff;
+    .title {
+      padding: 15px;
+      font-size: 1.6rem;
+    }
+    .subtitle {
+      color: #989898;
+      font-size: 1.2rem;
+      padding-left: 8px;
+    }
+    p {
+      margin: 0;
+      text-align: center;
+    }
+    .red {
+      color: #999;
+      font-size: 1.1rem;
+    }
+  }
+  .grid-mad {
+    padding: 0px;
+    margin-top: 8px;
+    background-color: #f8f8f8;
+  }
+  .ion-ios-arrow-dropright:before {
+    color: #e4393c;
+  }
 }
+

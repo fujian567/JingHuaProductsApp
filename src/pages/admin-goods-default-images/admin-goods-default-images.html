@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>添加商品图片</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-grid class="grid-img">
+    <ion-row>
+      <ion-slides loop pager paginationType="fraction">
+        <ion-slide *ngFor="let item of imagesPath, let i = index">
+          <img src="{{'data:image/jpeg;base64,'+item}}" class='bigimg' />
+        </ion-slide>
+      </ion-slides>
+    </ion-row>
+  </ion-grid>
+  <ion-grid>
+    <ion-row class="rowstyle">
+      <ion-col col-3 align-self-center *ngFor="let item of imagesPath, let i = index">
+        <ion-thumbnail tappable (click)="isDeleteImage(i)">
+          <img src="{{'data:image/jpeg;base64,'+item}}" class="auto-image" [style.height]="width" />
+        </ion-thumbnail>
+      </ion-col>
+      <ion-col col-3 align-self-center>
+        <ion-thumbnail tappable style="width:100%;">
+          <img src="./assets/imgs/addimg.png" class="auto-image" id="addimgbg" (click)="onAddImage()" />
+        </ion-thumbnail>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid>
+    <ion-row class="rowstyle">
+      <ion-col col-12 style="padding-top:15px">
+        <button ion-button block color="danger" (click)="submitImg()">
+          提交
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

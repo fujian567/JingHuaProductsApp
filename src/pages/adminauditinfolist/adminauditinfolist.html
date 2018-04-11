@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>资料审核</ion-title> 
+  </ion-navbar>
+</ion-header>
+<ion-content padding class="page-content">
+  <!-- <ion-refresher (ionRefresh)="doRefresh($event,audit)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="数据正在加载中..." refreshingText="数据正在加载中...">
+    </ion-refresher-content>
+  </ion-refresher> -->
+  <ion-segment [(ngModel)]="audit" color="verify">
+    <ion-segment-button value="noAduit" isActive (ionSelect)="selectNoAudit()">
+      待审核的企业
+    </ion-segment-button>
+    <ion-segment-button value="aduit" (ionSelect)="selectAllAudit()"> 
+      已审核的企业
+    </ion-segment-button>
+  </ion-segment>
+  <div [ngSwitch]="audit">
+    <ion-list *ngSwitchCase="'noAduit'">
+      <ion-item *ngIf="isNoAuditList">暂时没有需要审核的客户资料</ion-item>
+      <button ion-item (click)="auditCompany(item)" *ngFor="let item of noAuditList, let i = index">
+        {{item.companyName}}
+      </button>
+    </ion-list>
+    <ion-list *ngSwitchCase="'aduit'">
+      <ion-item *ngIf="isAuditList">暂时还有通过审核的客户资料</ion-item>
+      <button ion-item (click)="viewCompany(item)" *ngFor="let item of auditList, let i = index">
+        {{item.companyName}}
+      </button>
+    </ion-list>
+  </div>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event,audit)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>
+

@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>我的积分</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col class="page-title">我的积分：{{mypointAmount}}分</ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-item *ngIf="isShowMypoint">您暂时还没有获得积分的记录！</ion-item>
+  <ion-grid class="grid-box" *ngFor="let item of myPoint, let i = index">
+    <ion-row class="row-content"> 
+      <ion-col col-10 class="page-content">
+          <ion-grid style="padding:0;">
+            <ion-row>
+                <ion-col col-12 style="padding:0 0 0 15px;" *ngIf="item.IntegralTypeId==1">购物获得积分({{item.IntegralDec}})</ion-col>
+                <ion-col col-12 style="padding:0 0 0 15px;" *ngIf="item.IntegralTypeId==2">评价获得积分({{item.IntegralDec}})</ion-col>
+              <!-- <ion-col col-12 style="padding:0 0 0 15px;">{{item.IntegralTypeId}}({{item.IntegralDec}})</ion-col> -->
+              <ion-col col-12 class="page-date" style="padding:5px 0 0 15px;">{{item.IntegralCreateDate}}</ion-col>
+            </ion-row>
+          </ion-grid>
+      </ion-col>
+      <ion-col col-2 class="page-point">+{{item.Integral}}</ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

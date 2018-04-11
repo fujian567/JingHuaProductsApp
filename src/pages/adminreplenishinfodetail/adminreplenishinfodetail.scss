@@ -1,0 +1,38 @@
+page-adminreplenishinfodetail {
+  .replenish-title {
+    text-align: center;
+    font-size: 1.7rem;
+  }
+  .replenish-title-img {
+    color: #999;
+  }
+  img.auto-image {
+    width: 100%;
+  }
+  .replenish-col-con {
+    text-align: end;
+  }
+  .replenish-btn {
+    text-align: center;
+    height: 30xp;
+  }
+  .row-height {
+    height: 46px;
+  }
+  .grid .row {
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  .button-ios {
+    height: 2.8rem;
+    width: 80%;
+  }
+  .text-input-ios {
+    margin-top: 2px;
+    text-align: right;
+  }
+  .ios .ion-multi-picker {
+    padding: 1px 8px 11px 16px !important;
+  }
+}
+

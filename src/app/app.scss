@@ -1,6 +1,4 @@
 // http://ionicframework.com/docs/theming/
-
-
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
@@ -14,3 +12,83 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+.alert-bg {
+  .alert-head {
+    background-image: url(./../assets/imgs/warning.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 17%;
+    height: 50px;
+    margin-top: 15px;
+  }
+  .alert-message {
+    font-size: 1.7rem;
+  }
+}
+
+.alerClass .alert-button {
+  color: #e4393c;
+}
+
+.alert-bg .alert-button {
+  color: #e4393c;
+}
+
+.alert-bg-c {
+  .alert-wrapper {
+    background-color: #fff;
+  }
+  .alert-head {
+    background-image: url(./../assets/imgs/logo.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 17%;
+    height: 75px;
+    margin-top: 15px;
+  }
+  .alert-title {
+    margin-top: 40px;
+    font-size: 1.4rem;
+  }
+  .alert-message {
+    padding: 0 0 3px !important;
+    max-height: 240px;
+    font-size: 1.5rem;
+  }
+  .alert-input {
+    border: none;
+    background-color: #f8f8f8;
+  }
+  .alert-button {
+    color: #fff;
+    background-color: #e4393c;
+  }
+}
+
+.bar-button-default-ios {
+  color: #222;
+}
+
+.toolbar-title-ios {
+  font-size: 2.1rem;
+}
+
+::-webkit-scrollbar {
+  display: none !important;
+}
+.fadeloading{
+  ion-backdrop{
+    opacity: 0 !important;
+  }
+}
+.fadeloading .loading-wrapper {
+  border-radius: 8px;
+  max-width: 270px;
+  max-height: 90%;
+  color: #000;
+  background: #000;
+  padding: 24px 34px;
+  opacity: 0 !important;
+  
+}
+

@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>订单管理</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="searchOrder()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content class="page-content">
+  <ion-backdrop (click)="_bdClick()" [hidden]="isShowBackDrop"></ion-backdrop>
+  <ion-grid class="pos-grid">
+    <ion-row class="select-status" (click)="selectStatus()">
+      <ion-col col-5 class="charcter">{{showStatus}}</ion-col>
+      <ion-col col-1></ion-col>
+      <ion-col col-3></ion-col>
+      <ion-col col-3 class="ionic">
+        <ion-icon name="arrow-down" *ngIf="isShowIcon"></ion-icon>
+        <ion-icon name="arrow-up" *ngIf="!isShowIcon"></ion-icon>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="isShowStatusList" class="select-status-list" style="margin-bottom:20px;">
+      <ion-col style="padding:0;">
+        <ion-list radio-group>
+          <ion-item class="list-item" *ngFor="let item of pageStatus">
+            <ion-label class="list-lab">{{item.value}}</ion-label>
+            <ion-radio (ionSelect)="selectRadio($event)" value="{{item.key}}" checked="{{item.checked}}" color="danger"></ion-radio>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div class="page-order-list">
+    <button ion-item class="btn-list" (click)="viewOrder(item.objectIDBaseInfo,item.processMainID)" *ngFor="let item of datalist, let i = index">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-12>{{item.processDec}}</ion-col>
+        </ion-row>
+      </ion-grid>
+    </button>
+
+    <!-- <ion-list class="page-list">
+      <button ion-item (click)="callServies()" *ngFor="let item of datalist, let i = index">{{item.processDec}}</button>
+    </ion-list> -->
+    <!-- <ion-grid class="goods-grid" *ngFor="let item of pagedatamodle, let i = index">
+      <ion-row>
+        <ion-col col-8>订单编号：{{item.ordernum}}</ion-col>
+        <ion-col col-4></ion-col>
+      </ion-row>
+      <ion-row class="goods-line">
+        <ion-col col-4 class="border-padding">
+          <img src="{{item.goodsImg}}" class="goods-img">
+        </ion-col>
+        <ion-col col-8 class="border-padding">
+          <ion-row>
+            <ion-col col-12 class="goods-name">{{item.goodsName}}</ion-col>
+            <ion-col col-12 class="goods-othername">{{item.goodsSpec}}</ion-col>
+            <ion-col col-12 class="goods-othername">{{item.approved}}</ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12 class="list-title">共{{item.goodsNum}}件商品 合计¥{{item.price}}（含运费¥0.00）</ion-col>
+      </ion-row>
+      <ion-row>
+          <ion-col col-8></ion-col>
+        <ion-col col-4 class="list-title">
+          <button color="danger" (click)="auditOrder(item)" ion-button block outline class="pay-btn">待审核</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid> -->
+  </div>
+</ion-content>

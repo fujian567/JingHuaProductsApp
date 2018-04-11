@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>商品价格管理</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-scroll scrollX="true" class="scrollbox">
+    <div style="width:1000px;">
+      <div class="slidesClassify" *ngFor="let item of classifyList, let i = index" [ngClass]="{'page-tabs-activat': i==0}" (click)="selectClassify(item,$event)">
+        {{item.className}}
+      </div>
+    </div>
+  </ion-scroll>
+  <ion-refresher (ionRefresh)="doRefresh($event,classOpt)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="数据正在加载中..." refreshingText="数据正在加载中...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-list>
+    <ion-item *ngIf="isShowPrice" style="text-align:center">你还没有商品</ion-item>
+    <ion-grid class="goods-grid" *ngFor="let item of goodsList, let i = index">
+      <ion-row>
+        <ion-col col-4 class="goods-img">
+          <img src="{{'data:image/jpeg;base64,'+item.imagesList[0].imageData}}">
+        </ion-col>
+        <ion-col col-8>
+          <ion-row>
+              <ion-col col-12 class="goods-name">{{item.commName}}</ion-col>
+              <ion-col col-12 class="goods-othername">别名：{{item.commAlias}}</ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12 class="modify-btn" (click)="goodsPrice(item)">
+          <ion-icon name="price"></ion-icon>价格管理</ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event,classOpt)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

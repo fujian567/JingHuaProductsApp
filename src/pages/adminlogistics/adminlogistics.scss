@@ -1,0 +1,172 @@
+page-adminlogistics {
+  .txt-right {
+    text-align: end;
+    padding-right: 32px;
+    .red {
+      color: #e4393c;
+    }
+  }
+  .goods-grid {
+    margin-top: 0px;
+    background-color: #fff;
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+  .goods-name {
+    font-size: 1.7rem;
+    font-weight: 600;
+    padding-top: 0;
+  }
+  .goods-othername {
+    color: #999;
+  }
+  .goods-spec {
+    border: 1px solid #d6d6d6;
+    padding: 2px 5px;
+  }
+  .goods-line {
+    border-top: 0.55px solid #c8c7cc;
+    border-bottom: 0.55px solid #c8c7cc;
+  }
+  .border-padding {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .list-title {
+    text-align: end;
+  }
+  .ion-ios-arrow-dropup-circle:before {
+    font-size: 1.9rem;
+    color: #989898
+  }
+  .ion-ios-checkmark-circle:before {
+    font-size: 2.3rem;
+    color: #e4393c;
+  }
+  .ion-ios-pin:before {
+    color: #e4393c;
+    font-size: 2.7rem;
+  }
+  .loc-grid {
+    margin-top: 5px;
+    background-color: #fff;
+    padding-left: 14px;
+    padding-right: 14px;
+    .log-status {
+      font-size: 1.8rem;
+      color: #e4393c;
+    }
+    .log-text {
+      font-size: 1.6rem;
+    }
+    .icon-pos {
+      text-align: right;
+      padding-right: 0;
+    }
+    .log-row {
+      display: flex;
+      height: 45px;
+      [col-2] {
+        padding: 0px;
+      }
+      [col-1] {
+        padding: 0px;
+      }
+      [col-8] {
+        padding: 0px;
+      }
+      .log-date-e {
+        height: 45px;
+        text-align: right;
+        color: #e4393c;
+        font-size: 1.6rem;
+        .time {
+          font-size: 1.1rem;
+          text-align: right;
+        }
+      }
+      [col-12] {
+        padding: 0px;
+      }
+      .log-date {
+        height: 45px;
+        text-align: right;
+        color: #989898;
+        font-size: 1.6rem;
+        [col-12] {
+          padding: 0px;
+        }
+        .time {
+          font-size: 1.1rem;
+          text-align: right;
+        }
+      }
+      .icon-pos-list {
+        text-align: right;
+        position: relative;
+        height: 45px;
+        min-height: 19px;
+        .icon {
+          position: absolute;
+          top: 2px;
+          right: 0px;
+          z-index: 3;
+        }
+        .icon-e {
+          position: absolute;
+          top: 2px;
+          right: -1px;
+          z-index: 3;
+        }
+        .whitebg {
+          position: absolute;
+          top: 5px;
+          right: 0px;
+          z-index: 2;
+          width: 100%;
+          min-height: 10px;
+          background-color: #fff;
+        }
+        .line {
+          position: absolute;
+          width: 1px;
+          height: 100%;
+          top: 0;
+          right: 7px;
+          border-right: 1px solid #989898;
+          z-index: 1;
+        }
+        .line-f {
+          position: absolute;
+          width: 1px;
+          height: 10px;
+          top: 0;
+          right: 7px;
+          border-right: 1px solid #989898;
+          z-index: 1;
+        }
+        .line-e {
+          position: absolute;
+          width: 1px;
+          height: 100%;
+          top: 5px;
+          right: 7px;
+          border-right: 1px solid #989898;
+          z-index: 1;
+        }
+      }
+      .info-txt {
+        padding-left: 20px;
+        height: 45px;
+        font-size: 1.4rem;
+        color: #989898;
+      }
+      .info-txt-e {
+        padding-left: 20px;
+        height: 45px;
+        font-size: 1.4rem;
+        color: #e4393c;
+      }
+    }
+  }
+}

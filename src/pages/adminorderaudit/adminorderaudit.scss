@@ -1,0 +1,65 @@
+page-adminorderaudit {
+  .loca-grid {
+    margin-top: 10px;
+    padding-left: 15px;
+    background-color: #fff;
+    color: #666;
+    .item {
+      font-size: 1.5rem;
+    }
+    .loca-item {
+      font-size: 1.5rem;
+    }
+  }
+  .specify-grid {
+    margin-top: 10px;
+    color: #666;
+    background-color: #fff;
+    font-size: 1.5rem;
+    .item {
+      padding-top: 5px;
+      padding-bottom: 10px;
+      border-bottom: 0.55px solid #c8c7cc;
+    }
+  }
+  .specify-grid>.items :last-child {
+    border-bottom: none;
+  }
+  .txt-right {
+    text-align: end;
+    padding-right: 32px;
+    .red {
+      color: #e4393c;
+    }
+  }
+  .goods-grid {
+    margin-top: 0px;
+    background-color: #fff;
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+  .goods-name {
+    font-size: 1.7rem;
+    font-weight: 600;
+    padding-top: 0;
+  }
+  .goods-othername {
+    color: #999;
+  }
+  .goods-spec {
+    border: 1px solid #d6d6d6;
+    padding: 2px 5px;
+  }
+  .goods-line {
+    border-top: 0.55px solid #c8c7cc;
+    border-bottom: 0.55px solid #c8c7cc;
+  }
+  .border-padding {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .list-title {
+    text-align: end;
+  }
+}
+

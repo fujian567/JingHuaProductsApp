@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      商品清单
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-grid class="goods-grid" *ngFor="let item of pagedatamodle, let i = index">
+        <ion-row>
+          <ion-col col-1></ion-col>
+          <ion-col col-4>
+            <img src="{{item.goodsImg}}" class="goods-img">
+          </ion-col>
+          <ion-col col-7>
+            <ion-row>
+              <ion-col col-12 class="goods-name">{{item.goodsName}}</ion-col>
+              <ion-col col-12 class="goods-othername">{{item.goodsSpec}}</ion-col>
+              <ion-col col-12 style="height: 43px;">
+                <ion-row>
+                  <ion-col col-5 class="goods-price">¥{{item.goodsPrice}}</ion-col>
+                  <ion-col col-7 style="text-align:end">*3</ion-col>
+                </ion-row>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+</ion-content>

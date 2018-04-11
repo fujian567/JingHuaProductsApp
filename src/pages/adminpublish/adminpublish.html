@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>商品发布</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <!-- <ion-grid class="grid-img">
+    <ion-row id="imgbox">
+      <ion-slides loop pager paginationType="fraction">
+        <ion-slide *ngFor="let item of imagesPath, let i = index">
+          <img src={{item}}/>
+        </ion-slide>
+      </ion-slides>
+    </ion-row>
+  </ion-grid> -->
+  <ion-grid class="grid-content">
+    <ion-row class="">
+      <ion-col col-12>商品名称：{{pageModel.goodName}}</ion-col>
+      <ion-col col-12>商品别名：{{pageModel.otherName}}</ion-col>
+      <ion-col col-12>分类：{{pageModel.goodsClass}}</ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="grid-content" style="margin-top:15px;">
+    <ion-row>
+      <ion-col col-12>商品规格：{{pageModel.spec}}</ion-col>
+      <ion-col col-12>批准文号：{{pageModel.approval}}</ion-col>
+      <ion-col col-12>生产企业：{{pageModel.CompanyName}}</ion-col>
+      <ion-col col-12>生产地址：{{pageModel.CompanyAddress}}</ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="grid-content" style="padding-left:20px;margin-top:15px;">
+    <ion-row>
+      <ion-item>
+        <ion-label>商品均价</ion-label>
+        <ion-input placeholder="请输入商品均价" type="number" clearInput [(ngModel)]="pageModel.goodPrice"></ion-input>
+      </ion-item>
+      </ion-row>
+  </ion-grid>
+  <ion-grid class="grid-content" style="margin-top:15px;">
+      <ion-row style="padding:0;">
+          <ion-col col-12>商品详情</ion-col>
+        </ion-row>
+    <ion-row class="rowstyle">
+      <ion-col col-3 align-self-center *ngFor="let item of detailImagesPath, let i = index">
+        <ion-thumbnail tappable (click)="isDeleteImage(i)">
+          <img src="{{'data:image/jpeg;base64,'+item}}" class="auto-image" [style.height]="width" [style.width]="width" />
+        </ion-thumbnail>
+      </ion-col>
+      <ion-col col-3 align-self-center>
+        <ion-thumbnail tappable>
+          <img src="./assets/imgs/addimg.png" class="auto-image" id="addimgbg" (click)="onAddImage()" />
+        </ion-thumbnail>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="grid-content">
+    <ion-row class="rowstyle">
+      <ion-col col-12 style="padding-top:15px">
+        <button ion-button block color="danger" (click)="submitData()">
+          发布
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

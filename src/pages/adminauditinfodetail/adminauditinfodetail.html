@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>资料审核</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content class="page-content">
+  <ion-grid style="padding-left:10p;">
+    <ion-item no-lines style="text-align:center;">{{FBAuditViewModel.companyName}}</ion-item>
+    <ion-item no-lines class="sub-title">企业资质</ion-item>
+    <ion-item>
+      <ion-row class="rowstyle">
+        <ion-col col-4 align-self-center *ngFor="let item of FBAuditViewModel.imagesList, let i = index">
+          <ion-thumbnail>
+            <img src="{{'data:image/jpeg;base64,'+item.imageData}}" class="auto-image" #myImage (click)="showOriginal(myImage)" class="auto-image"
+              [style.height]="width" [style.width]="width" />
+          </ion-thumbnail>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+    <ion-item no-lines class="sub-title">企业基本信息</ion-item>
+    <ion-item>
+      <ion-label>企业名称</ion-label>
+      <ion-input class="page-input" placeholder="请输入该企业的企业名称" clearInput [(ngModel)]="FBAuditViewModel.companyName"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>联系电话</ion-label>
+      <ion-input class="page-input" placeholder="请输入该企业的联系电话" clearInput [(ngModel)]="FBAuditViewModel.mobile"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>姓名</ion-label>
+      <ion-input class="page-input" placeholder="请输入该企业的联系人姓名" clearInput [(ngModel)]="FBAuditViewModel.clientName"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>企业识别号</ion-label>
+      <ion-input placeholder="请输入该企业的识别号" [(ngModel)]="FBAuditViewModel.eTaxIdeNumber"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>企业性质</ion-label>
+      <ion-multi-picker [(ngModel)]="FBAuditViewModel.enterpriseNatureId" item-content [multiPickerColumns]="propertyColumns"
+        [cancelText]="'取消'" [doneText]="'完成'" [placeholder]="'待补充'"></ion-multi-picker>
+    </ion-item>
+    <ion-item>
+      <ion-label>业务员姓名</ion-label>
+      <ion-input class="page-input" placeholder="请输入业务员姓名" clearInput [(ngModel)]="FBAuditViewModel.salesmanCode"></ion-input>
+    </ion-item>
+    <ion-item class="box-right">
+      <ion-label>资质过期日期</ion-label>
+      <ion-datetime class="datetime" displayFormat="YYYY/MM/DD" cancelText="取消" doneText="确定" placeholder="选择资质过期日期" [(ngModel)]="FBAuditViewModel.ExpiredDate"></ion-datetime>
+    </ion-item>
+    <ion-item *ngIf="isViewPage">
+      <ion-label>企业所在省市区</ion-label>
+      <ion-input id="PCCname" placeholder="待补充" [(ngModel)]="tempLocation" readonly></ion-input>
+    </ion-item>
+    <ion-item *ngIf="!isViewPage">
+      <ion-label>企业所在省市区</ion-label>
+      <ion-multi-picker id="PCCname" [(ngModel)]="FBAuditViewModel.provinceId" item-content [multiPickerColumns]="dependentColumns"
+        [cancelText]="'取消'" [doneText]="'完成'" [placeholder]="'待补充'"></ion-multi-picker>
+    </ion-item>
+    <ion-item>
+      <ion-label>企业详细地址</ion-label>
+      <ion-input placeholder="待补充" [(ngModel)]="FBAuditViewModel.Address"></ion-input>
+    </ion-item>
+
+    <ion-row style="padding-top:13px;" *ngIf="!isViewPage">
+      <ion-col col-12>
+        <ion-row>
+          <ion-col col-2></ion-col>
+          <ion-col col-8 class="audit-btn">
+            <button ion-button round outline (click)="saveCompanyInfo()">保存资料</button>
+          </ion-col>
+          <ion-col col-2 class="audit-btn"></ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col col-12>
+        <ion-row>
+          <ion-col col-6 class="audit-btn1">
+            <button ion-button round outline (click)="noPassAudit()">不通过</button>
+          </ion-col>
+          <ion-col col-6 class="audit-btn1">
+            <button ion-button round color="danger" outline (click)="passAudit()">通过</button>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

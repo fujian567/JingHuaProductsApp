@@ -1,0 +1,28 @@
+page-adminauditinfolist {
+  .page-content{
+    background-color: #fff;
+  }
+  .segment-ios .segment-button {
+    border-width: 0px;
+    font-size: 1.9rem;
+  }
+  .segment-ios-verify .segment-button.segment-activated {
+    background-color: #fff;
+    color: #e4393c;
+    border-bottom: 2px solid #e4393c;
+  }
+  .segment-ios .segment-button:first-of-type {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+  }
+  .list-ios {
+    margin: 2px 0 32px;
+  }
+  .list-ios>.item-block:first-child {
+    border-top: 0px solid #c8c7cc;
+  }
+  .segment-ios-verify .segment-button{
+    color: #999;
+}
+}
+

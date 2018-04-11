@@ -1,0 +1,321 @@
+<ion-header class="page-head">
+  <ion-navbar>
+    <ion-toolbar>
+      <ion-segment [(ngModel)]="modelbox">
+        <ion-segment-button value="goods">
+          商品
+        </ion-segment-button>
+        <ion-segment-button value="productsdetail">
+          详情
+        </ion-segment-button>
+        <ion-segment-button value="goodscomment">
+          评价
+        </ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+  </ion-navbar>
+</ion-header>
+<ion-content [ngSwitch]="modelbox">
+  <div *ngSwitchCase="'goods'" id="goodsbox">
+    <ion-grid class="grid">
+      <ion-row>
+        <ion-slides loop pager paginationType="fraction">
+          <ion-slide *ngFor="let item of imagesPath, let i = index">
+            <img src="{{'data:image/jpeg;base64,'+item.imageData}}" class='bigimg' />
+            <!-- <img src="{{item}}" class='bigimg' /> -->
+          </ion-slide>
+        </ion-slides>
+      </ion-row>
+    </ion-grid>
+    <ion-grid class="detail-grid">
+      <ion-list no-lines>
+        <ion-item class="goodsName">{{SCInfoViewModel.commName}}</ion-item>
+        <ion-item class="goodsPrice">¥{{SCInfoViewModel.MedianPrice}}</ion-item>
+      </ion-list>
+    </ion-grid>
+    <ion-grid class="detail-grid" style="margin-top:8px;">
+      <ion-item style="padding-left:26px;">已选
+        <span style="padding-left:8px;">{{SCInfoViewModel.commSpecName}}</span>
+      </ion-item>
+    </ion-grid>
+    <ion-list no-lines>
+      <ion-item class="pagebox">
+        <ion-row>
+          <ion-col col-4 class="txt">
+            <ion-icon name="ios-checkmark-circle-outline"></ion-icon>厂家发货配货</ion-col>
+          <ion-col col-2 class="txt">
+            <ion-icon name="ios-checkmark-circle-outline"></ion-icon>包邮</ion-col>
+          <ion-col col-5 class="txt">
+            <ion-icon name="ios-alert-outline"></ion-icon>不支持货到付款</ion-col>
+        </ion-row>
+      </ion-item>
+    </ion-list>
+    <ion-grid class="goodsdetail">
+      <ion-list class="comment-title">
+        <button ion-item (click)="viewAllComment()">评价（1562）</button>
+      </ion-list>
+      <ion-row class="comment-list" *ngFor="let item of tempComment">
+        <ion-col col-12>
+          <ion-row>
+            <ion-col col-6 class="comment-person">
+              <ion-row>
+                <ion-col col-3>
+                  <ion-avatar item-left class="avatar">
+                    <img src="{{item.personImg}}">
+                  </ion-avatar>
+                </ion-col>
+                <ion-col col-8 class="name">{{item.personName}}</ion-col>
+              </ion-row>
+            </ion-col>
+            <ion-col col-6 class="comment-start">
+              <ion-row>
+                <ion-col col-8 class="start">
+                  <rating [(ngModel)]="item.rate" readOnly="true" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star"
+                    nullable="false"></rating>
+                </ion-col>
+                <ion-col col-4 class="point">{{item.point}}分</ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        <ion-col col-12 class="comment-contect">{{item.content}}</ion-col>
+        <ion-col col-12 class="comment-imagelist">
+          <ion-row>
+            <ion-col col-3 align-self-center *ngFor="let itemImg of item.ImageList">
+              <ion-thumbnail>
+                <img src="{{itemImg}}" class="auto-image" #myImage (click)="showOriginal(myImage)" />
+              </ion-thumbnail>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        <!-- <ion-col col-12 class="comment-imagelist">
+            <ion-row>
+              <ion-col col-3 align-self-center>
+                <ion-thumbnail>
+                  <img src="{{'data:image/jpeg;base64,'+item.imageData}}" class="auto-image" #myImage (click)="showOriginal(myImage)" class="auto-image"
+                               height="80" width="80" /> 
+                  <img src="assets/imgs/nnzchykl.jpg" class="auto-image" #myImage (click)="showOriginal(myImage)" />
+                </ion-thumbnail>
+              </ion-col>
+              <ion-col col-3 align-self-center>
+                <ion-thumbnail>
+                  <img src="assets/imgs/nnzchykl.jpg" class="auto-image" #myImage (click)="showOriginal(myImage)" />
+                </ion-thumbnail>
+              </ion-col>
+              <ion-col col-3 align-self-center>
+                <ion-thumbnail>
+                  <img src="assets/imgs/nnzchykl.jpg" class="auto-image" #myImage (click)="showOriginal(myImage)" />
+                </ion-thumbnail>
+              </ion-col>
+              <ion-col col-3 align-self-center>
+                <ion-thumbnail>
+                  <img src="assets/imgs/nnzchykl.jpg" class="auto-image" #myImage (click)="showOriginal(myImage)" />
+                </ion-thumbnail>
+              </ion-col>
+            </ion-row>
+          </ion-col> -->
+        <ion-col col-12 class="comment-goods">
+          {{item.goodsName}} {{item.goodsNum}}盒
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-3></ion-col>
+        <ion-col col-6>
+          <button color="c6btn" (click)="viewAllComment()" ion-button block outline class="comment-btn">查看全部评价</button>
+        </ion-col>
+        <ion-col col-3></ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid class="goodsdetail" style="margin-top: 8px">
+        <ion-row class="detail-title">
+          <ion-col col-12>图文详情</ion-col>
+        </ion-row>
+        <ion-row class="rowstyle">
+          <ion-segment [(ngModel)]="goodsdetil" class="goods-tab">
+            <ion-segment-button value="detail" class="right-line">商品介绍</ion-segment-button>
+            <ion-segment-button value="spec">规格参数</ion-segment-button>
+          </ion-segment>
+        </ion-row>
+        <div [ngSwitch]="goodsdetil">
+          <ion-row *ngSwitchCase="'detail'">
+            <ion-col col-12>
+              <ion-row>
+                <ion-col col-4>
+                  <hr class="bg-line" />
+                </ion-col>
+                <ion-col col-3 style="text-align:center">商品信息</ion-col>
+                <ion-col col-4>
+                  <hr class="bg-line" />
+                </ion-col>
+              </ion-row>
+            </ion-col>
+            <ion-col col-12>
+              <ion-row class="goods-star">
+                <ion-col col-3 class="title">商品评分</ion-col>
+                <ion-col col-5>
+                  <rating [(ngModel)]="rate" readOnly="true" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star"
+                    nullable="false"></rating>
+                </ion-col>
+                <ion-col col-2 class="point">100分</ion-col>
+              </ion-row>
+            </ion-col>
+            <ion-col col-12 *ngFor="let item of imagesList_DetailPage, let i = index">
+              <img src="{{'data:image/jpeg;base64,'+item.imageData}}" class='bigimg' />
+            </ion-col>
+          </ion-row>
+          <ion-row class="spec" *ngSwitchCase="'spec'">
+            <ion-col col-12>商品规格：{{SCInfoViewModel.commSpecName}}</ion-col>
+            <ion-col col-12>包装规格：{{SCInfoViewModel.approvedNumName}}</ion-col>
+            <ion-col col-12>商品规格：{{SCInfoViewModel.commSpecName}}</ion-col>
+            <ion-col col-12>批准文号：{{SCInfoViewModel.approvedNumName}}</ion-col>
+            <ion-col col-12>生产企业：{{SCInfoViewModel.enterprisesName}}</ion-col>
+            <ion-col col-12>生产地址：{{SCInfoViewModel.address}}</ion-col>
+          </ion-row>
+        </div>
+      </ion-grid>
+  </div>
+  <div *ngSwitchCase="'productsdetail'">
+    <ion-grid class="goodsdetail" style="margin-top: 8px">
+      <ion-row class="detail-title">
+        <ion-col col-12>图文详情</ion-col>
+      </ion-row>
+      <ion-row class="rowstyle">
+        <ion-segment [(ngModel)]="goodsdetil" class="goods-tab">
+          <ion-segment-button value="detail" class="right-line">商品介绍</ion-segment-button>
+          <ion-segment-button value="spec">规格参数</ion-segment-button>
+        </ion-segment>
+      </ion-row>
+      <div [ngSwitch]="goodsdetil">
+        <ion-row *ngSwitchCase="'detail'">
+          <ion-col col-12>
+            <ion-row>
+              <ion-col col-4>
+                <hr class="bg-line" />
+              </ion-col>
+              <ion-col col-3 style="text-align:center">商品信息</ion-col>
+              <ion-col col-4>
+                <hr class="bg-line" />
+              </ion-col>
+            </ion-row>
+          </ion-col>
+          <ion-col col-12>
+            <ion-row class="goods-star">
+              <ion-col col-3 class="title">商品评分</ion-col>
+              <ion-col col-5>
+                <rating [(ngModel)]="rate" readOnly="true" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star"
+                  nullable="false"></rating>
+              </ion-col>
+              <ion-col col-2 class="point">100分</ion-col>
+            </ion-row>
+          </ion-col>
+          <ion-col col-12 *ngFor="let item of imagesList_DetailPage, let i = index">
+            <img src="{{'data:image/jpeg;base64,'+item.imageData}}" class='bigimg' />
+          </ion-col>
+        </ion-row>
+        <ion-row class="spec" *ngSwitchCase="'spec'">
+          <ion-col col-12>商品规格：{{SCInfoViewModel.commSpecName}}</ion-col>
+          <ion-col col-12>包装规格：{{SCInfoViewModel.approvedNumName}}</ion-col>
+          <ion-col col-12>商品规格：{{SCInfoViewModel.commSpecName}}</ion-col>
+          <ion-col col-12>批准文号：{{SCInfoViewModel.approvedNumName}}</ion-col>
+          <ion-col col-12>生产企业：{{SCInfoViewModel.enterprisesName}}</ion-col>
+          <ion-col col-12>生产地址：{{SCInfoViewModel.address}}</ion-col>
+        </ion-row>
+      </div>
+    </ion-grid>
+  </div>
+  <div *ngSwitchCase="'goodscomment'">
+    <ion-grid class="goodsdetail">
+      <ion-list class="comment-title">
+        <ion-item (click)="address()">评价（1562）</ion-item>
+      </ion-list>
+      <ion-row class="comment-list" *ngFor="let item of Goodscomment">
+        <ion-col col-12>
+          <ion-row>
+            <ion-col col-6 class="comment-person">
+              <ion-row>
+                <ion-col col-3>
+                  <ion-avatar item-left class="avatar">
+                    <img src="{{item.personImg}}">
+                  </ion-avatar>
+                </ion-col>
+                <ion-col col-8 class="name">{{item.personName}}</ion-col>
+              </ion-row>
+            </ion-col>
+            <ion-col col-6 class="comment-start">
+              <ion-row>
+                <ion-col col-8 class="start">
+                  <rating [(ngModel)]="item.rate" readOnly="true" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star"
+                    nullable="false"></rating>
+                </ion-col>
+                <ion-col col-4 class="point">{{item.point}}分</ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        <ion-col col-12 class="comment-contect">{{item.content}}</ion-col>
+        <ion-col col-12 class="comment-imagelist">
+          <ion-row>
+            <ion-col col-3 align-self-center *ngFor="let itemImg of item.ImageList">
+              <ion-thumbnail>
+                <img src="{{itemImg}}" class="auto-image" #myImage (click)="showOriginal(myImage)" />
+              </ion-thumbnail>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        <!-- <ion-col col-12 class="comment-imagelist">
+              <ion-row>
+                <ion-col col-3 align-self-center>
+                  <ion-thumbnail>
+                    <img src="{{'data:image/jpeg;base64,'+item.imageData}}" class="auto-image" #myImage (click)="showOriginal(myImage)" class="auto-image"
+                                 height="80" width="80" /> 
+                    <img src="assets/imgs/nnzchykl.jpg" class="auto-image" #myImage (click)="showOriginal(myImage)" />
+                  </ion-thumbnail>
+                </ion-col>
+                <ion-col col-3 align-self-center>
+                  <ion-thumbnail>
+                    <img src="assets/imgs/nnzchykl.jpg" class="auto-image" #myImage (click)="showOriginal(myImage)" />
+                  </ion-thumbnail>
+                </ion-col>
+                <ion-col col-3 align-self-center>
+                  <ion-thumbnail>
+                    <img src="assets/imgs/nnzchykl.jpg" class="auto-image" #myImage (click)="showOriginal(myImage)" />
+                  </ion-thumbnail>
+                </ion-col>
+                <ion-col col-3 align-self-center>
+                  <ion-thumbnail>
+                    <img src="assets/imgs/nnzchykl.jpg" class="auto-image" #myImage (click)="showOriginal(myImage)" />
+                  </ion-thumbnail>
+                </ion-col>
+              </ion-row>
+            </ion-col> -->
+        <ion-col col-12 class="comment-goods">
+          {{item.goodsName}} {{item.goodsNum}}盒
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>
+<ion-footer>
+  <ion-grid class="footergrid">
+    <ion-row>
+      <ion-col col-3>
+        <ion-item no-lines style="text-align:center" (click)="gohoppingcart()">
+          <ion-icon name="shoppingcart1"></ion-icon>
+        </ion-item>
+        <ion-item no-lines style="text-align:center">
+          购物车
+        </ion-item>
+      </ion-col>
+      <ion-col col-5 class="col-btn">
+        <ion-item no-lines color="cyellow" style="color:#fff;text-align:center" (click)="addshoppingcart()">
+          加入购物车
+        </ion-item>
+      </ion-col>
+      <ion-col col-4 class="col-btn">
+        <ion-item no-lines color="danger" style="text-align:center" (click)="buy()">
+          立即购买
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>商品参数管理</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <!-- <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="数据正在加载中..." refreshingText="数据正在加载中...">
+    </ion-refresher-content>
+  </ion-refresher> -->
+  <ion-grid style="text-align:center;padding-top:20px;font-size:1.9rem;">
+    <ion-row>
+      <ion-col col-12>{{_goodsName}}</ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid>
+    <ion-item *ngIf="isShowParmas" style="text-align:center">你还没有添加商品参数</ion-item>
+    <ion-row class="row-height" *ngFor="let item of paramsList, let i = index">
+      <ion-col col-10>
+        <ion-row>
+          <ion-col col-3 col-auto>商品规格</ion-col>
+          <ion-col col-9 class="replenish-col-con">{{item.commSpecName}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-3 col-auto>商品条码</ion-col>
+          <ion-col col-9 class="replenish-col-con">{{item.commUPC}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-3 col-auto>包装规格</ion-col>
+          <ion-col col-9 class="replenish-col-con">{{item.commPackaging}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-3 col-auto>批准文号</ion-col>
+          <ion-col col-9 class="replenish-col-con">{{item.approvedNumName}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-3 col-auto>生产企业</ion-col>
+          <ion-col col-9 class="replenish-col-con">{{item.enterprisesName}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-3 col-auto>生产地址</ion-col>
+          <ion-col col-9 class="replenish-col-con">{{item.address}}</ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col col-2 align-self-center style="text-align:center;">
+        <ion-icon name="offline" (click)="deleteParmas(item.commParamId)"></ion-icon>
+      </ion-col>
+    </ion-row>
+    <!-- <ion-row style="padding-top:10px;">
+      <ion-col col-12 style="text-align:center;" (click)="addGoodsParmas()">
+        <ion-icon name="addition">添加商品参数</ion-icon>
+      </ion-col>
+    </ion-row> -->
+  </ion-grid>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+<ion-footer>
+  <ion-grid>
+    <ion-row style="padding-top:10px;">
+      <ion-col col-12 class="replenish-btn">
+        <button ion-button block color="danger" (click)="addGoodsParmas()">添加商品参数</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

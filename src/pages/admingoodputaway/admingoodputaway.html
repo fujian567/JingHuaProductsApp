@@ -1,0 +1,93 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>商品上下架</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event,classOpt,segmentStatus)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="数据正在加载中..." refreshingText="数据正在加载中...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-scroll scrollX="true" class="scrollbox">
+    <div style="width:1000px;">
+      <div class="slidesClassify" *ngFor="let item of classifyList, let i = index" [ngClass]="{'page-tabs-activat': i==0}" (click)="selectClassify(item,$event)">
+        {{item.className}}
+      </div>
+    </div>
+  </ion-scroll>
+  <ion-segment [(ngModel)]="segmentStatus" (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="putAway">上架</ion-segment-button>
+    <ion-segment-button value="soldOut">下架</ion-segment-button>
+  </ion-segment>
+  <div [ngSwitch]="segmentStatus">
+    <ion-list *ngSwitchCase="'putAway'">
+      <ion-item *ngIf="isShowPutAway" style="text-align:center">你还没有添加上架架商品</ion-item>
+      <ion-grid class="goods-grid" *ngFor="let item of goodsList, let i = index">
+        <ion-row>
+          <ion-col col-4 class="goods-img">
+              <img src="{{'data:image/jpeg;base64,'+item.imagesList[0].imageData}}"></ion-col>
+          <ion-col col-7>
+            <ion-row>
+              <ion-col col-12 class="goods-name">{{item.commName}}</ion-col>
+              <ion-col col-12 class="goods-othername">别名：{{item.commAlias}}</ion-col>
+            </ion-row>
+          </ion-col>
+          <ion-col col-1 class="goods-img" *ngIf="batchsoldout">
+            <ion-checkbox (ionChange)="updateCucumber(item)"></ion-checkbox>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-12 class="modify-btn" (click)="soldOutGoods(item)">
+            <ion-icon name="soldout"></ion-icon>下架</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-list>
+    <ion-list *ngSwitchCase="'soldOut'">
+      <ion-item *ngIf="isShowSoldOut" style="text-align:center">你还没有添加下架架商品</ion-item>
+      <ion-grid class="goods-grid" *ngFor="let item of goodsListD, let i = index">
+        <ion-row>
+          <ion-col col-4>
+              <img src="{{'data:image/jpeg;base64,'+item.imagesList[0].imageData}}"></ion-col>
+          <ion-col col-7>
+            <ion-row>
+              <ion-col col-12 class="goods-name">{{item.commName}}</ion-col>
+              <ion-col col-12 class="goods-othername">别名：{{item.commAlias}}</ion-col>
+            </ion-row>
+          </ion-col>
+          <ion-col col-1 class="goods-img" *ngIf="batchputaway">
+            <ion-checkbox (ionChange)="updateCucumber(item)"></ion-checkbox>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-12 class="modify-btn" (click)="putAwayGoods(item)">
+            <ion-icon name="putaway"></ion-icon>上架</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-list>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event,classOpt,segmentStatus)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>
+</ion-content>
+<!-- <ion-footer>
+  <ion-grid>
+    <ion-row *ngIf="!isShowButton">
+      <ion-col col-12 align-self-center>
+        <button ion-button clear class="button-color" (click)="batchgoods(segmentStatus)">
+          <ion-icon name="batch"></ion-icon>批量管理
+        </button>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="isShowButton">
+      <ion-col col-6 align-self-center>
+        <button ion-button clear class="button-color" (click)="cancelbatch()">
+          取消</button>
+      </ion-col>
+      <ion-col col-6 align-self-center>
+        <button ion-button clear class="button-color" (click)="batchconfirm()">
+          {{bottomFont}}
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer> -->

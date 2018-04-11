@@ -1,0 +1,74 @@
+<!--
+  Generated template for the AdmingoodpricePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>商品价格管理</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-grid class="goods-grid">
+      <ion-row>
+        <ion-col col-4 class="goods-img">
+          <img src="{{'data:image/jpeg;base64,'+pageModel.image}}">
+        </ion-col>
+        <ion-col col-8>
+          <ion-row>
+            <ion-col col-12 class="goods-name">{{pageModel.name}}</ion-col>
+            <ion-col col-12 class="goods-price">¥{{pageModel.price}}</ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid class="goods-grid">
+      <ion-row>
+        <ion-col col-12 class="goods-spec">商品规格：{{pageModel.spec}}</ion-col>
+        <ion-col col-12 class="goods-spec">批准文号：{{pageModel.approval}}</ion-col>
+        <ion-col col-12 class="goods-spec">生产企业：{{pageModel.CompanyName}}</ion-col>
+        <ion-col col-12 class="goods-spec">生产地址：{{pageModel.CompanyAddress}}</ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid class="goods-grid">
+      <ion-list style="margin:0;">
+        <ion-item *ngFor="let item of locationPrice let i =index">
+          {{item.priceDec}}:
+          <span style="padding-left:32px;" class="goods-price">¥{{item.regionalPrice}}</span>
+          <span item-end style="color:#000;padding-left:9px">
+            <ion-icon name="offline" (click)="deleteParmas(item)"></ion-icon>
+          </span>
+        </ion-item>
+      </ion-list>
+      <!-- <ion-row>
+        <ion-col col-10 class="goods-spec">
+          <ion-item class="select-location">
+              {{item.priceDec}}:<span class="goods-price">¥{{item.regionalPrice}}</span>
+            <span item-end style="color:#000;padding-left:9px">{{item.location}}</span>
+          </ion-item>
+        </ion-col>
+        <ion-col col-2 align-self-center style="text-align:center;">
+          
+        </ion-col>
+      </ion-row> -->
+    </ion-grid>
+    <!-- <ion-grid>
+      <ion-row style="padding-top:10px;">
+        <ion-col col-12 align-self-center class="addtionprice" (click)="addtionprice()">
+          <ion-icon name="addition">添加指定地区商品价格</ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid> -->
+  </ion-list>
+</ion-content>
+<ion-footer>
+  <ion-grid>
+    <ion-row style="padding-top:10px;">
+      <ion-col col-12 class="replenish-btn">
+        <button ion-button block color="danger" (click)="addtionprice()">添加指定地区商品价格</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

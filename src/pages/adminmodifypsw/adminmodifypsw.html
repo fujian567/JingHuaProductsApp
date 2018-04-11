@@ -1,0 +1,37 @@
+<!--
+  Generated template for the ModifypwdPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>修改密码</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div class="inputbox">
+    <ion-item class="box-right">
+      <ion-label>手机号码</ion-label>
+      <ion-input placeholder="请输入手机号码" clearInput type="number" [(ngModel)]="FindPwdViewModel.Account" (keyup)="getinput($event)"
+        (blur)="getblur()" [disabled]="!verifyCode.username_disable"></ion-input>
+    </ion-item>
+    <ion-item class="box-right" inset>
+      <ion-label>验证码</ion-label>
+      <ion-input class="align-txt" placeholder="请输入验证码" [(ngModel)]="FindPwdViewModel.VerificationCode"></ion-input>
+      <button id="ver-btn" class="ver-btn" color={{verifyCode.color}} outline={{verifyCode.outline}} item-right ion-button [disabled]="!verifyCode.disable"
+        (click)="getCode()">{{verifyCode.verifyCodeTips}}</button>
+    </ion-item>
+    <ion-item class="box-right">
+      <ion-label>新密码</ion-label>
+      <ion-input placeholder="请输入新密码" clearInput type="password" [(ngModel)]="FindPwdViewModel.NewPassword" (keyup)="getinputpwd($event)"
+        (blur)="getblurpwd()"></ion-input>
+    </ion-item>
+    <div class="pagetip"> 密码由8-16位数字、字母或半角符号组成，字母区分大小写。</div>
+    <div class="login">
+      <button ion-button block color={{verifyCode.btn_color}} [disabled]="!verifyCode.btn_disable" (click)="resetpwd()">
+        <span class="next-btn">重置</span>
+      </button>
+    </div>
+  </div>
+</ion-content>

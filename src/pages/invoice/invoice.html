@@ -1,0 +1,88 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>设置发票信息</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-grid class="list-grid">
+    <ion-row>
+      <ion-col col-4 class="list-title" style="padding-left:25px">发票类型</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col  *ngFor="let item of invoiceType, let i = index">
+        <button color="{{item.isDefault}}" (click)="selectdis(item,i)" ion-button block outline>{{item.invoiceTypeName}}</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="list-grid">
+    <ion-row>
+      <ion-col col-4 class="list-title" style="padding-left:25px">发票抬头</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-4 *ngFor="let item of invoiceHead, let i = index"> 
+        <button color="{{item.isDefault}}" ion-button block outline (click)="selecthead(item,i)">{{item.headName}}</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="list-grid" *ngIf="isShowCompany">
+    <ion-col col-5 class="list-title" style="padding-left:25px">单位发票信息</ion-col>
+    <ion-row>
+      <ion-col col-12>
+        <ion-item>
+          <ion-label>单位名称</ion-label>
+          <ion-input placeholder="请输入单位名称" clearInput type="text" [(ngModel)]="pageModel.company"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col col-12>
+        <ion-item>
+          <ion-label>纳税人识别号</ion-label>
+          <ion-input placeholder="请输入纳税人识别号" clearInput type="text" [(ngModel)]="pageModel.EtaxIdeNumber"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="list-grid" *ngIf="isShowPersonal">
+    <ion-col col-4 class="list-title" style="padding-left:25px">发票人信息</ion-col>
+    <ion-row>
+      <ion-col col-12>
+        <ion-item>
+          <ion-label>收票人手机</ion-label>
+          <ion-input placeholder="请输入收票人手机号码" clearInput type="number" [(ngModel)]="pageModel.mobile"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col col-12>
+        <ion-item>
+          <ion-label>收票人邮箱</ion-label>
+          <ion-input placeholder="用来接收发票的邮箱，可选填" clearInput type="text" [(ngModel)]="pageModel.email"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
+  <ion-grid class="list-grid">
+    <ion-row>
+      <ion-col col-3 class="list-title" style="padding-left:10px">发票内容</ion-col>
+      <ion-col col-0 style="font-size:0.9rem;line-height:24px;color:#999;">发票内容已根据税法调整，具体请以展示为准</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-4 *ngFor="let item of invoiceDetail, let i = index">
+        <button color="{{item.isDefault}}" ion-button block outline (click)="selectdetail(item,i)">{{item.detailName}}</button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-9 style="padding-left:25px;font-size:1.2rem;line-height:28px;color:#999;">发票内容将显示商品名称与价格信息</ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<ion-footer>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12>
+        <ion-item no-lines color="danger" style="text-align:center" (click)="confirm()">
+          确定
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

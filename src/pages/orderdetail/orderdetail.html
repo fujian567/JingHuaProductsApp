@@ -1,0 +1,155 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>订单详情</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <!-- <ion-grid class="grid-steps">
+    <ion-row class="item">
+      <ion-col col-4 class="left">
+        <div class="point-l"></div>
+        <div class="line-l"></div>
+      </ion-col>
+      <ion-col col-4 class="center">
+        <div class="point-c"></div>
+        <div class="line-c"></div>
+        <div class="line-c1"></div>
+      </ion-col>
+      <ion-col col-4 class="end">
+        <div class="point-e"></div>
+        <div class="line-e"></div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="item">
+      <ion-col col-4 class="left">下单成功</ion-col>
+      <ion-col col-4 class="center">审核中</ion-col>
+      <ion-col col-4 class="end">发货</ion-col>
+    </ion-row>
+  </ion-grid> -->
+  <ion-grid class="top-bg" *ngIf="pagedatamodle.orderStateId==4">
+    <ion-row>
+      <ion-col col-1 class="icon">
+        <ion-icon name="ios-time-outline"></ion-icon>
+      </ion-col>
+      <ion-col col-3 class="title">审核中</ion-col>
+      <ion-col col-8>我们会在2-3个工作日内进行审核，您可以通过客服查询审核进度</ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="top-bg" *ngIf="pagedatamodle.orderStateId==7">
+      <ion-row>
+        <ion-col col-1 class="icon">
+          <ion-icon name="ios-time-outline"></ion-icon>
+        </ion-col>
+        <ion-col col-3 class="title">待收货</ion-col>
+        <ion-col col-8>您的订单已发货，请关注物流变化！</ion-col>
+      </ion-row>
+    </ion-grid>
+  <ion-grid class="top-bg" *ngIf="pagedatamodle.orderStateId==5">
+      <ion-row>
+        <ion-col col-1 class="icon">
+          <ion-icon name="ios-time-outline"></ion-icon>
+        </ion-col>
+        <ion-col col-3 class="title">待发货</ion-col>
+        <ion-col col-8>仓库正在为您积极备货！！</ion-col>
+      </ion-row>
+    </ion-grid>
+  <ion-grid class="loca-grid">
+    <ion-row class="item">
+      <ion-col col-3>{{pagedatamodle.deliveryInfoName}}</ion-col>
+      <ion-col col-5>{{pagedatamodle.deliveryInfoMobile}}</ion-col>
+      <ion-col col-4></ion-col>
+    </ion-row>
+    <ion-row class="loca-item">
+      <ion-col col-12>
+        地址：{{pagedatamodle.address}}</ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="goods-grid" >  
+    <ion-row class="item com-head">
+      <ion-col col-4>精华制药</ion-col>
+      <ion-col col-5></ion-col>
+      <ion-col col-3 (click)="callService()">联系客服
+        <ion-icon name="headset"></ion-icon>
+      </ion-col>
+    </ion-row>
+    <ion-row class="item" *ngFor="let item of goodsList, let i = index">
+      <ion-col col-4>
+        <img src="{{'data:image/jpeg;base64,'+item.productImageData}}" class="goods-img">
+      </ion-col>
+      <ion-col col-8>
+        <ion-row>
+          <ion-col col-12 class="goods-name">{{item.commName}}</ion-col>
+          <ion-col col-12 class="goods-othername"> <!-- <ion-col col-12 class="goods-othername">数量：111 -->
+            <span style="padding-left:8px;">规格：{{item.commSpecName}}</span>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="specify-grid">
+    <ion-row class="item">
+      <ion-col col-12>订单编号：{{pagedatamodle.ordernum}}</ion-col>
+      <ion-col col-12>下单时间：{{pagedatamodle.orderCreateDate}}</ion-col>
+    </ion-row>
+    <ion-row class="item">
+      <ion-col col-12>支付方式：{{pagedatamodle.payMethodName}}</ion-col>
+    </ion-row>
+    <ion-row class="item">
+      <ion-col col-12>配送方式：{{pagedatamodle.distributionInfoName}}</ion-col>
+    </ion-row>
+
+    <!-- <ion-row class="item">
+      <ion-col col-12>发票类型：电子普通发票</ion-col>
+      <ion-col col-12>发票抬头：个人</ion-col>
+      <ion-col col-12>发票内容：商品明细</ion-col>
+    </ion-row> -->
+    <ion-row class="item" *ngIf="pagedatamodle.invoiceTypeId==4">
+        <ion-col col-12>不需要开发票</ion-col>
+      </ion-row>
+      <ion-row class="item" *ngIf="pagedatamodle.invoiceTypeId==1&&pagedatamodle.orderInvoiceInfo==false">
+        <ion-col col-12>发票类型：{{pagedatamodle.invoiceTypeName}}</ion-col>
+        <ion-col col-12>发票抬头：{{pagedatamodle.orderInvoiceHeader}}</ion-col>
+        <ion-col col-12>发票内容：{{pagedatamodle.orderInvoiceContent}}</ion-col>
+      </ion-row>
+      <ion-row class="item"  *ngIf="pagedatamodle.invoiceTypeId==2&&pagedatamodle.orderInvoiceInfo==false">
+        <ion-col col-12>发票类型：{{pagedatamodle.invoiceTypeName}}</ion-col>
+        <ion-col col-12>发票抬头：{{pagedatamodle.orderInvoiceHeader}}</ion-col>
+        <ion-col col-12>发票内容：{{pagedatamodle.orderInvoiceContent}}</ion-col>
+        <ion-col col-12>发票人手机号：{{pagedatamodle.orderInvoiceMobile}}</ion-col>
+        <ion-col col-12>接收发票人邮箱：{{pagedatamodle.orderInvoiceEmail}}</ion-col>
+      </ion-row>
+      <ion-row class="item"  *ngIf="pagedatamodle.invoiceTypeId==1&&pagedatamodle.orderInvoiceInfo==true">
+        <ion-col col-12>发票类型：{{pagedatamodle.invoiceTypeName}}</ion-col>
+        <ion-col col-12>发票抬头：{{pagedatamodle.orderInvoiceHeader}}</ion-col>
+        <ion-col col-12>发票内容：{{pagedatamodle.orderInvoiceContent}}</ion-col>
+        <ion-col col-12>企业名称：{{pagedatamodle.enterpriseName}}</ion-col>
+        <ion-col col-12>纳税识别号：{{pagedatamodle.taxIdeNumber}}</ion-col>
+      </ion-row>
+      <ion-row class="item"  *ngIf="pagedatamodle.invoiceTypeId==2&&pagedatamodle.orderInvoiceInfo==true">
+        <ion-col col-12>发票类型：{{pagedatamodle.invoiceTypeName}}</ion-col>
+        <ion-col col-12>发票抬头：{{pagedatamodle.orderInvoiceHeader}}</ion-col>
+        <ion-col col-12>发票内容：{{pagedatamodle.orderInvoiceContent}}</ion-col>
+        <ion-col col-12>企业名称：{{pagedatamodle.enterpriseName}}</ion-col>
+        <ion-col col-12>纳税识别号：{{pagedatamodle.taxIdeNumber}}</ion-col>
+        <ion-col col-12>发票人手机号：{{pagedatamodle.orderInvoiceMobile}}</ion-col>
+        <ion-col col-12>接收发票人邮箱：{{pagedatamodle.orderInvoiceEmail}}</ion-col>
+      </ion-row>
+    <ion-row class="item">
+      <ion-col col-12>
+        <ion-row>
+          <ion-col col-6>商品金额</ion-col>
+          <ion-col col-6 class="txt-right" style="color: #e4393c;">¥{{pagedatamodle.orderAmount}}</ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col col-12>
+        <ion-row>
+          <ion-col col-6>运费</ion-col>
+          <ion-col col-6 class="txt-right">¥{{pagedatamodle.freightAmount}}</ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12 class="txt-right">合计：<span class="red">¥ <span style="font-size:1.9rem">{{pagedatamodle.payAmount}}</span></span></ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,82 @@
+page-admingoodpricelist {
+    .button-color {
+        color: #656565;
+        font-size: 1.8rem;
+        margin: 0;
+        padding: 0;
+        width: 90%;
+      }
+      .segment-ios .segment-button {
+        border-width: 0px;
+        font-size: 1.5rem;
+      }
+      .segment-ios-verify .segment-button.segment-activated {
+        background-color: #fff;
+        color: #e4393c;
+        border-bottom: 2px solid #e4393c;
+      }
+      .segment-ios .segment-button:first-of-type {
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+      }
+      .list-ios {
+        margin: 2px 0 32px;
+      }
+      .list-ios>.item-block:first-child {
+        border-top: 0px solid #c8c7cc;
+      }
+      .segment-ios-verify .segment-button {
+        color: #999;
+      }
+      .slidesClassify {
+        display: inline-block;
+        width: 118px !important;
+        padding: 10px 10px;
+        font-size: 2.1rem;
+        height: 4rem;
+        color: #a3a3a3;
+        min-height: 3.5rem !important;
+        text-align: center;
+      }
+      .scrollbox {
+        width: 100%;
+        height: 51px;
+        white-space: nowrap;
+        background-color: #fff;
+      }
+      .page-tabs-activat {
+        background-color: #fff;
+        color: #e4393c;
+        border-bottom: 2px solid #e4393c;
+      }
+      .goods-grid {
+        margin-top: 15px;
+        background-color: #fff;
+      }
+      .goods-name {
+        font-size: 1.9rem;
+        font-weight: 600;
+        padding-top: 0;
+      }
+      .goods-othername {
+        color: #999;
+      }
+      .goods-spec {
+        border: 1px solid #d6d6d6;
+        padding: 2px 5px;
+      }
+      .modify-btn {
+        text-align: center;
+        color: #989898;
+      }
+      .goods-price {
+        font-size: 1.9rem;
+        font-weight: 600;
+        color: #e4393c;
+      }
+      .goods-img {
+        display: flex;
+        display: -webkit-flex;
+        align-items: center;
+      }
+}

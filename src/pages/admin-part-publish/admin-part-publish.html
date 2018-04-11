@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title class="part-title">参数选择
+      <span style="font-size:1.3rem">(选择对应的参数进行编辑)</span>
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="closePop()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-grid style="padding-left:16px;">
+    <ion-row class="row-height">
+        <ion-col col-12 *ngIf="isShowParmas"></ion-col>
+      <ion-col col-12 *ngFor="let item of goodsParmas, let i = index">
+        <ion-item class="box-right">
+          <ion-row (click)="selectParam(item)">
+            <ion-col col-12>商品规格：{{item.commSpecName}}</ion-col>
+            <ion-col col-12>批准文号：{{item.approvedNumName}}</ion-col>
+            <ion-col col-12>生产企业：{{item.enterprisesName}}</ion-col>
+            <ion-col col-12>生产地址：{{item.address}}</ion-col>
+          </ion-row>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

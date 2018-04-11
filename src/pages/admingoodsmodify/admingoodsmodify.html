@@ -1,0 +1,112 @@
+<!--
+  Generated template for the AdmingoodseditPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar>
+      <ion-title>{{pagetitle}}</ion-title>
+    </ion-navbar>
+  </ion-header>
+  <ion-content>
+    <ion-grid class="grid-img">
+      <ion-row *ngIf="!isAddImg">
+        <ion-col col-12 align-self-center style="text-align: center;padding-top:20px;">
+          <img src="./assets/imgs/addproduct.png" class="auto-image" (click)="onAddImage()" />
+        </ion-col>
+      </ion-row>
+      <ion-row id="imgbox" *ngIf="isAddImg" class="rootposition">
+        <div class="addimgbtn">
+          <img src="./assets/imgs/camera.png" (click)="onAddImageList()" />
+        </div>
+        <ion-slides loop pager paginationType="fraction">
+          <ion-slide *ngFor="let item of imagesPath, let i = index">
+            <img src="{{'data:image/jpeg;base64,'+item}}" />
+          </ion-slide>
+        </ion-slides>
+      </ion-row>
+    </ion-grid>
+    <ion-grid>
+      <ion-row class="row-height">
+        <ion-item class="box-right">
+          <ion-label>商品名称</ion-label>
+          <ion-input placeholder="请输入商品名称" clearInput [(ngModel)]="ProductBaseInfoViewModel.CommName"></ion-input>
+        </ion-item>
+        <ion-item class="box-right">
+          <ion-label>商品别名</ion-label>
+          <ion-input placeholder="请输入商品别名" clearInput [(ngModel)]="ProductBaseInfoViewModel.CommAlias"></ion-input>
+        </ion-item>
+      </ion-row>
+    </ion-grid>
+    <ion-grid>
+      <ion-row class="row-height">
+        <button ion-item (click)="selectGoodsCategory()">
+          分类
+          <span item-end>{{optGoodsCategory}}</span>
+        </button>
+      </ion-row>
+    </ion-grid>
+    <ion-grid>
+      <ion-row class="row-height" *ngIf="isShowFirstParmas">
+        <ion-col col-10>
+          <ion-item class="box-right">
+            <ion-label>商品规格</ion-label>
+            <ion-input placeholder="请输入商品规格" clearInput [(ngModel)]="ProductBaseInfoViewModel.CommSpecName"></ion-input>
+          </ion-item>
+          <ion-item class="box-right">
+            <ion-label>批准文号</ion-label>
+            <ion-input placeholder="请输入批准文号" clearInput [(ngModel)]="ProductBaseInfoViewModel.ApprovedNumName"></ion-input>
+          </ion-item>
+          <ion-item class="box-right">
+            <ion-label>生产企业</ion-label>
+            <ion-input placeholder="请输入生产企业" clearInput [(ngModel)]="ProductBaseInfoViewModel.EnterprisesName"></ion-input>
+          </ion-item>
+          <ion-item class="box-right">
+            <ion-label>生产地址</ion-label>
+            <ion-input placeholder="请输入生产地址" clearInput [(ngModel)]="ProductBaseInfoViewModel.Address"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-2 align-self-center style="text-align:center;">
+        </ion-col>
+      </ion-row>
+      <ion-row class="row-height" *ngFor="let item of paramsList, let i = index">
+        <ion-col col-10>
+          <ion-item class="box-right">
+            <ion-label>商品规格</ion-label>
+            <ion-input placeholder="请输入商品规格" readonly value="{{item.ProductSpecViewModel.CommSpecName}}"></ion-input>
+          </ion-item>
+          <ion-item class="box-right">
+            <ion-label>批准文号</ion-label>
+            <ion-input placeholder="请输入批准文号" readonly value="{{item.ProductApprovedNumViewModel.ApprovedNumName}}"></ion-input>
+          </ion-item>
+          <ion-item class="box-right">
+            <ion-label>生产企业</ion-label>
+            <ion-input placeholder="请输入生产企业" readonly value="{{item.ProductEnterprisesViewModel.EnterprisesName}}"></ion-input>
+          </ion-item>
+          <ion-item class="box-right">
+            <ion-label>生产地址</ion-label>
+            <ion-input placeholder="请输入生产地址" readonly value="{{item.ProductEnterprisesViewModel.Address}}"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-2 align-self-center style="text-align:center;" *ngIf="isShowionc">
+          <ion-icon name="offline" (click)="deleteParmas(i)"></ion-icon>
+        </ion-col>
+      </ion-row>
+      <ion-row style="padding-top:10px;">
+        <ion-col col-12 align-self-center class="addtionspec" (click)="addGoodsParmas()">
+          <ion-icon name="addition">添加商品参数</ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
+  <ion-footer>
+    <ion-grid>
+      <ion-row style="padding-top:10px;">
+        <ion-col col-12 class="replenish-btn">
+          <button ion-button block color="danger" (click)="subimtData()">提交</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-footer>
+  

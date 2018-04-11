@@ -1,0 +1,18 @@
+page-invoice {
+  .list-grid {
+    margin-top: 5px;
+    background-color: #fff;
+    padding-left: 5px;
+    font-size: 1.7rem;
+  }
+  .list-title {
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+  }
+  ::-webkit-input-placeholder {
+    /* WebKit browsers */
+    font-size: 1.4rem;
+  }
+}
+

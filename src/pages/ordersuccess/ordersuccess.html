@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>订单提交成功</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-grid class="top-bg">
+    <ion-row>
+      <ion-col col-2 class="icon">
+        <ion-icon name="ios-checkmark-circle-outline"></ion-icon>
+      </ion-col>
+      <ion-col col-10 class="title">订单提交成功</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-2></ion-col>
+      <ion-col col-10 class="content">您的订单已经成功提交，我们的工作人员将联系您进行订单审核发货，请您保持电话畅通，或者也可以拨打客服电话进行查询。</ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-1 class="icon"></ion-col>
+      <ion-col col-4 class="icon">
+        <button color="cblock" ion-button block outline (click)="jumphome()">随便看看</button>
+      </ion-col>
+      <ion-col col-2 class="icon"></ion-col>
+      <ion-col col-4 class="title">
+        <button color="danger" ion-button block outline (click)="jumporder()">订单详情</button>
+      </ion-col>
+      <ion-col col-1 class="icon"></ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

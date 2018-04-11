@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>申请售后</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content class="page-content">
+  <ion-grid class="goods-grid">
+    <ion-row class="line-bottom">
+      <ion-col col-8>订单编号：{{pagedatamodle.ordernum}}</ion-col>
+    </ion-row>
+    <ion-row class="line-bottom row-item">
+      <ion-col col-4>
+        <img src="{{'data:image/jpeg;base64,'+pagedatamodle.goodsImg}}" class="goods-img">
+      </ion-col>
+      <ion-col col-7>
+        <ion-row>
+          <ion-col col-12 class="goods-name">{{pagedatamodle.goodsName}}</ion-col>
+          <ion-col col-12 class="goods-othername">{{pagedatamodle.goodsSpec}}</ion-col>
+          <!-- <ion-col col-12 style="height: 43px;">
+            <ion-row>
+              <ion-col col-5 class="goods-price">¥{{pagedatamodle.goodsPrice}}</ion-col>
+              <ion-col col-7 style="text-align:end">*3</ion-col>
+            </ion-row>
+          </ion-col> -->
+        </ion-row>
+      </ion-col>
+    </ion-row>
+    <ion-row class="notify">
+      <ion-col col-12>温馨提示</ion-col>
+      <ion-col col-12>1、申请售后以后，审核成功后财务部门将会原路返回您支付的实际金额。</ion-col>
+      <ion-col col-12>2、您可以联系客服查询售后进度。</ion-col>
+      <ion-col col-12>3、涉及退货的运费由客户自行承担（质量问题除外）</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12>
+        <button ion-item (click)="selectReason()">申请原因：{{pagedatamodle.reason}}</button>
+      </ion-col>
+      <ion-col col-12>
+        <ion-item>联系人：{{pagedatamodle.deliveryInfoName}}</ion-item>
+      </ion-col>
+      <ion-col col-12>
+        <ion-item>联系方式：{{pagedatamodle.deliveryInfoMobile}}</ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<ion-footer>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12 style="padding-left:15px;padding-right:15px;">
+        <ion-item no-lines color="danger" style="text-align:center" (click)="returnApply()">
+          申请售后
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

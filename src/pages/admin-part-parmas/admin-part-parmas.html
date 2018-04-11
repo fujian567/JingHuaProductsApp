@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title class="part-title">参数添加
+      <span style="font-size:1.3rem">(一种商品可添加多个参数)</span>
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="closePop()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-grid style="padding-left:16px;">
+    <ion-row class="row-height">
+      <ion-col>
+        <ion-item class="box-right">
+          <ion-label>商品规格</ion-label>
+          <ion-input placeholder="请输入商品规格" clearInput [(ngModel)]="partPageModel.CommSpecName"></ion-input>
+        </ion-item>
+        <ion-item class="box-right">
+          <ion-label>商品条码</ion-label>
+          <ion-input placeholder="请输入商品条码" clearInput [(ngModel)]="ProductParamModelViewModel.CommUPC"></ion-input>
+        </ion-item>
+        <ion-item class="box-right">
+          <ion-label>包装规格</ion-label>
+          <ion-input placeholder="请输入包装规格" clearInput [(ngModel)]="ProductParamModelViewModel.CommPackaging"></ion-input>
+        </ion-item>
+        <ion-item class="box-right">
+          <ion-label>批准文号</ion-label>
+          <ion-input placeholder="请输入批准文号" clearInput [(ngModel)]="partPageModel.ApprovedNumName"></ion-input>
+        </ion-item>
+        <ion-item class="box-right">
+          <ion-label>生产企业</ion-label>
+          <ion-input placeholder="请输入生产企业" clearInput [(ngModel)]="partPageModel.EnterprisesName"></ion-input>
+        </ion-item>
+        <ion-item class="box-right">
+          <ion-label>生产地址</ion-label>
+          <ion-input placeholder="请输入生产地址" clearInput [(ngModel)]="partPageModel.Address"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row style="padding-top:10px;">
+      <ion-col col-12 class="replenish-btn">
+        <button ion-button block color="danger" (click)="confirmAdd()">确定</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

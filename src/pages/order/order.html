@@ -1,0 +1,167 @@
+<!--
+  Generated template for the OrderPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>确认订单</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <button ion-item (click)="changeaddress()">
+      <ion-grid *ngIf="isShowDefaultDelive" style="padding-left:20px;">
+          你还没有添加收货地址
+      </ion-grid>
+
+    <ion-grid *ngIf="!isShowDefaultDelive">
+      <ion-row>
+        <ion-col col-1></ion-col>
+        <ion-col col-3>{{deliveryName}}</ion-col>
+        <ion-col col-3>{{deliveryMobile}}</ion-col>
+        <ion-col col-5></ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12>
+          <ion-icon name="location"></ion-icon>{{pccName+address}}</ion-col>
+      </ion-row>
+    </ion-grid>
+  </button>
+  <!-- <button ion-item (click)="viewDetail()">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-9>
+          <ion-slides shouldLockSwipeToNext=false>
+            <ion-slide *ngFor="let item of pagedatamodle, let i = index" class="list-img">
+              <img src="{{item.goodsImg}}" class="goods-img">
+            </ion-slide>
+          </ion-slides>
+        </ion-col>
+        <ion-col col-3 class="list-detail">共217件
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </button> -->
+
+  <ion-grid class="goods-grid" *ngFor="let item of pagedatamodle, let i = index">
+    <ion-row>
+      <ion-col col-4 class="img-col">
+        <!-- <img src="{{item.goodsImg}}" class="goods-img"> -->
+        <img src="{{'data:image/jpeg;base64,'+item.imageData}}" class='goods-img' />
+      </ion-col>
+      <ion-col col-8>
+        <ion-row>
+          <ion-col col-12 class="goods-name">{{item.commName}}</ion-col>
+          <ion-col col-12 class="goods-othername">{{item.commSpecName}}</ion-col>
+          <ion-col col-12 style="height: 43px;">
+            <ion-row>
+              <ion-col col-5 class="goods-price">¥{{item.medianPrice}}</ion-col>
+              <ion-col col-7 style="text-align:end">*{{item.commQuantity}}</ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="list-grid">
+    <ion-row>
+      <ion-col col-3 class="list-title">支付方式</ion-col>
+      <!-- <ion-col col-3 *ngFor="let item of payMethod, let i = index">
+        <button color="cblock" ion-button block outline (click)="upVoucher()">{{item.payMethodName}}</button>
+      </ion-col> -->
+      <ion-col col-3>
+        <button color="danger" ion-button block outline>银行转账</button>
+      </ion-col>
+      <ion-col col-3>
+        <button color="cgrayk" ion-button block outline>支付宝</button>
+      </ion-col>
+      <ion-col col-3>
+        <button color="cgrayk" ion-button block outline>微信支付</button>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="isShowUpVoucher">
+      <ion-col col-3></ion-col>
+      <ion-col col-9>
+        <ion-grid class="up-voucher">
+          <ion-row>
+            <ion-col col-4>
+              <ion-thumbnail tappable (click)="onAddImage()" style="width:100%;" *ngIf="isUpimages">
+                <img  src="assets/imgs/addimg.png" class="auto-image" id="addimgbg" />
+              </ion-thumbnail>
+              <ion-thumbnail tappable (click)="isDeleteImage()" style="width:100%;" *ngIf="!isUpimages">
+                  <img  src="{{'data:image/jpeg;base64,'+ImagesList[0]}}" width="80" height="80" class="auto-image" id="addimgbg" />
+                </ion-thumbnail>
+            </ion-col>
+            <ion-col col-12 class="specify">
+              请将对应的商品金额转入精华制药银行账户，并在此上传转账凭证，务必保证上传的凭证清晰可见！
+            </ion-col>
+            <ion-col col-12>精华制药银行账户：</ion-col>
+            <ion-col col-12>开户行：
+              <span class="red">中国工商银行XXX分行</span>
+            </ion-col>
+            <ion-col col-12>账号：
+              <span class="red">123456789123456789</span>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <!-- <ion-grid class="list-grid">
+    <ion-row id="row-dis">
+      <ion-col col-3 class="list-title">配送方式</ion-col>
+      <ion-col col-3 *ngFor="let item of distribution, let i = index">
+        <button color="{{item.isDefault}}" ion-button block outline (click)="selectdis(item,i)">{{item.distributionInfoName}}</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid> -->
+  <ion-grid class="list-grid">
+    <ion-row>
+      <ion-col col-12>
+        <!-- <button ion-item no-lines (click)="setInvoice()">
+         
+        </button> -->
+        发票信息
+      </ion-col>
+      <ion-col col-12 style="color:#999;font-size:1.4rem;">单位名称：{{EInvoiceInfoViewModel.EinvoiceName}}</ion-col>
+      <ion-col col-12 style="color:#999;font-size:1.4rem;">纳税人识别号：{{EInvoiceInfoViewModel.EtaxIdeNumber}}</ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="list-grid">
+    <ion-row>
+      <ion-col col-6>商品金额</ion-col>
+      <ion-col col-6 class="txt-right" style="color: #e4393c;">¥{{totalAmount}}</ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col col-6>优惠</ion-col>
+        <ion-col col-6 class="txt-right">¥{{freightAmount}}</ion-col>
+      </ion-row>
+    <ion-row>
+      <ion-col col-6>商品数量</ion-col>
+      <ion-col col-6 class="txt-right">{{totalNumber}}件</ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-6>运费</ion-col>
+      <ion-col col-6 class="txt-right">¥{{remissionAmount}}</ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<ion-footer>
+  <ion-grid class="footgrid">
+    <ion-row>
+      <ion-col col-3>
+      </ion-col>
+      <ion-col col-5>
+        <ion-item no-lines>
+          实付款：¥{{realPaymentAmount}}
+        </ion-item>
+      </ion-col>
+      <ion-col col-4>
+        <ion-item no-lines color="danger" style="text-align:center" (click)="settlement()">
+          提交订单
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

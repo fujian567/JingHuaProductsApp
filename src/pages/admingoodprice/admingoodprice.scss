@@ -1,0 +1,109 @@
+page-admingoodprice {
+  .goods-price {
+    font-size: 1.9rem;
+    font-weight: 600;
+    color: #e4393c;
+  }
+  .goods-img {
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+  }
+  .goods-grid {
+    margin-top: 15px;
+    background-color: #fff;
+    padding-left: 25px;
+    padding-right: 5px;
+  }
+  .goods-name {
+    font-size: 1.6rem;
+    padding-top: 0;
+  }
+  .goods-spec {
+    font-size: 1.6rem;
+    padding: 2px 5px;
+  }
+  .select-location {
+    padding-left: 0px;
+    flex: none;
+  }
+  .select-location .input-wrapper {
+    flex: none;
+  }
+  .addtionprice {
+    text-align: center;
+    color: #999;
+  }
+}
+
+.select-location {
+  .toolbar-title-ios {
+    text-align: left;
+    font-size: 1.6rem;
+    font-weight: normal;
+    color: #000;
+    pointer-events: auto;
+  }
+  ion-backdrop {
+    opacity: 0.48 !important;
+  }
+}
+
+.select-location .popover-content {
+  border-radius: 10px;
+  width: 70%;
+  max-height: 70%;
+  color: #000;
+  background: #fff;
+  overflow-y: hidden;
+  top: 148px;
+}
+
+.select-location .part-content {
+  margin: -1px 0 0px;
+  overflow: scroll;
+  max-height: 410px;
+}
+
+.select-location .item-ios {
+  padding-left: 10px;
+}
+
+.select-location .content-ios {
+  background-color: #fff;
+}
+
+.select-location .footer-ios {
+  border-top: 0.55px solid rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+}
+
+.select-location .button-ios {
+  height: 2.8rem;
+}
+
+.select-location .grid {
+  height: 50px;
+  ;
+}
+.select-location .scroll-content{
+  margin-bottom: 44px;
+}
+.select-location .list-ios > .item-block:first-child {
+  border-bottom: 0.55px solid #c8c7cc;
+}
+.select-location .list-ios > .item-block {
+  border-bottom: 0.55px solid #c8c7cc;
+}
+.select-location .list-ios > .item-block:last-child {
+  border-bottom: none;
+}
+.button-clear-ios {
+  border-color: transparent;
+  color: #272727;
+  background-color: transparent;
+  text-align: center;
+  padding: 0px;
+  margin: 0px;
+}
+

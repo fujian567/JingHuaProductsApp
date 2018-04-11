@@ -1,0 +1,19 @@
+
+<ion-header>
+  <ion-navbar>
+    <ion-title></ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-grid class="pos-grid">
+    <ion-row class="select-status">
+      <ion-col col-9 class="charcter">
+          <ion-input placeholder="请输入订单号或者商品名" clearInput [(ngModel)]="searchTxt"></ion-input>
+      </ion-col>
+      <ion-col col-3 class="ionic" (click)="selectOrder()">
+        <ion-icon name="search"></ion-icon>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ion-content>

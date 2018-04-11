@@ -1,0 +1,98 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>资料补齐</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12 class="replenish-title">陇西保和堂药业有限公司</ion-col>
+    </ion-row>
+    <ion-row style="padding:0;">
+      <ion-col col-12 class="replenish-title-img">企业资质</ion-col>
+    </ion-row>
+    <ion-row style="padding-top:0;">
+      <ion-col col-4 align-self-center>
+        <ion-thumbnail tappable>
+          <img src="./assets/imgs/wsbcw.jpg" class="auto-image" #myImage (click)="showOriginal(myImage)" />
+        </ion-thumbnail>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12 class="replenish-title-img">企业基本信息</ion-col>
+    </ion-row>
+    <ion-row class="row-height" style="padding-top:2px;">
+      <ion-col col-3 col-auto>企业名称</ion-col>
+      <ion-col col-9 class="replenish-col-con">陇西保和堂药业有限公司</ion-col>
+    </ion-row>
+    <ion-row class="row-height">
+      <ion-col col-3 col-auto>联系人</ion-col>
+      <ion-col col-9 class="replenish-col-con">测试人员</ion-col>
+    </ion-row>
+    <ion-row class="row-height">
+      <ion-col col-3 col-auto>联系电话</ion-col>
+      <ion-col col-9 class="replenish-col-con">18920180305</ion-col>
+    </ion-row>
+    <ion-row class="row-height">
+      <ion-col col-4 col-auto>企业属性</ion-col>
+      <ion-col col-8 class="replenish-col-con">
+        <ion-input placeholder="待补充" [(ngModel)]="pageModel.property"></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row style="padding-top:10px;" *ngIf="!isViewPage">
+      <ion-col col-12 class="replenish-btn">
+        <button ion-button round color="danger"  (click)="replenishSubimt()">提交</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<!-- <ion-content class="page-content">
+  <ion-grid style="padding-left:10p;">
+    <ion-item no-lines style="text-align:center;">{{pageModel.companyName}}</ion-item>
+    <ion-item no-lines class="sub-title">企业资质</ion-item>
+    <ion-item>
+      <ion-row class="rowstyle">
+        <ion-col col-4 align-self-center *ngFor="let item of pageModel.imagesList, let i = index">
+          <ion-thumbnail>
+            <img src="{{'data:image/jpeg;base64,'+item.imageData}}" class="auto-image" #myImage (click)="showOriginal(myImage)" class="auto-image"
+              [style.height]="width" [style.width]="width" /> 
+          </ion-thumbnail>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+    <ion-item no-lines class="sub-title">企业基本信息</ion-item>
+    <ion-item>
+      <ion-label>企业名称</ion-label>
+      <ion-input class="page-input" placeholder="请输入该企业的企业名称" clearInput [(ngModel)]="pageModel.companyName"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>联系人</ion-label>
+      <ion-input class="page-input" placeholder="请输入该企业的联系人" clearInput [(ngModel)]="pageModel.clientName"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>联系电话</ion-label>
+      <ion-input class="page-input" placeholder="请输入该企业的联系电话" clearInput [(ngModel)]="pageModel.mobile"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>业务员</ion-label>
+      <ion-input class="page-input" placeholder="请输入业务员的编码" clearInput [(ngModel)]="pageModel.SalesmanCode"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>企业所在省市区</ion-label>
+      <ion-multi-picker id="PCCname" [(ngModel)]="pageModel.ProvinceID" item-content [multiPickerColumns]="dependentColumns" [cancelText]="'取消'"
+        [doneText]="'完成'" [placeholder]="'待补充'"></ion-multi-picker>
+    </ion-item>
+    <ion-item>
+      <ion-label>企业详细地址</ion-label>
+      <ion-input placeholder="待补充" [(ngModel)]="pageModel.Address"></ion-input>
+    </ion-item>
+    <ion-row style="padding-top:13px;" *ngIf="!isViewPage">
+      <ion-col col-6 class="audit-btn">
+        <button ion-button round outline (click)="passAudit()">通过</button>
+      </ion-col>
+      <ion-col col-6 class="audit-btn">
+        <button ion-button round color="danger" outline (click)="noPassAudit()">不通过</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content> -->

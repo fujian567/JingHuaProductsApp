@@ -1,0 +1,75 @@
+<ion-header>
+    <ion-navbar>
+      <ion-title>快递信息</ion-title>
+    </ion-navbar>
+  </ion-header>
+  <ion-content>
+    <ion-grid class="goods-grid">
+      <ion-row class="goods-line">
+        <ion-col col-4 class="border-padding">
+          <img src="{{'data:image/jpeg;base64,'+orderinfo.paramsInfo[0].productImageData}}" class="goods-img">
+        </ion-col>
+        <ion-col col-8>
+          <ion-row>
+            <ion-col col-12 class="log-text"> 物流单号：{{pagedatamodle.logisticsNum}}</ion-col>
+            <ion-col col-12 class="log-text">物流公司：{{pagedatamodle.logistics}}</ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid class="goods-grid">
+      <!-- <ion-row style="padding-bottom:10px;">
+        <ion-col col-2></ion-col>
+        <ion-col col-1 class="icon-pos">
+          <ion-icon name="pin"></ion-icon>
+        </ion-col>
+        <ion-col col-8 class="address-txt">[收货地址]甘肃省兰州市七里河区火星街255号</ion-col>
+      </ion-row> -->
+      <ion-row class="log-row" *ngFor="let item of logisticsData,let i=index" >
+          <ion-col col-4 class="date">{{item.AcceptTime}}</ion-col>
+          <ion-col col-8 [ngClass]="{'info-txt-e':i == 0}">{{item.AcceptStation}}</ion-col>
+          <!-- <ion-row>
+              <ion-col col-12 class="date">{{item.AcceptTime.sub}}</ion-col>
+              <ion-col col-12 class="time">{{item.AcceptTime}}</ion-col>
+            </ion-row> -->
+        <!-- <ion-col *ngIf="expressStatus==3" col-2 class="log-date-e">
+          <ion-row>
+            <ion-col col-12 class="date">{{item.AcceptTime}}</ion-col>
+            <ion-col col-12 class="time">{{item.AcceptTime}}</ion-col>
+          </ion-row>
+        </ion-col>
+        <ion-col *ngIf="iexpressStatus==1" col-2 class="log-date">
+          <ion-row>
+            <ion-col col-12 class="date">{{item.AcceptTime}}</ion-col>
+            <ion-col col-12 class="time">{{item.AcceptTime}}</ion-col>
+          </ion-row>
+        </ion-col>
+        <ion-col *ngIf="expressStatus==1" col-1 class="icon-pos-list">
+          <ion-icon class="icon-e" name="checkmark-circle"></ion-icon>
+          <div class="whitebg"></div>
+          <div class="line-e"></div>
+        </ion-col>
+        <ion-col *ngIf="expressStatus==1" col-1 class="icon-pos-list">
+          <ion-icon class="icon" name="arrow-dropup-circle"></ion-icon>
+          <div class="whitebg"></div>
+          <div class="line"></div>
+        </ion-col>
+        <ion-col *ngIf="expressStatus==3" col-8 class="info-txt-e">{{item.AcceptStation}}</ion-col>
+        <ion-col *ngIf="expressStatus==1" col-8 class="info-txt">{{item.AcceptStation}}</ion-col> -->
+      </ion-row>
+      <!-- <ion-row class="log-row">
+        <ion-col col-2 class="log-date">
+          <ion-row>
+            <ion-col col-12 class="date">04-08</ion-col>
+            <ion-col col-12 class="time">07:46</ion-col>
+          </ion-row>
+        </ion-col>
+        <ion-col col-1 class="icon-pos-list">
+          <ion-icon class="icon" name="arrow-dropup-circle"></ion-icon>
+          <div class="whitebg"></div>
+          <div class="line-f"></div>
+        </ion-col>
+        <ion-col col-8 class="info-txt">已发货</ion-col>
+      </ion-row> -->
+    </ion-grid>
+  </ion-content>

@@ -1,0 +1,104 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      购物车
+      <!-- <ion-icon name="location"></ion-icon> -->
+    </ion-title>
+    <ion-buttons end *ngIf="!isShowShoppingcart">
+      <button ion-button (click)="editClick()">{{editBtnTxt}}</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div class="pagelogo" *ngIf="isShowShoppingcart">
+    <div class="pagetop">
+      <ion-icon name="shoppingcart"></ion-icon>
+    </div>
+    <div class="logotxt">
+      <span style="color:#999;">购物车空空如也～</span>
+    </div>
+    <div class="gotobtn">
+      <button ion-button color="danger" (click)="goHome()">
+        去逛逛
+      </button>
+    </div>
+  </div>
+  <ion-list *ngIf="!isShowShoppingcart">
+    <ion-item class="toptitle">
+      精华制药
+      <span item-end>运费已全免</span>
+    </ion-item>
+    <ion-item>
+      <ion-grid class="goods-grid" *ngFor="let item of pagedatamodle, let i = index">
+        <ion-row>
+          <ion-col col-1 class="checkbox">
+            <ion-item no-lines style="padding:0;">
+              <ion-checkbox checked={{item.isSelect}} (ionChange)="updateCucumber(item,i,$event)"></ion-checkbox>
+            </ion-item>
+          </ion-col>
+          <ion-col col-4>
+            <!-- <img src="{{item.goodsImg}}" class="goods-img"> -->
+            <img src="{{'data:image/jpeg;base64,'+item.imageData}}" class='goods-img' />
+          </ion-col>
+          <ion-col col-7>
+            <ion-row>
+              <ion-col col-12 class="goods-name">{{item.commName}}</ion-col>
+              <ion-col col-12 class="goods-othername">{{item.commSpecName}}</ion-col>
+              <ion-col col-12 style="height: 43px;">
+                <ion-row>
+                  <ion-col col-5 class="goods-price">¥{{item.medianPrice}}</ion-col>
+                  <ion-col col-7>
+                    <div class="gw_num">
+                      <em class="jian" (click)="deductNum(item,i)">-</em>
+                      <input type="num" value="{{item.commQuantity}}" class="num" readonly (click)="inputNum(item,i)" />
+                      <em class="add" (click)="addNum(item,i)">+</em>
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+</ion-content>
+<ion-footer>
+  <ion-grid *ngIf="isShowEdit">
+    <ion-row>
+      <ion-col col-3>
+        <ion-item no-lines>
+          <ion-label>全选</ion-label>
+          <ion-checkbox checked={{allcheck}} [(ngModel)]="allcheck" (click)="selectCucumber($event)"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+      <ion-col col-5>
+      </ion-col>
+      <ion-col col-4>
+        <ion-item no-lines class="deletesty" style="text-align:center" (click)="deletegoods()">
+          删除
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid *ngIf="!isShowEdit">
+    <ion-row>
+      <ion-col col-3>
+        <ion-item no-lines>
+          <ion-label>全选</ion-label>
+          <ion-checkbox checked={{allcheck}} [(ngModel)]="allcheck" (click)="selectCucumber($event)"></ion-checkbox>
+        </ion-item>
+      </ion-col>
+      <ion-col col-5>
+        <ion-item no-lines>
+          合计：¥{{amountPrice}}
+        </ion-item>
+      </ion-col>
+      <ion-col col-4>
+        <ion-item no-lines color="danger" style="text-align:center" (click)="settlement()">
+          结算
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

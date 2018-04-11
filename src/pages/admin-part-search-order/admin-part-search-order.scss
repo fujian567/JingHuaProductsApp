@@ -1,0 +1,46 @@
+page-admin-part-search-order {}
+
+.search .popover-content {
+  border-radius: 0px;
+  width: 100%;
+  max-height: 90%;
+  color: #000;
+  background: #fff;
+  left: 0 !important;
+  top: 0 !important;
+}
+
+.search {
+  .toolbar-ios {
+    padding: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    min-height: 0px;
+  }
+  .pos-grid {
+    padding: 0;
+    background-color: #fff;
+  }
+  .select-status {
+    margin: 9px 8px;
+    border: 1px solid #d6d6d6;
+    border-radius: 5px;
+    height: 40px;
+    .charcter {
+      padding-left: 16px;
+    }
+    .ionic {
+      text-align: end;
+      padding-right: 16px;
+      color: #989898;
+      line-height: 3rem;
+    }
+    .input-ios[clearInput] .text-input {
+      padding-right: 1px;
+    }
+    .text-input-ios {
+      margin: 7px 8px 1px 0;
+    }
+  }
+}
+

@@ -1,0 +1,12 @@
+page-tabs {
+  .ion-ios-home2:before {
+    color: #e4393c;
+  }
+  .tabs-ios .tab-button[aria-selected=true] .tab-button-icon {
+    color: #e4393c;
+  }
+  .tabs-ios .tab-button:hover:not(.disable-hover), .tabs-ios .tab-button[aria-selected=true] {
+    color: #e4393c;
+}
+}
+

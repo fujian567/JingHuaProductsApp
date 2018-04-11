@@ -1,0 +1,250 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>我的订单</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-refresher (ionRefresh)="doRefresh($event,audit)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="数据正在加载中..." refreshingText="数据正在加载中...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-segment [(ngModel)]="allorder" color="verify">
+    <!-- <ion-segment-button value="all" isActive>
+      全部
+    </ion-segment-button> -->
+    <ion-segment-button value="nopay" isActive (ionSelect)="selectedNopay()">
+      待付款
+    </ion-segment-button>
+    <ion-segment-button value="noaudit" (ionSelect)="selectedNoaudit()">
+      待审核
+    </ion-segment-button>
+    <ion-segment-button value="nodeliver" (ionSelect)="selectedNodeliver()">
+      待发货
+    </ion-segment-button>
+    <ion-segment-button value="notakedelivery" (ionSelect)="selectedNotakedelivery()">
+      待收货
+    </ion-segment-button>
+    <ion-segment-button value="nocomment" (ionSelect)="selectedNocomment()">
+      待评价
+    </ion-segment-button>
+    <!-- <ion-segment-button value="aftersale" (ionSelect)="selectedAftersale()">
+      售后服务
+    </ion-segment-button> -->
+  </ion-segment>
+  <div [ngSwitch]="allorder">
+    <!-- <ion-list *ngSwitchCase="'all'">
+      <ion-item *ngIf="isNoOrder">暂时没有订单</ion-item>
+      <ion-grid class="goods-grid" *ngFor="let item of pagedatamodle, let i = index">
+        <ion-row>
+          <ion-col col-8>订单编号：{{item.orderCode}}</ion-col>
+          <ion-col col-4 style="text-align:end;color:#e4393c">{{item.orderstatus}}</ion-col>
+        </ion-row>
+        <ion-row class="goods-line">
+          <ion-col col-4 class="border-padding">
+            <img src="{{item.goodsImg}}" class="goods-img">
+          </ion-col>
+          <ion-col col-8 class="border-padding">
+            <ion-row>
+              <ion-col col-12 class="goods-name">{{item.goodsName}}</ion-col>
+              <ion-col col-12 class="goods-othername">{{item.goodsSpec}}</ion-col>
+              <ion-col col-12 style="height: 43px;">
+                <ion-row>
+                  <ion-col col-5 class="goods-price">¥{{item.goodsPrice}}</ion-col>
+                </ion-row>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-9 class="list-title">共3件商品 合计¥74.00（含运费¥0.00）</ion-col>
+          <ion-col col-3 class="red-btn">
+            <button color="danger" ion-button block outline class="pay-btn">去支付</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-list> -->
+    <ion-list *ngSwitchCase="'nopay'">
+      <ion-item *ngIf="isShowNoPay">暂时还有待付款的订单</ion-item>
+      <div *ngIf="!isShowNoPay">
+        <ion-grid class="goods-grid" *ngFor="let item of pagedatamodleNoPay, let i = index">
+          <ion-row>
+            <ion-col col-8>订单编号：{{item.orderCode}}</ion-col>
+            <ion-col col-4 style="text-align:end;color:#e4393c">待付款</ion-col>
+          </ion-row>
+          <ion-row class="goods-line" *ngFor="let goodsinfo of item.paramsInfo" (click)="viewOrder(item.orderId)">
+            <ion-col col-4 class="border-padding">
+              <img src="{{item.goodsImg}}" class="goods-img">
+              <img src="{{'data:image/jpeg;base64,'+goodsinfo.productImageData}}" class="goods-img">
+            </ion-col>
+            <ion-col col-8 class="border-padding">
+              <ion-row>
+                <ion-col col-12 class="goods-name">{{goodsinfo.commName}}</ion-col>
+                <ion-col col-12 class="goods-othername">{{goodsinfo.commSpecName}}</ion-col>
+                <ion-col col-12>{{goodsinfo.approvedNumName}}</ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-9 class="list-title">共{{item.orderNumber}}件商品 合计¥{{item.orderAmount}}（含运费¥{{item.freightAmount}}）</ion-col>
+            <ion-col col-3 class="red-btn">
+              <button color="danger" ion-button block outline class="pay-btn">去支付</button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </ion-list>
+    <ion-list *ngSwitchCase="'noaudit'">
+      <ion-item *ngIf="isShowNoAudit">暂时还有待审核的订单</ion-item>
+      <div *ngIf="!isShowNoAudit">
+        <ion-grid class="goods-grid" *ngFor="let item of pagedatamodleNoAudit, let i = index">
+          <ion-row>
+            <ion-col col-8>订单编号：{{item.orderCode}}</ion-col>
+            <ion-col col-4 style="text-align:end;color:#e4393c">待审核</ion-col>
+          </ion-row>
+          <ion-row class="goods-line" *ngFor="let goodsinfo of item.paramsInfo" (click)="viewOrder(item.orderId)">
+            <ion-col col-4 class="border-padding">
+              <img src="{{item.goodsImg}}" class="goods-img">
+              <img src="{{'data:image/jpeg;base64,'+goodsinfo.productImageData}}" class="goods-img">
+            </ion-col>
+            <ion-col col-8 class="border-padding">
+              <ion-row>
+                <ion-col col-12 class="goods-name">{{goodsinfo.commName}}</ion-col>
+                <ion-col col-12 class="goods-othername">{{goodsinfo.commSpecName}}</ion-col>
+                <ion-col col-12>{{goodsinfo.approvedNumName}}</ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-9 class="list-title">共{{item.orderNumber}}件商品 合计¥{{item.orderAmount}}（含运费¥{{item.freightAmount}}）</ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </ion-list>
+    <ion-list *ngSwitchCase="'nodeliver'">
+      <ion-item *ngIf="isShowNoDeliver">暂时还有待发货的的订单</ion-item>
+      <div *ngIf="!isShowNoDeliver">
+        <ion-grid class="goods-grid" *ngFor="let item of pagedatamodleNoDeliver, let i = index">
+          <ion-row>
+            <ion-col col-8>订单编号：{{item.orderCode}}</ion-col>
+            <ion-col col-4 style="text-align:end;color:#e4393c">待发货</ion-col>
+          </ion-row>
+          <ion-row class="goods-line" *ngFor="let goodsinfo of item.paramsInfo" (click)="viewOrder(item.orderId)">
+            <ion-col col-4 class="border-padding">
+              <img src="{{item.goodsImg}}" class="goods-img">
+              <img src="{{'data:image/jpeg;base64,'+goodsinfo.productImageData}}" class="goods-img">
+            </ion-col>
+            <ion-col col-8 class="border-padding">
+              <ion-row>
+                <ion-col col-12 class="goods-name">{{goodsinfo.commName}}</ion-col>
+                <ion-col col-12 class="goods-othername">{{goodsinfo.commSpecName}}</ion-col>
+                <ion-col col-12>{{goodsinfo.approvedNumName}}</ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-9 class="list-title">共{{item.orderNumber}}件商品 合计¥{{item.orderAmount}}（含运费¥{{item.freightAmount}}）</ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </ion-list>
+    <ion-list *ngSwitchCase="'notakedelivery'">
+      <ion-item *ngIf="isShowNoTakeDelivery">暂时还有待收货的订单</ion-item>
+      <div *ngIf="!isShowNoTakeDelivery">
+        <ion-grid class="goods-grid" *ngFor="let item of pagedatamodleNoTakeDelivery, let i = index">
+          <ion-row>
+            <ion-col col-8>订单编号：{{item.orderCode}}</ion-col>
+            <ion-col col-4 style="text-align:end;color:#e4393c">待收货</ion-col>
+          </ion-row>
+          <ion-row class="goods-line" *ngFor="let goodsinfo of item.paramsInfo" (click)="viewOrder(item.orderId)">
+            <ion-col col-4 class="border-padding">
+              <img src="{{'data:image/jpeg;base64,'+goodsinfo.productImageData}}" class="goods-img">
+            </ion-col>
+            <ion-col col-8 class="border-padding">
+              <ion-row>
+                <ion-col col-12 class="goods-name">{{goodsinfo.commName}}</ion-col>
+                <ion-col col-12 class="goods-othername">{{goodsinfo.commSpecName}}</ion-col>
+                <ion-col col-12>{{goodsinfo.approvedNumName}}</ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-9 class="list-title">共{{item.orderNumber}}件商品 合计¥{{item.orderAmount}}（含运费¥{{item.freightAmount}}）</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-6></ion-col>
+            <ion-col col-3>
+              <button color="cblock" ion-button block outline class="pay-btn" (click)="viewlogistics(item)">查看物流</button>
+            </ion-col>
+            <ion-col col-3 class="red-btn">
+              <button color="danger" (click)="confirmOrder(item)" ion-button block outline class="pay-btn">确认收货</button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </ion-list>
+    <ion-list *ngSwitchCase="'nocomment'">
+      <ion-item *ngIf="isShowNoComment">暂时还有待评价的订单</ion-item>
+      <div *ngIf="!isShowNoComment">
+        <ion-grid class="goods-grid" *ngFor="let item of pagedatamodleNoComment, let i = index">
+          <ion-row>
+            <ion-col col-8>订单编号：{{item.orderCode}}</ion-col>
+            <ion-col col-4 style="text-align:end;color:#e4393c">待评价</ion-col>
+          </ion-row>
+          <ion-row class="goods-line" *ngFor="let goodsinfo of item.paramsInfo" (click)="viewOrder(item.orderId)">
+            <ion-col col-4 class="border-padding">
+              <img src="{{item.goodsImg}}" class="goods-img">
+              <img src="{{'data:image/jpeg;base64,'+goodsinfo.productImageData}}" class="goods-img">
+            </ion-col>
+            <ion-col col-8 class="border-padding">
+              <ion-row>
+                <ion-col col-12 class="goods-name">{{goodsinfo.commName}}</ion-col>
+                <ion-col col-12 class="goods-othername">{{goodsinfo.commSpecName}}</ion-col>
+                <ion-col col-12>{{goodsinfo.approvedNumName}}</ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-9 class="list-title">共{{item.orderNumber}}件商品 合计¥{{item.orderAmount}}（含运费¥{{item.freightAmount}}）</ion-col>
+            <ion-col col-3 style="text-align:end;color:danger">
+              <button color="danger" ion-button block outline class="pay-btn" (click)="goComment(item)">去评价</button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </ion-list>
+    <ion-list *ngSwitchCase="'aftersale'">
+      <ion-item *ngIf="isShowAfterSale">暂时还有符合售后的订单</ion-item>
+      <div *ngIf="!isShowAfterSale">
+        <ion-grid class="goods-grid" *ngFor="let item of pagedatamodleAfterSale, let i = index">
+          <ion-row>
+            <ion-col col-8>订单编号：{{item.orderCode}}</ion-col>
+            <ion-col col-4 style="text-align:end;color:#e4393c">{{item.orderstatus}}</ion-col>
+          </ion-row>
+          <ion-row class="goods-line" *ngFor="let goodsinfo of item.paramsInfo" (click)="viewOrder(item.orderId)">
+            <ion-col col-4 class="border-padding">
+              <img src="{{item.goodsImg}}" class="goods-img">
+              <img src="{{'data:image/jpeg;base64,'+goodsinfo.productImageData}}" class="goods-img">
+            </ion-col>
+            <ion-col col-8 class="border-padding">
+              <ion-row>
+                <ion-col col-12 class="goods-name">{{goodsinfo.commName}}</ion-col>
+                <ion-col col-12 class="goods-othername">{{goodsinfo.commSpecName}}</ion-col>
+                <ion-col col-12>{{goodsinfo.approvedNumName}}</ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-9 class="list-title">共{{item.orderNumber}}件商品 合计¥{{item.orderAmount}}（含运费¥{{item.freightAmount}}）</ion-col>
+            <ion-col col-3 style="text-align:end;color:danger">
+              <button color="danger" ion-button block outline class="pay-btn" (click)="aftersale(item)">申请售后</button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+
+    </ion-list>
+  </div>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event,audit)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

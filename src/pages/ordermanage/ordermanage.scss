@@ -1,0 +1,77 @@
+page-ordermanage {
+  .page-content {
+    background-color: #fff;
+  }
+  .segment-ios .segment-button {
+    border-width: 0px;
+    font-size: 1.5rem;
+  }
+  .segment-ios-verify .segment-button.segment-activated {
+    background-color: #fff;
+    color: #e4393c;
+    border-bottom: 2px solid #e4393c;
+  }
+  .segment-ios .segment-button:first-of-type {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+  }
+  .list-ios {
+    margin: 2px 0 32px;
+  }
+  .list-ios>.item-block:first-child {
+    border-top: 0px solid #c8c7cc;
+  }
+  .segment-ios-verify .segment-button {
+    color: #999;
+  }
+  .item-ios {
+    padding-left: 0px;
+  }
+  .goods-grid {
+    margin-top: 14px;
+    background-color: #fff;
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+  .goods-name {
+    font-size: 1.7rem;
+    font-weight: 600;
+    padding-top: 0;
+  }
+  .goods-othername {
+    color: #999;
+  }
+  .goods-spec {
+    border: 1px solid #d6d6d6;
+    padding: 2px 5px;
+  }
+  .goods-line {
+    border-top: 0.55px solid #c8c7cc;
+    border-bottom: 0.55px solid #c8c7cc;
+  }
+  .border-padding {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .pay-btn {
+    border-radius: 4px;
+    height: 2em;
+    font-size: 1.6rem;
+    margin: 0.4rem 0.1rem;
+    padding: 0 0.5em;
+  }
+  .red-btn {
+    text-align: end;
+    color: #e4393c
+  }
+  .grayk-btn {
+    text-align: end;
+    color: #272727
+  }
+  .list-title {
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+  }
+}
+

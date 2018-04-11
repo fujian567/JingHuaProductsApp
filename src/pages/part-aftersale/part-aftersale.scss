@@ -1,0 +1,37 @@
+page-part-aftersale {
+  .part-title {
+    background-color: #fff;
+    padding-left: 20px;
+  }
+  .part-title .toolbar-title-ios {
+    color: #989898 !important;
+    font-weight: normal !important;
+    font-size: 1.9rem !important;
+    text-align: left !important;
+  }
+  .p-r-item {
+    font-size: 2rem;
+  }
+}
+
+.reason .popover-content {
+  width: 100% !important;
+  left: 0 !important;
+  bottom: 0 !important;
+  border-radius: 0 !important;
+  top: 61% !important;
+}
+
+.reason .popover-content ion-content {
+  background-color: #fff;
+}
+
+.reasonname .alert-wrapper {
+  max-width: 82% !important;
+  background-color: #fff;
+}
+
+.alert-wrapper {
+  min-width: 82%;
+}
+

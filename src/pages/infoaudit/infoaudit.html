@@ -1,0 +1,41 @@
+<ion-content no-padding>
+  <div class="pagetop">
+    <img src="./assets/imgs/background-top.png">
+  </div>
+  <div class="pagetitle">资质审核</div>
+  <ion-grid *ngIf="pageConfig.isAuto">
+    <ion-row class="rowstyle">
+      <ion-row class="rowstyle">
+        <ion-col col-12>
+            <div style="text-align:center;"><ion-icon name="audit"></ion-icon></div>
+        </ion-col>
+        <ion-col col-12>
+          感谢您使用精华制药直销APP！您的资料我们已经收到并正在审核中，请耐心等待1-3个工作日。您也可以联系您的业务员，查询审核进度。
+        </ion-col>
+        <!-- <ion-col col-12 style="padding-top:15px">
+          <button ion-button block color="danger">
+            我知道了
+          </button>
+        </ion-col> -->
+      </ion-row>
+    </ion-row>
+  </ion-grid>
+  <ion-grid *ngIf="!pageConfig.isAuto">
+    <ion-row class="rowstyle">
+      <ion-row class="rowstyle">
+        <ion-col col-12>
+          <div style="text-align:center;"><ion-icon name="noaudit"></ion-icon></div>
+        </ion-col>
+        <ion-col col-12>
+          感谢您使用精华制药直销APP！您的资料审核未通过。请重新提交。
+        </ion-col>
+        <ion-col col-12 style="padding-top:15px">
+          <button ion-button block outline color="danger" (click)="reRubmit()">
+            重新提交
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

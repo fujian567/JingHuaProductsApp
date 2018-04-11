@@ -1,0 +1,23 @@
+page-shippingaddressedit {
+  .box-right {
+    padding-left: 20px;
+    border-bottom: 0.55px solid #c8c7cc;
+  }
+  .list-ios>.item-block:first-child {
+    border-bottom: 0.55px solid #c8c7cc;
+  }
+  .toggle-ios.toggle-checked .toggle-icon {
+    background-color: #e4393c;
+  }
+  .specify {
+    color: #999999;
+    font-size: 1.2rem;
+  }
+  .muti-picker {
+    padding: 1px 8px 2px 16px;
+  }
+  .multi-picker-placeholder{
+    color: #272727;
+  }
+}
+

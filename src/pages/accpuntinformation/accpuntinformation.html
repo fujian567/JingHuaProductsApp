@@ -1,0 +1,51 @@
+<ion-content class="page-config">
+  <div class="pagetop">
+    <img src="./assets/imgs/background-top.png">
+  </div>
+  <div class="pagetitle">资质提交</div>
+  <div class="describe">请提交你的营业执照、医疗机构执业许可证等相关资质，其中，营业执照与医疗机构执业许可证必须提交，其他资料可选择提交。为保证您的资料能尽快通过，请尽量提交完整的资质材料。</div>
+  <ion-grid>
+    <ion-row class="rowstyle">
+      <ion-item class="box-right">
+        <ion-label>企业名称</ion-label>
+        <ion-input placeholder="请输入你所在企业的名称" [(ngModel)]="ClientInfoViewModel.CompanyName"></ion-input>
+      </ion-item>
+      <ion-item class="box-right">
+        <ion-label>姓名</ion-label>
+        <ion-input class="align-txt" readonly [(ngModel)]="ClientInfoViewModel.ClientName"></ion-input>
+      </ion-item>
+      <ion-item class="box-right">
+        <ion-label>精华业务员</ion-label>
+        <ion-input placeholder="与你联系业务员姓名" clearInput [(ngModel)]="ClientInfoViewModel.SalesmanCode"></ion-input>
+      </ion-item>
+      <!-- <ion-item class="box-right">
+        <ion-label style="flex:none;">资质过期日期</ion-label>
+        <ion-datetime displayFormat="YYYY/MM/DD" cancelText="取消" doneText="确定" placeholder="输入资料的过期时间" [(ngModel)]="ClientInfoViewModel.ExpiredDate"></ion-datetime>
+      </ion-item> -->
+    </ion-row>
+    <ion-row class="rowstyle">
+      <ion-col col-3 align-self-center *ngFor="let item of imagesPath, let i = index">
+        <ion-thumbnail tappable (click)="isDeleteImage(i)">
+          <img src="{{'data:image/jpeg;base64,'+item}}" class="auto-image" [style.height]="width" [style.width]="width" />
+        </ion-thumbnail>
+      </ion-col>
+      <ion-col col-3 align-self-center>
+        <ion-thumbnail tappable (click)="onAddImage()" style="width:100%;">
+          <img src="./assets/imgs/addimg.png" class="auto-image" id="addimgbg" />
+        </ion-thumbnail>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid>
+    <ion-row class="rowstyle">
+      <ion-col col-12>
+        请确保上传的图片清晰可以见(最多上传5张图片)
+      </ion-col>
+      <ion-col col-12 style="padding-top:15px">
+        <button ion-button block color="danger" (click)="submitImg()">
+          提交
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

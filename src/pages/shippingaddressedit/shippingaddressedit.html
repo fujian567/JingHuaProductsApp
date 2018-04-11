@@ -1,0 +1,42 @@
+
+<ion-header>
+  <ion-navbar>
+    <ion-title>编辑地址</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-item class="box-right">
+      <ion-label>收货人</ion-label>
+      <ion-input placeholder="请输入收货人姓名" clearInput [(ngModel)]="clientDeliveryInfo.DeliveryName"></ion-input>
+    </ion-item>
+    <ion-item class="box-right">
+      <ion-label>手机号码</ion-label>
+      <ion-input placeholder="请输入收货手机号码" class="align-txt" clearInput [(ngModel)]="clientDeliveryInfo.DeliveryMobile"></ion-input>
+    </ion-item>
+    <button ion-item class="box-right">
+        <ion-label>所在地区</ion-label>
+        <ion-multi-picker class="muti-picker" placeholder=" " id="PCCname" [(ngModel)]="pccName" item-content [multiPickerColumns]="dependentColumns" [cancelText]="'取消'"
+          [doneText]="'完成'"></ion-multi-picker>
+    </button>
+    <ion-item class="box-right">
+      <ion-label>详细地址</ion-label>
+      <ion-input class="align-txt" placeholder="街道、楼牌号" clearInput [(ngModel)]="clientDeliveryInfo.Address"></ion-input>
+    </ion-item>
+    <ion-item class="box-right">
+      <ion-label>默认地址<span class="specify">每次下单时，系统会默认使用该地址</span></ion-label>
+      <ion-toggle [(ngModel)]="clientDeliveryInfo.DeliveryDefault"></ion-toggle>
+    </ion-item>
+  </ion-list>
+</ion-content>
+<ion-footer>
+    <ion-grid class="footergrid">
+      <ion-row>
+        <ion-col col-12 style="padding-left:15px;padding-right:15px;">
+          <ion-item no-lines color="danger" style="text-align:center" (click)="addnewAddress()">
+            保存
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-footer>

@@ -1,0 +1,237 @@
+page-goodsdetail {
+  ul {
+    padding: 0px;
+    margin: 0;
+  }
+  background-color: #f8f8f8;
+  .bigimg {
+    // height: 240px !important;
+    // max-height: 50% !important;
+  }
+  .grid {
+    padding: 0px;
+    background-color: #f8f8f8;
+  }
+  .auto-image {
+    width: 100%;
+  }
+  .footergrid {
+    padding: 0px;
+    background-color: #f8f8f8;
+    min-height: 54px;
+    height: 54px;
+  }
+  .col-btn {
+    padding: 0;
+  }
+  .goodsName {
+    padding-left: 25px;
+    color: #272727;
+    font-size: 1.8rem;
+    font-weight: 600;
+  }
+  .goodsPrice {
+    padding-left: 25px;
+    color: #e4393c;
+    font-size: 1.8rem;
+    font-weight: 600;
+  }
+  .pagebox {
+    background-color: #f8f8f8;
+    .txt {
+      color: #989898;
+      font-size: 1.3rem;
+    }
+    .ion-ios-checkmark-circle-outline:before {
+      color: #d13b36;
+    }
+  }
+  .list-ios {
+    margin: -1px 0 5px;
+  }
+  .goodsdetail {
+    background-color: #fff;
+    padding-left: 10px;
+    padding-right: 10px;
+    .detail-title {
+      text-align: center;
+      font-size: 1.8rem;
+      padding-top: 14px;
+      padding-bottom: 14px;
+      border-bottom: 0.55px solid #c8c7cc;
+    }
+    [col-12] {
+      padding: 0px;
+    }
+    .segment-ios .segment-button.segment-activated {
+      background-color: #fff;
+      color: #e4393c;
+      border-bottom: none;
+    }
+    .segment-ios .segment-button {
+      border: none;
+    }
+    .spec {
+      padding: 10px 10px 10px 20px;
+      border-bottom: 0.55px solid #c8c7cc;
+      [col-12] {
+        padding: 5px;
+        color: #88898b;
+        min-height: 36px;
+      }
+    }
+  }
+  .detail-grid {
+    padding: 0px;
+    background-color: #fff;
+    .label-ios {
+      margin: 1px 8px 1px 0;
+    }
+    .item-block {
+      min-height: 3.4rem;
+    }
+  }
+  .comment-title {
+    border-bottom: 1px solid #d6d6d6;
+  }
+  .comment-person {
+    padding-left: 10px;
+    .name {
+      line-height: 31px;
+    }
+  }
+  .comment-start {
+    padding: 0px;
+    margin: 0;
+    color: #e4393c;
+    line-height: 38px;
+    .rating li {
+      padding: 5px 1px !important;
+      background: none;
+      color: #e4393c;
+      letter-spacing: -1.9px;
+      ion-icon {
+        font-size: 1.6rem;
+      }
+    }
+    .start {
+      text-align: end;
+    }
+    .point {
+      font-size: 1.4rem;
+    }
+  }
+  .avatar img {
+    border-radius: 50%;
+    overflow: hidden;
+    width: 30px;
+    height: 30px;
+  }
+  .comment-contect {
+    padding-left: 10px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+  }
+  .comment-goods {
+    padding: 10px 0 0 10px !important;
+    color: #979797;
+  }
+  .comment-list {
+    border-bottom: 1px solid #d6d6d6;
+    padding-bottom: 10px;
+  }
+  .comment-imagelist {
+    padding-top: 5px !important;
+  }
+  .comment-btn {
+    color: #676767;
+    font-size: 1.4rem;
+    margin-top: 15px;
+  }
+  .right-line {
+    border-right: 2px solid #d6d6d6 !important;
+  }
+  .goods-tab {
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+  .segment-ios .segment-button {
+    height: 16px;
+    line-height: 16px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+  }
+  .bg-line {
+    height: 1px;
+    border: none;
+    border-top: 1px solid #d6d6d6;
+  }
+  .segment-ios .segment-button:hover:not(.segment-activated) {
+    background-color:#fff;
+    -webkit-transition: 100ms all linear;
+    transition: 100ms all linear;
+}
+  .goods-star {
+    .title {
+      font-size: 1.4rem;
+      text-align: end;
+      line-height: 28px;
+    }
+    [col-3] {
+      padding: 1px;
+    }
+    .rating li {
+      padding: 5px 1px !important;
+      background: none;
+      color: #e4393c;
+      letter-spacing: -1px;
+      ion-icon {
+        font-size: 18px;
+      }
+    }
+    .point {
+      color: #e4393c;
+      font-size: 1.4rem;
+      line-height: 23px;
+    }
+  }
+}
+
+.page-head {
+  .segment-ios .segment-button {
+    height: 39px;
+    margin: 0;
+    line-height: 40px;
+    font-size: 1.8rem;
+    border-width: 0px;
+    color: #282828;
+  }
+  ion-segment {
+    width: 60%;
+    left: 25% !important;
+  }
+  .segment-ios .segment-button.segment-activated {
+    color: #282828;
+    background-color: #fff;
+    opacity: 1;
+    border-bottom: 2px solid #282828;
+  }
+  .segment-ios .segment-button:first-of-type {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0px;
+  }
+  .segment-ios .segment-button:last-of-type {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+  }
+  .toolbar-background-ios {
+    background: #fff;
+  }
+  .toolbar-ios {
+    padding-bottom: 0px;
+  }
+}
+

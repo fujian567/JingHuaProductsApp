@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title class="part-title">商品地区价格
+      <span style="font-size:1.3rem">(一种商品可添加多个价格)</span>
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="closePop()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-grid class="goods-grid">
+    <ion-row>
+      <ion-col col-12 class="goods-spec">
+        <button ion-item (click)="selectLocation()" class="select-location">
+          地区                                      
+          <span item-end class="optlocation" [ngStyle]="{'color':(partPageModel.location==='请选择地区')? '#a8a8a8': '#000000'}">{{partPageModel.location}}</span>
+        </button>
+        <ion-item class="box-right">
+          <ion-label>价格</ion-label>
+          <ion-input clearInput placeholder="请输入对应地区的价格" id="itemprice" [(ngModel)]="partPageModel.price"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row style="padding-top:10px;">
+      <ion-col col-12 class="replenish-btn">
+        <button ion-button block color="danger" (click)="confirmAdd()">确定</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

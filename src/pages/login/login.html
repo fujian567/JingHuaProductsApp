@@ -1,0 +1,33 @@
+<ion-content class="pagecontect">
+  <div class="pagelogo">
+    <div class="logoimg">
+      <img src="assets/imgs/logo.png" />
+    </div>
+    <div class="logotxt">精华制药直销系统</div>
+  </div>
+  <div class="inputbox" > 
+    <ion-item class="box-right">
+      <ion-label><ion-icon name="account"></ion-icon></ion-label>
+      <ion-input  placeholder="请输入手机号码" clearInput [(ngModel)]="params.username"></ion-input>
+    </ion-item>
+    <ion-item class="box-right"> 
+      <ion-label><ion-icon name="pwd"></ion-icon></ion-label>
+      <ion-input type="password"  placeholder="请输入密码" clearInput [(ngModel)]="params.password"></ion-input>
+    </ion-item>
+    <div class="login">
+      <button ion-button block color="danger" (click)="logIn(username, password)">
+        登录
+      </button>
+    </div>
+    <ion-grid class="r-box"> 
+        <ion-row>
+          <ion-col >
+              <button ion-button clear="true" (click)="findpwd()"><span class="s-botton dark">忘记密码？</span></button>
+          </ion-col>
+          <ion-col class="r-col">
+              <button ion-button clear="true" (click)="register()" ><span class="s-botton red">立即注册</span></button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+  </div>
+</ion-content>

@@ -1,0 +1,46 @@
+page-aftersale {
+  .page-content {
+    background-color: #fff;
+  }
+  .goods-grid {
+    margin-top: 5px;
+    background-color: #fff;
+    .line-bottom {
+      border-bottom: 0.55px solid #c8c7cc;
+    }
+    .row-item {
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+  }
+  .notify {
+    margin: 10px;
+    padding: 5px;
+    background-color: #f4f5f6;
+    height: 141px;
+    font-size: 1.3rem;
+  }
+  .goods-name {
+    font-size: 1.9rem;
+    font-weight: 600;
+    padding-top: 0;
+  }
+  .goods-othername {
+    color: #999;
+  }
+  .goods-spec {
+    border: 1px solid #d6d6d6;
+    padding: 2px 5px;
+  }
+  .goods-price {
+    font-size: 1.9rem;
+    font-weight: 600;
+    color: #e4393c;
+  }
+  .goods-img {
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+  }
+}
+

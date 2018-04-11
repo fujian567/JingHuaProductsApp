@@ -1,0 +1,63 @@
+page-shippingaddress {
+  .footergrid {
+    background-color: #f8f8f8;
+    min-height: 77px;
+    height: 77px;
+  }
+  .page-item {
+    margin-bottom: 8px;
+    .label-ios {
+      margin: 1px 0;
+    }
+  }
+  .page-grid {
+    padding: 0;
+  }
+  .specify {
+    color: #4c4c4c;
+    font-size: 1.4rem;
+    border-bottom: 0.55px solid #c8c7cc;
+  }
+  .icon-row {
+    padding-top: 5px;
+    .button-outline-ios {
+      border: none;
+      color: #4c4c4c;
+      background-color: transparent;
+    }
+    .button-ios {
+      height: 2.1rem;
+      font-size: 1.4rem;
+      color: #4c4c4c;
+      background-color: #fff;
+      margin: 0.4rem 0.2rem;
+      padding: 0 1em;
+    }
+    .ion-ios-checkmark-circle:before {
+      font-size: 2.3rem;
+      color: #e4393c;
+    }
+    .ion-ios-checkmark-circle1:before {
+      font-size: 2.3rem;
+      color: #999;
+    }
+    .ion-ios-create-outline:before {
+      font-size: 2.3rem;
+    }
+    .ion-ios-trash-outline:before {
+      font-size: 2.3rem;
+    }
+    [col-6] {
+      padding-top: 0px;
+      padding-bottom: 0px;
+    }
+    [col-3] {
+      padding-top: 0px;
+      padding-bottom: 0px;
+    }
+  }
+  .ion-ios-checkmark-circle1:before{
+    content:"\f14a"
+  }
+}
+

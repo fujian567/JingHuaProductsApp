@@ -1,0 +1,95 @@
+page-order {
+  .item-ios {
+    padding-left: 0px;
+  }
+  .goods-grid {
+    margin-top: 5px;
+    background-color: #fff;
+    border-bottom: 0.55px solid #c8c7cc;
+  }
+  .goods-name {
+    font-size: 1.9rem;
+    font-weight: 600;
+    padding-top: 0;
+  }
+  .goods-othername {
+    color: #999;
+  }
+  .goods-spec {
+    border: 1px solid #d6d6d6;
+    padding: 2px 5px;
+  }
+  .modify-btn {
+    text-align: center;
+    color: #989898;
+  }
+  .goods-price {
+    font-size: 1.9rem;
+    font-weight: 600;
+    color: #e4393c;
+  }
+  .goods-img {
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+  }
+  .label-ios {
+    margin: 11px 0px 11px 0;
+  }
+  .list-grid {
+    margin-top: 5px;
+    background-color: #fff;
+    padding-left: 20px;
+    font-size: 1.7rem;
+    .txt-right {
+      text-align: end;
+      padding-right: 32px;
+    }
+  }
+  .list-title {
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    
+  }
+  .list-img{
+    width:37% !important;
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+  .list-detail{
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    text-align: end;
+    font-size: 1.6rem;
+    padding-left: 20px;
+  }
+  img.auto-image{
+    width: 100%;
+  }
+  .up-voucher{
+    font-size: 1.3rem;
+    color: #272727;
+    .specify{
+      font-size: 1.1rem;
+      color: #656565;
+    }
+    .red{
+      color: #e4393c;
+    }
+  }
+  .img-col{
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    padding: 0;
+  }
+  .footgrid{
+    padding: 0px;
+    background-color: #f8f8f8;
+    min-height: 54px;
+    height: 54px;
+  }
+}
+

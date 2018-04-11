@@ -1,0 +1,128 @@
+<ion-header class="page-head">
+  <ion-navbar hideBackButton="true" color="danger">
+    <ion-title>精华制药直销系统</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content class="page-content">
+  <ion-grid style="background-color:#fff">
+    <ion-row class="rowstyle">
+      <!-- <ion-col col-4 align-self-center class="imglogog" (click)="replenish()">
+        <img src="./assets/imgs/replenish.jpg" class="auto-image" />
+      </ion-col> -->
+      <ion-col col-4 align-self-center class="imglogog" (click)="infoaudit()">
+        <img src="./assets/imgs/infoaudit.jpg" class="auto-image" />
+      </ion-col>
+      <ion-col col-4 align-self-center class="imglogog" (click)="category()">
+        <img src="./assets/imgs/category.jpg" class="auto-image" />
+      </ion-col>
+      <ion-col col-4 align-self-center class="imglogog" (click)="goodsinfo()">
+        <img src="./assets/imgs/goodsinfo.jpg" class="auto-image" />
+      </ion-col>
+    </ion-row>
+    <ion-row class="rowstyle">
+      <ion-col col-4 align-self-center class="imglogog" (click)="goodspublish()">
+        <img src="./assets/imgs/goodspublish.jpg" class="auto-image" />
+      </ion-col>
+      <ion-col col-4 align-self-center class="imglogog" (click)="goodsputaway()">
+        <img src="./assets/imgs/putaway.jpg" class="auto-image" />
+      </ion-col>
+      <ion-col col-4 align-self-center class="imglogog" (click)="goodsprice()">
+        <img src="./assets/imgs/price.jpg" class="auto-image" />
+      </ion-col>
+    </ion-row>
+    <ion-row class="rowstyle">
+      <ion-col col-4 align-self-center class="imglogog" (click)="goodsorder()">
+        <img src="./assets/imgs/order.png" class="auto-image" />
+      </ion-col>
+      <ion-col col-4 align-self-center class="imglogog" (click)="adminpersonal()">
+        <img src="./assets/imgs/personal.png" class="auto-image" />
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <!-- <ion-grid class="margin-top:8px">
+    <ion-row class="rowstyle">
+      <ion-segment [(ngModel)]="worktab">
+        <ion-segment-button value="aduitinfo">首营待审核</ion-segment-button>
+        <ion-segment-button value="aduitorder">订单待审核</ion-segment-button>
+        <ion-segment-button value="delivergoods">订单待发货</ion-segment-button>
+      </ion-segment>
+    </ion-row>
+    <div [ngSwitch]="worktab">
+      <ion-list *ngSwitchCase="'aduitinfo'">
+        <ion-item *ngIf="isAduitInfo">暂时没有需要审核的客户资料</ion-item>
+        <button ion-item (click)="auditCompany(item)" *ngFor="let item of noAuditList, let i = index">
+          {{item.companyName}}
+        </button>
+        <ion-row style="padding-top:10px;">
+          <ion-col col-4></ion-col>
+          <ion-col col-4>
+            <button color="danger" ion-button block outline (click)="auditPage()">查看更多</button>
+          </ion-col>
+          <ion-col col-4></ion-col>
+        </ion-row>
+      </ion-list>
+      <ion-list *ngSwitchCase="'aduitorder'">
+        <ion-item *ngIf="isAduitOrder">暂时没有需要审核的订单</ion-item>
+        <ion-grid class="goods-grid" *ngFor="let item of pagedatamodle, let i = index" (click)="auditOrder(item)">
+          <ion-row>
+            <ion-col col-8></ion-col>
+          </ion-row>
+          <ion-row class="goods-line">
+            <ion-col col-3 class="border-padding">
+              <img src="{{item.goodsImg}}" class="goods-img">
+            </ion-col>
+            <ion-col col-9 class="border-padding">
+              <ion-row>
+                <ion-col col-12 class="goods-name">
+                  <ion-row>
+                    <ion-col col-8 class="goods-name">{{item.goodsName}}</ion-col>
+                    <ion-col col-4 style="text-align:end;color:#666;font-size:1.4rem;">{{item.orderstatus}}</ion-col>
+                  </ion-row>
+                </ion-col>
+                <ion-col col-12 style="padding: 0;font-size:1.4rem;color:#666">共3件商品 合计¥74.00（含运费¥0.00）</ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-row style="padding-top:10px;">
+          <ion-col col-4></ion-col>
+          <ion-col col-4>
+            <button color="danger" ion-button block outline (click)="auditOrderPage('audit')">查看更多</button>
+          </ion-col>
+          <ion-col col-4></ion-col>
+        </ion-row>
+      </ion-list>
+      <ion-list *ngSwitchCase="'delivergoods'">
+        <ion-item *ngIf="isDeliverGoods">暂时没有需要发货的订单</ion-item>
+        <ion-grid class="goods-grid" *ngFor="let item of pagedatamodle, let i = index" (click)="deliverOrder(item)">
+          <ion-row>
+            <ion-col col-8></ion-col>
+          </ion-row>
+          <ion-row class="goods-line">
+            <ion-col col-3 class="border-padding">
+              <img src="{{item.goodsImg}}" class="goods-img">
+            </ion-col>
+            <ion-col col-9 class="border-padding">
+              <ion-row>
+                <ion-col col-12 class="goods-name">
+                  <ion-row>
+                    <ion-col col-8 class="goods-name">{{item.goodsName}}</ion-col>
+                    <ion-col col-4 style="text-align:end;color:#666;font-size:1.4rem;">{{item.orderstatus}}</ion-col>
+                  </ion-row>
+                </ion-col>
+                <ion-col col-12 style="padding: 0;font-size:1.4rem;color:#666">共3件商品 合计¥74.00（含运费¥0.00）</ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-row style="padding-top:10px;">
+          <ion-col col-4></ion-col>
+          <ion-col col-4>
+            <button color="danger" ion-button block outline (click)="auditOrderPage('deliver')">查看更多</button>
+          </ion-col>
+          <ion-col col-4></ion-col>
+        </ion-row>
+      </ion-list>
+    </div>
+  </ion-grid> -->
+</ion-content>

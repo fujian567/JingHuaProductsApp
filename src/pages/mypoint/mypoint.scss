@@ -1,0 +1,27 @@
+page-mypoint {
+  .page-title {
+    font-size: 1.6rem;
+    padding-left: 10px;
+    padding-top: 10px;
+  }
+  .grid-box{
+      padding: 0;
+  }
+  .page-content{
+    padding: 0;
+  }
+  .row-content{
+    border-bottom:1px solid #d3d3d3;
+    padding: 0;
+  }
+  .page-point{
+      color:#e4393c;
+      font-size:1.6rem;
+      line-height: 23px;
+      text-align: center;
+  }
+  .page-date{
+      color: #999;
+  }
+}
+

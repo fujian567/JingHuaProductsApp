@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>选择地区</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content class="part-content">
+  <ion-item-group class="item-group" *ngFor="let item of location" (click)="unfold($event)">
+    <button ion-item>
+      <ion-label>{{item.area}}</ion-label>
+    </button>
+    <ion-item *ngFor="let pro of item.provinces">
+      <ion-label>{{pro.name}}</ion-label>
+      <ion-checkbox disabled="{{pro.dischecked}}" checked="{{pro.checked}}" (ionChange)="updateCucumber(pro.name,pro.itemid,pro.rclassId,$event)"></ion-checkbox>
+    </ion-item>
+  </ion-item-group>  
+</ion-content>
+<ion-footer>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-6 style="border-right:0.55px solid #d6d6d6;text-align:center;">
+        <button ion-button clear class="button-color" (click)="cancel()">取消</button>
+      </ion-col>
+      <ion-col col-6 style="text-align:center;">
+        <button ion-button clear class="button-color" (click)="confirmData()">确定</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

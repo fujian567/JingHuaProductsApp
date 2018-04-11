@@ -1,0 +1,21 @@
+<ion-header>
+    <ion-navbar>
+      <ion-title class="part-title">申请原因
+      </ion-title>
+      <ion-buttons end>
+        <button ion-button icon-only (click)="closePop()">
+          <ion-icon name="close"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+  </ion-header>
+  <ion-content>
+    <ion-grid style="padding-left:16px;">
+      <ion-row class="p-r-list">
+        <ion-item class="ad-p-c-item" (click)="selectReason('7天无理由退货')">7天无理由退货</ion-item>
+        <ion-item class="ad-p-c-item" (click)="selectReason('少发/漏发')">少发/漏发</ion-item>
+        <ion-item class="ad-p-c-item" (click)="selectReason('包装/商品破损/污渍')">包装/商品破损/污渍</ion-item>
+        <ion-item class="ad-p-c-item" (click)="selectReason('发错货')">发错货</ion-item>
+      </ion-row>
+    </ion-grid>
+  </ion-content>

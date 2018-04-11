@@ -1,0 +1,83 @@
+<!--
+  Generated template for the AdminlogisticsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>物流详情</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content >
+  <ion-grid class="goods-grid">
+    <ion-row>
+      <ion-col col-8>订单编号：{{pagedatamodle.ordernum}}</ion-col>
+      <ion-col col-4></ion-col>
+    </ion-row>
+    <ion-row class="goods-line">
+      <ion-col col-4 class="border-padding">
+        <img src="{{pagedatamodle.goodsImg}}" class="goods-img">
+      </ion-col>
+      <ion-col col-8 class="border-padding">
+        <ion-row>
+          <ion-col col-12 class="goods-name">{{pagedatamodle.goodsName}}</ion-col>
+          <ion-col col-12 class="goods-othername">{{pagedatamodle.goodsSpec}}</ion-col>
+          <ion-col col-12 class="goods-othername">{{pagedatamodle.approved}}</ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12 class="list-title">共{{pagedatamodle.goodsNum}}件商品 合计¥{{pagedatamodle.price}}（含运费¥0.00）</ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="loc-grid">
+    <ion-row style="padding-bottom:10px;">
+      <ion-col col-2></ion-col>
+      <ion-col col-1 class="icon-pos">
+        <ion-icon name="pin"></ion-icon>
+      </ion-col>
+      <ion-col col-8 class="address-txt">[收货地址]甘肃省兰州市七里河区火星街255号</ion-col>
+    </ion-row>
+    <ion-row class="log-row" *ngFor="let item of logisticsData">
+      <ion-col *ngIf="item.status==1" col-2 class="log-date-e">
+        <ion-row>
+          <ion-col col-12 class="date">{{item.date}}</ion-col>
+          <ion-col col-12 class="time">{{item.time}}</ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col *ngIf="item.status==0" col-2 class="log-date">
+        <ion-row>
+          <ion-col col-12 class="date">{{item.date}}</ion-col>
+          <ion-col col-12 class="time">{{item.time}}</ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col *ngIf="item.status==1" col-1 class="icon-pos-list">
+        <ion-icon class="icon-e" name="checkmark-circle"></ion-icon>
+        <div class="whitebg"></div>
+        <div class="line-e"></div>
+      </ion-col>
+      <ion-col *ngIf="item.status==0" col-1 class="icon-pos-list">
+        <ion-icon class="icon" name="arrow-dropup-circle"></ion-icon>
+        <div class="whitebg"></div>
+        <div class="line"></div>
+      </ion-col>
+      <ion-col *ngIf="item.status==1" col-8 class="info-txt-e">{{item.log}}</ion-col>
+      <ion-col *ngIf="item.status==0" col-8 class="info-txt">{{item.log}}</ion-col>
+    </ion-row>
+    <ion-row class="log-row">
+      <ion-col col-2 class="log-date">
+        <ion-row>
+          <ion-col col-12 class="date">04-08</ion-col>
+          <ion-col col-12 class="time">07:46</ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col col-1 class="icon-pos-list">
+        <ion-icon class="icon" name="arrow-dropup-circle"></ion-icon>
+        <div class="whitebg"></div>
+        <div class="line-f"></div>
+      </ion-col>
+      <ion-col col-8 class="info-txt">已发货</ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
