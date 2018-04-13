@@ -28,6 +28,7 @@ export class GoodscategoryPage {
     PageIndex: 1,
     PageSize: 24
   }
+  
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,

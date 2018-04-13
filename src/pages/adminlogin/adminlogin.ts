@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,App } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 import { AppConfig } from '../../app/app.config';
 import { AppService, AppGlobal } from './../../app/app.service';
 import { Storage } from '@ionic/storage';
@@ -18,7 +18,7 @@ export class AdminloginPage {
     AccountName: '',
     AccountPwd: '',
     PlatformType_L: '2',
-    SalesmanCode:'业务员'
+    SalesmanCode: '业务员'
   }
   constructor(
     public navCtrl: NavController,
@@ -27,11 +27,11 @@ export class AdminloginPage {
     public appService: AppService,
     public app: App,
     private storage: Storage) {
-      this.storage.get('u_token').then((val) => {
-        if (val != null) {
-          this.accountStatus(val);
-        }
-      });
+    this.storage.get('u_token').then((val) => {
+      if (val != null) {
+        this.accountStatus(val);
+      }
+    });
   }
   accountStatus(u_token) {
     this.appService.httpGet_token(AppGlobal.API.getAccountStatus, u_token, {}, rs => {
@@ -59,7 +59,7 @@ export class AdminloginPage {
         });
         this.navCtrl.setRoot('AdminhomePage');
       } else {
-        this.appConfigCtrl.popAlertView('登录失败，请输入正确的用户名、密码和业务员编号');
+        this.appConfigCtrl.popAlertView(rs.errorMessage);
       }
     }, true)
   }
@@ -68,9 +68,9 @@ export class AdminloginPage {
       this.appConfigCtrl.popAlertView('请输入你的账户名');
     } else if (this.UsersLoginViewModel.AccountPwd.length == 0) {
       this.appConfigCtrl.popAlertView('请输入你的密码');
-    } else if(this.UsersLoginViewModel.SalesmanCode.length == 0){
+    } else if (this.UsersLoginViewModel.SalesmanCode.length == 0) {
       this.appConfigCtrl.popAlertView('请输入你的业务编码');
-    }else{
+    } else {
       this.loginCallback()
     }
   }

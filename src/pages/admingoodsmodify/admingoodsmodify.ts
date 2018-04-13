@@ -291,6 +291,8 @@ export class AdmingoodsmodifyPage {
       }
       if (rs.isSuccess) {
         this.navCtrl.push('AdmingoodslistPage');
+      }else {
+        this.appConfigCtrl.popAlertView(rs.errorMessage);
       }
     }, true)
 

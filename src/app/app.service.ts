@@ -1,6 +1,7 @@
 import { LoadingController, AlertController, ToastController } from 'ionic-angular';
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
+
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
@@ -15,6 +16,8 @@ export class AppGlobal {
     //接口基地址
     //static domain = 'http://101.132.106.0'
     static domain = 'http://125.74.9.49:7768'
+    static domainimage = 'http://125.74.9.49:7769/'
+    static domainvideo = 'http://125.74.9.49:7769/'
     //接口地址
     static API: any = {
         getAccountStatus: '/api/customer/account/state/',//获取账户状态
@@ -62,6 +65,7 @@ export class AppGlobal {
         postReturnApply: '/api/order/refund/postinfo/', //退货申请
         getMyPointInfo: '/api/customer/integralrecords/info/', //获取积分
         postGoodsSQ: '/api/products/upc/Info/', //获取二维码商品
+        postGoodsComment: '/api/order/commassessment/info/', //获取商品评价
 
         postUeserlogin: '/api/users/login/post/',//管-登录
         getFbenterpriseWait: '/api/enterprise/fbenterprise/minfo/',//管-首营审核

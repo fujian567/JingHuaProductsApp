@@ -150,10 +150,10 @@ export class AdminauditinfodetailPage {
         }
         if (rs.isSuccess) {
           this.navCtrl.push('AdminauditinfolistPage');
-        } else {
-          this.appConfig.popAlertView('网络错误，请稍后再试！')
+        }else {
+          this.appConfig.popAlertView(rs.errorMessage);
         }
-      })
+      },true)
     })
   }
   showOriginal(myImage) {
@@ -204,7 +204,7 @@ export class AdminauditinfodetailPage {
         if (rs.isSuccess) {
           this.navCtrl.push('AdminauditinfolistPage');
         } else {
-          this.appConfig.popAlertView('审核失败，请稍后重试')
+          this.appConfig.popAlertView(rs.errorMessage);
         }
       }, true)
     }
@@ -285,7 +285,7 @@ export class AdminauditinfodetailPage {
         if (rs.isSuccess) {
           this.navCtrl.push('AdminauditinfolistPage');
         } else {
-          this.appConfig.popAlertView('审核失败，请稍后重试')
+          this.appConfig.popAlertView(rs.errorMessage);
         }
       }, true)
     }

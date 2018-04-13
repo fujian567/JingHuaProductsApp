@@ -187,6 +187,8 @@ export class AdminpublisheditPage {
       }
       if (rs.isSuccess) {
         this.navCtrl.push('AdminpublishlistPage');
+      }else {
+        this.appConfigCtrl.popAlertView(rs.errorMessage);
       }
     }, true)
   }
@@ -199,6 +201,8 @@ export class AdminpublisheditPage {
         }
         if (rs.isSuccess) {
           this.navCtrl.push('AdminpublishlistPage');
+        }else {
+          this.appConfigCtrl.popAlertView(rs.errorMessage);
         }
       }, true)
     });

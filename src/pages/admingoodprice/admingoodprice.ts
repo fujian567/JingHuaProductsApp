@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController,App } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController, App } from 'ionic-angular';
 import { AppConfig } from '../../app/app.config';
 import { AppService, AppGlobal } from './../../app/app.service';
 import { Storage } from '@ionic/storage';
@@ -73,7 +73,7 @@ export class AdmingoodpricePage {
       if (rs.isSuccess) {
         if (rs.objectData.length > 0) {
           this.locationPrice = rs.objectData;
-          this.alreadyItemID=[]
+          this.alreadyItemID = []
           for (let i = 0; i < rs.objectData.length; i++) {
             this.alreadyItemID.push(rs.objectData[i].provinceId)
           }
@@ -82,7 +82,7 @@ export class AdmingoodpricePage {
     })
   }
   addtionprice() {
-    console.log( this.alreadyItemID)
+    console.log(this.alreadyItemID)
     let popover = this.popoverCtrl.create('AdminPartLocationpricePage', { popPageParmas: this.popPageParmas, alreadyItemID: this.alreadyItemID }, {
       cssClass: 'pricestyle',
       showBackdrop: true,
@@ -97,21 +97,21 @@ export class AdmingoodpricePage {
   }
   deleteParmas(item: any) {
     this.appConfigCtrl.popAlertConfirmView('你确定要删除该价格吗？', '我在考虑下', '立刻删除', () => {
-      this.appService.httpPost_token(AppGlobal.API.getGoodsPriceDet, this.u_token, { priceId:item.priceId }, rs => {
+      this.appService.httpPost_token(AppGlobal.API.getGoodsPriceDet, this.u_token, { priceId: item.priceId }, rs => {
         if (rs.status == 401 || rs.status == 403) {
           this.app.getRootNav().setRoot('AdminloginPage');
         }
         if (rs.isSuccess) {
           this.getLocationPrice(this.u_token);
         } else {
-          this.appConfigCtrl.popAlertView('删除失败，请稍后重试或者联系管理员！');
+          this.appConfigCtrl.popAlertView(rs.errorMessage);
         }
       }, true)
     });
   }
   subimtData(submitData: any) {
     let submitArray: any = [];
-    if(submitData!=undefined){
+    if (submitData != undefined) {
       for (let i = 0; i < submitData.selectLocatioObj.length; i++) {
         let ProductRegionalPrice: any = {
           PriceId: this._guid,
@@ -134,7 +134,10 @@ export class AdmingoodpricePage {
         }
         if (rs.isSuccess) {
           this.getLocationPrice(this.u_token);
+        } else {
+          this.appConfigCtrl.popAlertView(rs.errorMessage);
         }
+
       }, true)
     }
   }

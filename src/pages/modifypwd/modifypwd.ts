@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,App } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { AppStaticConfig, AppConfig } from '../../app/app.config';
 import { AppService, AppGlobal } from './../../app/app.service';
@@ -40,7 +40,7 @@ export class ModifypwdPage {
     private storageCtrl: Storage,
     private appConfigCtrl: AppConfig,
     public appService: AppService,
-    public app:App,
+    public app: App,
     public navParams: NavParams) {
     this.storageCtrl.get('c_token').then((val) => {
       this.c_token = val;
@@ -134,8 +134,8 @@ export class ModifypwdPage {
         this.appConfigCtrl.popAlertView('修改成功，请重新你登录')
         this.app.getRootNav().setRoot('LoginPage');
       } else {
+        this.appConfigCtrl.popAlertView(rs.errorMessage);
         console.log(rs)
-        this.appConfigCtrl.popAlertView('修改失败，请检查您的验证码是否正确，稍后再试！');
       }
     }, true)
   }

@@ -15,16 +15,18 @@ import { MultiPickerModule } from 'ion-multi-picker';
 import { SQLite } from "@ionic-native/sqlite";
 import { DataProvider } from './app.sql';
 import { ScreenOrientation } from "@ionic-native/screen-orientation";
-// import { AppVersion } from "@ionic-native/app-version";
+import { NativeService } from '../providers/NativeService'
+import { AppVersion } from "@ionic-native/app-version";
 // import { AppUpdate } from "@ionic-native/app-update";
-// import { FileOpener } from "@ionic-native/file-opener";
-// import { File } from "@ionic-native/file";
-// import { FileTransfer, FileTransferObject } from "@ionic-native/file-transfer";
-// import { Network } from "@ionic-native/network";
+import { FileOpener } from "@ionic-native/file-opener";
+import { File } from "@ionic-native/file";
+import { FileTransfer, FileTransferObject } from "@ionic-native/file-transfer";
+import { Network } from "@ionic-native/network";
 // import { SQLitePorter } from '@ionic-native/sqlite-porter';
 import { CallNumber } from '@ionic-native/call-number';
 import { MultiPicker } from 'ion-multi-picker';
 import { QRScanner } from '@ionic-native/qr-scanner';
+import { InAppBrowser } from "@ionic-native/in-app-browser";
 
 @NgModule({
   declarations: [
@@ -61,15 +63,19 @@ import { QRScanner } from '@ionic-native/qr-scanner';
     SQLite,
     DataProvider,
     ScreenOrientation,
-    // AppVersion,
-    // FileOpener,
-    //File,
-    // FileTransfer,
-    // FileTransferObject,
-    // AppUpdate,
-    // Network,
+    AppVersion,
+    FileOpener,
+    File,
+    FileTransfer,
+    FileTransferObject,
+    //AppUpdate,
+    Network,
     // SQLitePorter,
-    CallNumber,MultiPicker,QRScanner,
+    CallNumber,
+    MultiPicker,
+    QRScanner,
+    NativeService,
+    InAppBrowser,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

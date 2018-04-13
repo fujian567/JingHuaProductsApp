@@ -243,6 +243,8 @@ export class AdmingoodputawayPage {
         this.goodsListD=[];
         this.getGoodsList(this.classOpt, 'putAway')
         this.getGoodsListD(this.classOpt, 'soldOut')
+      }else {
+        this.appConfigCtrl.popAlertView(rs.errorMessage);
       }
     }, true)
   }

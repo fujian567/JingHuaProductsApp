@@ -114,8 +114,9 @@ export class AccpuntinformationPage {
     });
   }
   onAddImage() {
-    if (this.imagesPath.length > 5) {
+    if (this.imagesPath.length > 4) {
       this.appConfigCtrl.popAlertView('您最多只能上传5张图片');
+      return;
     } else {
       let actionSheet = this.actionSheetCtrl.create({
         buttons: [
@@ -224,7 +225,8 @@ export class AccpuntinformationPage {
             auditStatus: true
           });
         } else {
-          this.imagesTempPath = [];
+          this.appConfigCtrl.popAlertView(rs.errorMessage);
+          //this.imagesTempPath = [];
         }
       }, true)
     }

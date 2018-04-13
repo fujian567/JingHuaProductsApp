@@ -1,9 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, App,Navbar } from 'ionic-angular';
-import { AppConfig } from '../../app/app.config';
+import { IonicPage, NavController, NavParams, App, Navbar } from 'ionic-angular';
+import { AppConfig,AppStaticConfig } from '../../app/app.config';
 import { AppService, AppGlobal } from './../../app/app.service';
 import { Storage } from '@ionic/storage';
 import { ImageViewerController } from 'ionic-img-viewer';
+import { DomSanitizer } from '@angular/platform-browser';  
 /**
 客户端：商品详情
  */
@@ -41,125 +42,116 @@ export class GoodsdetailPage {
     commName: '',
     approvedNumName: '',
     address: '',
-    enterprisesName: ''
+    enterprisesName: '',
+    goodsDetail:''
   }
   imagesList_DetailPage: any[] = [];
   CommParamId: any;
-  Goodscomment: any = [
-    {
-      content: '决定买手机的时候，我连小米官网一块看了，但是后来还是决定在京东买，京东的商品服务好售后也好，虽然同样价钱的手机，小米官网比就能多给两样东西，分期也多六个月，但是想来想去还是决定在京东买，京东我信赖，我支持。 新出的黑色小米max2使用上和感官上感觉上很不错，没有小米max1土豪金那种俗色，毕竟黑色看上去很稳重很大气的，电池不仅比以前大了待机久了，就连充电口都改成type-c的了，无论是使用上还是待机上，又或者是外观和手感上，及重量上感觉都很不错。只是不知道什么时候小米也能换上京东方的屏。',
-      personImg: 'assets/imgs/nnzchykl.jpg',
-      personName: '测试人员',
-      rate: '5',
-      point: '100',
-      goodsName: '王氏保赤丸',
-      goodsNum: '200',
-      ImageList: ['assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg']
-    }, {
-      content: '决定买手机的时候，我连小米官网一块看了，但是后来还是决定在京东买，京东的商品服务好售后也好，虽然同样价钱的手机，小米官网比就能多给两样东西，分期也多六个月，但是想来想去还是决定在京东买，京东我信赖，我支持。 新出的黑色小米max2使用上和感官上感觉上很不错，没有小米max1土豪金那种俗色，毕竟黑色看上去很稳重很大气的，电池不仅比以前大了待机久了，就连充电口都改成type-c的了，无论是使用上还是待机上，又或者是外观和手感上，及重量上感觉都很不错。只是不知道什么时候小米也能换上京东方的屏。',
-      personImg: 'assets/imgs/nnzchykl.jpg',
-      personName: '测试人员',
-      rate: '5',
-      point: '100',
-      goodsName: '王氏保赤丸',
-      goodsNum: '200',
-      ImageList: ['assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg']
-    }, {
-      content: '决定买手机的时候，我连小米官网一块看了，但是后来还是决定在京东买，京东的商品服务好售后也好，虽然同样价钱的手机，小米官网比就能多给两样东西，分期也多六个月，但是想来想去还是决定在京东买，京东我信赖，我支持。 新出的黑色小米max2使用上和感官上感觉上很不错，没有小米max1土豪金那种俗色，毕竟黑色看上去很稳重很大气的，电池不仅比以前大了待机久了，就连充电口都改成type-c的了，无论是使用上还是待机上，又或者是外观和手感上，及重量上感觉都很不错。只是不知道什么时候小米也能换上京东方的屏。',
-      personImg: 'assets/imgs/nnzchykl.jpg',
-      personName: '测试人员',
-      rate: '5',
-      point: '100',
-      goodsName: '王氏保赤丸',
-      goodsNum: '200',
-      ImageList: ['assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg']
-    }, {
-      content: '决定买手机的时候，我连小米官网一块看了，但是后来还是决定在京东买，京东的商品服务好售后也好，虽然同样价钱的手机，小米官网比就能多给两样东西，分期也多六个月，但是想来想去还是决定在京东买，京东我信赖，我支持。 新出的黑色小米max2使用上和感官上感觉上很不错，没有小米max1土豪金那种俗色，毕竟黑色看上去很稳重很大气的，电池不仅比以前大了待机久了，就连充电口都改成type-c的了，无论是使用上还是待机上，又或者是外观和手感上，及重量上感觉都很不错。只是不知道什么时候小米也能换上京东方的屏。',
-      personImg: 'assets/imgs/nnzchykl.jpg',
-      personName: '测试人员',
-      rate: '5',
-      point: '100',
-      goodsName: '王氏保赤丸',
-      goodsNum: '200',
-      ImageList: ['assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg']
-    }, {
-      content: '决定买手机的时候，我连小米官网一块看了，但是后来还是决定在京东买，京东的商品服务好售后也好，虽然同样价钱的手机，小米官网比就能多给两样东西，分期也多六个月，但是想来想去还是决定在京东买，京东我信赖，我支持。 新出的黑色小米max2使用上和感官上感觉上很不错，没有小米max1土豪金那种俗色，毕竟黑色看上去很稳重很大气的，电池不仅比以前大了待机久了，就连充电口都改成type-c的了，无论是使用上还是待机上，又或者是外观和手感上，及重量上感觉都很不错。只是不知道什么时候小米也能换上京东方的屏。',
-      personImg: 'assets/imgs/nnzchykl.jpg',
-      personName: '测试人员',
-      rate: '5',
-      point: '100',
-      goodsName: '王氏保赤丸',
-      goodsNum: '200',
-      ImageList: ['assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg']
-    }, {
-      content: '决定买手机的时候，我连小米官网一块看了，但是后来还是决定在京东买，京东的商品服务好售后也好，虽然同样价钱的手机，小米官网比就能多给两样东西，分期也多六个月，但是想来想去还是决定在京东买，京东我信赖，我支持。 新出的黑色小米max2使用上和感官上感觉上很不错，没有小米max1土豪金那种俗色，毕竟黑色看上去很稳重很大气的，电池不仅比以前大了待机久了，就连充电口都改成type-c的了，无论是使用上还是待机上，又或者是外观和手感上，及重量上感觉都很不错。只是不知道什么时候小米也能换上京东方的屏。',
-      personImg: 'assets/imgs/nnzchykl.jpg',
-      personName: '测试人员',
-      rate: '5',
-      point: '100',
-      goodsName: '王氏保赤丸',
-      goodsNum: '200',
-      ImageList: ['assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg']
-    }, {
-      content: '决定买手机的时候，我连小米官网一块看了，但是后来还是决定在京东买，京东的商品服务好售后也好，虽然同样价钱的手机，小米官网比就能多给两样东西，分期也多六个月，但是想来想去还是决定在京东买，京东我信赖，我支持。 新出的黑色小米max2使用上和感官上感觉上很不错，没有小米max1土豪金那种俗色，毕竟黑色看上去很稳重很大气的，电池不仅比以前大了待机久了，就连充电口都改成type-c的了，无论是使用上还是待机上，又或者是外观和手感上，及重量上感觉都很不错。只是不知道什么时候小米也能换上京东方的屏。',
-      personImg: 'assets/imgs/nnzchykl.jpg',
-      personName: '测试人员',
-      rate: '5',
-      point: '100',
-      goodsName: '王氏保赤丸',
-      goodsNum: '200',
-      ImageList: ['assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg']
-    }, {
-      content: '决定买手机的时候，我连小米官网一块看了，但是后来还是决定在京东买，京东的商品服务好售后也好，虽然同样价钱的手机，小米官网比就能多给两样东西，分期也多六个月，但是想来想去还是决定在京东买，京东我信赖，我支持。 新出的黑色小米max2使用上和感官上感觉上很不错，没有小米max1土豪金那种俗色，毕竟黑色看上去很稳重很大气的，电池不仅比以前大了待机久了，就连充电口都改成type-c的了，无论是使用上还是待机上，又或者是外观和手感上，及重量上感觉都很不错。只是不知道什么时候小米也能换上京东方的屏。',
-      personImg: 'assets/imgs/nnzchykl.jpg',
-      personName: '测试人员',
-      rate: '5',
-      point: '100',
-      goodsName: '王氏保赤丸',
-      goodsNum: '200',
-      ImageList: ['assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg']
-    }, {
-      content: '决定买手机的时候，我连小米官网一块看了，但是后来还是决定在京东买，京东的商品服务好售后也好，虽然同样价钱的手机，小米官网比就能多给两样东西，分期也多六个月，但是想来想去还是决定在京东买，京东我信赖，我支持。 新出的黑色小米max2使用上和感官上感觉上很不错，没有小米max1土豪金那种俗色，毕竟黑色看上去很稳重很大气的，电池不仅比以前大了待机久了，就连充电口都改成type-c的了，无论是使用上还是待机上，又或者是外观和手感上，及重量上感觉都很不错。只是不知道什么时候小米也能换上京东方的屏。',
-      personImg: 'assets/imgs/nnzchykl.jpg',
-      personName: '测试人员',
-      rate: '5',
-      point: '100',
-      goodsName: '王氏保赤丸',
-      goodsNum: '200',
-      ImageList: ['assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg']
-    }, {
-      content: '决定买手机的时候，我连小米官网一块看了，但是后来还是决定在京东买，京东的商品服务好售后也好，虽然同样价钱的手机，小米官网比就能多给两样东西，分期也多六个月，但是想来想去还是决定在京东买，京东我信赖，我支持。 新出的黑色小米max2使用上和感官上感觉上很不错，没有小米max1土豪金那种俗色，毕竟黑色看上去很稳重很大气的，电池不仅比以前大了待机久了，就连充电口都改成type-c的了，无论是使用上还是待机上，又或者是外观和手感上，及重量上感觉都很不错。只是不知道什么时候小米也能换上京东方的屏。',
-      personImg: 'assets/imgs/nnzchykl.jpg',
-      personName: '测试人员',
-      rate: '5',
-      point: '100',
-      goodsName: '王氏保赤丸',
-      goodsNum: '200',
-      ImageList: ['assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg']
-    },
-
-  ];
-  tempComment:any=[];
+  Goodscomments: any = [];
+  GoodsCommentNum: any = '0';
+  tempComment: any = [];
+  imageUrl:any='';
+  // Goodscomment: any = [
+  //   {
+  //     assessmentContent: '决定买手机的时候，我连小米官网一块看了，但是后来还是决定在京东买，京东的商品服务好售后也好，虽然同样价钱的手机，小米官网比就能多给两样东西，分期也多六个月，但是想来想去还是决定在京东买，京东我信赖，我支持。 新出的黑色小米max2使用上和感官上感觉上很不错，没有小米max1土豪金那种俗色，毕竟黑色看上去很稳重很大气的，电池不仅比以前大了待机久了，就连充电口都改成type-c的了，无论是使用上还是待机上，又或者是外观和手感上，及重量上感觉都很不错。只是不知道什么时候小米也能换上京东方的屏。',
+  //     personImg: 'assets/imgs/nnzchykl.jpg',
+  //     personName: '测试人员',
+  //     assessmentScore: '100',
+  //     assessmentCreateDate: '2018-04-08',
+  //     ImageList: ['assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg']
+  //   }, {
+  //     assessmentContent: '决定买手机的时候，我连小米官网一块看了，但是后来还是决定在京东买，京东的商品服务好售后也好，虽然同样价钱的手机，小米官网比就能多给两样东西，分期也多六个月，但是想来想去还是决定在京东买，京东我信赖，我支持。 新出的黑色小米max2使用上和感官上感觉上很不错，没有小米max1土豪金那种俗色，毕竟黑色看上去很稳重很大气的，电池不仅比以前大了待机久了，就连充电口都改成type-c的了，无论是使用上还是待机上，又或者是外观和手感上，及重量上感觉都很不错。只是不知道什么时候小米也能换上京东方的屏。',
+  //     personImg: 'assets/imgs/nnzchykl.jpg',
+  //     personName: '测试人员',
+  //     assessmentScore: '100',
+  //     assessmentCreateDate: '2018-04-08',
+  //     ImageList: ['assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg']
+  //   }, {
+  //     assessmentContent: '决定买手机的时候，我连小米官网一块看了，但是后来还是决定在京东买，京东的商品服务好售后也好，虽然同样价钱的手机，小米官网比就能多给两样东西，分期也多六个月，但是想来想去还是决定在京东买，京东我信赖，我支持。 新出的黑色小米max2使用上和感官上感觉上很不错，没有小米max1土豪金那种俗色，毕竟黑色看上去很稳重很大气的，电池不仅比以前大了待机久了，就连充电口都改成type-c的了，无论是使用上还是待机上，又或者是外观和手感上，及重量上感觉都很不错。只是不知道什么时候小米也能换上京东方的屏。',
+  //     personImg: 'assets/imgs/nnzchykl.jpg',
+  //     personName: '测试人员',
+  //     assessmentScore: '100',
+  //     assessmentCreateDate: '2018-04-08',
+  //     ImageList: ['assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg']
+  //   }, {
+  //     assessmentContent: '决定买手机的时候，我连小米官网一块看了，但是后来还是决定在京东买，京东的商品服务好售后也好，虽然同样价钱的手机，小米官网比就能多给两样东西，分期也多六个月，但是想来想去还是决定在京东买，京东我信赖，我支持。 新出的黑色小米max2使用上和感官上感觉上很不错，没有小米max1土豪金那种俗色，毕竟黑色看上去很稳重很大气的，电池不仅比以前大了待机久了，就连充电口都改成type-c的了，无论是使用上还是待机上，又或者是外观和手感上，及重量上感觉都很不错。只是不知道什么时候小米也能换上京东方的屏。',
+  //     personImg: 'assets/imgs/nnzchykl.jpg',
+  //     personName: '测试人员',
+  //     assessmentScore: '100',
+  //     assessmentCreateDate: '2018-04-08',
+  //     ImageList: ['assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg']
+  //   }, {
+  //     assessmentContent: '决定买手机的时候，我连小米官网一块看了，但是后来还是决定在京东买，京东的商品服务好售后也好，虽然同样价钱的手机，小米官网比就能多给两样东西，分期也多六个月，但是想来想去还是决定在京东买，京东我信赖，我支持。 新出的黑色小米max2使用上和感官上感觉上很不错，没有小米max1土豪金那种俗色，毕竟黑色看上去很稳重很大气的，电池不仅比以前大了待机久了，就连充电口都改成type-c的了，无论是使用上还是待机上，又或者是外观和手感上，及重量上感觉都很不错。只是不知道什么时候小米也能换上京东方的屏。',
+  //     personImg: 'assets/imgs/nnzchykl.jpg',
+  //     personName: '测试人员',
+  //     assessmentScore: '100',
+  //     assessmentCreateDate: '2018-04-08',
+  //     ImageList: ['assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg']
+  //   }, {
+  //     assessmentContent: '决定买手机的时候，我连小米官网一块看了，但是后来还是决定在京东买，京东的商品服务好售后也好，虽然同样价钱的手机，小米官网比就能多给两样东西，分期也多六个月，但是想来想去还是决定在京东买，京东我信赖，我支持。 新出的黑色小米max2使用上和感官上感觉上很不错，没有小米max1土豪金那种俗色，毕竟黑色看上去很稳重很大气的，电池不仅比以前大了待机久了，就连充电口都改成type-c的了，无论是使用上还是待机上，又或者是外观和手感上，及重量上感觉都很不错。只是不知道什么时候小米也能换上京东方的屏。',
+  //     personImg: 'assets/imgs/nnzchykl.jpg',
+  //     personName: '测试人员',
+  //     assessmentScore: '100',
+  //     assessmentCreateDate: '2018-04-08',
+  //     ImageList: ['assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg']
+  //   }, {
+  //     assessmentContent: '决定买手机的时候，我连小米官网一块看了，但是后来还是决定在京东买，京东的商品服务好售后也好，虽然同样价钱的手机，小米官网比就能多给两样东西，分期也多六个月，但是想来想去还是决定在京东买，京东我信赖，我支持。 新出的黑色小米max2使用上和感官上感觉上很不错，没有小米max1土豪金那种俗色，毕竟黑色看上去很稳重很大气的，电池不仅比以前大了待机久了，就连充电口都改成type-c的了，无论是使用上还是待机上，又或者是外观和手感上，及重量上感觉都很不错。只是不知道什么时候小米也能换上京东方的屏。',
+  //     personImg: 'assets/imgs/nnzchykl.jpg',
+  //     personName: '测试人员',
+  //     assessmentScore: '100',
+  //     assessmentCreateDate: '2018-04-08',
+  //     ImageList: ['assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg']
+  //   }, {
+  //     assessmentContent: '决定买手机的时候，我连小米官网一块看了，但是后来还是决定在京东买，京东的商品服务好售后也好，虽然同样价钱的手机，小米官网比就能多给两样东西，分期也多六个月，但是想来想去还是决定在京东买，京东我信赖，我支持。 新出的黑色小米max2使用上和感官上感觉上很不错，没有小米max1土豪金那种俗色，毕竟黑色看上去很稳重很大气的，电池不仅比以前大了待机久了，就连充电口都改成type-c的了，无论是使用上还是待机上，又或者是外观和手感上，及重量上感觉都很不错。只是不知道什么时候小米也能换上京东方的屏。',
+  //     personImg: 'assets/imgs/nnzchykl.jpg',
+  //     personName: '测试人员',
+  //     rate: '5',
+  //     assessmentScore: '80',
+  //     assessmentCreateDate: '2018-04-08',
+  //     ImageList: ['assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg']
+  //   }, {
+  //     assessmentContent: '决定买手机的时候，我连小米官网一块看了，但是后来还是决定在京东买，京东的商品服务好售后也好，虽然同样价钱的手机，小米官网比就能多给两样东西，分期也多六个月，但是想来想去还是决定在京东买，京东我信赖，我支持。 新出的黑色小米max2使用上和感官上感觉上很不错，没有小米max1土豪金那种俗色，毕竟黑色看上去很稳重很大气的，电池不仅比以前大了待机久了，就连充电口都改成type-c的了，无论是使用上还是待机上，又或者是外观和手感上，及重量上感觉都很不错。只是不知道什么时候小米也能换上京东方的屏。',
+  //     personImg: 'assets/imgs/nnzchykl.jpg',
+  //     personName: '测试人员',
+  //     assessmentScore: '80',
+  //     assessmentCreateDate: '2018-04-08',
+  //     ImageList: ['assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg']
+  //   }, {
+  //     assessmentContent: '决定买手机的时候，我连小米官网一块看了，但是后来还是决定在京东买，京东的商品服务好售后也好，虽然同样价钱的手机，小米官网比就能多给两样东西，分期也多六个月，但是想来想去还是决定在京东买，京东我信赖，我支持。 新出的黑色小米max2使用上和感官上感觉上很不错，没有小米max1土豪金那种俗色，毕竟黑色看上去很稳重很大气的，电池不仅比以前大了待机久了，就连充电口都改成type-c的了，无论是使用上还是待机上，又或者是外观和手感上，及重量上感觉都很不错。只是不知道什么时候小米也能换上京东方的屏。',
+  //     personImg: 'assets/imgs/nnzchykl.jpg',
+  //     personName: '测试人员',
+  //     assessmentScore: '100',
+  //     assessmentCreateDate: '2018-04-08',
+  //     ImageList: ['assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg', 'assets/imgs/nnzchykl.jpg']
+  //   },
+  // ];
   constructor(
     public navCtrl: NavController,
     private appConfigCtrl: AppConfig,
     public appService: AppService,
     private storageCtrl: Storage,
     public imageViewerCtrl: ImageViewerController,
+    private domSanitizer: DomSanitizer,
     public app: App,
     public navParams: NavParams) {
-    this.storageCtrl.get('c_token').then((val) => {
-      this.c_token = val;
-      this.getGoodsDetail(val)
-    });
+      this.imageUrl=AppGlobal.domainimage;
+    if (this.navParams.get('item') != undefined) {
+      this.CommParamId = this.navParams.get('item').commParamId;
+      this.storageCtrl.get('c_token').then((val) => {
+        this.c_token = val;
+        this.getGoodsComments(val, this.CommParamId)
+        this.getGoodsDetail(val, this.CommParamId)
+      });
+    } else {
+      this.navCtrl.pop();
+    }
+
     // this.storageCtrl.get('c_account').then((val) => {
     //   this.SCInfoViewModel.AccountId = val;
     // });
     // this.CommParamId = '6c7785ab-812c-423f-be62-44cd9d5cc731'
-    if(this.navParams.get('item')!=undefined){
-      this.CommParamId=this.navParams.get('item').commParamId;
-    }
-    this.tempComment=this.Goodscomment.slice(0,2)
+
+    //this.tempComment = this.Goodscomment.slice(0, 2)
   }
   ionViewDidLoad() {
     this.navBar.backButtonClick = this.backButtonClick;
@@ -167,8 +159,8 @@ export class GoodsdetailPage {
   backButtonClick = (e: UIEvent) => {
     this.navCtrl.push('TabsPage');
   }
-  getGoodsDetail(c_token) {
-    this.appService.httpPost_token(AppGlobal.API.postGoodsDetailInfoC, c_token, { commParamId: this.CommParamId }, rs => {
+  getGoodsDetail(c_token, commParamId) {
+    this.appService.httpPost_token(AppGlobal.API.postGoodsDetailInfoC, c_token, { commParamId: commParamId }, rs => {
       console.log(rs)
       if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
@@ -188,9 +180,10 @@ export class GoodsdetailPage {
           this.SCInfoViewModel.address = rs.objectData.address;
           this.SCInfoViewModel.enterprisesName = rs.objectData.enterprisesName;
           this.rate = rs.objectData.transactionScore;
+          this.SCInfoViewModel.goodsDetail='<p style="text-align: center;"><video class="edui-upload-video  vjs-default-skin video-js" controls="" preload="none" width="420" height="280" src="/server/ueditor/upload/video/video.mp4" data-setup="{}"></video></p><p>这是编辑器里面的视频，测试测试客户快速打开空空荡荡开始经典款手机的垃圾堆里姐姐撒娇大家了大空间的设计大奖基督教大家的设计就打击打击打击顶级阿就打击的空间经典款经典卡是经典款姐姐啊款设计大赛经典款</p>';
         }
       }
-    })
+    }, true);
   }
   addshoppingcart() {
     this.appService.httpPost_token(AppGlobal.API.postShoppingCartInfo, this.c_token, { sCInfo: this.SCInfoViewModel }, rs => {
@@ -226,4 +219,44 @@ export class GoodsdetailPage {
     refresher.complete();
     this.modelbox = "goods";
   }
+  getGoodsComments(c_token, commParamId) {
+    this.appService.httpPost_token(AppGlobal.API.postGoodsComment, c_token, { commparamId: commParamId }, rs => {
+      console.log(rs)
+      if (rs.status == 401 || rs.status == 403) {
+        this.app.getRootNav().setRoot('LoginPage');
+      }
+      if (rs.isSuccess) {
+        if (rs.objectData != null) {
+          if (rs.objectData.length > 0) {
+            this.GoodsCommentNum = rs.objectData.length;
+            for (let i = 0; i < rs.objectData.length; i++) {
+              let Goodscomment: any = {
+                assessmentContent: '',
+                avatarinfo: '',
+                rate: '',
+                mobile: '',
+                assessmentScore: '',
+                assessmentCreateDate: '',
+                ImageList: ''
+              }
+              Goodscomment.assessmentContent = rs.objectData[i].assessmentContent;
+              Goodscomment.assessmentScore = rs.objectData[i].assessmentScore;
+              Goodscomment.assessmentCreateDate = new Date(rs.objectData[i].assessmentCreateDate).toLocaleDateString();
+              Goodscomment.mobile=AppStaticConfig.hideMobile(rs.objectData[i].mobile);
+              Goodscomment.avatarinfo=rs.objectData[i].avatarinfo;
+              this.Goodscomments.push(Goodscomment);
+            }
+            if (this.Goodscomments.length > 2) {
+              this.tempComment = this.Goodscomments.slice(0, 2)
+            } else {
+              this.tempComment = this.Goodscomments
+            }
+          }
+        }
+      }
+    });
+  }
+  assembleHTML(strHTML:any) {
+    return this.domSanitizer.bypassSecurityTrustHtml(strHTML);
+    }
 }

@@ -119,7 +119,7 @@ export class AdminorderauditPage {
         if (rs.isSuccess) {
           this.navCtrl.push('AdminorderPage');
         } else {
-          this.appConfig.popAlertView('网络错误，请稍后再试！')
+          this.appConfig.popAlertView(rs.errorMessage);
         }
       }, true)
     })
@@ -134,7 +134,7 @@ export class AdminorderauditPage {
       if (rs.isSuccess) {
         this.navCtrl.push('AdminorderPage');
       } else {
-        this.appConfig.popAlertView('网络错误，请稍后再试！')
+        this.appConfig.popAlertView(rs.errorMessage);
       }
     }, true)
   }

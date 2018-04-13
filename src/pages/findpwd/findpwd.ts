@@ -125,8 +125,7 @@ export class FindpwdPage {
         this.appConfigCtrl.popAlertView('修改成功，请重新你登录')
         this.navCtrl.setRoot('LoginPage');
       } else {
-        console.log(rs)
-        this.appConfigCtrl.popAlertView('修改失败，请检查您的验证码是否正确，稍后再试！');
+        this.appConfigCtrl.popAlertView(rs.errorMessage);
       }
     }, true)
   }

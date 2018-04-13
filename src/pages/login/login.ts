@@ -1,5 +1,5 @@
 import { Component, Injectable } from '@angular/core';
-import { IonicPage, NavController, NavParams,App } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 import { AppConfig } from '../../app/app.config';
 import { AppService, AppGlobal } from './../../app/app.service';
 import { Storage } from '@ionic/storage';
@@ -63,7 +63,7 @@ export class LoginPage {
           this.storage.set('c_token', rs.objectData.authorization);
           this.storage.set('c_accountState', rs.objectData.accountState_L);
           this.storage.set('c_logDateTime', rs.objectData.logDateTime);
-          this.storage.set('c_account', rs.objectData.accountID); 
+          this.storage.set('c_account', rs.objectData.accountID);
           this.storage.set('c_accountRoles', rs.objectData.accountRoles);
           this.storage.set('c_platformType', rs.objectData.platformTypeID);
         });
@@ -77,12 +77,11 @@ export class LoginPage {
           this.appConfigCtrl.popAlertView('您的账户状态异常，请联系客服进行咨询！');
         } else if (rs.objectData.accountState_L == '2') {
           this.app.getRootNav().setRoot('InfoauditPage', {
-
             auditStatus: true
           });
         }
       } else {
-        this.appConfigCtrl.popAlertView('登录失败，请输入正确的用户名和密码');
+        this.appConfigCtrl.popAlertView(rs.errorMessage);
       }
     }, true)
   }

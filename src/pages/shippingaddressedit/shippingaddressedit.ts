@@ -159,6 +159,8 @@ export class ShippingaddresseditPage {
         } else {
           this.navCtrl.push('ShippingaddressPage');
         }
+      }else {
+        this.appConfigCtrl.popAlertView(rs.errorMessage);
       }
     }, true)
   }

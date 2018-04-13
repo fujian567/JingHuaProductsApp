@@ -309,6 +309,8 @@ export class OrderPage {
         }
         if (rs.isSuccess) {
           this.navCtrl.setRoot('OrdersuccessPage')
+        }else {
+          this.appConfigCtrl.popAlertView(rs.errorMessage);
         }
       }, true);
     }

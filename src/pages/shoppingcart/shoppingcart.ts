@@ -149,6 +149,8 @@ export class ShoppingcartPage {
         }
         if (rs.isSuccess) {
           this.getShoppingCartInfo(this.c_token)
+        }else {
+          this.appConfigCtrl.popAlertView(rs.errorMessage);
         }
       }, true)
     })

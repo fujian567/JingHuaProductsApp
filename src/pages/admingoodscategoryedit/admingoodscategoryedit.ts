@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController,App } from 'ionic-angular';
 import { AppService, AppGlobal } from './../../app/app.service';
 import { Storage } from '@ionic/storage';
-import { AppStaticConfig } from './../../app/app.config';
+import { AppStaticConfig,AppConfig } from './../../app/app.config';
 /**
 管理端：商品分类编辑界面
  */
@@ -33,6 +33,7 @@ export class AdmingoodscategoryeditPage {
     public navParams: NavParams,
     private alertCtrl: AlertController,
     public appService: AppService,
+    public appConfig:AppConfig,
     private storageCtrl: Storage,
     public app: App,
   ) {
@@ -146,6 +147,8 @@ export class AdmingoodscategoryeditPage {
       }
       if (rs.isSuccess) {
         this.getCategoryData(this.u_token);
+      }else {
+        this.appConfig.popAlertView(rs.errorMessage);
       }
     }, true)
   }

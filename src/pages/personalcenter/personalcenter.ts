@@ -8,7 +8,7 @@ import { AppConfig } from '../../app/app.config';
 import { AppService, AppGlobal } from './../../app/app.service';
 import { CallNumber } from '@ionic-native/call-number';
 import { Storage } from '@ionic/storage';
-
+import { NativeService } from '../../providers/NativeService'
 /**
 客户端：个人中心界面
  */
@@ -31,6 +31,7 @@ export class PersonalcenterPage {
     private callNumber: CallNumber,
     private storageCtrl: Storage,
     public appService: AppService,
+    private nativeService: NativeService,
     public app: App,
     public navParams: NavParams) {
       this.storageCtrl.get('c_token').then((val) => {
@@ -71,7 +72,7 @@ export class PersonalcenterPage {
     this.navCtrl.push('PersonalinfoPage');
   }
   checkVersion() {
-
+    this.nativeService.detectionUpgrade();
     // let apkUrl=""
     // if (allowChoose) {
     //   this.alertCtrl.create({

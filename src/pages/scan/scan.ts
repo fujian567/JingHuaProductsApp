@@ -54,12 +54,16 @@ export class ScanPage {
                   scanSub.unsubscribe(); // stop scanning
                   item.commParamId=rs.objectData[0];
                   this.navCtrl.push('GoodsdetailPage', { item: item });
+                }else{
+                  this.appConfigCtrl.popAlertView('您扫描的商品不正确，请重新扫描！');
+                  this.navCtrl.pop();
                 }
+              }else{
+                this.appConfigCtrl.popAlertView('您扫描的商品不正确，请重新扫描！');
+                this.navCtrl.pop();
               }
             }, true)
-            //this.navCtrl.pop();
           });
-
           // show camera preview
           this.qrScanner.show();
 

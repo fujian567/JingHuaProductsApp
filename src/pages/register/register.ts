@@ -66,7 +66,7 @@ export class RegisterPage {
   }
   VerifyViewModel: any = {
     MobileNum: '',
-    VerifyType:'1'
+    VerifyType: '1'
   }
   postMobile() {
     this.VerifyViewModel.MobileNum = this.pageModel.Account;
@@ -77,7 +77,7 @@ export class RegisterPage {
         this.postverify();
       } else {
         this.pageConfig.disable = true;
-    this.pageConfig.username_disable = true;
+        this.pageConfig.username_disable = true;
         console.log(rs.errorMessage)
         this.appConfigCtrl.popAlertView('你的手机号已被注册，请重新输入其他的手机号！');
       }
@@ -167,9 +167,9 @@ export class RegisterPage {
         this.appConfigCtrl.popAlertView('注册成功，请登录！');
         this.navCtrl.setRoot('LoginPage');
       } else {
+        this.appConfigCtrl.popAlertView(rs.errorMessage);
         console.log(rs.errorMessage)
-        this.appConfigCtrl.popAlertView('抱歉您的：由于当前网络不稳定，请您稍后重试！');
       }
-    },true)
+    }, true)
   }
 }

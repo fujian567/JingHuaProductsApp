@@ -69,8 +69,10 @@ export class ShippingaddressPage {
         console.log(rs)
         if (rs.isSuccess) {
           this.getDelivery(this.c_token)
+        }else {
+          this.appConfigCtrl.popAlertView(rs.errorMessage);
         }
-      })
+      },true)
     })
   }
   default(item: any) {
@@ -81,8 +83,10 @@ export class ShippingaddressPage {
       console.log(rs)
       if (rs.isSuccess) {
         this.getDelivery(this.c_token)
+      } else {
+        this.appConfigCtrl.popAlertView(rs.errorMessage);
       }
-    })
+    }, true)
   }
   selectAddress(item: any) {
     let previouspage = localStorage.getItem('previouspage');

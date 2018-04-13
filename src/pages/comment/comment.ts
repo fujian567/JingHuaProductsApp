@@ -82,9 +82,7 @@ export class CommentPage {
     } else {
       this.pagedatamodle.ImagesList = null
     }
-
-
-    console.log(this.c_token)
+    //console.log(this.pagedatamodle)
     this.appService.httpPost_token(AppGlobal.API.postOrderCommentInfo, this.c_token, { ordersassessment: this.pagedatamodle }, rs => {
       if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
@@ -92,6 +90,8 @@ export class CommentPage {
       console.log(rs)
       if (rs.isSuccess) {
         this.navCtrl.push('OrdermanagePage', { type: 'nocomment' });
+      }else {
+        this.appConfigCtrl.popAlertView(rs.errorMessage);
       }
     }, true)
 
