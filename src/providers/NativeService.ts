@@ -113,34 +113,6 @@ export class NativeService {
     openUrlByBrowser(url: string): void {
         this.inAppBrowser.create(url, '_system');
     }
-
-    /**
-     * 是否真机环境
-     * @return {boolean}
-     */
-    isMobile(): boolean {
-        return this.platform.is('mobile') && !this.platform.is('mobileweb');
-    }
-
-    /**
-     * 是否android真机环境
-     * @return {boolean}
-     */
-    isAndroid(): boolean {
-        console.log(this.platform.is('android'))
-        return this.isMobile() && this.platform.is('android');
-    }
-
-    /**
-     * 是否ios真机环境
-     * @return {boolean}
-     */
-    isIos(): boolean {
-        console.log(this.platform.is('ios'))
-        console.log(this.platform.is('iphone'))
-        return this.isMobile() && (this.platform.is('ios') || this.platform.is('ipad') || this.platform.is('iphone'));
-    }
-
     /**
      * 获得app版本号,如0.01
      */
@@ -243,26 +215,26 @@ export class NativeService {
     //   }
 
 
-    //   /**
-    //    * 是否真机环境
-    //    */
-    //   isMobile(): boolean {
-    //     return this.platform.is('mobile') && !this.platform.is('mobileweb');
-    //   }
+      /**
+       * 是否真机环境
+       */
+      isMobile(): boolean {
+        return this.platform.is('mobile') && !this.platform.is('mobileweb');
+      }
 
-    //   /**
-    //    * 是否android真机环境
-    //    */
-    //   isAndroid(): boolean {
-    //     return this.isMobile() && this.platform.is('android');
-    //   }
+      /**
+       * 是否android真机环境
+       */
+      isAndroid(): boolean {
+        return this.isMobile() && this.platform.is('android');
+      }
 
-    //   /**
-    //    * 是否ios真机环境
-    //    */
-    //   isIos(): boolean {
-    //     return this.isMobile() && (this.platform.is('ios') || this.platform.is('ipad') || this.platform.is('iphone'));
-    //   }
+      /**
+       * 是否ios真机环境
+       */
+      isIos(): boolean {
+        return this.isMobile() && (this.platform.is('ios') || this.platform.is('ipad') || this.platform.is('iphone'));
+      }
 
     //   /**
     //    * 只有一个确定按钮的弹出框.

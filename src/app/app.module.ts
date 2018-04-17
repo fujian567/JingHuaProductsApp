@@ -27,13 +27,19 @@ import { CallNumber } from '@ionic-native/call-number';
 import { MultiPicker } from 'ion-multi-picker';
 import { QRScanner } from '@ionic-native/qr-scanner';
 import { InAppBrowser } from "@ionic-native/in-app-browser";
+import { IonJPushModule } from 'ionic2-jpush'
+import { Logger } from "../providers/Logger";
+
+
 
 @NgModule({
   declarations: [
     MyApp,
   ],
   imports: [
-    BrowserModule, HttpModule,
+    BrowserModule,
+    IonJPushModule, 
+    HttpModule,
     IonicModule.forRoot(MyApp, {
       backButtonText: '',
       iconMode: 'ios',
@@ -76,6 +82,7 @@ import { InAppBrowser } from "@ionic-native/in-app-browser";
     QRScanner,
     NativeService,
     InAppBrowser,
+    Logger,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

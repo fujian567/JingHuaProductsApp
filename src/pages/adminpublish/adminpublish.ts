@@ -79,7 +79,7 @@ export class AdminpublishPage {
     this.navCtrl.push('AdmingoodslistPage');
   }
   onAddImage() {
-    if (this.detailImagesPath.length > 5) {
+    if (this.detailImagesPath.length > 10) {
       this.appConfigCtrl.popAlertView('你最多只能添加10张图片！');
     } else {
       let actionSheet = this.actionSheetCtrl.create({

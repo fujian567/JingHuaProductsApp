@@ -27,3 +27,4 @@ export const CODE_PUSH_DEPLOYMENT_KEY = {
     'Staging':'SRoxClVMoed8SgwIRxeVCPWx26Fk26690215-d954-4697-a879-90e0c4612b59'
   }
 };
+export const ENV = 'prod';

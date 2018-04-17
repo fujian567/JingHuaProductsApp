@@ -1,6 +1,6 @@
 {
   "name": "JingHuaApp",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "author": "Ionic Framework",
   "homepage": "http://ionicframework.com/",
   "private": true,
@@ -25,6 +25,7 @@
     "@ionic-native/call-number": "^4.7.0",
     "@ionic-native/camera": "^4.7.0",
     "@ionic-native/core": "4.6.0",
+    "@ionic-native/device": "^4.7.0",
     "@ionic-native/file": "^4.7.0",
     "@ionic-native/file-opener": "^4.7.0",
     "@ionic-native/file-transfer": "^4.7.0",
@@ -40,7 +41,7 @@
     "call-number": "^1.0.1",
     "com.synconset.imagepicker": "~2.1.10",
     "cordova-android": "6.2.0",
-    "cordova-ios": "^4.5.4",
+    "cordova-ios": "4.5.4",
     "cordova-plugin-app-version": "^0.1.9",
     "cordova-plugin-camera": "^2.4.1",
     "cordova-plugin-compat": "^1.2.0",
@@ -51,7 +52,7 @@
     "cordova-plugin-inappbrowser": "^2.0.2",
     "cordova-plugin-ionic-keyboard": "^2.0.5",
     "cordova-plugin-ionic-webview": "^1.1.19",
-    "cordova-plugin-jcore": "^1.2.0",
+    "cordova-plugin-jcore": "^1.1.12",
     "cordova-plugin-network-information": "^2.0.1",
     "cordova-plugin-qrscanner": "^2.5.0",
     "cordova-plugin-screen-orientation": "^3.0.1",
@@ -64,10 +65,10 @@
     "ion-multi-picker": "^2.1.2",
     "ionic-angular": "3.9.2",
     "ionic-img-viewer": "^2.9.0",
+    "ionic2-jpush": "^0.1.1",
     "ionic2-rating": "^1.2.2",
-    "ionic3-jpush": "^1.2.0",
     "ionicons": "3.0.0",
-    "jpush-phonegap-plugin": "^3.4.2",
+    "jpush-phonegap-plugin": "^3.3.2",
     "mx.ferreyra.callnumber": "~0.0.2",
     "rxjs": "5.5.8",
     "sw-toolbox": "3.6.0",
@@ -96,19 +97,20 @@
       "mx.ferreyra.callnumber": {},
       "cordova-sqlite-storage": {},
       "cordova-plugin-screen-orientation": {},
-      "jpush-phonegap-plugin": {
-        "APP_KEY": "acf39f93b4b509f444cc3697"
-      },
       "cordova-plugin-inappbrowser": {},
       "cordova-plugin-app-version": {},
       "cordova-plugin-file-opener2": {},
       "cordova-plugin-file": {},
       "cordova-plugin-file-transfer": {},
-      "cordova-plugin-network-information": {}
+      "cordova-plugin-network-information": {},
+      "cordova-plugin-jcore": {},
+      "jpush-phonegap-plugin": {
+        "APP_KEY": "acf39f93b4b509f444cc3697"
+      }
     },
     "platforms": [
-      "android",
-      "ios"
+      "ios",
+      "android"
     ]
   }
 }

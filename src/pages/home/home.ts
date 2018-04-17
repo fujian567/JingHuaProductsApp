@@ -43,33 +43,33 @@ export class HomePage {
   editClick() {
 
   }
-  goodsDetail(){
-    let item={
-      commParamId:'8256449C-2B8B-4231-AA9D-22B94921E2D3'
+  goodsDetail() {
+    let item = {
+      commParamId: '8256449C-2B8B-4231-AA9D-22B94921E2D3'
     }
     this.navCtrl.push('GoodsdetailPage', { item: item });
   }
-  goodsDetail1(){
-    let item={
-      commParamId:'D407A42B-AD2E-4DB4-B8EB-47845985EC3A'
+  goodsDetail1() {
+    let item = {
+      commParamId: 'D407A42B-AD2E-4DB4-B8EB-47845985EC3A'
     }
     this.navCtrl.push('GoodsdetailPage', { item: item });
   }
-  goodsDetail2(){
-    let item={
-      commParamId:'904660D3-0278-4F1A-A4DB-4DA015EA151D'
+  goodsDetail2() {
+    let item = {
+      commParamId: '904660D3-0278-4F1A-A4DB-4DA015EA151D'
     }
     this.navCtrl.push('GoodsdetailPage', { item: item });
   }
-  goodsDetail3(){
-    let item={
-      commParamId:'BEA1920C-2D21-438C-B38F-543F7067FC44'
+  goodsDetail3() {
+    let item = {
+      commParamId: 'BEA1920C-2D21-438C-B38F-543F7067FC44'
     }
     this.navCtrl.push('GoodsdetailPage', { item: item });
   }
-  goodsDetail4(){
-    let item={
-      commParamId:'AE05BEAA-BD65-4FC6-AB25-B5E33F92E6B5'
+  goodsDetail4() {
+    let item = {
+      commParamId: 'AE05BEAA-BD65-4FC6-AB25-B5E33F92E6B5'
     }
     this.navCtrl.push('GoodsdetailPage', { item: item });
   }
@@ -104,7 +104,12 @@ export class HomePage {
   // goDetails(item) {
   //   console.debug('go details...')
   // }
-  qrScannerPage(){
+  qrScannerPage() {
     this.navCtrl.push('ScanPage');
+    // this.appService.httpPost('http://222.184.234.34:6666/mobile/ApproveServlet.do/AppLogin', {
+    //   UserName: "SaleAPP",UserPwd: "123456"
+    // }, rs => {
+    //   console.log(rs)
+    // })
   }
 }
