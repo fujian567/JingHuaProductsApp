@@ -3,7 +3,8 @@ import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 import { AppConfig } from '../../app/app.config';
 import { AppService, AppGlobal } from './../../app/app.service';
 import { Storage } from '@ionic/storage';
-import { JPushService } from 'ionic2-jpush'
+
+
 /**
  客户端：登录界面
  */
@@ -30,7 +31,6 @@ export class LoginPage {
     private appConfigCtrl: AppConfig,
     public appService: AppService,
     public app: App,
-    private jPushPlugin: JPushService,
     private storage: Storage) {
     this.storage.get('c_token').then((val) => {
       if (val != null) {
@@ -97,22 +97,9 @@ export class LoginPage {
     }
   }
   register() {
-    this.getRegistrationID()
     this.navCtrl.push('RegisterPage');
   }
   findpwd() {
     this.navCtrl.push('FindpwdPage');
-  }
-  /**
- * 获取ID
- */
-  getRegistrationID() {
-    this.jPushPlugin.getRegistrationID()
-      .then(res => {
-        console.log(res)
-      })
-      .catch(err => {
-        console.log(err)
-      })
   }
 }

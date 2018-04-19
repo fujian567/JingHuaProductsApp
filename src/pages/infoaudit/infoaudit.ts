@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { Storage } from '@ionic/storage';
 /**
 客户端：资料审核状态界面
  */
@@ -15,7 +15,7 @@ export class InfoauditPage {
     isAuto: true,
     pagedata:''
   }
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController,private storage: Storage, public navParams: NavParams) {
     console.log(navParams.data.auditStatus)
     this.pageConfig.pagedata=navParams.data;
     this.pageConfig.isAuto = navParams.data.auditStatus;
@@ -27,5 +27,9 @@ export class InfoauditPage {
       status:'reRubmit',
       pagedata
     });
+  }
+  jumpLogin(){
+    this.storage.clear();
+    this.navCtrl.setRoot('LoginPage')
   }
 }

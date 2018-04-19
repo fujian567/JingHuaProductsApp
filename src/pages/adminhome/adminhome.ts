@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,App } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 import { AppService, AppGlobal } from './../../app/app.service';
 import { Storage } from '@ionic/storage';
 import { SQLite } from "@ionic-native/sqlite";
@@ -72,14 +72,13 @@ export class AdminhomePage {
       this.getWorkTabStatus(val);
     });
   }
-  getWorkTabStatus(u_token){
-    this.appService.httpPost_token(AppGlobal.API.postWorkTabStatus, u_token, { }, rs => {
-      console.log(rs)
+  getWorkTabStatus(u_token) {
+    this.appService.httpPost_token(AppGlobal.API.postWorkTabStatus, u_token, {}, rs => {
       if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('AdminloginPage');
       }
       if (rs.isSuccess) {
-        console.log(rs)
+
       }
     })
   }
@@ -106,7 +105,7 @@ export class AdminhomePage {
   goodsputaway() {
     this.navCtrl.push('AdmingoodputawayPage');
   }
-  goodsorder(){
+  goodsorder() {
     this.navCtrl.push('AdminorderPage');
   }
   adminpersonal() {
@@ -156,4 +155,7 @@ export class AdminhomePage {
   //     });
   //   })
   // }
+  adminjpush() {
+    this.navCtrl.push('AdminmessagePage');
+  }
 }

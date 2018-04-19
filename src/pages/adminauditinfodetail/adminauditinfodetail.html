@@ -32,36 +32,32 @@
     </ion-item>
     <ion-item>
       <ion-label>企业识别号</ion-label>
-      <ion-input placeholder="请输入该企业的识别号" [(ngModel)]="FBAuditViewModel.eTaxIdeNumber"></ion-input>
+      <ion-input placeholder="请输入该企业的识别号" [(ngModel)]="eTaxIdeNumber"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>企业性质</ion-label>
-      <ion-multi-picker [(ngModel)]="FBAuditViewModel.enterpriseNatureId" item-content [multiPickerColumns]="propertyColumns"
+      <ion-multi-picker id="enterpriseNature" [(ngModel)]="FBAuditViewModel.enterpriseNatureId" item-content [multiPickerColumns]="propertyColumns"
         [cancelText]="'取消'" [doneText]="'完成'" [placeholder]="'待补充'"></ion-multi-picker>
     </ion-item>
     <ion-item>
       <ion-label>业务员姓名</ion-label>
-      <ion-input class="page-input" placeholder="请输入业务员姓名" clearInput [(ngModel)]="FBAuditViewModel.salesmanCode"></ion-input>
+      <ion-input class="page-input" (click)="selectSalesman()" placeholder="请选择业务员" readonly [(ngModel)]="FBAuditViewModel.salesmanName_OA"></ion-input>
     </ion-item>
     <ion-item class="box-right">
       <ion-label>资质过期日期</ion-label>
-      <ion-datetime class="datetime" displayFormat="YYYY/MM/DD" cancelText="取消" doneText="确定" placeholder="选择资质过期日期" [(ngModel)]="FBAuditViewModel.ExpiredDate"></ion-datetime>
+      <ion-datetime class="datetime" displayFormat="YYYY/MM/DD" min="2018" max="2030-12-31" cancelText="取消" doneText="确定" placeholder="选择资质过期日期" [(ngModel)]="FBAuditViewModel.expiredDate"></ion-datetime>
     </ion-item>
-    <ion-item *ngIf="isViewPage">
+    <ion-item>
       <ion-label>企业所在省市区</ion-label>
-      <ion-input id="PCCname" placeholder="待补充" [(ngModel)]="tempLocation" readonly></ion-input>
-    </ion-item>
-    <ion-item *ngIf="!isViewPage">
-      <ion-label>企业所在省市区</ion-label>
-      <ion-multi-picker id="PCCname" [(ngModel)]="FBAuditViewModel.provinceId" item-content [multiPickerColumns]="dependentColumns"
+      <ion-multi-picker id="PCCname" [(ngModel)]="FBAuditViewModel.ProvinceID" item-content [multiPickerColumns]="dependentColumns"
         [cancelText]="'取消'" [doneText]="'完成'" [placeholder]="'待补充'"></ion-multi-picker>
     </ion-item>
     <ion-item>
       <ion-label>企业详细地址</ion-label>
-      <ion-input placeholder="待补充" [(ngModel)]="FBAuditViewModel.Address"></ion-input>
+      <ion-input class="page-input" placeholder="待补充" clearInput [(ngModel)]="FBAuditViewModel.address"></ion-input>
     </ion-item>
 
-    <ion-row style="padding-top:13px;" *ngIf="!isViewPage">
+    <ion-row style="padding-top:13px;">
       <ion-col col-12>
         <ion-row>
           <ion-col col-2></ion-col>

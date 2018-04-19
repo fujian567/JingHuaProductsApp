@@ -2,7 +2,7 @@ import { HttpModule } from '@angular/http';
 import { AppService } from './app.service';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { IonicApp, IonicModule, IonicErrorHandler} from 'ionic-angular';
 import { MyApp } from './app.component';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -29,6 +29,7 @@ import { QRScanner } from '@ionic-native/qr-scanner';
 import { InAppBrowser } from "@ionic-native/in-app-browser";
 import { IonJPushModule } from 'ionic2-jpush'
 import { Logger } from "../providers/Logger";
+import { Device } from '@ionic-native/device';
 
 
 
@@ -83,6 +84,7 @@ import { Logger } from "../providers/Logger";
     NativeService,
     InAppBrowser,
     Logger,
+    Device,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

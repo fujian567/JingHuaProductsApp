@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Platform, Events, Nav } from 'ionic-angular';
+import { Platform, Events, Nav} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { NativeService } from '../providers/NativeService'
@@ -10,10 +10,9 @@ import { JPushService } from 'ionic2-jpush'
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage: any = 'LoginPage';
-  //rootPage:any = 'AdminloginPage';
-  //rootPage: any = 'JpushtestPage';
-
+  //rootPage: any = 'LoginPage';
+  rootPage: any = 'AdminloginPage';
+  //rootPage: any = 'MessagelistPage';
   constructor(
     private platform: Platform,
     private statusBar: StatusBar,
@@ -22,20 +21,24 @@ export class MyApp {
     private jPushPlugin: JPushService,
     private events: Events,
     private splashScreen: SplashScreen) {
-    this.jPushPlugin.openNotification()
-      .subscribe(res => {
-        alert('点击通知内容 openNotification');
-      });
+    if (this.nativeService.isMobile()) {
+      this.jPushPlugin.openNotification()
+        .subscribe(res => {
+          //跳转相对应的页面
+          this.nativeService.jumpMessagePage(res.title,res.alert)
+          console.log(res)
+        });
 
-    this.jPushPlugin.receiveNotification()
-      .subscribe(res => {
-        alert('收到通知推送 receiveNotification');
-      });
+      this.jPushPlugin.receiveNotification()
+        .subscribe(res => {
+          console.log(res)
+        });
 
-    this.jPushPlugin.receiveMessage()
-      .subscribe(res => {
-        alert('收到定义消息推送 receiveMessage');
-      });
+      this.jPushPlugin.receiveMessage()
+        .subscribe(res => {
+          console.log(res)
+        });
+    }
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -43,14 +46,15 @@ export class MyApp {
       splashScreen.hide();
       this.assertNetwork();//检测网络
       this.nativeService.detectionUpgrade();
-      this.jPushPlugin.setDebugMode(true);
-      this.jPushPlugin.init()
-        .then(res => {
-          console.log('初始化成功'+res)
-        }).catch(err => {
-          console.log(err)
-        })
-      
+      if (this.nativeService.isMobile()) {
+        this.jPushPlugin.setDebugMode(true);
+        this.jPushPlugin.init()
+          .then(res => {
+            console.log('初始化成功' + res)
+          }).catch(err => {
+            console.log(err)
+          })
+      }
     });
   }
   assertNetwork() {

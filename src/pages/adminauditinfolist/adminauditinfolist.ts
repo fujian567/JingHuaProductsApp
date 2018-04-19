@@ -22,7 +22,12 @@ export class AdminauditinfolistPage {
   isAuditList: boolean = true;
   pagingModel = {
     ItemsCount: '0',
-    PageIndex: '1',
+    PageIndex: 1,
+    PageSize: '40',
+  }
+  pagingModelA = {
+    ItemsCount: '0',
+    PageIndex: 1,
     PageSize: '40',
   }
   constructor(
@@ -42,38 +47,45 @@ export class AdminauditinfolistPage {
   backButtonClick = (e: UIEvent) => {
     this.navCtrl.push('AdminhomePage');
   }
-  selectNoAudit(){
+  selectNoAudit() {
     this.getAuditInfoList(this.u_token);
   }
-  selectAllAudit(){
+  selectAllAudit() {
     this.getAllAuditInfoList(this.u_token);
   }
   getAuditInfoList(u_token) {
-    this.appService.httpPost_token(AppGlobal.API.getFbenterpriseWait, u_token, { pages: this.pagingModel,fbusinessstate: 60}, rs => {
+    this.appService.httpPost_token(AppGlobal.API.getFbenterpriseWait, u_token, { pages: this.pagingModel, fbusinessstate: 60 }, rs => {
       if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('AdminloginPage');
       }
-      console.log(rs)
       if (rs.isSuccess) {
         if (rs.objectData != null) {
-          this.isNoAuditList = false;
-          this.noAuditList = rs.objectData
+          if (rs.objectData.length > 0) {
+            this.isNoAuditList = false;
+            let noAuditList = rs.objectData;
+            this.noAuditList = this.noAuditList.concat(noAuditList);
+            this.pagingModel.PageIndex += 1;
+          }
         }
       }
-    },true)
+    }, true)
   }
   getAllAuditInfoList(u_token) {
-    this.appService.httpPost_token(AppGlobal.API.postEnterpriseInfo, u_token, { pages: this.pagingModel }, rs => {
+    this.appService.httpPost_token(AppGlobal.API.postEnterpriseInfo, u_token, { pages: this.pagingModelA }, rs => {
       if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('AdminloginPage');
       }
       if (rs.isSuccess) {
         if (rs.objectData != null) {
-          this.isAuditList = false;
-          this.auditList = rs.objectData
+          if (rs.objectData.length > 0) {
+            this.isAuditList = false;
+            let auditList = rs.objectData;
+            this.auditList = this.auditList.concat(auditList);
+            this.pagingModelA.PageIndex += 1;
+          }
         }
       }
-    },true)
+    }, true)
   }
   auditCompany(itemData: any) {
     this.navCtrl.push('AdminauditinfodetailPage', {
@@ -81,49 +93,21 @@ export class AdminauditinfolistPage {
     })
   }
   viewCompany(itemData: any) {
-    this.navCtrl.push('AdminauditinfodetailPage', {
-      isView: true,
+    this.navCtrl.push('AdminauditinfoeditPage', {
       itemData
     })
   }
-  doRefresh(refresher: any, ngSwitchCase: any) {
-    if (ngSwitchCase == 'noAduit') {
-      this.isNoAuditList = false
-      let temp = []
-      this.noAuditList = this.noAuditList.concat(temp)
-      console.log(this.noAuditList)
-      setTimeout(() => {
-        console.log('Async operation has ended');
-        refresher.complete();
-      }, 2000);
-    } else if (ngSwitchCase == 'aduit') {
-      this.isAuditList = false;
-      let auditList = []
-      this.auditList = this.auditList.concat(auditList)
-      setTimeout(() => {
-        console.log('Async operation has ended');
-        refresher.complete();
-      }, 2000);
-    }
-  }
   doInfinite(infiniteScroll: any, ngSwitchCase: any) {
-    console.log(ngSwitchCase);
-    if (ngSwitchCase == 'noAduit') {
-      this.isNoAuditList = false
-      setTimeout(() => {
-        let temp = []
-        this.noAuditList = this.noAuditList.concat(temp)
-        console.log('Async operation has ended');
-        infiniteScroll.complete();
-      }, 500);
-    } else if (ngSwitchCase == 'aduit') {
-      this.isAuditList = false;
-      let auditList = []
-      this.auditList = this.auditList.concat(auditList)
-      setTimeout(() => {
-        console.log('Async operation has ended');
-        infiniteScroll.complete();
-      }, 2000);
+    switch (ngSwitchCase) {
+      case 'noAduit': {
+        this.getAuditInfoList(this.u_token);
+        break;
+      }
+      case 'aduit': {
+        this.getAllAuditInfoList(this.u_token);
+        break;
+      }
     }
+    infiniteScroll.complete();
   }
 }

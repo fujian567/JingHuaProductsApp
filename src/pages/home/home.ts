@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { AppService } from './../../app/app.service';
+import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
+import { AppService, AppGlobal } from './../../app/app.service';
 import { Storage } from '@ionic/storage';
-
+import { NativeService } from '../../providers/NativeService'
 /**
 客户端：主界面
  */
@@ -17,9 +17,13 @@ export class HomePage {
   //categories: Array<any> = [];
   // products: Array<any> = [];
   test: Array<any> = [];
+  c_token: any;
+  messageCount: any = "0";
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public appService: AppService,
+    public app: App,
+    private nativeService: NativeService,
     private storage: Storage) {
     // this.getSlides();
     //this.getCategories();
@@ -35,10 +39,11 @@ export class HomePage {
   //   })
   // }
   ionViewDidLoad() {
-    this.storage.get('account').then((val) => {
-      console.log('账户是：', val);
+    this.storage.get('c_token').then((val) => {
+      this.c_token = val;
+      this.getUserAppTag(val);
+      this.myGetMessageCount(val);
     });
-    console.log('ionViewDidLoad HomePage');
   }
   editClick() {
 
@@ -73,6 +78,17 @@ export class HomePage {
     }
     this.navCtrl.push('GoodsdetailPage', { item: item });
   }
+  //判断用户是否有极光推送id
+  getUserAppTag(c_token) {
+    this.appService.httpGet_token(AppGlobal.API.getUserAppTag, c_token, {}, rs => {
+      if (rs.status == 401 || rs.status == 403) {
+        this.app.getRootNav().setRoot('LoginPage');
+      }
+      if (!rs.isSuccess) {
+        this.nativeService.getRegistrationID(c_token);
+      }
+    })
+  }
   // spinner1: boolean = true;
   // params = {
   //   favoritesId: 2054400,
@@ -106,10 +122,24 @@ export class HomePage {
   // }
   qrScannerPage() {
     this.navCtrl.push('ScanPage');
-    // this.appService.httpPost('http://222.184.234.34:6666/mobile/ApproveServlet.do/AppLogin', {
-    //   UserName: "SaleAPP",UserPwd: "123456"
-    // }, rs => {
-    //   console.log(rs)
-    // })
+  }
+  myMessagePage() {
+    this.navCtrl.push('MessagelistPage');
+  }
+  myGetMessageCount(c_token) {
+    this.appService.httpPost_token(AppGlobal.API.getMessageCount, c_token, { read: false }, rs => {
+      if (rs.status == 401 || rs.status == 403) {
+        this.app.getRootNav().setRoot('LoginPage');
+      }
+      if (rs.isSuccess) {
+        if (rs.objectData > 0) {
+          if (rs.objectData > 99) {
+            this.messageCount = '99+'
+          } else {
+            this.messageCount = rs.objectData
+          }
+        }
+      }
+    })
   }
 }

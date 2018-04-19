@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>我的消息</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-card>
+    <ion-card-header>
+      {{pageModel.msgTitle}}
+    </ion-card-header>
+    <ion-card-content>
+      {{pageModel.msgContent}}
+    </ion-card-content>
+    <ion-row no-padding>
+      <ion-col style="padding-left: 18px;color: #666">{{pageModel.msgSendDate}}</ion-col>
+      <ion-col style="padding-right: 18px;color: #666" text-right (click)="deteleThisMessageRead()">
+          <ion-icon name="ios-trash-outline"></ion-icon>
+          删除</ion-col>
+    </ion-row>
+  </ion-card>
+</ion-content>

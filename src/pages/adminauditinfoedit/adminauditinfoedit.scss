@@ -1,0 +1,54 @@
+page-adminauditinfoedit {
+  .page-content {
+    background-color: #fff;
+  }
+  .sub-title {
+    color: #999;
+    font-size: 1.5rem;
+    padding-top: 0;
+    height: 2.4rem !important;
+    min-height: 2.4rem !important;
+  }
+  .audit-title {
+    text-align: center;
+    font-size: 1.7rem;
+  }
+  img.auto-image {
+    width: 100%;
+  }
+  .audit-col-con {
+    text-align: end;
+  }
+  .audit-btn {
+    text-align: center;
+  }
+  .grid .row {
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  .button-ios {
+    width: 80%;
+  }
+  .replenish-col-con {
+    text-align: end;
+  }
+  .text-input-ios {
+    margin-top: 2px;
+    text-align: right;
+  }
+  .datetime {
+    padding-right: 9px !important;
+  }
+  .page-input .text-input {
+    padding-right: 0px !important;
+  }
+}
+
+.picker-ios .picker-button,
+.picker-ios .picker-button.activated {
+  margin: 0;
+  height: 44px;
+  color: #488aff;
+  background: transparent;
+  padding: 10px;
+}

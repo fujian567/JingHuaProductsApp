@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>我的消息</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content class="page-content">
+  <ion-segment [(ngModel)]="read" color="verify">
+    <ion-segment-button value="noRead" isActive (ionSelect)="selectNoRead()">
+      未读消息
+    </ion-segment-button>
+    <ion-segment-button value="read" (ionSelect)="selectAllRead()">
+      已读消息
+    </ion-segment-button>
+  </ion-segment>
+  <div [ngSwitch]="read">
+    <ion-list *ngSwitchCase="'noRead'">
+      <ion-item *ngIf="isNoReadList">您暂时没有未读消息</ion-item>
+      <button ion-item (click)="viewMessage(item)" *ngFor="let item of noReadList, let i = index">
+          {{item.msgTitle}}
+        </button>
+    </ion-list>
+    <ion-list *ngSwitchCase="'read'">
+      <ion-item *ngIf="isReadList">您暂时没有已读消息</ion-item>
+      <button class="readclass" ion-item (click)="viewMessage(item)" *ngFor="let item of readList, let i = index">
+        {{item.msgTitle}}
+      </button>
+    </ion-list>
+  </div>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event,read)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

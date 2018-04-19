@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AppConfig, AppStaticConfig } from '../../app/app.config';
 import { AppService, AppGlobal } from './../../app/app.service';
 import { Storage } from '@ionic/storage';
+
 /**
 客户端：注册界面
  */
@@ -18,6 +19,7 @@ export class RegisterPage {
     public navParams: NavParams,
     public appService: AppService,
     private appConfigCtrl: AppConfig,
+
     private storage: Storage
   ) { }
 
@@ -155,6 +157,10 @@ export class RegisterPage {
   }
   register() {
     this.pageModel.Mobile = this.pageModel.Account;
+    if (this.pageModel.CompanyName.length >99) {
+      this.appConfigCtrl.popAlertView('公司名称长度不能大于100个汉字！');
+       return 
+    }
     if (this.pageModel.SalesmanCode.length <= 0) {
       this.pageModel.SalesmanCode = '无';
     }

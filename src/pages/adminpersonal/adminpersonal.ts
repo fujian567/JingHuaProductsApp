@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, PopoverController, Navbar } from 'ionic-angular';
 import { AppConfig } from '../../app/app.config';
+import { Storage } from '@ionic/storage';
 /**
 管理端：个人中心
  */
@@ -15,6 +16,7 @@ export class AdminpersonalPage {
   constructor(
     public navCtrl: NavController,
     public appConfigCtrl: AppConfig,
+    private storageCtrl: Storage,
     public navParams: NavParams) {
   }
   ionViewDidLoad() {
@@ -31,6 +33,7 @@ export class AdminpersonalPage {
     this.navCtrl.push('AdminmodifypswPage');
   }
   logOut() {
+    this.storageCtrl.clear();
     this.navCtrl.setRoot('AdminloginPage');
   }
   aboutme() {

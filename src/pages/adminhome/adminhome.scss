@@ -38,5 +38,8 @@ page-adminhome {
   .goods-name{
     font-size:1.6rem;padding: 0;
   }
+  .toolbar-ios-danger .toolbar-title-ios, .toolbar-ios-danger .bar-button-clear-ios, .toolbar-ios-danger .bar-button-default-ios {
+    color: #222;
+}
 }
 

@@ -65,6 +65,65 @@
   }
 }
 
+.alert-bg-d {
+  .alert-wrapper {
+    background-color: #fff;
+  }
+  .alert-head {
+    background-image: url(./../assets/imgs/logo.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 17%;
+    height: 75px;
+    margin-top: 15px;
+  }
+  .alert-title {
+    margin-top: 40px;
+    font-size: 1.4rem;
+  }
+  .alert-message {
+    padding: 0 0 3px !important;
+    max-height: 240px;
+    font-size: 1.5rem;
+  }
+  .alert-input {
+    border: none;
+    background-color: #f8f8f8;
+  }
+  .alert-button:first-child {
+    color: #222;
+    background-color: #fff;
+  }
+  .alert-button {
+    color: #fff;
+    background-color: #e4393c;
+  }
+}
+
+.alert-bg-e {
+  .alert-wrapper {
+    min-width: 60%;
+  }
+  .alert-title {
+    color: #222;
+    font-weight: normal;
+  }
+  [aria-checked=true] .alert-radio-label {
+    color: #e4393c;
+  }
+  [aria-checked=true] .alert-radio-inner {
+    border-color: #e4393c;
+  }
+  .alert-button:first-child {
+    color: #222;
+    background-color: #fff;
+  }
+  .alert-button {
+    color: #fff;
+    background-color: #e4393c;
+  }
+}
+
 .bar-button-default-ios {
   color: #222;
 }
@@ -76,11 +135,13 @@
 ::-webkit-scrollbar {
   display: none !important;
 }
-.fadeloading{
-  ion-backdrop{
+
+.fadeloading {
+  ion-backdrop {
     opacity: 0 !important;
   }
 }
+
 .fadeloading .loading-wrapper {
   border-radius: 8px;
   max-width: 270px;
@@ -89,6 +150,24 @@
   background: #000;
   padding: 24px 34px;
   opacity: 0 !important;
-  
+}
+
+.toolbar-background-ios {
+  background: #fff;
+}
+
+.toolbar-title-ios {
+  font-size: 1.8rem;
+  color: #222;
+  font-weight: normal;
+}
+
+.content-ios {
+  color: #222;
+  background-color: #fff;
+}
+
+.ios .picker-toolbar-multi-picker-cancel {
+  text-align: start;
 }
 

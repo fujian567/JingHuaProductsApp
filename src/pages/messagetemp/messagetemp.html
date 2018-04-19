@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>我的消息</ion-title>
+    <ion-buttons start class="scan">
+      <button ion-button (click)="goBack()">
+        <ion-icon name="ios-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-card>
+    <ion-card-header>
+      {{msgTitle}}
+    </ion-card-header>
+    <ion-card-content>
+      {{msgContent}}
+    </ion-card-content>
+  </ion-card>
+</ion-content>

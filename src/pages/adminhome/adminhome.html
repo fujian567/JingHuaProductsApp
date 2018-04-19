@@ -1,4 +1,4 @@
-<ion-header class="page-head">
+<!-- <ion-header class="page-head">
   <ion-navbar hideBackButton="true" color="danger">
     <ion-title>精华制药直销系统</ion-title>
   </ion-navbar>
@@ -6,9 +6,9 @@
 <ion-content class="page-content">
   <ion-grid style="background-color:#fff">
     <ion-row class="rowstyle">
-      <!-- <ion-col col-4 align-self-center class="imglogog" (click)="replenish()">
+      <ion-col col-4 align-self-center class="imglogog" (click)="replenish()">
         <img src="./assets/imgs/replenish.jpg" class="auto-image" />
-      </ion-col> -->
+      </ion-col>
       <ion-col col-4 align-self-center class="imglogog" (click)="infoaudit()">
         <img src="./assets/imgs/infoaudit.jpg" class="auto-image" />
       </ion-col>
@@ -37,9 +37,12 @@
       <ion-col col-4 align-self-center class="imglogog" (click)="adminpersonal()">
         <img src="./assets/imgs/personal.png" class="auto-image" />
       </ion-col>
+      <ion-col col-4 align-self-center class="imglogog" (click)="adminjpush()">
+          <img src="./assets/imgs/sendmessage.png" class="auto-image" />
+        </ion-col>
     </ion-row>
   </ion-grid>
-  <!-- <ion-grid class="margin-top:8px">
+  <ion-grid class="margin-top:8px">
     <ion-row class="rowstyle">
       <ion-segment [(ngModel)]="worktab">
         <ion-segment-button value="aduitinfo">首营待审核</ion-segment-button>
@@ -124,5 +127,31 @@
         </ion-row>
       </ion-list>
     </div>
-  </ion-grid> -->
+  </ion-grid>
+</ion-content> -->
+<ion-header class="page-head">
+  <ion-navbar hideBackButton="true" color="danger">
+    <ion-title>精华制药直销系统</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content class="page-content">
+  <ion-grid style="background-color:#fff">
+    <ion-row class="rowstyle">
+      <ion-col col-4 align-self-center class="imglogog" (click)="adminjpush()">
+        <img src="./assets/imgs/sendmessage.png" class="auto-image" />
+      </ion-col>
+      <ion-col col-4 align-self-center class="imglogog" (click)="infoaudit()">
+        <img src="./assets/imgs/infoaudit.jpg" class="auto-image" />
+      </ion-col>
+      <ion-col col-4 align-self-center class="imglogog" (click)="goodsorder()">
+        <img src="./assets/imgs/order.png" class="auto-image" />
+      </ion-col>
+    </ion-row>
+    <ion-row class="rowstyle">
+      <ion-col col-4 align-self-center class="imglogog" (click)="adminpersonal()">
+        <img src="./assets/imgs/personal.png" class="auto-image" />
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
+

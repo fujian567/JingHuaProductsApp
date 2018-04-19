@@ -113,4 +113,5 @@
     <plugin name="jpush-phonegap-plugin" spec="^3.3.2">
         <variable name="APP_KEY" value="acf39f93b4b509f444cc3697" />
     </plugin>
+    <plugin name="com.hutchind.cordova.plugins.streamingmedia" spec="~0.1.4" />
 </widget>

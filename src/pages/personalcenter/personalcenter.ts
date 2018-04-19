@@ -1,9 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
-// import { AppVersion } from '@ionic-native/app-version';
-// import { File } from "@ionic-native/file";
-// import { FileTransfer, FileTransferObject } from "@ionic-native/file-transfer";
-// import { AppUpdate } from "@ionic-native/app-update";
 import { AppConfig } from '../../app/app.config';
 import { AppService, AppGlobal } from './../../app/app.service';
 import { CallNumber } from '@ionic-native/call-number';
@@ -23,11 +19,6 @@ export class PersonalcenterPage {
   c_token: any = '';
   constructor(
     public navCtrl: NavController,
-    // private appVersion: AppVersion,
-    // private appUpdate: AppUpdate,
-    // private fileCtrl: File,
-    // private fileTransfer: FileTransfer,
-    // private appConfigCtrl: AppConfig,
     private callNumber: CallNumber,
     private storageCtrl: Storage,
     public appService: AppService,

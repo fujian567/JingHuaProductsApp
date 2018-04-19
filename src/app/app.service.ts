@@ -66,6 +66,13 @@ export class AppGlobal {
         getMyPointInfo: '/api/customer/integralrecords/info/', //获取积分
         postGoodsSQ: '/api/products/upc/Info/', //获取二维码商品
         postGoodsComment: '/api/order/commassessment/info/', //获取商品评价
+        postUserAppTag: '/api/customer/apptag/post/', //提交用户极光推送的id
+        getUserAppTag: '/api/customer/apptag/isinfo/', //判断用户是否极光推送id
+        getUserMessage: '/api/customer/msginfo/post/', //获取用户消息
+        getMessageCount: '/api/customer/msgcount/post/', //获取用户未读消息总数(false)
+        setMessageRead:'/api/customer/msgread/post/',//设置信息已读
+        deteleMessag:'/api/customer/msgdel/post/',//删除信息
+
 
         postUeserlogin: '/api/users/login/post/',//管-登录
         getFbenterpriseWait: '/api/enterprise/fbenterprise/minfo/',//管-首营审核
@@ -103,7 +110,8 @@ export class AppGlobal {
         postDeliveryOrder: '/api/order/delivery/postinfo/', //订单发货
         getRefundWaitAuditOrder: '/api/order/refundwaitaudit/info/', //获取待审核退货的订单
         getRefundWaitAuditOrderInfo: '/api/order/refundwaitaudit/detailinfo/', //获取待审核退货的订单详情
-
+        postCustomerMsgjpush: '/api/customer/msgjpush/post/', //极光推送消息
+        getSaleManInfo: '/api/users/salesman/info/', //极光推送消息
 
 
         getAppVersion: '/api/AppVersion/fbenterprise/wait/',

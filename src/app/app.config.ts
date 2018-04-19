@@ -151,8 +151,8 @@ export class AppConfig {
             inputs: [
                 {
                     name: name,
-                    type:'number',
-                    value:value
+                    type: 'number',
+                    value: value
                 },
             ],
             buttons: [
@@ -171,5 +171,55 @@ export class AppConfig {
             ]
         });
         prompt.present();
+    }
+    popPromptViewA(title: string, cssClass: string, message: string, name: string, placeholder: string, callback: any) {
+        let prompt = this.alertCtrl.create({
+            title: title,
+            cssClass: cssClass,
+            message: message,
+            inputs: [
+                {
+                    name: name,
+                    placeholder: placeholder
+                },
+            ],
+            buttons: [
+                {
+                    text: '取消',
+                    handler: data => {
+                        //callback(data)
+                    }
+                },
+                {
+                    text: '确定',
+                    handler: data => {
+                        callback(data)
+                    }
+                }
+            ]
+        });
+        prompt.present();
+    }
+    //popRadioView() {
+    popRadioView(title: string, cssClass: string, inputItem: Array<any>, callback: any) {
+        let alert = this.alertCtrl.create();
+        alert.setTitle(title);
+        alert.setCssClass(cssClass);
+        for (let i = 0; i < inputItem.length; i++) {
+            alert.addInput({
+                type: 'radio',
+                label: inputItem[i].salesmanName_ERP,
+                value: `${inputItem[i].salesmanCode_ERP},${inputItem[i].salesmanName_ERP},${inputItem[i].userID_ERP}`,
+                checked: false
+            });
+        }
+        alert.addButton('取消');
+        alert.addButton({
+            text: '确定',
+            handler: data => {
+                callback(data);
+            }
+        });
+        alert.present();
     }
 }

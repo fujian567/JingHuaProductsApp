@@ -5,6 +5,7 @@ import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker';
 import { AppConfig } from '../../app/app.config';
 import { AppService, AppGlobal } from './../../app/app.service';
 import { Storage } from '@ionic/storage';
+import { NativeService } from '../../providers/NativeService'
 
 /**
 客户端：资质填写界面
@@ -41,6 +42,7 @@ export class AccpuntinformationPage {
     public app: App,
     private appConfigCtrl: AppConfig,
     public appService: AppService,
+    private nativeService: NativeService,
     private storageCtrl: Storage,
   ) {
     this.pagestatus = navParams.get("status");
@@ -99,7 +101,7 @@ export class AccpuntinformationPage {
         this.app.getRootNav().setRoot('LoginPage');
       }
       if (rs.isSuccess) {
-        console.log(rs.objectData)
+        this.nativeService.getRegistrationID(c_token);
         this.ClientInfoViewModel.ClientName = rs.objectData.clientName;
         this.ClientInfoViewModel.Mobile = rs.objectData.mobile;
         this.ClientInfoViewModel.CompanyName = rs.objectData.companyName;
@@ -232,6 +234,7 @@ export class AccpuntinformationPage {
     }
   }
 }
+
   // compressImage(file) {
   //   const imgobj = new Image;
   //   imgobj.src = file.localURL
