@@ -6,8 +6,8 @@
 <ion-content>
   <ion-grid class="goods-grid">
     <ion-row>
-      <ion-col col-8>订单编号：{{pagedatamodle.ordernum}}</ion-col>
-      <ion-col col-4></ion-col>
+      <ion-col col-10>订单编号：{{pagedatamodle.ordernum}}</ion-col>
+      <ion-col col-2></ion-col>
     </ion-row>
     <ion-row class="goods-line" *ngFor="let item of goodsList">
       <ion-col col-4 class="border-padding">
@@ -41,8 +41,9 @@
       <ion-col>支付方式：{{pagedatamodle.payMethodName}}</ion-col>
       <ion-col>
         <ion-thumbnail>
-          <img src="{{'data:image/jpeg;base64,'+pagedatamodle.voucherImg}}" class="auto-image" #myImage (click)="showOriginal(myImage)"
-            height="80" width="80" />
+            <img src="{{voucherImg}}" class="auto-image" #myImage (click)="showOriginal(myImage)" height="80" width="80" />
+          <!-- <img src="{{'data:image/jpeg;base64,'+pagedatamodle.voucherImg}}" class="auto-image" #myImage (click)="showOriginal(myImage)"
+            height="80" width="80" /> -->
         </ion-thumbnail>
       </ion-col>
     </ion-row>
@@ -53,26 +54,26 @@
       <ion-col col-12>不需要开发票</ion-col>
     </ion-row>
     <ion-row class="item" style="border-bottom: none;" *ngIf="pagedatamodle.invoiceTypeId==1&&pagedatamodle.orderInvoiceInfo==false">
-      <ion-col col-12>发票类型：{{pagedatamodle.invoiceTypeName}}</ion-col>
+      <!-- <ion-col col-12>发票类型：{{pagedatamodle.invoiceTypeName}}</ion-col> -->
       <ion-col col-12>发票抬头：{{pagedatamodle.orderInvoiceHeader}}</ion-col>
       <ion-col col-12>发票内容：{{pagedatamodle.orderInvoiceContent}}</ion-col>
     </ion-row>
     <ion-row class="item" style="border-bottom: none;" *ngIf="pagedatamodle.invoiceTypeId==2&&pagedatamodle.orderInvoiceInfo==false">
-      <ion-col col-12>发票类型：{{pagedatamodle.invoiceTypeName}}</ion-col>
+      <!-- <ion-col col-12>发票类型：{{pagedatamodle.invoiceTypeName}}</ion-col> -->
       <ion-col col-12>发票抬头：{{pagedatamodle.orderInvoiceHeader}}</ion-col>
       <ion-col col-12>发票内容：{{pagedatamodle.orderInvoiceContent}}</ion-col>
       <ion-col col-12>发票人手机号：{{pagedatamodle.orderInvoiceMobile}}</ion-col>
       <ion-col col-12>接收发票人邮箱：{{pagedatamodle.orderInvoiceEmail}}</ion-col>
     </ion-row>
     <ion-row class="item" style="border-bottom: none;" *ngIf="pagedatamodle.invoiceTypeId==1&&pagedatamodle.orderInvoiceInfo==true">
-      <ion-col col-12>发票类型：{{pagedatamodle.invoiceTypeName}}</ion-col>
+      <!-- <ion-col col-12>发票类型：{{pagedatamodle.invoiceTypeName}}</ion-col> -->
       <ion-col col-12>发票抬头：{{pagedatamodle.orderInvoiceHeader}}</ion-col>
       <ion-col col-12>发票内容：{{pagedatamodle.orderInvoiceContent}}</ion-col>
       <ion-col col-12>企业名称：{{pagedatamodle.enterpriseName}}</ion-col>
       <ion-col col-12>纳税识别号：{{pagedatamodle.taxIdeNumber}}</ion-col>
     </ion-row>
     <ion-row class="item" style="border-bottom: none;" *ngIf="pagedatamodle.invoiceTypeId==2&&pagedatamodle.orderInvoiceInfo==true">
-      <ion-col col-12>发票类型：{{pagedatamodle.invoiceTypeName}}</ion-col>
+      <!-- <ion-col col-12>发票类型：{{pagedatamodle.invoiceTypeName}}</ion-col> -->
       <ion-col col-12>发票抬头：{{pagedatamodle.orderInvoiceHeader}}</ion-col>
       <ion-col col-12>发票内容：{{pagedatamodle.orderInvoiceContent}}</ion-col>
       <ion-col col-12>企业名称：{{pagedatamodle.enterpriseName}}</ion-col>

@@ -180,7 +180,6 @@ export class GoodsdetailPage {
           this.SCInfoViewModel.address = rs.objectData.address;
           this.SCInfoViewModel.enterprisesName = rs.objectData.enterprisesName;
           this.rate = rs.objectData.transactionScore;
-          this.SCInfoViewModel.goodsDetail='<p style="text-align: center;"><video class="edui-upload-video  vjs-default-skin video-js" controls="" preload="none" width="420" height="280" src="/server/ueditor/upload/video/video.mp4" data-setup="{}"></video></p><p>这是编辑器里面的视频，测试测试客户快速打开空空荡荡开始经典款手机的垃圾堆里姐姐撒娇大家了大空间的设计大奖基督教大家的设计就打击打击打击顶级阿就打击的空间经典款经典卡是经典款姐姐啊款设计大赛经典款</p>';
         }
       }
     }, true);
@@ -202,7 +201,6 @@ export class GoodsdetailPage {
     this.navCtrl.push('OrderPage');
   }
   showOriginal(myImage) {
-    console.log(myImage)
     const imageViewer = this._imageViewerCtrl.create(myImage, {
       enableBackdropDismiss: true
     });
@@ -221,7 +219,6 @@ export class GoodsdetailPage {
   }
   getGoodsComments(c_token, commParamId) {
     this.appService.httpPost_token(AppGlobal.API.postGoodsComment, c_token, { commparamId: commParamId }, rs => {
-      console.log(rs)
       if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
       }

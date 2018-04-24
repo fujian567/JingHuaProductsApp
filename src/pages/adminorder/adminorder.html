@@ -32,43 +32,48 @@
     </ion-row>
   </ion-grid>
   <div class="page-order-list">
-    <button ion-item class="btn-list" (click)="viewOrder(item.objectIDBaseInfo,item.processMainID)" *ngFor="let item of datalist, let i = index">
-      <ion-grid>
-        <ion-row>
-          <ion-col col-12>{{item.processDec}}</ion-col>
-        </ion-row>
-      </ion-grid>
-    </button>
-
-    <!-- <ion-list class="page-list">
-      <button ion-item (click)="callServies()" *ngFor="let item of datalist, let i = index">{{item.processDec}}</button>
-    </ion-list> -->
-    <!-- <ion-grid class="goods-grid" *ngFor="let item of pagedatamodle, let i = index">
+    <ion-grid class="goods-grid" *ngFor="let item of pagedatamodle, let i = index">
       <ion-row>
-        <ion-col col-8>订单编号：{{item.ordernum}}</ion-col>
-        <ion-col col-4></ion-col>
+        <ion-col col-10>订单编号：{{item.orderCode}}</ion-col>
+        <ion-col col-2></ion-col>
       </ion-row>
-      <ion-row class="goods-line">
-        <ion-col col-4 class="border-padding">
-          <img src="{{item.goodsImg}}" class="goods-img">
-        </ion-col>
-        <ion-col col-8 class="border-padding">
+      <div *ngIf="item.paramsInfo.length>1">
+        <ion-grid class="goods-list-img">
           <ion-row>
-            <ion-col col-12 class="goods-name">{{item.goodsName}}</ion-col>
-            <ion-col col-12 class="goods-othername">{{item.goodsSpec}}</ion-col>
-            <ion-col col-12 class="goods-othername">{{item.approved}}</ion-col>
+            <ion-col col-11>
+              <ion-slides shouldLockSwipeToNext=false>
+                <ion-slide *ngFor="let itempro of item.paramsInfo" class="list-img">
+                  <img src="{{'data:image/jpeg;base64,'+itempro.productImageData}}" class="list-goods-img">
+                </ion-slide>
+              </ion-slides>
+            </ion-col>
           </ion-row>
-        </ion-col>
+        </ion-grid>
+      </div>
+      <div *ngIf="item.paramsInfo.length==1">
+        <ion-row class="goods-line" *ngFor="let itempro of item.paramsInfo">
+          <ion-col col-4 class="border-padding">
+            <img src="{{'data:image/jpeg;base64,'+itempro.productImageData}}" class="goods-img">
+          </ion-col>
+          <ion-col col-8 class="border-padding">
+            <ion-row>
+              <ion-col col-12 class="goods-name">{{itempro.commName}}</ion-col>
+              <ion-col col-12 class="goods-othername">{{itempro.commSpecName}}</ion-col>
+              <ion-col col-12 class="goods-othername">{{itempro.approvedNumName}}</ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </div>
+      <ion-row>
+        <ion-col col-12 class="list-title">共{{item.orderNumber}}件商品 合计¥{{item.orderAmount}}（含运费¥{{item.freightAmount}}）</ion-col>
       </ion-row>
       <ion-row>
-        <ion-col col-12 class="list-title">共{{item.goodsNum}}件商品 合计¥{{item.price}}（含运费¥0.00）</ion-col>
-      </ion-row>
-      <ion-row>
-          <ion-col col-8></ion-col>
+        <ion-col col-8></ion-col>
         <ion-col col-4 class="list-title">
-          <button color="danger" (click)="auditOrder(item)" ion-button block outline class="pay-btn">待审核</button>
+          <button *ngIf="item.orderStateId==4" color="danger" (click)="viewOrder(item.orderId)" ion-button block outline class="pay-btn">待审核</button>
+          <button *ngIf="item.orderStateId==5" color="danger" (click)="viewOrder(item.orderId)" ion-button block outline class="pay-btn">待发货</button>
         </ion-col>
       </ion-row>
-    </ion-grid> -->
+    </ion-grid>
   </div>
 </ion-content>

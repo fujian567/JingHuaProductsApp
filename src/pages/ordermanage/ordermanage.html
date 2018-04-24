@@ -4,15 +4,15 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-  <ion-refresher (ionRefresh)="doRefresh($event,audit)">
+  <!-- <ion-refresher (ionRefresh)="doRefresh($event,audit)">
     <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="数据正在加载中..." refreshingText="数据正在加载中...">
     </ion-refresher-content>
-  </ion-refresher>
+  </ion-refresher> -->
   <ion-segment [(ngModel)]="allorder" color="verify">
-    <!-- <ion-segment-button value="all" isActive>
+    <ion-segment-button value="all" isActive (ionSelect)="selectedAll()">
       全部
-    </ion-segment-button> -->
-    <ion-segment-button value="nopay" isActive (ionSelect)="selectedNopay()">
+    </ion-segment-button>
+    <ion-segment-button value="nopay" (ionSelect)="selectedNopay()">
       待付款
     </ion-segment-button>
     <ion-segment-button value="noaudit" (ionSelect)="selectedNoaudit()">
@@ -32,9 +32,9 @@
     </ion-segment-button> -->
   </ion-segment>
   <div [ngSwitch]="allorder">
-    <!-- <ion-list *ngSwitchCase="'all'">
-      <ion-item *ngIf="isNoOrder">暂时没有订单</ion-item>
-      <ion-grid class="goods-grid" *ngFor="let item of pagedatamodle, let i = index">
+    <ion-list *ngSwitchCase="'all'">
+      <ion-item *ngIf="isShowAll">暂时没有订单</ion-item>
+      <ion-grid class="goods-grid" *ngFor="let item of pagedatamodleAll, let i = index">
         <ion-row>
           <ion-col col-8>订单编号：{{item.orderCode}}</ion-col>
           <ion-col col-4 style="text-align:end;color:#e4393c">{{item.orderstatus}}</ion-col>
@@ -62,7 +62,7 @@
           </ion-col>
         </ion-row>
       </ion-grid>
-    </ion-list> -->
+    </ion-list>
     <ion-list *ngSwitchCase="'nopay'">
       <ion-item *ngIf="isShowNoPay">暂时还有待付款的订单</ion-item>
       <div *ngIf="!isShowNoPay">

@@ -187,17 +187,34 @@
               <ion-col col-2 class="point">{{rate}}分</ion-col>
             </ion-row>
           </ion-col>
+          <ion-col col-12>
+            <ion-row>
+              <ion-col col-12>
+                <vg-player>
+                  <vg-overlay-play></vg-overlay-play>
+                  <vg-buffering></vg-buffering>
+                  <vg-controls [vgAutohide]="true" [vgAutohideTime]="5">
+                    <vg-play-pause></vg-play-pause>
+                    <vg-time-display [vgProperty]="'current'"></vg-time-display>
+                    <vg-scrub-bar>
+                      <vg-scrub-bar-current-time [vgSlider]="true"></vg-scrub-bar-current-time>
+                      <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+                    </vg-scrub-bar>
+                    <vg-time-display [vgProperty]="'total'"></vg-time-display>
+                    <!-- <vg-fullscreen></vg-fullscreen> -->
+                  </vg-controls>
+                  <video #media [vgMedia]="media" poster="" src="assets/imgs/test.mp4" autoplay></video>
+                </vg-player>
+              </ion-col>
+            </ion-row>
+          </ion-col>
           <ion-col col-12 *ngFor="let item of imagesList_DetailPage, let i = index">
             <img src="{{'data:image/jpeg;base64,'+item.imageData}}" class='bigimg' />
-          </ion-col>
-          <ion-col col-12>
-            <div class="pmain_text" [innerHTML]="assembleHTML(SCInfoViewModel.goodsDetail)"></div>
           </ion-col>
         </ion-row>
         <ion-row class="spec" *ngSwitchCase="'spec'">
           <ion-col col-12>商品规格：{{SCInfoViewModel.commSpecName}}</ion-col>
           <ion-col col-12>包装规格：{{SCInfoViewModel.approvedNumName}}</ion-col>
-          <ion-col col-12>商品规格：{{SCInfoViewModel.commSpecName}}</ion-col>
           <ion-col col-12>批准文号：{{SCInfoViewModel.approvedNumName}}</ion-col>
           <ion-col col-12>生产企业：{{SCInfoViewModel.enterprisesName}}</ion-col>
           <ion-col col-12>生产地址：{{SCInfoViewModel.address}}</ion-col>

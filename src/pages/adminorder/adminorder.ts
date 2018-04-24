@@ -32,11 +32,13 @@ export class AdminorderPage {
   u_token: any = '';
   processMainID: any = '';
   datalist: any = [];
+  pagedatamodle: any = [];
   pageStatus: any = [
-    // { key: 'all', value: '全部', checked: true },
+    //{ key: 'all', value: '全部', checked: true },
     { key: 'orderAudit', value: '订单待审核', checked: false },
-    // { key: 'allocate', value: '订单待配货', checked: false },
+    { key: 'orderAllAudit', value: '已审核的订单', checked: false },
     { key: 'deliver', value: '订单待发货', checked: false },
+    { key: 'allAeliver', value: '已发货的订单', checked: false },
     // { key: 'salesReturn', value: '退货待审核', checked: false },
     // { key: 'returnConfirm', value: '退款待确认', checked: false },
     // { key: 'orderClose', value: '订单关闭', checked: false },
@@ -67,9 +69,8 @@ export class AdminorderPage {
   backButtonClick = (e: UIEvent) => {
     this.navCtrl.push('AdminhomePage');
   }
-
-  //待审核
-  getOrderInfo(u_token) {
+  //全部订单
+  getAllOrderInfo(u_token) {
     this.appService.httpGet_token(AppGlobal.API.getWaitAuditOrder, u_token, {}, rs => {
       if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('AdminloginPage');
@@ -78,6 +79,22 @@ export class AdminorderPage {
         this.datalist = rs.objectData
         console.log(rs)
 
+      }
+    }, true)
+  }
+  //待审核
+  getOrderInfo(u_token) {
+    this.pagedatamodle = null;
+    this.appService.httpPost_token(AppGlobal.API.postOrderByStatus, u_token, { pages: this.pages, orderstateId: orderStatus.OrderWaitAudit }, rs => {
+      if (rs.status == 401 || rs.status == 403) {
+        this.app.getRootNav().setRoot('LoginPage');
+      }
+      console.log(rs)
+      if (rs.isSuccess) {
+        if (rs.objectData.length > 0) {
+          this.pagedatamodle = rs.objectData;
+          //this.isShowNoAudit = false;
+        }
       }
     }, true)
   }
@@ -100,10 +117,11 @@ export class AdminorderPage {
   }
   selectRadio(event: any) {
     switch (event) {
-      // case 'all': {
-      //   this.showStatus = '全部';
-      //   break;
-      // }
+      case 'all': {
+        this.showStatus = '全部';
+        this.getAllOrderInfo(this.u_token);
+        break;
+      }
       case 'orderAudit': {
         this.showStatus = '订单待审核';
         this.getOrderInfo(this.u_token);
@@ -159,7 +177,9 @@ export class AdminorderPage {
       }
     });
   }
-  viewOrder(orderId: any, processMainId: any) {
+  //viewOrder(orderId: any, processMainId: any) {
+  viewOrder(orderId: any) {
+    console.log(this.showStatus)
     switch (this.showStatus) {
       case '订单待审核': {
         this.navCtrl.push('AdminorderauditPage', { orderId: orderId, u_token: this.u_token })
@@ -174,7 +194,7 @@ export class AdminorderPage {
         break;
       }
       case '退货待审核': {
-        this.navCtrl.push('AdminordersalesreturnPage', { processMainId: processMainId, u_token: this.u_token })
+
         break;
       }
       case '退款待确认': {
@@ -187,19 +207,22 @@ export class AdminorderPage {
         break;
       }
     }
-    console.log(this.showStatus)
+
     //this.navCtrl.push('AdminorderauditPage', { orderId: orderId ,u_token:this.u_token})
   }
   //待发货
   getOrderInfoDeliver(u_token) {
-    this.appService.httpGet_token(AppGlobal.API.getWaitDeliveryOrder, u_token, {}, rs => {
+    this.pagedatamodle = null;
+    this.appService.httpPost_token(AppGlobal.API.postOrderByStatus, u_token, { pages: this.pages, orderstateId: orderStatus.OrderWaitDelivery }, rs => {
       if (rs.status == 401 || rs.status == 403) {
-        this.app.getRootNav().setRoot('AdminloginPage');
+        this.app.getRootNav().setRoot('LoginPage');
       }
       if (rs.isSuccess) {
-        this.datalist = rs.objectData
-        console.log(rs)
-
+        if (rs.objectData.length > 0) {
+          console.log(rs)
+          this.pagedatamodle = rs.objectData;
+          // this.isShowNoAudit = false;
+        }
       }
     }, true)
   }

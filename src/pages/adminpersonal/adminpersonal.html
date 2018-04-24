@@ -8,22 +8,22 @@
 <ion-content class="bg-color">
   <ion-list class="top-list">
     <ion-item>
-      <ion-col col-3 col-auto>姓名</ion-col>
-      <ion-col col-9 class="replenish-col-con">XXXXX</ion-col>
+      <ion-col col-3 col-auto>账号</ion-col>
+      <ion-col col-9 class="replenish-col-con">{{accountName}}</ion-col>
     </ion-item>
     <ion-item>
-        <ion-col col-3 col-auto>电话</ion-col>
-        <ion-col col-9 class="replenish-col-con">13112345678</ion-col>
-      </ion-item>
-      <ion-item>
-          <ion-col col-4 col-auto>业务员编码</ion-col>
-          <ion-col col-9 class="replenish-col-con">jhzx12345</ion-col>
-        </ion-item>
+      <ion-col col-3 col-auto>姓名</ion-col>
+      <ion-col col-9 class="replenish-col-con">{{clientName}}</ion-col>
+    </ion-item>
+    <ion-item>
+      <ion-col col-4 col-auto>业务员编码</ion-col>
+      <ion-col col-9 class="replenish-col-con">{{salesmanCode}}</ion-col>
+    </ion-item>
   </ion-list>
 
-  <ion-list>
+  <!-- <ion-list>
     <button ion-item (click)="modifyPwd()">修改密码</button>
-  </ion-list>
+  </ion-list> -->
 
   <ion-list>
     <button ion-item (click)="checkVersion()">

@@ -70,9 +70,11 @@ export class AppGlobal {
         getUserAppTag: '/api/customer/apptag/isinfo/', //判断用户是否极光推送id
         getUserMessage: '/api/customer/msginfo/post/', //获取用户消息
         getMessageCount: '/api/customer/msgcount/post/', //获取用户未读消息总数(false)
-        setMessageRead:'/api/customer/msgread/post/',//设置信息已读
-        deteleMessag:'/api/customer/msgdel/post/',//删除信息
-
+        setMessageRead: '/api/customer/msgread/post/',//设置信息已读
+        deteleMessag: '/api/customer/msgdel/post/',//删除信息
+        getUserInfo: '/api/customer/avatar/info/',//获取用户图像
+        postUserImg: '/api/customer/avatar/postinfo/',//上传用户图像
+        getSystemVersion: '/api/resources/systemversion/postinfo',//获取软件版本
 
         postUeserlogin: '/api/users/login/post/',//管-登录
         getFbenterpriseWait: '/api/enterprise/fbenterprise/minfo/',//管-首营审核
@@ -111,13 +113,14 @@ export class AppGlobal {
         getRefundWaitAuditOrder: '/api/order/refundwaitaudit/info/', //获取待审核退货的订单
         getRefundWaitAuditOrderInfo: '/api/order/refundwaitaudit/detailinfo/', //获取待审核退货的订单详情
         postCustomerMsgjpush: '/api/customer/msgjpush/post/', //极光推送消息
-        getSaleManInfo: '/api/users/salesman/info/', //极光推送消息
-
+        getSaleManInfo: '/api/users/salesman/info/', //获取业务员信息
+        postOrderByStatus: '/api/order/bystateid/manageinfo/', //获取订单根据状态
 
         getAppVersion: '/api/AppVersion/fbenterprise/wait/',
         getAppUpdate: '/api/AppUpdate/fbenterprise/info/',
         test: '/api/values',
         test1: '/api/values/5',
+        apk_download: '/images/apk/'// 下载地址
     };
     static systemPhone: any = {
         servicePhone: '09318568744', //客服电话
@@ -455,5 +458,9 @@ export class AppService {
     // 本地json文件请求
     geteExpressContact() {
         return this.http.get("assets/json/express.json")
+    }
+    // 本地图片文件请求
+    geteImgContact() {
+        return this.http.get("assets/imgs/userImg.jpg");
     }
 }

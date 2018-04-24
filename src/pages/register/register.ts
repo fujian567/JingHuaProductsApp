@@ -147,7 +147,11 @@ export class RegisterPage {
     this.isInputNull();
   }
   getinput_pw() {
+   if(this.pageModel.PassWord.length>16){
+    this.appConfigCtrl.popAlertView('密码长度不能大于16位');
+   }else{
     this.isInputNull();
+   }
   }
   getinput_rpw() {
     this.isInputNull();
@@ -161,10 +165,13 @@ export class RegisterPage {
       this.appConfigCtrl.popAlertView('公司名称长度不能大于100个汉字！');
        return 
     }
+    if (this.pageModel.PassWord.length >16&&this.pageModel.PassWord.length<6) {
+      this.appConfigCtrl.popAlertView('密码长度应大于6位小于16位！');
+       return 
+    }
     if (this.pageModel.SalesmanCode.length <= 0) {
       this.pageModel.SalesmanCode = '无';
     }
-    console.log(this.pageModel.SalesmanCode.length)
     this.appService.httpPost(AppGlobal.API.postRegister, this.pageModel, rs => {
       if (rs.isSuccess) {
         this.storage.set('ClientName', this.pageModel.ClientName);

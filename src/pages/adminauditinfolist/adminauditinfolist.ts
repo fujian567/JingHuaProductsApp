@@ -71,7 +71,7 @@ export class AdminauditinfolistPage {
     }, true)
   }
   getAllAuditInfoList(u_token) {
-    this.appService.httpPost_token(AppGlobal.API.postEnterpriseInfo, u_token, { pages: this.pagingModelA }, rs => {
+    this.appService.httpPost_token(AppGlobal.API.getFbenterpriseWait, u_token, { pages: this.pagingModelA , fbusinessstate: 62}, rs => {
       if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('AdminloginPage');
       }

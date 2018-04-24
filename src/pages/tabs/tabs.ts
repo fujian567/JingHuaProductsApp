@@ -1,6 +1,7 @@
-import { Component, Injectable } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { Component, Injectable,ViewChild } from '@angular/core';
+import { IonicPage, NavController,NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import {Tabs} from 'ionic-angular';
 
 /**
 客户端：主界面底部tab页面
@@ -13,11 +14,13 @@ import { Storage } from '@ionic/storage';
 })
 @Injectable()
 export class TabsPage {
+  @ViewChild('myTabs') tabRef: Tabs;
   c_token: any;
   isDataRegion: boolean = false;
   tabRoots: Object[];
   constructor(
     public navCtrl: NavController,
+    public navParams: NavParams,
     private storageCtrl: Storage
   ) {
     this.tabRoots = [
@@ -46,6 +49,14 @@ export class TabsPage {
       this.c_token = val;
       //this.getSystemRegional(val);
     });
+  }
+  ionViewDidEnter() {
+    if(this.navParams.data.jumpage!=undefined){
+      if(this.navParams.data.jumpage=='person'){
+        this.tabRef.select(3);
+      }
+    }
+    
   }
   getSystemRegional(u_token) {
     // this.appService.httpGet_token(AppGlobal.API.getSystemRegional, u_token, {}, rs => {

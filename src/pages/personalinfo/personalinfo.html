@@ -15,11 +15,12 @@
     <button ion-item (click)="addUserImg()">头像
       <span item-end>
         <ion-avatar item-left class="avatar">
-          <img src="./../../assets/imgs/nnzchykl.jpg">
+            <!-- <img src="{{'data:image/jpeg;base64,'+item}}" /> -->
+            <img src="{{userImg}}">
         </ion-avatar>
       </span>
     </button>
-    <button ion-item (click)="userName()"> 用户姓名
+    <!-- <button ion-item (click)="userName()"> 用户姓名
       <span item-end>{{pageModel.userName}}</span>
     </button>
     <button ion-item>
@@ -29,10 +30,10 @@
     <button ion-item>
         <ion-label>出生日期</ion-label> 
         <ion-datetime max="2030" min="1960"  displayFormat="YYYY/MM/DD" cancelText="取消" doneText="确定" placeholder="您的出生日期" [(ngModel)]="pageModel.birthday"></ion-datetime>
-    </button>
+    </button> -->
   </ion-list>
   <div class="bottom-btn">
-      <button ion-button color="danger" block (click)="logOut()">
+      <button ion-button color="danger" block (click)="saveImg()">
           保存
       </button>
   </div>

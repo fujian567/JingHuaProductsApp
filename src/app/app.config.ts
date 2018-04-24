@@ -25,7 +25,7 @@ export class AppStaticConfig {
         let part1 = "";
         let part2 = "";
         part1 = mobile.substr(0, 3);
-        part2 = mobile.substr(6, 4);
+        part2 = mobile.substr(7, 4);
         return `${part1}****${part2}`;
     }
     public static addRegionData(dataItem: any) {

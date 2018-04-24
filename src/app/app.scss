@@ -12,6 +12,11 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+@import '../assets/fonts/videogular.css';
+vg-player {
+    height: auto !important;
+    background-color: #fff !important;
+}
 .alert-bg {
   .alert-head {
     background-image: url(./../assets/imgs/warning.png);
@@ -170,4 +175,19 @@
 .ios .picker-toolbar-multi-picker-cancel {
   text-align: start;
 }
-
+// .alert-ios .alert-button {
+//   margin: 0;
+//   border-radius: 0;
+//   overflow: hidden;
+//   -webkit-box-flex: 1;
+//   -webkit-flex: 1 1 auto;
+//   -ms-flex: 1 1 auto;
+//   flex: 1 1 auto;
+//   min-width: 50%;
+//   height: 44px;
+//   border-top: 0.55px solid #dbdbdf;
+//   border-right: 0.55px solid #dbdbdf;
+//   font-size: 17px;
+//   color: #e4393c;
+//   background-color: transparent;
+// }

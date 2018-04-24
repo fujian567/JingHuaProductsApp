@@ -13,12 +13,15 @@
         </button>
     </ion-list>
     <ion-list class="top-list" *ngIf="isLogin">
-        <button ion-item (click)="personalinfo()" class="top-item">
-            <ion-avatar item-left class="avatar">
-                <img src="assets/imgs/nnzchykl.jpg">
+        <button ion-item (click)="personalinfo(userImg)" class="top-item">
+            <ion-avatar item-left class="avatar" *ngIf="img64">
+                <img [src]="'data:image/jpeg;base64,'+pageModel.userImg" />
             </ion-avatar>
-            <h2>测试人员</h2>
-            <p>账号：186****0918</p>
+            <ion-avatar item-left class="avatar" *ngIf="!img64">
+                <img src="{{userImg}}">
+            </ion-avatar>
+            <h2>{{clientName}}</h2>
+            <p>账号：{{accountName}}</p>
         </button>
     </ion-list>
     <ion-list class="order-list">
@@ -88,11 +91,11 @@
             版本号
             <span item-end>V1.0</span>
         </button>
-        <button ion-item>
+        <!-- <button ion-item>
             关于
-        </button>
+        </button> -->
     </ion-list>
     <ion-list class="page-list">
-        <ion-item  class="item-logout" (click)="logOut()"> 退出登录</ion-item>
+        <ion-item class="item-logout" (click)="logOut()"> 退出登录</ion-item>
     </ion-list>
 </ion-content>

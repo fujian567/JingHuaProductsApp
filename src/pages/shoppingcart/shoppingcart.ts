@@ -34,6 +34,9 @@ export class ShoppingcartPage {
     private storageCtrl: Storage,
     public app: App,
     public navParams: NavParams) {
+    
+  }
+  ionViewDidEnter() {
     this.storageCtrl.get('c_token').then((val) => {
       this.c_token = val;
       this.getShoppingCartInfo(val)

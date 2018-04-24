@@ -68,6 +68,7 @@ export class AdminorderauditPage {
       }
       if (rs.isSuccess) {
         if (rs.objectData.length > 0) {
+          console.log(rs)
           for (let i = 0; i < rs.objectData.length; i++) {
             this.pagedatamodle.ordernum = rs.objectData[i].orderCode;
             this.pagedatamodle.payMethodName = rs.objectData[i].payMethodName;
@@ -79,7 +80,7 @@ export class AdminorderauditPage {
             this.pagedatamodle.address = rs.objectData[i].orderDeliveryAddressInfo.pccname + ' ' + rs.objectData[i].orderDeliveryAddressInfo.address;
             this.pagedatamodle.deliveryInfoName = rs.objectData[i].orderDeliveryAddressInfo.deliveryInfoName;
             this.pagedatamodle.deliveryInfoMobile = rs.objectData[i].orderDeliveryAddressInfo.deliveryInfoMobile;
-            this.pagedatamodle.voucherImg = rs.objectData[i].imagesList[0].imageData;
+            this.pagedatamodle.voucherImg = AppGlobal.domainimage + rs.objectData[i].imagesList[0].imagePath + rs.objectData[i].imagesList[0].imageName;
             this.goodsList = rs.objectData[i].paramsInfo;
             this.pagedatamodle.invoiceTypeId = rs.objectData[i].invoiceTypeId;
             this.pagedatamodle.orderInvoiceInfo = rs.objectData[i].orderInvoiceInfo.isPInvoice;
@@ -105,12 +106,12 @@ export class AdminorderauditPage {
   }
   noAudit() {
     this.appConfig.popPromptView('', 'alert-bg-c', '请输入审核不通过的原因，供用户参考', 'reason', '输入审核不通过的原因', rt => {
-      if(rt.reason.length<2){
+      if (rt.reason.length < 2) {
         this.appConfig.popAlertView('请输入审核不通过的原因');
         return;
       }
-      this.orderaudit.IsAudit=false;
-      this.orderaudit.AuditContent=rt.reason;
+      this.orderaudit.IsAudit = false;
+      this.orderaudit.AuditContent = rt.reason;
       this.appService.httpPost_token(AppGlobal.API.postAuditOrder, this.u_token, { orderaudit: this.orderaudit }, rs => {
         console.log(rs)
         if (rs.status == 401 || rs.status == 403) {
@@ -125,8 +126,8 @@ export class AdminorderauditPage {
     })
   }
   audit() {
-    this.orderaudit.IsAudit=true;
-      this.orderaudit.AuditContent='审核通过';
+    this.orderaudit.IsAudit = true;
+    this.orderaudit.AuditContent = '审核通过';
     this.appService.httpPost_token(AppGlobal.API.postAuditOrder, this.u_token, { orderaudit: this.orderaudit }, rs => {
       if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('AdminloginPage');

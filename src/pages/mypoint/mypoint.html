@@ -15,14 +15,16 @@
       <ion-col col-10 class="page-content">
           <ion-grid style="padding:0;">
             <ion-row>
-                <ion-col col-12 style="padding:0 0 0 15px;" *ngIf="item.IntegralTypeId==1">购物获得积分({{item.IntegralDec}})</ion-col>
-                <ion-col col-12 style="padding:0 0 0 15px;" *ngIf="item.IntegralTypeId==2">评价获得积分({{item.IntegralDec}})</ion-col>
+                <ion-col col-12 style="padding:5px 0 3px 15px;" *ngIf="item.integralTypeId==1">{{item.integralDec}}</ion-col>
+                <ion-col col-12 style="padding:5px 0 3px 15px;" *ngIf="item.integralTypeId==2">{{item.integralDec}}</ion-col>
+                <!-- <ion-col col-12 style="padding:0 0 0 15px;" *ngIf="item.integralTypeId==1">购物获得积分({{item.integralDec}})</ion-col>
+                <ion-col col-12 style="padding:0 0 0 15px;" *ngIf="item.integralTypeId==2">评价获得积分({{item.integralDec}})</ion-col> -->
               <!-- <ion-col col-12 style="padding:0 0 0 15px;">{{item.IntegralTypeId}}({{item.IntegralDec}})</ion-col> -->
-              <ion-col col-12 class="page-date" style="padding:5px 0 0 15px;">{{item.IntegralCreateDate}}</ion-col>
+              <ion-col col-12 class="page-date" style="padding:5px 0 2px 15px;">{{item.integralCreateDate}}</ion-col>
             </ion-row>
           </ion-grid>
       </ion-col>
-      <ion-col col-2 class="page-point">+{{item.Integral}}</ion-col>
+      <ion-col col-2 class="page-point">+{{item.integral}}</ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>

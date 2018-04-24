@@ -43,6 +43,7 @@ export class HomePage {
       this.c_token = val;
       this.getUserAppTag(val);
       this.myGetMessageCount(val);
+      this.getUserInfo(val);
     });
   }
   editClick() {
@@ -141,5 +142,28 @@ export class HomePage {
         }
       }
     })
+  }
+  getUserInfo(c_token) {
+    // this.storage.get('userimg').then((val) => {
+    //   if (val == null) {
+    //     this.appService.httpGet_token(AppGlobal.API.getUserInfo, c_token, {}, rs => {
+    //       if (rs.status == 401 || rs.status == 403) {
+    //         this.app.getRootNav().setRoot('LoginPage');
+    //       }
+    //       if (rs.isSuccess) {
+    //       } else {
+    //         this.appService.geteImgContact().subscribe(rs => {
+    //           let img64 = rs.arrayBuffer();
+    //           let binary = '';
+    //           let bytes = new Uint8Array(img64);
+    //           for (var len = img64.byteLength, i = 0; i < len; i++) {
+    //             binary += String.fromCharCode(bytes[i]);
+    //           }
+    //           //this.storage.set('userimg', window.btoa(binary))
+    //         })
+    //       }
+    //     })
+    //   }
+    // })
   }
 }

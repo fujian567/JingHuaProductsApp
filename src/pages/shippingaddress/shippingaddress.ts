@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, App, Navbar } from 'ionic-angular';
 import { AppConfig } from '../../app/app.config';
 import { AppService, AppGlobal } from './../../app/app.service';
 import { Storage } from '@ionic/storage';
@@ -13,6 +13,7 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'shippingaddress.html',
 })
 export class ShippingaddressPage {
+  @ViewChild(Navbar) navBar: Navbar;
   isShowSubimtForm: boolean = false;
   pageTitle: string = '地址管理';
   c_token: any;
@@ -34,6 +35,12 @@ export class ShippingaddressPage {
       }
 
     });
+  }
+  ionViewDidLoad() {
+    this.navBar.backButtonClick = this.backButtonClick;
+  }
+  backButtonClick = (e: UIEvent) => {
+    this.navCtrl.push('TabsPage', { jumpage: 'person' });
   }
   getDelivery(c_token) {
     this.appService.httpGet_token(AppGlobal.API.getDeliveryAll, c_token, {}, rs => {
@@ -69,10 +76,10 @@ export class ShippingaddressPage {
         console.log(rs)
         if (rs.isSuccess) {
           this.getDelivery(this.c_token)
-        }else {
+        } else {
           this.appConfigCtrl.popAlertView(rs.errorMessage);
         }
-      },true)
+      }, true)
     })
   }
   default(item: any) {
@@ -92,7 +99,7 @@ export class ShippingaddressPage {
     let previouspage = localStorage.getItem('previouspage');
     if (previouspage != null) {
       localStorage.clear();
-      this.navCtrl.setRoot(previouspage, { address: item, imageList: this.imageList })
+      this.navCtrl.push(previouspage, { address: item, imageList: this.imageList })
     }
   }
 }

@@ -36,18 +36,18 @@ export class NativeService {
         });
     }
     //检查app是否需要升级
-    detectionUpgrade() {
-        this.getVersionNumber()
-        //这里连接后台获取app最新版本号,然后与当前app版本号(this.getVersionNumber())对比
-        //版本号不一样就需要申请,不需要升级就return
-
-        // this.appConfig.popAlertConfirmView('发现新版本,是否立即升级？', '取消', '确定', () => {
-        //     this.downloadApp();
-        // })
+    detectionUpgrade(token: any, versiontype: any) {
+        //let appVersion = this.getVersionNumber();
+        let appVersion = '1.0.0'
+        let systemVersion: any;
+        this.getSystemVersion(token, versiontype, rs => {
+            systemVersion = rs
+            this.appVersionContrast(appVersion, systemVersion.versionAndroid);
+        });
     }
     //下载安装app
     downloadApp() {
-        if (this.isAndroid()) {
+        //if (this.isAndroid()) {
             let alert = this.alertCtrl.create({
                 title: '下载进度：0%',
                 enableBackdropDismiss: false,
@@ -68,7 +68,7 @@ export class NativeService {
                     title && (title.innerHTML = '下载进度：' + num + '%');
                 }
             });
-        }
+        //}
         if (this.isIos()) {
             this.openUrlByBrowser(APP_DOWNLOAD);
         }
@@ -81,7 +81,6 @@ export class NativeService {
     getVersionNumber() {
         return new Promise((resolve) => {
             this.appVersion.getVersionNumber().then((value: string) => {
-                console.log(value)
                 resolve(value);
             }).catch(err => {
                 console.log(err);
@@ -93,7 +92,6 @@ export class NativeService {
         if (this.isMobile()) {
             this.jPushPlugin.getRegistrationID()
                 .then(res => {
-                    console.log(res)
                     this.postUserAppTag(res, c_token);
                 })
                 .catch(err => {
@@ -108,7 +106,6 @@ export class NativeService {
             if (rs.status == 401 || rs.status == 403) {
                 this.app.getRootNav().setRoot('LoginPage');
             }
-            console.log(rs)
         })
     }
     //获取网络类型 如`unknown`, `ethernet`, `wifi`, `2g`, `3g`, `4g`, `cellular`, `none`
@@ -137,5 +134,40 @@ export class NativeService {
     jumpMessagePage(title, alert) {
         //this.navCtrl.push('MessagetempPage',{title:title,alert:alert});
         this.app.getRootNav().setRoot('MessagetempPage', { title: title, alert: alert });
+    }
+    startPage(): boolean {
+        let retData = false;
+        this.storageCtrl.get('c_token').then((val) => {
+            if (val != null) {
+                retData = true;
+            }
+        });
+        return retData;
+    }
+    getSystemVersion(token: any, versiontype: any, callback) {
+        this.appService.httpPost_token(AppGlobal.API.getSystemVersion, token, { versiontype: versiontype }, rs => {
+            if (rs.isSuccess) {
+                callback(rs.objectData);
+            }
+        })
+    }
+    appVersionContrast(oldversion, newversion) {
+        let oldversionC = oldversion.split(".");
+        let newversionC = newversion.split(".");
+        if (oldversionC[0] != newversionC[0]) {
+            this.appConfig.popAlertConfirmView('发现新版本,是否立即升级？', '取消', '确定', () => {
+                this.downloadApp();
+            })
+        }
+        if (oldversionC[1] != newversionC[1]) {
+            this.appConfig.popAlertConfirmView('发现新版本,是否立即升级？', '取消', '确定', () => {
+                this.downloadApp();
+            })
+        }
+        if (oldversionC[2] != newversionC[2]) {
+            this.appConfig.popAlertConfirmView('发现新版本,是否立即升级？', '取消', '确定', () => {
+                this.downloadApp();
+            })
+        }
     }
 }

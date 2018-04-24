@@ -63,8 +63,8 @@
     </ion-item>
   </ion-list>
 </ion-content>
-<ion-footer>
-  <ion-grid *ngIf="isShowEdit">
+<ion-footer >
+  <ion-grid *ngIf="isShowEdit" style="padding: 0;">
     <ion-row>
       <ion-col col-3>
         <ion-item no-lines>
@@ -81,20 +81,20 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-grid *ngIf="!isShowEdit">
+  <ion-grid *ngIf="!isShowEdit" style="padding: 0;">
     <ion-row>
-      <ion-col col-3>
+      <ion-col col-3 style="padding: 0;">
         <ion-item no-lines>
           <ion-label>全选</ion-label>
           <ion-checkbox checked={{allcheck}} [(ngModel)]="allcheck" (click)="selectCucumber($event)"></ion-checkbox>
         </ion-item>
       </ion-col>
-      <ion-col col-5>
+      <ion-col col-5 style="padding: 0;">
         <ion-item no-lines>
           合计：¥{{amountPrice}}
         </ion-item>
       </ion-col>
-      <ion-col col-4>
+      <ion-col col-4 style="padding: 0;">
         <ion-item no-lines color="danger" style="text-align:center" (click)="settlement()">
           结算
         </ion-item>

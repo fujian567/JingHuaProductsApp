@@ -24,13 +24,12 @@ import { FileTransfer, FileTransferObject } from "@ionic-native/file-transfer";
 import { Network } from "@ionic-native/network";
 // import { SQLitePorter } from '@ionic-native/sqlite-porter';
 import { CallNumber } from '@ionic-native/call-number';
-import { MultiPicker } from 'ion-multi-picker';
 import { QRScanner } from '@ionic-native/qr-scanner';
 import { InAppBrowser } from "@ionic-native/in-app-browser";
 import { IonJPushModule } from 'ionic2-jpush'
 import { Logger } from "../providers/Logger";
 import { Device } from '@ionic-native/device';
-
+import { StreamingMedia } from '@ionic-native/streaming-media';
 
 
 @NgModule({
@@ -79,12 +78,11 @@ import { Device } from '@ionic-native/device';
     Network,
     // SQLitePorter,
     CallNumber,
-    MultiPicker,
     QRScanner,
     NativeService,
     InAppBrowser,
     Logger,
-    Device,
+    Device,StreamingMedia,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

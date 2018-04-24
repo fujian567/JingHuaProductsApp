@@ -34,6 +34,7 @@ export class OrdermanagePage {
     PageSize: 20
   }
   pagedatamodleAll = [];
+  isShowAll: boolean = true;
   pagedatamodleNoPay = [];
   isShowNoPay: boolean = true;
   pagedatamodleNoAudit = [];
@@ -93,6 +94,7 @@ export class OrdermanagePage {
         }
         default: {
           this.allorder = 'all';
+          this.getAllOrder(this.c_token)
           break;
         }
       }
@@ -137,6 +139,21 @@ export class OrdermanagePage {
     this.navCtrl.push('AftersalePage', { item: item, c_token: this.c_token })
 
   }
+  //全部订单
+  getAllOrder(c_token){
+    this.appService.httpPost_token(AppGlobal.API.postOrderInfoByStatus, c_token, { pages: this.pages, orderstateId: '-1' }, rs => {
+      if (rs.status == 401 || rs.status == 403) {
+        this.app.getRootNav().setRoot('LoginPage');
+      }
+      if (rs.isSuccess) {
+        if (rs.objectData.length > 0) {
+          this.pagedatamodleNoPay = rs.objectData;
+          this.isShowNoPay = false;
+        }
+      }
+    }, true)
+  }
+  
   getOrderInfo(c_token) {
     this.appService.httpPost_token(AppGlobal.API.postOrderInfoByAccount, c_token, { pages: this.pages }, rs => {
       if (rs.status == 401 || rs.status == 403) {
@@ -181,6 +198,7 @@ export class OrdermanagePage {
       if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
       }
+      console.log(rs)
       if (rs.isSuccess) {
         if (rs.objectData.length > 0) {
           this.pagedatamodleNoDeliver = rs.objectData;
@@ -235,6 +253,10 @@ export class OrdermanagePage {
   }
   viewOrder(orderId: any) {
     this.navCtrl.push('OrderdetailPage', { orderId: orderId, c_token: this.c_token })
+  }
+  selectedAll(){
+    console.log('1111')
+    this.getAllOrder(this.c_token)
   }
   selectedNopay() {
     this.getOrderInfoNoPay(this.c_token);

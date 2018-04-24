@@ -1,5 +1,5 @@
 import { Component, ChangeDetectorRef, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App , Navbar } from 'ionic-angular';
 import { AppService, AppGlobal } from './../../app/app.service';
 import { AppConfig, AppStaticConfig } from './../../app/app.config';
 import { Storage } from '@ionic/storage';
@@ -16,6 +16,7 @@ import { MultiPicker } from 'ion-multi-picker';
 })
 export class ShippingaddresseditPage {
   @ViewChild(MultiPicker) multiPicker: MultiPicker;
+  @ViewChild(Navbar) navBar: Navbar;
   _guid: any = 'ca3b89d1-9ff5-4998-b6d9-972d7a7e80e9';
   c_token: any;
   dependentColumns: any[] = [];
@@ -85,6 +86,12 @@ export class ShippingaddresseditPage {
       text[i].textContent = this.pccName
     }
   }
+  ionViewDidLoad() {
+    this.navBar.backButtonClick = this.backButtonClick;
+  }
+  backButtonClick = (e: UIEvent) => {
+    this.navCtrl.push('ShippingaddressPage');
+  }
   getRegion() {
     this.appService.getRegionContact()
       .subscribe(rs => {
@@ -153,7 +160,7 @@ export class ShippingaddresseditPage {
       if (rs.isSuccess) {
         if (previouspage != null) {
           localStorage.clear();
-          this.navCtrl.setRoot(previouspage, {
+          this.navCtrl.push(previouspage, {
             imageList: this.imageList
           })
         } else {

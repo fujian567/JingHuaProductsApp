@@ -68,6 +68,8 @@ export class LoginPage {
           this.storage.set('c_account', rs.objectData.accountID);
           this.storage.set('c_accountRoles', rs.objectData.accountRoles);
           this.storage.set('c_platformType', rs.objectData.platformTypeID);
+          this.storage.set('c_accountName', rs.objectData.accountName);
+          this.storage.set('c_clientName', rs.objectData.clientName);
         });
         if (rs.objectData.accountState_L == '0') {
           this.app.getRootNav().setRoot('AccpuntinformationPage');

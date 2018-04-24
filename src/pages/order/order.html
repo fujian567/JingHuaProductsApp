@@ -67,10 +67,10 @@
   <ion-grid class="list-grid">
     <ion-row>
       <ion-col col-3 class="list-title">支付方式</ion-col>
-      <!-- <ion-col col-3 *ngFor="let item of payMethod, let i = index">
-        <button color="cblock" ion-button block outline (click)="upVoucher()">{{item.payMethodName}}</button>
-      </ion-col> -->
-      <ion-col col-3>
+      <ion-col col-3 *ngFor="let item of payMethod, let i = index">
+        <button color="{{item.isDefault}}" ion-button block outline (click)="upVoucher(item,i)">{{item.payMethodName}}</button>
+      </ion-col>
+      <!-- <ion-col col-3>
         <button color="danger" ion-button block outline>银行转账</button>
       </ion-col>
       <ion-col col-3>
@@ -78,7 +78,7 @@
       </ion-col>
       <ion-col col-3>
         <button color="cgrayk" ion-button block outline>微信支付</button>
-      </ion-col>
+      </ion-col> -->
     </ion-row>
     <ion-row *ngIf="isShowUpVoucher">
       <ion-col col-3></ion-col>

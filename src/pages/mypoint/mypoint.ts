@@ -21,7 +21,7 @@ export class MypointPage {
   }
   isShowMypoint = false;
   myPoint: any = [];
-  mypointAmount:any='0';
+  mypointAmount: any = '0';
   constructor(
     public navCtrl: NavController,
     private appConfigCtrl: AppConfig,
@@ -41,9 +41,10 @@ export class MypointPage {
         this.app.getRootNav().setRoot('LoginPage');
       }
       if (rs.isSuccess) {
-        if (rs.objectData.length > 0) {
-          this.myPoint = rs.objectData.AccountIntegralRecords;
-          this.mypointAmount=rs.objectData.TotalIntegral;
+        if (rs.objectData.accountIntegralRecords.length > 0) {
+          console.log(rs.objectData)
+          this.myPoint = rs.objectData.accountIntegralRecords;
+          this.mypointAmount = rs.objectData.totalIntegral;
         } else {
           this.isShowMypoint = true;
         }

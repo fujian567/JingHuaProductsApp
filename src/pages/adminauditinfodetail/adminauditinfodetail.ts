@@ -4,6 +4,7 @@ import { ImageViewerController } from 'ionic-img-viewer';
 import { AppService, AppGlobal } from './../../app/app.service';
 import { AppConfig, AppStaticConfig } from './../../app/app.config';
 import { Storage } from '@ionic/storage';
+
 /**
 管理端：资质审核详情界面
  */
@@ -15,7 +16,7 @@ import { Storage } from '@ionic/storage';
 })
 export class AdminauditinfodetailPage {
   _imageViewerCtrl: ImageViewerController;
-  _servePath: any = AppGlobal.domain;
+  _servePath: any = AppGlobal.domainimage;
   u_token: any;
   region: any;
   FBAuditViewModel: any = {
@@ -36,8 +37,12 @@ export class AdminauditinfodetailPage {
     enterpriseNatureName: '',
     salesmanCode: '',
     salesmanName_OA: '',
-    sserIdErp: '',
+    userIdErp: '',
+    location: ''
+
   }
+  enterpriseNature: any;
+  PCCname: any;
   eTaxIdeNumber: any;
   expiredDate: any;
   isViewPage: any = false;
@@ -48,6 +53,7 @@ export class AdminauditinfodetailPage {
   cityjson: any;
   tempLocation: any = '';
   countyjson: any;
+  isShowPCCname: boolean = false;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -63,16 +69,35 @@ export class AdminauditinfodetailPage {
     });
     console.log(navParams.data.itemData)
     this.FBAuditViewModel = navParams.data.itemData;
+    this.eTaxIdeNumber = navParams.data.itemData.eTaxIdeNumber;
     this._imageViewerCtrl = imageViewerCtrl;
     this.getRegion();
     this.getCompanyProperty();
   }
   ionViewDidEnter() {
     let text = document.getElementsByClassName("multi-picker-placeholder");
-    let date = document.getElementsByClassName("datetime-text datetime-placeholder")
+    // let date = document.getElementsByClassName("datetime-text datetime-placeholder")
     this.tempLocation = this.navParams.data.itemData.pccname;
-    text[0].textContent = this.navParams.data.itemData.enterpriseNatureName;
-    //date[0].textContent = new Date(this.navParams.data.itemData.expiredDate).toLocaleDateString()
+    if (this.navParams.data.itemData.enterpriseNatureName != '无') {
+      text[0].textContent = this.navParams.data.itemData.enterpriseNatureName;
+      text[0].setAttribute('style', 'color:#222');
+      this.FBAuditViewModel.location = this.navParams.data.itemData.pccname;
+    }
+    if (this.navParams.data.itemData.pccname != '无') {
+      text[1].textContent = this.navParams.data.itemData.pccname;
+      text[1].setAttribute('style', 'color:#222');
+    }
+    if (this.navParams.data.itemData.eTaxIdeNumber == '无') {
+      this.eTaxIdeNumber = ''
+    }
+    if (this.navParams.data.itemData.salesmanName_OA == '无') {
+      this.FBAuditViewModel.salesmanName_OA = '';
+      this.FBAuditViewModel.userIdErp = '';
+      this.FBAuditViewModel.salesmanCode = '';
+    }
+    if (this.navParams.data.itemData.address == '无') {
+      this.FBAuditViewModel.address = '';
+    }
   }
   getCompanyProperty() {
     this.appService.httpGet_token(AppGlobal.API.getDataCompanyProperty, this.u_token, {}, rs => {
@@ -107,11 +132,11 @@ export class AdminauditinfodetailPage {
       this.FBAuditViewModel.address = '无详细地址';
       this.FBAuditViewModel.pccname = '无区域';
       this.appService.httpPost_token(AppGlobal.API.postFbenterpriseSubmit, this.u_token, this.FBAuditViewModel, rs => {
-        console.log(rs)
         if (rs.status == 401 || rs.status == 403) {
           this.app.getRootNav().setRoot('AdminloginPage');
         }
         if (rs.isSuccess) {
+          this.jpushMesaage('资料审核不通过', rs.reason, this.FBAuditViewModel.fbusinessId);
           this.navCtrl.push('AdminauditinfolistPage');
         } else {
           this.appConfig.popAlertView(rs.errorMessage);
@@ -126,56 +151,55 @@ export class AdminauditinfodetailPage {
     imageViewer.present();
   }
   passAudit() {
-    console.log(this.FBAuditViewModel);
-    if (this.FBAuditViewModel.companyName == "") {
+    if (this.FBAuditViewModel.companyName.length < 0) {
       this.appConfig.popAlertView('企业名称不能为空！')
       return
-    } else if (this.FBAuditViewModel.clientName == "") {
+    } else if (this.FBAuditViewModel.clientName.length < 0) {
       this.appConfig.popAlertView('企业联系人姓名不能为空！')
       return
-    } else if (this.FBAuditViewModel.mobile == "") {
+    } else if (this.FBAuditViewModel.mobile.length < 0) {
       this.appConfig.popAlertView('联系电话不能为空！')
       return
     } else if (!AppStaticConfig.verifyMobile(this.FBAuditViewModel.mobile)) {
       this.appConfig.popAlertView('联系电话格式不正确！')
       return
-    } else if (this.eTaxIdeNumber == "") {
+    } else if (this.eTaxIdeNumber.length < 0) {
       this.appConfig.popAlertView('企业识别号不能为空！')
       return
-    } else if (this.FBAuditViewModel.SalesmanCode == "") {
+    } else if (this.FBAuditViewModel.salesmanCode.length < 2) {
       this.appConfig.popAlertView('业务员姓名不能为空！')
       return
     } else if (this.FBAuditViewModel.expiredDatet == '') {
       this.appConfig.popAlertView('资质过期日期不能为空！')
       return
-    } else if (this.FBAuditViewModel.ProvinceID == "" || this.FBAuditViewModel.ProvinceID == undefined) {
+    } else if (this.FBAuditViewModel.location.length < 0) {
       this.appConfig.popAlertView('企业所在省市区不能为空！')
       return
-    } else if (this.FBAuditViewModel.address == "" || this.FBAuditViewModel.address == undefined) {
+    } else if (this.FBAuditViewModel.address.length < 0) {
       this.appConfig.popAlertView('企业详细地址不能为空！')
       return
     } else {
       this.FBAuditViewModel.pccname = document.getElementById('PCCname').textContent.trim();
       this.FBAuditViewModel.enterpriseNatureName = document.getElementById('enterpriseNature').textContent.trim();
-      
-      let tempLocation: any = this.FBAuditViewModel.ProvinceID.split(' ');
+      let tempLocation: any = this.FBAuditViewModel.location.split(' ');
       this.FBAuditViewModel.ProvinceID = tempLocation[0];
       this.FBAuditViewModel.CityID = tempLocation[1];
       this.FBAuditViewModel.CountyID = tempLocation[2];
       this.FBAuditViewModel.auditDec = ' 无';
       this.FBAuditViewModel.isAudit = true;
       this.FBAuditViewModel.eTaxIdeNumber = this.eTaxIdeNumber;
-      // this.appService.httpPost_token(AppGlobal.API.postFbenterpriseSubmit, this.u_token, this.FBAuditViewModel, rs => {
-      //   console.log(rs)
-      //   if (rs.status == 401 || rs.status == 403) {
-      //     this.app.getRootNav().setRoot('AdminloginPage');
-      //   }
-      //   if (rs.isSuccess) {
-      //     this.navCtrl.push('AdminauditinfolistPage');
-      //   } else {
-      //     this.appConfig.popAlertView(rs.errorMessage);
-      //   }
-      // }, true)
+      this.appService.httpPost_token(AppGlobal.API.postFbenterpriseSubmit, this.u_token, this.FBAuditViewModel, rs => {
+        console.log(rs)
+        if (rs.status == 401 || rs.status == 403) {
+          this.app.getRootNav().setRoot('AdminloginPage');
+        }
+        if (rs.isSuccess) {
+          this.jpushMesaage('资料审核通过','您提交的资料信息已经通过审核',this.FBAuditViewModel.fbusinessId);
+          this.navCtrl.push('AdminauditinfolistPage');
+        } else {
+          this.appConfig.popAlertView(rs.errorMessage);
+        }
+      }, true)
     }
   }
   getRegion() {
@@ -200,7 +224,6 @@ export class AdminauditinfodetailPage {
           options: AppStaticConfig.addRegionData(countyData)
         }
         this.dependentColumns.push(this.countyjson);
-        console.log(this.dependentColumns)
         this.ref.detectChanges();
       }, error => {
         console.log(error);
@@ -213,17 +236,14 @@ export class AdminauditinfodetailPage {
     } else if (this.FBAuditViewModel.clientName == "") {
       this.appConfig.popAlertView('企业联系人姓名不能为空！')
       return
-    } else if (this.eTaxIdeNumber == "") {
-      this.appConfig.popAlertView('企业识别号不能为空！')
-      return
-    } else if (this.FBAuditViewModel.enterpriseNatureId == "") {
-      this.appConfig.popAlertView('企业性质不能为空！')
-      return
     } else if (this.FBAuditViewModel.mobile == "") {
       this.appConfig.popAlertView('联系电话不能为空！')
       return
     } else if (!AppStaticConfig.verifyMobile(this.FBAuditViewModel.mobile)) {
       this.appConfig.popAlertView('联系电话格式不正确！')
+      return
+    } else if (this.eTaxIdeNumber == "") {
+      this.appConfig.popAlertView('企业识别号不能为空！')
       return
     } else if (this.FBAuditViewModel.salesmanCode == "") {
       this.appConfig.popAlertView('业务员姓名不能为空！')
@@ -231,7 +251,7 @@ export class AdminauditinfodetailPage {
     } else if (this.FBAuditViewModel.expiredDatet == '') {
       this.appConfig.popAlertView('资质过期日期不能为空！')
       return
-    } else if (this.FBAuditViewModel.ProvinceID == "" || this.FBAuditViewModel.ProvinceID == undefined) {
+    } else if (this.FBAuditViewModel.location == "" || this.FBAuditViewModel.location == undefined) {
       this.appConfig.popAlertView('企业所在省市区不能为空！')
       return
     } else if (this.FBAuditViewModel.address == "" || this.FBAuditViewModel.address == undefined) {
@@ -240,16 +260,14 @@ export class AdminauditinfodetailPage {
     } else {
       this.FBAuditViewModel.pccname = document.getElementById('PCCname').textContent.trim();
       this.FBAuditViewModel.enterpriseNatureName = document.getElementById('enterpriseNature').textContent.trim();
-      let tempLocation: any = this.FBAuditViewModel.provinceID.split(' ');
+      let tempLocation: any = this.FBAuditViewModel.location.split(' ');
       this.FBAuditViewModel.ProvinceID = tempLocation[0];
       this.FBAuditViewModel.CityID = tempLocation[1];
       this.FBAuditViewModel.CountyID = tempLocation[2];
       this.FBAuditViewModel.auditDec = ' 无';
       this.FBAuditViewModel.isAudit = true;
       this.FBAuditViewModel.eTaxIdeNumber = this.eTaxIdeNumber;
-      console.log(this.FBAuditViewModel)
       this.appService.httpPost_token(AppGlobal.API.postCompanyDataSaveSubmit, this.u_token, this.FBAuditViewModel, rs => {
-        console.log(rs)
         if (rs.status == 401 || rs.status == 403) {
           this.app.getRootNav().setRoot('AdminloginPage');
         }
@@ -267,30 +285,15 @@ export class AdminauditinfodetailPage {
         this.appConfig.popAlertView('请输入你要查询的业务员姓名');
         return;
       } else {
-        this.getSaleManInfo(rs);
+        this.getSaleManInfo(rs.salesman);
       }
-
     });
   }
-
   getSaleManInfo(psnname) {
     this.appService.httpPost_token(AppGlobal.API.getSaleManInfo, this.u_token, { psnname: psnname }, rs => {
       if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('AdminloginPage');
       }
-      let tempdate = [
-        { salesmanCode_ERP: '1', salesmanName_ERP: '张1', userID_ERP: 'A1' },
-        { salesmanCode_ERP: '2', salesmanName_ERP: '张2', userID_ERP: 'A2' },
-        { salesmanCode_ERP: '3', salesmanName_ERP: '张3', userID_ERP: 'A3' },
-        { salesmanCode_ERP: '4', salesmanName_ERP: '张4', userID_ERP: 'A4' },
-        { salesmanCode_ERP: '5', salesmanName_ERP: '张5', userID_ERP: 'A5' },
-      ]
-      this.appConfig.popRadioView('选择业务员', 'alert-bg-e', tempdate, rs => {
-        let salesmaninfo = rs.split(",");
-        this.FBAuditViewModel.salesmanCode = salesmaninfo[0];
-        this.FBAuditViewModel.salesmanName_OA = salesmaninfo[1];
-        this.FBAuditViewModel.userIdErp = salesmaninfo[2];
-      });
       if (rs.isSuccess) {
         if (rs.objectData != null) {
           if (rs.objectData.length > 0) {
@@ -300,7 +303,6 @@ export class AdminauditinfodetailPage {
               this.FBAuditViewModel.salesmanName_OA = salesmaninfo[1];
               this.FBAuditViewModel.userIdErp = salesmaninfo[2];
             });
-
           } else {
             this.appConfig.popAlertView(rs.errorMessage);
           }
@@ -310,4 +312,34 @@ export class AdminauditinfodetailPage {
       }
     }, true)
   }
+  jpushMesaage(alertTitle: any, alertInfo: any, fbusinessId: any) {
+    let MsgViewModel: any = {
+      AlertTitle: '',
+      AlertInfo: '',
+      SendTitle: '',
+      SendContent: '',
+      MsgMark: '',
+      TargetAccountId: fbusinessId,//根据首营id获取AccountId
+      MsgTypeId: 2,//1、群发，2端对端
+      ExtrasData: 'BC6D7078-4603-41D3-9706-0AB4E3CA4880',
+      ExtrasType: '1',//0、是资料审核，1、订单
+      Audience: 'APP设备标识',
+      MsgId: 'ca3b89d1-9ff5-4998-b6d9-972d7a7e80e9'
+    }
+    MsgViewModel.AlertTitle = alertTitle;
+    MsgViewModel.AlertInfo = alertInfo;
+    MsgViewModel.SendTitle = alertTitle;
+    MsgViewModel.SendContent = alertInfo;
+    this.appService.httpPost_token(AppGlobal.API.postCustomerMsgjpush, this.u_token, { msg: MsgViewModel }, rs => {
+      if (rs.status == 401 || rs.status == 403) {
+        this.app.getRootNav().setRoot('AdminloginPage');
+      }
+      if (rs.isSuccess) {
+        this.navCtrl.push('AdminhomePage');
+      } else {
+        this.appConfig.popAlertView(rs.errorMessage);
+      }
+    })
+  }
+
 }

@@ -56,6 +56,9 @@ export class AdminloginPage {
           this.storage.set('u_token', rs.objectData.authorization);
           this.storage.set('u_accountState', rs.objectData.accountState_L);
           this.storage.set('u_logDateTime', rs.objectData.logDateTime);
+          this.storage.set('u_clientName', rs.objectData.clientName);
+          this.storage.set('u_accountName', rs.objectData.accountName);
+          this.storage.set('u_salesmanCode', rs.objectData.salesmanCode);
         });
         this.navCtrl.setRoot('AdminhomePage');
       } else {

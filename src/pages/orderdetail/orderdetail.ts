@@ -95,7 +95,7 @@ export class OrderdetailPage {
           }
         }
       }
-    });
+    },true);
   }
   callService() {
     this.callNumber.callNumber(AppGlobal.systemPhone.servicePhone, true)

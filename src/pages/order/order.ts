@@ -15,7 +15,7 @@ import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker';
   templateUrl: 'order.html',
 })
 export class OrderPage {
-  isShowUpVoucher: boolean = true;
+  isShowUpVoucher: boolean = false;
   c_token: any;
   _guid: any = 'ca3b89d1-9ff5-4998-b6d9-972d7a7e80e9';
   pagedatamodle: any = []
@@ -66,12 +66,14 @@ export class OrderPage {
   deliveryMobile: any = '';
   pccName: any = '';
   address: any = '';
-  InvoiceTypeId: any = 4;
+  InvoiceTypeId: any = 1;
   IsPInvoice: boolean = false;
   DistributionInfoId: any = '2';
   OrderCommodity: any = [];
   isUpimages: boolean = true;
   ImagesList: any = [];
+  PayMethodId: any = '';
+  PayMethodName: any = '';
   constructor(
     public navCtrl: NavController,
     private appConfigCtrl: AppConfig,
@@ -91,7 +93,6 @@ export class OrderPage {
     });
     if (this.navParams.data.InvoiceTypeId != undefined) {
       let parmas = this.navParams.data;
-      console.log(parmas)
       this.PInvoiceInfoViewModel.PinvoiceId = parmas.PInvoiceInfoViewModel.PinvoiceId;
       this.PInvoiceInfoViewModel.PinvoiceHeader = parmas.PInvoiceInfoViewModel.PinvoiceHeader;
       this.PInvoiceInfoViewModel.PinvoiceContent = parmas.PInvoiceInfoViewModel.PinvoiceContent;
@@ -114,7 +115,6 @@ export class OrderPage {
       this.IsPInvoice = this.navParams.data.IsPInvoice;
     }
     if (this.navParams.data.address != undefined) {
-      console.log(this.navParams.data.address)
       let tempAddress = this.navParams.data.address;
       this.deliveryName = tempAddress.deliveryName;
       this.deliveryMobile = AppStaticConfig.hideMobile(tempAddress.deliveryMobile);;
@@ -132,7 +132,7 @@ export class OrderPage {
       this.isShowDefaultDelive = false;
     }
     if (navParams.data.imageList != undefined) {
-      if(navParams.data.imageList.length>0){
+      if (navParams.data.imageList.length > 0) {
         this.ImagesList = navParams.data.imageList
       }
     }
@@ -144,13 +144,15 @@ export class OrderPage {
       }
       if (rs.isSuccess) {
         if (rs.objectData.scInfoList.length > 0) {
-
+          console.log(rs);
           this.pagedatamodle = rs.objectData.scInfoList;
           this.totalAmount = rs.objectData.totalAmount;
           this.freightAmount = rs.objectData.freightAmount;
           this.realPaymentAmount = rs.objectData.realPaymentAmount;
           this.remissionAmount = rs.objectData.remissionAmount;
           this.totalNumber = rs.objectData.totalNumber;
+          this.EInvoiceInfoViewModel.EinvoiceName = rs.objectData.einvoiceHeader;
+          this.EInvoiceInfoViewModel.EtaxIdeNumber = rs.objectData.etaxIdeNumber;
           for (let i = 0; i < rs.objectData.scInfoList.length; i++) {
             let OrderCommodity: any = {
               OrderCid: rs.objectData.scInfoList[i].commId,
@@ -175,7 +177,21 @@ export class OrderPage {
       }
       if (rs.isSuccess) {
         if (rs.objectData.length > 0) {
-          this.payMethod = rs.objectData;
+          for (let i = 0; i < rs.objectData.length; i++) {
+            let tempobj = {
+              payMethodDec: '',
+              payMethodId: '',
+              payMethodName: '',
+              isDefault: 'cgrayk'
+            }
+            tempobj.payMethodDec = rs.objectData[i].payMethodDec;
+            tempobj.payMethodId = rs.objectData[i].payMethodId;
+            tempobj.payMethodName = rs.objectData[i].payMethodName;
+            if (i == 0) {
+              tempobj.isDefault = 'danger';
+            }
+            this.payMethod.push(tempobj)
+          }
         }
       }
     })
@@ -246,8 +262,19 @@ export class OrderPage {
   setInvoice() {
     this.navCtrl.push('InvoicePage')
   }
-  upVoucher() {
-    this.isShowUpVoucher = true;
+  upVoucher(item, index) {
+    console.log(item)
+    for (let i = 0; i < this.payMethod.length; i++) {
+      this.payMethod[i].isDefault = 'cgrayk';
+    }
+    this.payMethod[index].isDefault = 'danger';
+    if (item.payMethodId == 3) {
+      this.isShowUpVoucher = true;
+    } else {
+      this.isShowUpVoucher = false;
+    }
+    this.PayMethodId = item.payMethodId;
+    this.PayMethodName = item.payMethodName
   }
   viewDetail() {
     this.navCtrl.push('OrdergoodslistPage')
@@ -259,7 +286,7 @@ export class OrderPage {
         this.navCtrl.push('ShippingaddressPage');
       });
     } else {
-      if (this.ImagesList.length < 1) {
+      if (this.ImagesList.length < 1 && this.PayMethodId != 3) {
         this.appConfigCtrl.popAlertView('你还没有上传银行转账凭证，请上传凭证！');
         return
       }
@@ -296,8 +323,10 @@ export class OrderPage {
         EInvoiceInfo: this.EInvoiceInfoViewModel,
         DeliveryInfo: this.DeliveryInfoViewModel,
         IsPInvoice: this.IsPInvoice,
-        PayMethodId: 3,
-        DistributionInfoId: this.DistributionInfoId,
+        PayMethodId: this.PayMethodId,
+        PayMethodName: this.PayMethodName,
+        DistributionInfoId: 2,
+        // DistributionInfoId: this.DistributionInfoId,
         OrderIsEffective: true,
         OrderCommodity: this.OrderCommodity,
         ImagesList: imageList
@@ -309,7 +338,7 @@ export class OrderPage {
         }
         if (rs.isSuccess) {
           this.navCtrl.setRoot('OrdersuccessPage')
-        }else {
+        } else {
           this.appConfigCtrl.popAlertView(rs.errorMessage);
         }
       }, true);
@@ -317,7 +346,7 @@ export class OrderPage {
   }
   changeaddress() {
     localStorage.setItem('previouspage', 'OrderPage')
-    this.navCtrl.push('ShippingaddressPage',{imageList:this.ImagesList});
+    this.navCtrl.push('ShippingaddressPage', { imageList: this.ImagesList });
   }
   onAddImage() {
     let actionSheet = this.actionSheetCtrl.create({
