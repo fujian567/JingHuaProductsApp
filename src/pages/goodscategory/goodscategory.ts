@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams,App } from 'ionic-angular';
 import { AppConfig } from '../../app/app.config';
-import { AppService, AppGlobal } from './../../app/app.service';
+import { AppService, AppGlobal } from '../../app/app.service'
 import { Storage } from '@ionic/storage';
 
 /**

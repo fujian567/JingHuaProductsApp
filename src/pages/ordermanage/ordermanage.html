@@ -9,10 +9,10 @@
     </ion-refresher-content>
   </ion-refresher> -->
   <ion-segment [(ngModel)]="allorder" color="verify">
-    <ion-segment-button value="all" isActive (ionSelect)="selectedAll()">
+    <!-- <ion-segment-button value="all" isActive (ionSelect)="selectedAll()">
       全部
-    </ion-segment-button>
-    <ion-segment-button value="nopay" (ionSelect)="selectedNopay()">
+    </ion-segment-button> -->
+    <ion-segment-button value="nopay" isActive (ionSelect)="selectedNopay()">
       待付款
     </ion-segment-button>
     <ion-segment-button value="noaudit" (ionSelect)="selectedNoaudit()">
@@ -32,7 +32,7 @@
     </ion-segment-button> -->
   </ion-segment>
   <div [ngSwitch]="allorder">
-    <ion-list *ngSwitchCase="'all'">
+    <!-- <ion-list *ngSwitchCase="'all'">
       <ion-item *ngIf="isShowAll">暂时没有订单</ion-item>
       <ion-grid class="goods-grid" *ngFor="let item of pagedatamodleAll, let i = index">
         <ion-row>
@@ -62,7 +62,7 @@
           </ion-col>
         </ion-row>
       </ion-grid>
-    </ion-list>
+    </ion-list> -->
     <ion-list *ngSwitchCase="'nopay'">
       <ion-item *ngIf="isShowNoPay">暂时还有待付款的订单</ion-item>
       <div *ngIf="!isShowNoPay">
@@ -73,8 +73,7 @@
           </ion-row>
           <ion-row class="goods-line" *ngFor="let goodsinfo of item.paramsInfo" (click)="viewOrder(item.orderId)">
             <ion-col col-4 class="border-padding">
-              <img src="{{item.goodsImg}}" class="goods-img">
-              <img src="{{'data:image/jpeg;base64,'+goodsinfo.productImageData}}" class="goods-img">
+              <img src="{{imageUrl+goodsinfo.productImagePath+goodsinfo.productImageName}}" class="goods-img">
             </ion-col>
             <ion-col col-8 class="border-padding">
               <ion-row>
@@ -103,8 +102,7 @@
           </ion-row>
           <ion-row class="goods-line" *ngFor="let goodsinfo of item.paramsInfo" (click)="viewOrder(item.orderId)">
             <ion-col col-4 class="border-padding">
-              <img src="{{item.goodsImg}}" class="goods-img">
-              <img src="{{'data:image/jpeg;base64,'+goodsinfo.productImageData}}" class="goods-img">
+              <img src="{{imageUrl+goodsinfo.productImagePath+goodsinfo.productImageName}}" class="goods-img">
             </ion-col>
             <ion-col col-8 class="border-padding">
               <ion-row>
@@ -130,8 +128,7 @@
           </ion-row>
           <ion-row class="goods-line" *ngFor="let goodsinfo of item.paramsInfo" (click)="viewOrder(item.orderId)">
             <ion-col col-4 class="border-padding">
-              <img src="{{item.goodsImg}}" class="goods-img">
-              <img src="{{'data:image/jpeg;base64,'+goodsinfo.productImageData}}" class="goods-img">
+              <img src="{{imageUrl+goodsinfo.productImagePath+goodsinfo.productImageName}}" class="goods-img">
             </ion-col>
             <ion-col col-8 class="border-padding">
               <ion-row>
@@ -157,7 +154,7 @@
           </ion-row>
           <ion-row class="goods-line" *ngFor="let goodsinfo of item.paramsInfo" (click)="viewOrder(item.orderId)">
             <ion-col col-4 class="border-padding">
-              <img src="{{'data:image/jpeg;base64,'+goodsinfo.productImageData}}" class="goods-img">
+              <img src="{{imageUrl+goodsinfo.productImagePath+goodsinfo.productImageName}}" class="goods-img">
             </ion-col>
             <ion-col col-8 class="border-padding">
               <ion-row>
@@ -192,8 +189,7 @@
           </ion-row>
           <ion-row class="goods-line" *ngFor="let goodsinfo of item.paramsInfo" (click)="viewOrder(item.orderId)">
             <ion-col col-4 class="border-padding">
-              <img src="{{item.goodsImg}}" class="goods-img">
-              <img src="{{'data:image/jpeg;base64,'+goodsinfo.productImageData}}" class="goods-img">
+              <img src="{{imageUrl+goodsinfo.productImagePath+goodsinfo.productImageName}}" class="goods-img">
             </ion-col>
             <ion-col col-8 class="border-padding">
               <ion-row>
@@ -222,8 +218,7 @@
           </ion-row>
           <ion-row class="goods-line" *ngFor="let goodsinfo of item.paramsInfo" (click)="viewOrder(item.orderId)">
             <ion-col col-4 class="border-padding">
-              <img src="{{item.goodsImg}}" class="goods-img">
-              <img src="{{'data:image/jpeg;base64,'+goodsinfo.productImageData}}" class="goods-img">
+              <img src="{{imageUrl+goodsinfo.productImagePath+goodsinfo.productImageName}}" class="goods-img">
             </ion-col>
             <ion-col col-8 class="border-padding">
               <ion-row>

@@ -11,7 +11,7 @@
     </ion-row>
     <ion-row class="goods-line" *ngFor="let item of goodsList">
       <ion-col col-4 class="border-padding">
-          <img src="{{'data:image/jpeg;base64,'+item.productImageData}}" class="goods-img">
+          <img src="{{imageUrl+item.productImagePath+item.productImageName}}" class="goods-img">
       </ion-col>
       <ion-col col-8 class="border-padding">
         <ion-row>

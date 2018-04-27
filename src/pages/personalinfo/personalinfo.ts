@@ -139,9 +139,9 @@ export class PersonalinfoPage {
       if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
       }
-      console.log(rs)
+      
       if (rs.isSuccess) {
-
+        console.log(rs.isSuccess)
       } else {
         this.appConfig.popAlertView(rs.errorMessage);
       }

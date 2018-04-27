@@ -209,7 +209,7 @@ export class AppConfig {
             alert.addInput({
                 type: 'radio',
                 label: inputItem[i].salesmanName_ERP,
-                value: `${inputItem[i].salesmanCode_ERP},${inputItem[i].salesmanName_ERP},${inputItem[i].userID_ERP}`,
+                value: `${inputItem[i].salesmanCode_ERP},${inputItem[i].salesmanName_ERP},${inputItem[i].userID_ERP},${inputItem[i].eaCode_ERP}`,
                 checked: false
             });
         }

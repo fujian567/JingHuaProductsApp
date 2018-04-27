@@ -47,9 +47,9 @@ export class ShippingaddressPage {
       if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
       }
-      console.log(rs)
       if (rs.isSuccess) {
         this.deliverdata = [];
+        localStorage.setItem('delivercount',rs.objectData.length)
         if (rs.objectData.length > 0) {
           this.deliverdata = rs.objectData;
         }

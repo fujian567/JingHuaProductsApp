@@ -5,6 +5,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
+
 export class AppGlobal {
     //缓存key的配置
     static cache: any = {
@@ -14,10 +15,15 @@ export class AppGlobal {
         Test: "_dress_test"
     }
     //接口基地址
-    //static domain = 'http://101.132.106.0'
+    //static domain = 'http://www.jhzyapp.com'
     static domain = 'http://125.74.9.49:7768'
-    static domainimage = 'http://125.74.9.49:7769/'
+    static domainimage = 'http://125.74.9.49:7769'
+    //static domainimage = 'http://101.132.106.0:7769/'
     static domainvideo = 'http://125.74.9.49:7769/'
+
+    static APK_DOWNLOAD = '/apk/android-jhzx.apk';// 下载地址
+    static APK_ADMIN_DOWNLOAD = '/apk/android-jhzx-admin.apk';// 下载地址
+    static APP_DOWNLOAD = '';//苹果地址
     //接口地址
     static API: any = {
         getAccountStatus: '/api/customer/account/state/',//获取账户状态

@@ -14,6 +14,7 @@ import { Storage } from '@ionic/storage';
 })
 export class AdminorderdeliverPage {
   u_token: any;
+  imageUrl = AppGlobal.domainimage;
   dependentColumns: any[] = [];
   pagedatamodle: any = {
     orderNumber: '',

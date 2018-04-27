@@ -1,19 +1,25 @@
 <ion-header class="page-head">
-  <ion-navbar>
-    <ion-toolbar>
-      <ion-segment [(ngModel)]="modelbox">
-        <ion-segment-button value="goods">
-          商品
-        </ion-segment-button>
-        <ion-segment-button value="productsdetail">
-          详情
-        </ion-segment-button>
-        <ion-segment-button value="goodscomment">
-          评价
-        </ion-segment-button>
-      </ion-segment>
-    </ion-toolbar>
-  </ion-navbar>
+  <!-- <ion-navbar>
+        
+      </ion-navbar> -->
+  <ion-toolbar>
+    <ion-buttons start>
+      <button ion-button (click)="back()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-segment [(ngModel)]="modelbox">
+      <ion-segment-button value="goods">
+        商品
+      </ion-segment-button>
+      <ion-segment-button value="productsdetail">
+        详情
+      </ion-segment-button>
+      <ion-segment-button value="goodscomment">
+        评价
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
 </ion-header>
 <ion-content [ngSwitch]="modelbox">
   <div *ngSwitchCase="'goods'" id="goodsbox">
@@ -21,8 +27,7 @@
       <ion-row>
         <ion-slides loop pager paginationType="fraction">
           <ion-slide *ngFor="let item of imagesPath, let i = index">
-            <img src="{{'data:image/jpeg;base64,'+item.imageData}}" class='bigimg' />
-            <!-- <img src="{{imageUrl+item.relativeImagePath}}" class='bigimg' /> -->
+            <img src="{{imageUrl+item.imagePath+item.imageName}}" class='bigimg' />
           </ion-slide>
         </ion-slides>
       </ion-row>
@@ -135,12 +140,29 @@
               <ion-col col-2 class="point">{{rate}}分</ion-col>
             </ion-row>
           </ion-col>
+          <ion-col col-12 style="padding-bottom: 8px;">
+            <vg-player>
+              <vg-overlay-play></vg-overlay-play>
+              <vg-buffering></vg-buffering>
+              <vg-controls [vgAutohide]="true" [vgAutohideTime]="5">
+                <vg-play-pause></vg-play-pause>
+                <vg-time-display [vgProperty]="'current'"></vg-time-display>
+                <vg-scrub-bar>
+                  <vg-scrub-bar-current-time [vgSlider]="true"></vg-scrub-bar-current-time>
+                  <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+                </vg-scrub-bar>
+                <vg-time-display [vgProperty]="'total'"></vg-time-display>
+                <!-- <vg-fullscreen></vg-fullscreen> -->
+              </vg-controls>
+              <video #media [vgMedia]="media" poster="{{imageUrl+videoImg}}" src="{{imageUrl+video}}"></video>
+            </vg-player>
+          </ion-col>
           <ion-col col-12 *ngFor="let item of imagesList_DetailPage, let i = index">
-            <img src="{{'data:image/jpeg;base64,'+item.imageData}}" class='bigimg' />
+            <img src="{{imageUrl+item.imagePath+item.imageName}}" class='bigimg' />
           </ion-col>
-          <ion-col col-12>
+          <!-- <ion-col col-12>
             <div class="pmain_text" [innerHTML]="assembleHTML(SCInfoViewModel.goodsDetail)"></div>
-          </ion-col>
+          </ion-col> -->
         </ion-row>
         <ion-row class="spec" *ngSwitchCase="'spec'">
           <ion-col col-12>商品规格：{{SCInfoViewModel.commSpecName}}</ion-col>
@@ -187,7 +209,7 @@
               <ion-col col-2 class="point">{{rate}}分</ion-col>
             </ion-row>
           </ion-col>
-          <ion-col col-12>
+          <ion-col col-12 style="padding-bottom: 8px;">
             <ion-row>
               <ion-col col-12>
                 <vg-player>
@@ -203,13 +225,13 @@
                     <vg-time-display [vgProperty]="'total'"></vg-time-display>
                     <!-- <vg-fullscreen></vg-fullscreen> -->
                   </vg-controls>
-                  <video #media [vgMedia]="media" poster="" src="assets/imgs/test.mp4" autoplay></video>
+                  <video #media [vgMedia]="media" poster="{{imageUrl+videoImg}}" src="{{imageUrl+video}}"></video>
                 </vg-player>
               </ion-col>
             </ion-row>
           </ion-col>
           <ion-col col-12 *ngFor="let item of imagesList_DetailPage, let i = index">
-            <img src="{{'data:image/jpeg;base64,'+item.imageData}}" class='bigimg' />
+            <img src="{{imageUrl+item.imagePath+item.imageName}}" class='bigimg' />
           </ion-col>
         </ion-row>
         <ion-row class="spec" *ngSwitchCase="'spec'">
@@ -257,8 +279,6 @@
             <ion-col col-3 align-self-center *ngFor="let itemImg of item.ImageList">
               <ion-thumbnail>
                 <img src="{{itemImg}}" class="auto-image" #myImage (click)="showOriginal(myImage)" />
-                <!-- <img src="{{'data:image/jpeg;base64,'+item.imageData}}" class="auto-image" #myImage (click)="showOriginal(myImage)" class="auto-image"
-                                 height="80" width="80" />  -->
               </ion-thumbnail>
             </ion-col>
           </ion-row>

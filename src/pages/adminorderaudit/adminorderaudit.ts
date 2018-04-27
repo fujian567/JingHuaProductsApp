@@ -15,6 +15,8 @@ import { Storage } from '@ionic/storage';
 })
 export class AdminorderauditPage {
   u_token: any;
+  imageUrl = AppGlobal.domainimage;
+  isShowVoucherImg: boolean = false;
   pagedatamodle: any = {
     orderNumber: '',
     payMethodName: '',
@@ -68,7 +70,7 @@ export class AdminorderauditPage {
       }
       if (rs.isSuccess) {
         if (rs.objectData.length > 0) {
-          console.log(rs)
+          console.log(rs.objectData)
           for (let i = 0; i < rs.objectData.length; i++) {
             this.pagedatamodle.ordernum = rs.objectData[i].orderCode;
             this.pagedatamodle.payMethodName = rs.objectData[i].payMethodName;
@@ -80,7 +82,7 @@ export class AdminorderauditPage {
             this.pagedatamodle.address = rs.objectData[i].orderDeliveryAddressInfo.pccname + ' ' + rs.objectData[i].orderDeliveryAddressInfo.address;
             this.pagedatamodle.deliveryInfoName = rs.objectData[i].orderDeliveryAddressInfo.deliveryInfoName;
             this.pagedatamodle.deliveryInfoMobile = rs.objectData[i].orderDeliveryAddressInfo.deliveryInfoMobile;
-            this.pagedatamodle.voucherImg = AppGlobal.domainimage + rs.objectData[i].imagesList[0].imagePath + rs.objectData[i].imagesList[0].imageName;
+            this.pagedatamodle.voucherImg = rs.objectData[i].imagesList;
             this.goodsList = rs.objectData[i].paramsInfo;
             this.pagedatamodle.invoiceTypeId = rs.objectData[i].invoiceTypeId;
             this.pagedatamodle.orderInvoiceInfo = rs.objectData[i].orderInvoiceInfo.isPInvoice;
@@ -92,6 +94,9 @@ export class AdminorderauditPage {
             this.pagedatamodle.taxIdeNumber = rs.objectData[i].orderInvoiceInfo.taxIdeNumber;
             this.pagedatamodle.enterpriseName = rs.objectData[i].orderInvoiceInfo.enterpriseName;
             this.orderaudit.OrderId = rs.objectData[i].orderId;
+            if (rs.objectData[i].payMethodName == '银行转账') {
+              this.isShowVoucherImg = true
+            }
           }
         }
       }

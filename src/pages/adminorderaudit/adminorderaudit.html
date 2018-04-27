@@ -11,7 +11,7 @@
     </ion-row>
     <ion-row class="goods-line" *ngFor="let item of goodsList">
       <ion-col col-4 class="border-padding">
-        <img src="{{'data:image/jpeg;base64,'+item.productImageData}}" class="goods-img">
+        <img src="{{imageUrl+item.productImagePath+item.productImageName}}" class="goods-img">
       </ion-col>
       <ion-col col-8 class="border-padding">
         <ion-row>
@@ -37,15 +37,17 @@
     </ion-row>
   </ion-grid>
   <ion-grid class="specify-grid">
-    <ion-row class="item">
+    <ion-row class="item" *ngIf="isShowVoucherImg">
       <ion-col>支付方式：{{pagedatamodle.payMethodName}}</ion-col>
-      <ion-col>
+      <ion-col *ngFor="let item of pagedatamodle.voucherImg">
         <ion-thumbnail>
-            <img src="{{voucherImg}}" class="auto-image" #myImage (click)="showOriginal(myImage)" height="80" width="80" />
-          <!-- <img src="{{'data:image/jpeg;base64,'+pagedatamodle.voucherImg}}" class="auto-image" #myImage (click)="showOriginal(myImage)"
-            height="80" width="80" /> -->
+          <img src="{{imageUrl+item.imagePath+item.imageName}}" class="auto-image" #myImage (click)="showOriginal(myImage)" height="80"
+            width="80" />
         </ion-thumbnail>
       </ion-col>
+    </ion-row>
+    <ion-row class="item" *ngIf="!isShowVoucherImg">
+      <ion-col>支付方式：{{pagedatamodle.payMethodName}}</ion-col>
     </ion-row>
     <ion-row class="item">
       <ion-col col-12>配送方式：{{pagedatamodle.distributionInfoName}}</ion-col>

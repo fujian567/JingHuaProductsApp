@@ -11,7 +11,7 @@
       <ion-row class="rowstyle">
         <ion-col col-4 align-self-center *ngFor="let item of FBAuditViewModel.imagesList, let i = index">
           <ion-thumbnail>
-            <img src="{{'data:image/jpeg;base64,'+item.imageData}}" class="auto-image" #myImage (click)="showOriginal(myImage)" class="auto-image"
+            <img src="{{_servePath+item.imagePath+item.imageName}}" class="auto-image" #myImage (click)="showOriginal(myImage)" class="auto-image"
               [style.height]="width" [style.width]="width" />
           </ion-thumbnail>
         </ion-col>

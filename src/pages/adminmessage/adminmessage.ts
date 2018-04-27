@@ -15,8 +15,8 @@ import { Storage } from '@ionic/storage';
 export class AdminmessagePage {
   u_token: any;
   MsgViewModel: any = {
-    AlertInfo: '',
     AlertTitle: '',
+    AlertInfo: '',
     SendTitle: '',
     SendContent: '',
     MsgMark: '',
@@ -60,6 +60,6 @@ export class AdminmessagePage {
       } else {
         this.appConfigCtrl.popAlertView(rs.errorMessage);
       }
-    })
+    }, true)
   }
 }

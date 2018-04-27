@@ -16,7 +16,7 @@ import { Storage } from '@ionic/storage';
 })
 export class AdminauditinfoeditPage {
   _imageViewerCtrl: ImageViewerController;
-  _servePath: any = AppGlobal.domain;
+  _servePath: any = AppGlobal.domainimage;
   u_token: any;
   region: any;
   FBAuditViewModel: any = {
@@ -38,6 +38,7 @@ export class AdminauditinfoeditPage {
     salesmanCode: '',
     salesmanName_OA: '',
     userIdErp: '',
+    eACode_ERP:'',
     location:''
   }
   eTaxIdeNumber: any;
@@ -82,6 +83,7 @@ export class AdminauditinfoeditPage {
       this.FBAuditViewModel.salesmanName_OA = '';
       this.FBAuditViewModel.userIdErp = '';
       this.FBAuditViewModel.salesmanCode = '';
+      this.FBAuditViewModel.eACode_ERP = '';
     }
     if (this.navParams.data.itemData.pccname != '无') {
       text[1].textContent = this.navParams.data.itemData.pccname;
@@ -144,7 +146,6 @@ export class AdminauditinfoeditPage {
           options: AppStaticConfig.addRegionData(countyData)
         }
         this.dependentColumns.push(this.countyjson);
-        console.log(this.dependentColumns)
         this.ref.detectChanges();
       }, error => {
         console.log(error);
@@ -221,11 +222,12 @@ export class AdminauditinfoeditPage {
       if (rs.isSuccess) {
         if (rs.objectData != null) {
           if (rs.objectData.length > 0) {
-            this.appConfig.popRadioView('选择业务员', 'alert-bg-e', rs.objectData, rs => {
-              let salesmaninfo = rs.split(",");
+            this.appConfig.popRadioView('选择业务员', 'alert-bg-e', rs.objectData, re => {
+              let salesmaninfo = re.split(",");
               this.FBAuditViewModel.salesmanCode = salesmaninfo[0];
               this.FBAuditViewModel.salesmanName_OA = salesmaninfo[1];
               this.FBAuditViewModel.userIdErp = salesmaninfo[2];
+              this.FBAuditViewModel.eACode_ERP = salesmaninfo[3];
             });
           } else {
             this.appConfig.popAlertView(rs.errorMessage);

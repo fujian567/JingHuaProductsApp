@@ -36,7 +36,7 @@ export class AdminpersonalPage {
     this.storageCtrl.get('u_accountName').then((val) => {
       this.accountName = val;
     });
-    this.storageCtrl.get('c_token').then((val) => {
+    this.storageCtrl.get('u_token').then((val) => {
       this.u_token = val;
     });
   }

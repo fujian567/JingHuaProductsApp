@@ -7,7 +7,6 @@ import { Network } from "@ionic-native/network";
 import { JPushService } from 'ionic2-jpush'
 import { FileTransfer, FileTransferObject } from "@ionic-native/file-transfer";
 import { FileOpener } from '@ionic-native/file-opener';
-import { APK_DOWNLOAD, APP_DOWNLOAD } from "./Constants";
 import { Observable } from "rxjs";
 import { AppConfig } from '../app/app.config';
 import { AppService, AppGlobal } from '../app/app.service';
@@ -16,6 +15,8 @@ import { Device } from '@ionic-native/device';
 @Injectable()
 export class NativeService {
     c_token: any;
+    APK_DOWNLOAD: any = AppGlobal.domainimage + AppGlobal.APK_DOWNLOAD;
+    APP_DOWNLOAD: any = AppGlobal.domainimage + AppGlobal.APP_DOWNLOAD;
     constructor(
         private platform: Platform,
         private file: File,
@@ -37,29 +38,42 @@ export class NativeService {
     }
     //检查app是否需要升级
     detectionUpgrade(token: any, versiontype: any) {
-        //let appVersion = this.getVersionNumber();
-        let appVersion = '1.0.0'
+        let appVersion: any = ''
+        let appVersionData = this.getVersionNumber().then(res => {
+            appVersion = res;
+        });
         let systemVersion: any;
         this.getSystemVersion(token, versiontype, rs => {
             systemVersion = rs
-            this.appVersionContrast(appVersion, systemVersion.versionAndroid);
+            if (systemVersion != null) {
+                this.appVersionContrast(appVersion, systemVersion.versionAndroid, versiontype);
+            } else {
+                this.appConfig.popAlertView('当前已是最新版本')
+            }
+
         });
     }
     //下载安装app
-    downloadApp() {
-        //if (this.isAndroid()) {
+    downloadApp(versiontype) {
+        if (this.isAndroid()) {
             let alert = this.alertCtrl.create({
                 title: '下载进度：0%',
+                cssClass: 'download',
                 enableBackdropDismiss: false,
                 buttons: ['后台下载']
             });
             alert.present();
             const fileTransfer: FileTransferObject = this.transfer.create();
-            const apk = this.file.externalRootDirectory + 'android.apk'; //apk保存的目录
-            fileTransfer.download(APK_DOWNLOAD, apk).then(() => {
+            const apk = this.file.externalRootDirectory + 'android-jhzx.apk'; //apk保存的目录
+            console.log(this.APK_DOWNLOAD)
+            fileTransfer.download(this.APK_DOWNLOAD, apk).then(() => {
+                console.log('444')
                 this.fileOpener.open(apk, 'application/vnd.android.package-archive');
+            }).catch(error => {
+                console.log(error)
             });
             fileTransfer.onProgress((event: ProgressEvent) => {
+                console.log('555')
                 let num = Math.floor(event.loaded / event.total * 100);
                 if (num === 100) {
                     alert.dismiss();
@@ -68,9 +82,9 @@ export class NativeService {
                     title && (title.innerHTML = '下载进度：' + num + '%');
                 }
             });
-        //}
+        }
         if (this.isIos()) {
-            this.openUrlByBrowser(APP_DOWNLOAD);
+            this.openUrlByBrowser(this.APP_DOWNLOAD);
         }
     }
     //通过浏览器打开url
@@ -151,23 +165,28 @@ export class NativeService {
             }
         })
     }
-    appVersionContrast(oldversion, newversion) {
+    appVersionContrast(oldversion, newversion, versiontype) {
+        console.log(oldversion)
+        console.log(newversion)
         let oldversionC = oldversion.split(".");
         let newversionC = newversion.split(".");
         if (oldversionC[0] != newversionC[0]) {
             this.appConfig.popAlertConfirmView('发现新版本,是否立即升级？', '取消', '确定', () => {
-                this.downloadApp();
+                this.downloadApp(versiontype);
             })
+            return
         }
         if (oldversionC[1] != newversionC[1]) {
             this.appConfig.popAlertConfirmView('发现新版本,是否立即升级？', '取消', '确定', () => {
-                this.downloadApp();
+                this.downloadApp(versiontype);
             })
+            return
         }
         if (oldversionC[2] != newversionC[2]) {
             this.appConfig.popAlertConfirmView('发现新版本,是否立即升级？', '取消', '确定', () => {
-                this.downloadApp();
+                this.downloadApp(versiontype);
             })
+            return
         }
     }
 }

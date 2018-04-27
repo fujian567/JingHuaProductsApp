@@ -9,8 +9,8 @@ import { JPushService } from 'ionic2-jpush'
   templateUrl: 'app.html'
 })
 export class MyApp {
-  //rootPage: any;
-  rootPage: any = 'AdminloginPage';
+  rootPage: any;
+  //rootPage: any = 'AdminloginPage';
   //rootPage: any = 'MessagelistPage';
   constructor(
     private platform: Platform,
@@ -57,11 +57,11 @@ export class MyApp {
       }
     });
     //判断启动界面
-    // if (this.nativeService.startPage()) {
-    //   this.rootPage = 'TabsPage'
-    // } else {
-    //   this.rootPage = 'LoginPage';
-    // }
+    if (this.nativeService.startPage()) {
+      this.rootPage = 'TabsPage'
+    } else {
+      this.rootPage = 'LoginPage';
+    }
   }
   assertNetwork() {
     if (!this.nativeService.isConnecting()) {

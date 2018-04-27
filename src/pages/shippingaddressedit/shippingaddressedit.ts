@@ -1,5 +1,5 @@
 import { Component, ChangeDetectorRef, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, App , Navbar } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App, Navbar, PopoverController } from 'ionic-angular';
 import { AppService, AppGlobal } from './../../app/app.service';
 import { AppConfig, AppStaticConfig } from './../../app/app.config';
 import { Storage } from '@ionic/storage';
@@ -48,6 +48,7 @@ export class ShippingaddresseditPage {
     private storageCtrl: Storage,
     private ref: ChangeDetectorRef,
     public app: App,
+    private PopoverCtrl: PopoverController,
     public navParams: NavParams,
   ) {
     this.storageCtrl.get('c_token').then((val) => {
@@ -121,6 +122,7 @@ export class ShippingaddresseditPage {
       });
   }
   addnewAddress() {
+    console.log(document.getElementById('PCCname').textContent.trim())
     if (this.clientDeliveryInfo.DeliveryName.length < 1) {
       this.appConfigCtrl.popAlertView('收货人不能为空');
       return
@@ -141,18 +143,27 @@ export class ShippingaddresseditPage {
       this.appConfigCtrl.popAlertView('请填写正确手机号');
       return
     }
+    
     this.clientDeliveryInfo.PCCName = document.getElementById('PCCname').textContent.trim();
     let tempLocation: any = this.pccName.split(' ');
     this.clientDeliveryInfo.ProvinceID = tempLocation[0];
     this.clientDeliveryInfo.CityID = tempLocation[1];
     this.clientDeliveryInfo.CountyID = tempLocation[2];
     let previouspage = localStorage.getItem('previouspage');
+    let defaultSC = localStorage.getItem('delivercount');
+    if (defaultSC == '0') {
+      this.clientDeliveryInfo.DeliveryDefault = true;
+    }
+    if (previouspage != null) {
+      this.clientDeliveryInfo.DeliveryDefault = true;
+    }
     let url = '';
     if (this.pageedit) {
       url = AppGlobal.API.postDeliveUpdate;
     } else {
       url = AppGlobal.API.postDelivery;
     }
+    console.log(this.clientDeliveryInfo)
     this.appService.httpPost_token(url, this.c_token, this.clientDeliveryInfo, rs => {
       if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
@@ -166,10 +177,22 @@ export class ShippingaddresseditPage {
         } else {
           this.navCtrl.push('ShippingaddressPage');
         }
-      }else {
+      } else {
         this.appConfigCtrl.popAlertView(rs.errorMessage);
       }
     }, true)
   }
-
+  selectPcc(){
+    let popover = this.PopoverCtrl.create('PartLocationOptPage', { test: '区域选择' }, {
+      cssClass: 'location-part',
+      showBackdrop: true,
+      enableBackdropDismiss: true,
+    });
+    popover.present({ animate: false, duration: 500 });
+    popover.onDidDismiss((data) => {
+      if (data != null) {
+        console.log(data)
+      }
+    });
+  }
 }

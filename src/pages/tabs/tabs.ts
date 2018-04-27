@@ -55,6 +55,9 @@ export class TabsPage {
       if(this.navParams.data.jumpage=='person'){
         this.tabRef.select(3);
       }
+      if(this.navParams.data.jumpage=='shopping'){
+        this.tabRef.select(2);
+      }
     }
     
   }

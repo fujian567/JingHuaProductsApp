@@ -38,6 +38,7 @@ export class AdminauditinfodetailPage {
     salesmanCode: '',
     salesmanName_OA: '',
     userIdErp: '',
+    eACode_ERP: '',
     location: ''
 
   }
@@ -94,6 +95,7 @@ export class AdminauditinfodetailPage {
       this.FBAuditViewModel.salesmanName_OA = '';
       this.FBAuditViewModel.userIdErp = '';
       this.FBAuditViewModel.salesmanCode = '';
+      this.FBAuditViewModel.eACode_ERP = '';
     }
     if (this.navParams.data.itemData.address == '无') {
       this.FBAuditViewModel.address = '';
@@ -194,7 +196,7 @@ export class AdminauditinfodetailPage {
           this.app.getRootNav().setRoot('AdminloginPage');
         }
         if (rs.isSuccess) {
-          this.jpushMesaage('资料审核通过','您提交的资料信息已经通过审核',this.FBAuditViewModel.fbusinessId);
+          this.jpushMesaage('资料审核通过', '您提交的资料信息已经通过审核', this.FBAuditViewModel.fbusinessId);
           this.navCtrl.push('AdminauditinfolistPage');
         } else {
           this.appConfig.popAlertView(rs.errorMessage);
@@ -302,6 +304,7 @@ export class AdminauditinfodetailPage {
               this.FBAuditViewModel.salesmanCode = salesmaninfo[0];
               this.FBAuditViewModel.salesmanName_OA = salesmaninfo[1];
               this.FBAuditViewModel.userIdErp = salesmaninfo[2];
+              this.FBAuditViewModel.eACode_ERP = salesmaninfo[3];
             });
           } else {
             this.appConfig.popAlertView(rs.errorMessage);
@@ -319,10 +322,10 @@ export class AdminauditinfodetailPage {
       SendTitle: '',
       SendContent: '',
       MsgMark: '',
-      TargetAccountId: fbusinessId,//根据首营id获取AccountId
+      TargetAccountId: 'ca3b89d1-9ff5-4998-b6d9-972d7a7e80e9',
       MsgTypeId: 2,//1、群发，2端对端
-      ExtrasData: 'BC6D7078-4603-41D3-9706-0AB4E3CA4880',
-      ExtrasType: '1',//0、是资料审核，1、订单
+      ExtrasData: fbusinessId,//根据首营id获取AccountId
+      ExtrasType: '0',//0、是资料审核，1、订单
       Audience: 'APP设备标识',
       MsgId: 'ca3b89d1-9ff5-4998-b6d9-972d7a7e80e9'
     }

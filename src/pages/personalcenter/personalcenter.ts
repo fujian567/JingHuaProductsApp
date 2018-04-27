@@ -78,33 +78,6 @@ export class PersonalcenterPage {
     let versiontype = 1;
     this.nativeService.detectionUpgrade(this.c_token,versiontype);
   }
-  downloadApp(apkUrl) {
-    //   let alert = this.alertCtrl.create({
-    //     title: '下载进度：0%',
-    //     enableBackdropDismiss: false,
-    //     buttons: ['后台下载']
-    //   });
-    //   alert.present();
-
-    //   const fileTransfer: FileTransferObject = this.transfer.create();
-    //   const apk = this.file.externalRootDirectory + 'app.apk'; //apk保存的目录  
-    //   fileTransfer.download(apkUrl, apk).then(() => {
-    //     this.fileOpener.open(apk, 'application/vnd.android.package-archive').then(() => {
-    //       console.log('File is opened')
-    //     }).catch(e => {
-    //       console.log('Error openening file', e)
-    //     });
-    //   });
-    //   fileTransfer.onProgress((event: ProgressEvent) => {
-    //     let num = Math.floor(event.loaded / event.total * 100);
-    //     if (num === 100) {
-    //       alert.dismiss();
-    //     } else {
-    //       let title = document.getElementsByClassName('alert-title')[0];
-    //       title && (title.innerHTML = '下载进度：' + num + '%');
-    //     }
-    //   });
-  }
   logOut() {
     this.storageCtrl.clear();
     this.app.getRootNav().setRoot('LoginPage');

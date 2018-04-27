@@ -16,6 +16,7 @@ import { Storage } from '@ionic/storage';
 })
 export class OrderdetailPage {
   c_token:any;
+  imageUrl = AppGlobal.domainimage;
   pagedatamodle: any = {
     ordernum: '',
     payMethodName: '',

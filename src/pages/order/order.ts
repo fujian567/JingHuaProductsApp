@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ActionSheetController, App } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, ActionSheetController, App, Navbar } from 'ionic-angular';
 import { AppConfig, AppStaticConfig } from '../../app/app.config';
 import { AppService, AppGlobal } from './../../app/app.service';
 import { Storage } from '@ionic/storage';
@@ -15,6 +15,7 @@ import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker';
   templateUrl: 'order.html',
 })
 export class OrderPage {
+  @ViewChild(Navbar) navBar: Navbar;
   isShowUpVoucher: boolean = false;
   c_token: any;
   _guid: any = 'ca3b89d1-9ff5-4998-b6d9-972d7a7e80e9';
@@ -137,6 +138,12 @@ export class OrderPage {
       }
     }
   }
+  ionViewDidLoad() {
+    this.navBar.backButtonClick = this.backButtonClick;
+  }
+  backButtonClick = (e: UIEvent) => {
+    this.navCtrl.push('TabsPage', { jumpage: 'shopping' });
+  }
   getOrderInfo(c_token) {
     this.appService.httpGet_token(AppGlobal.API.getOederinfo, c_token, {}, rs => {
       if (rs.status == 401 || rs.status == 403) {
@@ -144,7 +151,6 @@ export class OrderPage {
       }
       if (rs.isSuccess) {
         if (rs.objectData.scInfoList.length > 0) {
-          console.log(rs);
           this.pagedatamodle = rs.objectData.scInfoList;
           this.totalAmount = rs.objectData.totalAmount;
           this.freightAmount = rs.objectData.freightAmount;
@@ -189,6 +195,7 @@ export class OrderPage {
             tempobj.payMethodName = rs.objectData[i].payMethodName;
             if (i == 0) {
               tempobj.isDefault = 'danger';
+              this.PayMethodId = rs.objectData[i].payMethodId;
             }
             this.payMethod.push(tempobj)
           }
@@ -230,6 +237,7 @@ export class OrderPage {
           this.app.getRootNav().setRoot('LoginPage');
         }
         if (rs.isSuccess) {
+          console.log(rs);
           if (rs.objectData.length > 0) {
             this.deliveryName = rs.objectData[0].deliveryName;
             this.deliveryMobile = AppStaticConfig.hideMobile(rs.objectData[0].deliveryMobile);;
@@ -263,7 +271,6 @@ export class OrderPage {
     this.navCtrl.push('InvoicePage')
   }
   upVoucher(item, index) {
-    console.log(item)
     for (let i = 0; i < this.payMethod.length; i++) {
       this.payMethod[i].isDefault = 'cgrayk';
     }
@@ -286,7 +293,7 @@ export class OrderPage {
         this.navCtrl.push('ShippingaddressPage');
       });
     } else {
-      if (this.ImagesList.length < 1 && this.PayMethodId != 3) {
+      if (this.ImagesList.length < 1 && this.PayMethodId == 3) {
         this.appConfigCtrl.popAlertView('你还没有上传银行转账凭证，请上传凭证！');
         return
       }
@@ -377,7 +384,7 @@ export class OrderPage {
 */
   openCamera() {
     const options: CameraOptions = {
-      quality: 90,                                                   //相片质量 0 -100
+      quality: 50,                                                   //相片质量 0 -100
       destinationType: this.camera.DestinationType.DATA_URL,        //DATA_URL 是 base64   FILE_URL 是文件路径
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
@@ -410,7 +417,6 @@ export class OrderPage {
       }
     }, (err) => {
       console.log(err)
-      console.log('获取图片失败');
     });
   }
   isDeleteImage() {

@@ -1,13 +1,14 @@
 <div class="product">
   <ion-row wrap>
     <ion-col tappable col-6 *ngFor="let p of products" (click)="goDetails(p)">
-        <ion-avatar item-start>
-            <img src="{{'data:image/jpeg;base64,'+p.imagesList[0].imageData}}">
-            <!-- <img src="{{p.imagesList[0].imageData}}"> -->
-          </ion-avatar>
+      <ion-avatar item-start>
+        <!-- <img src="{{'data:image/jpeg;base64,'+p.imagesList[0].imageData}}"> -->
+        <img src="{{_servePath+p.imagesList[0].imagePath+p.imagesList[0].imageName}}">
+      </ion-avatar>
       <p>{{p.commName}}</p>
       <div class="list-price buy">
-        <span class="price-new"><i>￥</i>{{p.medianPrice}}</span>
+        <span class="price-new">
+          <i>￥</i>{{p.medianPrice}}</span>
       </div>
     </ion-col>
   </ion-row>

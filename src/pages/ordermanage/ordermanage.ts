@@ -25,6 +25,7 @@ enum orderStatus {
 export class OrdermanagePage {
   @ViewChild(Navbar) navBar: Navbar;
   c_token: any;
+  imageUrl = AppGlobal.domainimage;
   _guid: any = 'ca3b89d1-9ff5-4998-b6d9-972d7a7e80e9';
   allorder: string = "all";
   isNoOrder: boolean = false;
@@ -54,13 +55,15 @@ export class OrdermanagePage {
     public app: App,
     private storageCtrl: Storage,
     public navParams: NavParams) {
+
     this.storageCtrl.get('c_token').then((val) => {
       this.c_token = val;
     });
   }
   ionViewWillEnter() {
+    console.log(this.navParams.data)
     if (this.navParams.data != undefined) {
-      this.c_token=this.navParams.data.c_token;
+      this.c_token = this.navParams.data.c_token;
       let type = this.navParams.data.type;
       switch (type) {
         case 'nopay': {
@@ -140,7 +143,7 @@ export class OrdermanagePage {
 
   }
   //全部订单
-  getAllOrder(c_token){
+  getAllOrder(c_token) {
     this.appService.httpPost_token(AppGlobal.API.postOrderInfoByStatus, c_token, { pages: this.pages, orderstateId: '-1' }, rs => {
       if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
@@ -153,7 +156,7 @@ export class OrdermanagePage {
       }
     }, true)
   }
-  
+
   getOrderInfo(c_token) {
     this.appService.httpPost_token(AppGlobal.API.postOrderInfoByAccount, c_token, { pages: this.pages }, rs => {
       if (rs.status == 401 || rs.status == 403) {
@@ -254,7 +257,7 @@ export class OrdermanagePage {
   viewOrder(orderId: any) {
     this.navCtrl.push('OrderdetailPage', { orderId: orderId, c_token: this.c_token })
   }
-  selectedAll(){
+  selectedAll() {
     console.log('1111')
     this.getAllOrder(this.c_token)
   }

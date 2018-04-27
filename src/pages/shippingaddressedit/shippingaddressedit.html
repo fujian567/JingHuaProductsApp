@@ -16,8 +16,9 @@
     </ion-item>
     <button ion-item class="box-right">
         <ion-label>所在地区</ion-label>
-        <ion-multi-picker class="muti-picker" placeholder=" " id="PCCname" [(ngModel)]="pccName" item-content [multiPickerColumns]="dependentColumns" [cancelText]="'取消'"
-          [doneText]="'完成'"></ion-multi-picker>
+        <ion-input class="align-txt" (click)="selectPcc()" placeholder="" readonly [(ngModel)]="clientDeliveryInfo.pccName"></ion-input>
+        <!-- <ion-multi-picker class="muti-picker" placeholder=" " id="PCCname" [(ngModel)]="pccName" item-content [multiPickerColumns]="dependentColumns" [cancelText]="'取消'"
+          [doneText]="'完成'"></ion-multi-picker> -->
     </button>
     <ion-item class="box-right">
       <ion-label>详细地址</ion-label>

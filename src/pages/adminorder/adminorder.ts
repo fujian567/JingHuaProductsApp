@@ -26,6 +26,7 @@ enum orderStatus {
 export class AdminorderPage {
   @ViewChild(Navbar) navBar: Navbar;
   isShowStatusList: boolean = false;
+  imageUrl = AppGlobal.domainimage;
   isShowBackDrop: boolean = true;
   isShowIcon: boolean = true;
   showStatus: any = '订单待审核'
