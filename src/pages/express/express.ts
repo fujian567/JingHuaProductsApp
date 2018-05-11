@@ -21,6 +21,7 @@ export class ExpressPage {
     logisticsNum: '1234567890',
     logistics: '顺丰速运',
   }
+  imgUrl: any = AppGlobal.domainimage;
   expressStatus:any='1';
   logisticsData: any = [
     { date: '04-08', time: '07:46', log: '186****3906-已签收', status: '1' },

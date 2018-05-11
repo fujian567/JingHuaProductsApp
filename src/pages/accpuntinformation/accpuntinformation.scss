@@ -1,5 +1,5 @@
 page-accpuntinformation {
-  .page-config{
+  .page-config {
     background-color: #fff;
   }
   .pagetop {
@@ -14,15 +14,21 @@ page-accpuntinformation {
     text-align: center;
     font-size: 2.2rem;
   }
-  .describe{
+  .describe {
     padding: 10px 30px 0 30px;
     font-size: 1.4rem;
   }
-  .rowstyle{
+  .rowstyle {
     padding: 10px 10px 0 20px;
   }
-  img.auto-image{
+  img.auto-image {
     width: 100%;
+  }
+  .exit {
+    text-align: right;
+    padding-top: 10px;
+    padding-right: 18px;
+    color: #666;
   }
 }
 

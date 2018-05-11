@@ -5,6 +5,7 @@ import { AppService, AppGlobal } from './../../app/app.service';
 import { Storage } from '@ionic/storage';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker';
+declare var cordova: any;
 /**
  客户端：提交订单
  */
@@ -41,6 +42,14 @@ export class OrderPage {
     DeliveryInfoCreateDate: '',
     OrderId: this._guid,
   }
+  //支付宝支付modle
+  alipayOrderInfoViewModel: any = {
+    AlipayBody: '',
+    AlipaySubject: '',
+    AlipayTotalAmount: '',
+    AlipayOutTradeNo: '',
+    AlipayProductCode: ''
+  }
   PInvoiceInfoViewModel: any = {
     PinvoiceId: this._guid,// 个人发票ID
     PinvoiceHeader: '个人', /// 抬头
@@ -73,8 +82,11 @@ export class OrderPage {
   OrderCommodity: any = [];
   isUpimages: boolean = true;
   ImagesList: any = [];
-  PayMethodId: any = '';
-  PayMethodName: any = '';
+  PayMethodId: any = 1;
+  PayMethodName: any = '支付宝';
+  wxPayMethod: boolean = false;
+  aliPayMethod: boolean = true;
+  bankPayMethod: boolean = false;
   constructor(
     public navCtrl: NavController,
     private appConfigCtrl: AppConfig,
@@ -297,58 +309,83 @@ export class OrderPage {
         this.appConfigCtrl.popAlertView('你还没有上传银行转账凭证，请上传凭证！');
         return
       }
-      let imageList: any = [];
-      for (let i = 0; i < this.ImagesList.length; i++) {
-        let ImagesViewModel: any = {
-          ImageId: this._guid,
-          ImageTypeId: 5,
-          ImagePath: '123',
-          RelativeImagePath: '123',
-          ImageName: '银行转账凭证',
-          ObjectId: this._guid,
-          ImageTitle: '银行转账凭证',
-          CreateDate: '2018-04-08',
-          ImageOrder: i,
-          ImageData: this.ImagesList[i]
+      if (this.PayMethodId == 3) {
+        let imageList: any = [];
+        for (let i = 0; i < this.ImagesList.length; i++) {
+          let ImagesViewModel: any = {
+            ImageId: this._guid,
+            ImageTypeId: 5,
+            ImagePath: '123',
+            RelativeImagePath: '123',
+            ImageName: '银行转账凭证',
+            ObjectId: this._guid,
+            ImageTitle: '银行转账凭证',
+            CreateDate: '2018-04-08',
+            ImageOrder: i,
+            ImageData: this.ImagesList[i]
+          }
+          imageList.push(ImagesViewModel);
         }
-        imageList.push(ImagesViewModel);
+        let OrderInfoSubmitViewModel: any = {
+          OrderId: this._guid,
+          OrderCode: '1234',
+          OrderStateId: 2,
+          OrderCreateDate: '2018-04-08',
+          OrderAmount: this.totalAmount,
+          ReliefAmount: this.remissionAmount,
+          PayAmount: this.realPaymentAmount,
+          AccountId: this._guid,
+          InvoiceTypeId: this.InvoiceTypeId,
+          FreightAmount: this.freightAmount,
+          OrderNumber: this.totalNumber,
+          PInvoiceInfo: this.PInvoiceInfoViewModel,
+          EInvoiceInfo: this.EInvoiceInfoViewModel,
+          DeliveryInfo: this.DeliveryInfoViewModel,
+          IsPInvoice: this.IsPInvoice,
+          PayMethodId: this.PayMethodId,
+          PayMethodName: this.PayMethodName,
+          DistributionInfoId: 2,
+          // DistributionInfoId: this.DistributionInfoId,
+          OrderIsEffective: true,
+          OrderCommodity: this.OrderCommodity,
+          ImagesList: imageList
+        }
+        this.appService.httpPost_Img_token(AppGlobal.API.postOrderInfo, this.c_token, { orderInfo: OrderInfoSubmitViewModel }, rs => {
+          if (rs.status == 401 || rs.status == 403) {
+            this.app.getRootNav().setRoot('LoginPage');
+          }
+          if (rs.isSuccess) {
+            this.navCtrl.setRoot('OrdersuccessPage')
+          } else {
+            this.appConfigCtrl.popAlertView(rs.errorMessage);
+          }
+        }, true);
+      } else if (this.PayMethodId == 1 || this.PayMethodId == 2) {
+        //微信支付或支付宝，1支付宝，2微信
+        let OrderInfoSubmitViewModel: any = {
+          OrderId: this._guid,
+          OrderCode: '1234',
+          OrderStateId: 2,
+          OrderCreateDate: '2018-04-08',
+          OrderAmount: this.totalAmount,
+          ReliefAmount: this.remissionAmount,
+          PayAmount: this.realPaymentAmount,
+          AccountId: this._guid,
+          InvoiceTypeId: this.InvoiceTypeId,
+          FreightAmount: this.freightAmount,
+          OrderNumber: this.totalNumber,
+          PInvoiceInfo: this.PInvoiceInfoViewModel,
+          EInvoiceInfo: this.EInvoiceInfoViewModel,
+          DeliveryInfo: this.DeliveryInfoViewModel,
+          IsPInvoice: this.IsPInvoice,
+          PayMethodId: this.PayMethodId,
+          PayMethodName: this.PayMethodName,
+          DistributionInfoId: 2,
+          OrderIsEffective: true,
+          OrderCommodity: this.OrderCommodity,
+        }
+        this.onlinePayPost(OrderInfoSubmitViewModel);
       }
-
-      let OrderInfoSubmitViewModel: any = {
-        OrderId: this._guid,
-        OrderCode: '1234',
-        OrderStateId: 2,
-        OrderCreateDate: '2018-04-08',
-        OrderAmount: this.totalAmount,
-        ReliefAmount: this.remissionAmount,
-        PayAmount: this.realPaymentAmount,
-        AccountId: this._guid,
-        InvoiceTypeId: this.InvoiceTypeId,
-        FreightAmount: this.freightAmount,
-        OrderNumber: this.totalNumber,
-        PInvoiceInfo: this.PInvoiceInfoViewModel,
-        EInvoiceInfo: this.EInvoiceInfoViewModel,
-        DeliveryInfo: this.DeliveryInfoViewModel,
-        IsPInvoice: this.IsPInvoice,
-        PayMethodId: this.PayMethodId,
-        PayMethodName: this.PayMethodName,
-        DistributionInfoId: 2,
-        // DistributionInfoId: this.DistributionInfoId,
-        OrderIsEffective: true,
-        OrderCommodity: this.OrderCommodity,
-        ImagesList: imageList
-      }
-      console.log(OrderInfoSubmitViewModel)
-      this.appService.httpPost_Img_token(AppGlobal.API.postOrderInfo, this.c_token, { orderInfo: OrderInfoSubmitViewModel }, rs => {
-        if (rs.status == 401 || rs.status == 403) {
-          this.app.getRootNav().setRoot('LoginPage');
-        }
-        if (rs.isSuccess) {
-          this.navCtrl.setRoot('OrdersuccessPage')
-        } else {
-          this.appConfigCtrl.popAlertView(rs.errorMessage);
-        }
-      }, true);
     }
   }
   changeaddress() {
@@ -422,5 +459,99 @@ export class OrderPage {
   isDeleteImage() {
     this.ImagesList = [];
     this.isUpimages = true;
+  }
+  wxPayCheck() {
+    this.aliPayMethod = false;
+    this.bankPayMethod = false;
+    this.PayMethodId = 2;
+    this.PayMethodName = '微信支付'
+    this.wxPayMethod = true;
+    this.isShowUpVoucher = false;
+  }
+  aliPayCheck() {
+    this.wxPayMethod = false;
+    this.bankPayMethod = false;
+    this.PayMethodId = 1;
+    this.PayMethodName = '支付宝';
+    this.aliPayMethod = true;
+    this.isShowUpVoucher = false;
+  }
+  bankPayCheck() {
+    this.wxPayMethod = false;
+    this.aliPayMethod = false;
+    this.PayMethodId = 3;
+    this.PayMethodName = '银行转账'
+    this.bankPayMethod = true;
+    this.isShowUpVoucher = true;
+  }
+  //在线支付订单提交，获取订单信息
+  onlinePayPost(OrderInfoSubmitViewModel) {
+    this.appService.httpPost_token(AppGlobal.API.postOrderInfoByLine, this.c_token, { orderInfo: OrderInfoSubmitViewModel }, rs => {
+      if (rs.status == 401 || rs.status == 403) {
+        this.app.getRootNav().setRoot('LoginPage');
+      }
+      console.log(this.PayMethodId)
+      if (rs.isSuccess) {
+        console.log(this.PayMethodId)
+        if (this.PayMethodId == 1) {
+          this.aliPayPost(rs.objectData.orderId, rs.objectData.orderCode)
+        } else {
+          this.wechatPayPost(rs.objectData.orderId, rs.objectData.orderCode)
+        }
+      } else {
+        this.appConfigCtrl.popAlertView(rs.errorMessage);
+      }
+    }, true);
+  }
+  //支付宝
+  aliPayPost(orderId, orderCode) {
+    console.log('支付宝')
+    this.alipayOrderInfoViewModel.AlipayBody = '精华直销B2B订单号：' + orderCode;
+    this.alipayOrderInfoViewModel.AlipaySubject = '精华直销B2B订单号：' + orderCode;
+    this.alipayOrderInfoViewModel.AlipayTotalAmount = this.realPaymentAmount;
+    this.alipayOrderInfoViewModel.AlipayOutTradeNo = orderId;
+    this.alipayOrderInfoViewModel.AlipayProductCode = orderId;
+    this.appService.httpPost_token(AppGlobal.API.getpostOrderInfoAlipay, this.c_token, { orderInfoalipay: this.alipayOrderInfoViewModel }, rs => {
+      if (rs.status == 401 || rs.status == 403) {
+        this.app.getRootNav().setRoot('LoginPage');
+      }
+      console.log(rs)
+      if (rs.isSuccess) {
+        this.alipay(rs.objectData)
+      } else {
+        this.appConfigCtrl.popAlertView(rs.errorMessage);
+      }
+    }, true);
+  }
+  alipay(data) {
+    let payInfo = AppStaticConfig.unescapeHTML(data);
+    cordova.plugins.alipay.payment(payInfo, (success) => {
+      if (success.resultStatus == "9000") {
+        //支付成功
+        this.navCtrl.setRoot('OrdersuccessPage', { item: this.PayMethodId })
+      }
+    }, (error) => {
+      //支付失败
+      this.navCtrl.setRoot('OrderfailedPage')
+    });
+  }
+
+  //微信支付
+  wechatPayPost(orderId, orderCode) {
+
+  }
+  //根据订单ID获取订单信息
+  getpostOrderInfo(orderid) {
+    this.appService.httpPost_token(AppGlobal.API.getpostOrderInfo, this.c_token, { orderInfo: orderid }, rs => {
+      if (rs.status == 401 || rs.status == 403) {
+        this.app.getRootNav().setRoot('LoginPage');
+      }
+      if (rs.isSuccess) {
+        //this.alipay(data)
+        //this.navCtrl.setRoot('OrdersuccessPage')
+      } else {
+        this.appConfigCtrl.popAlertView(rs.errorMessage);
+      }
+    }, true);
   }
 }

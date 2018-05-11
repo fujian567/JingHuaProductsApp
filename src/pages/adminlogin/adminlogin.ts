@@ -52,7 +52,6 @@ export class AdminloginPage {
     this.appService.httpPostlogin(AppGlobal.API.postUeserlogin, this.UsersLoginViewModel, rs => {
       if (rs.isSuccess) {
         this.storage.ready().then(() => {
-          console.log(rs);
           this.storage.set('u_token', rs.objectData.authorization);
           this.storage.set('u_accountState', rs.objectData.accountState_L);
           this.storage.set('u_logDateTime', rs.objectData.logDateTime);

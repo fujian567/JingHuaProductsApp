@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
-import { AppConfig } from '../../app/app.config';
+import { AppConfig, AppStaticConfig } from '../../app/app.config';
 import { AppService, AppGlobal } from './../../app/app.service';
 import { Storage } from '@ionic/storage';
 /**
@@ -15,6 +15,7 @@ import { Storage } from '@ionic/storage';
 export class ShoppingcartPage {
   c_token: any;
   _guid: any = 'ca3b89d1-9ff5-4998-b6d9-972d7a7e80e9';
+  imgUrl: any = AppGlobal.domainimage
   pagedatamodle: any = []
   SCStatisticsInfo: any = {
     TotalAmount: '',// 总计金额
@@ -34,7 +35,7 @@ export class ShoppingcartPage {
     private storageCtrl: Storage,
     public app: App,
     public navParams: NavParams) {
-    
+
   }
   ionViewDidEnter() {
     this.storageCtrl.get('c_token').then((val) => {
@@ -63,23 +64,34 @@ export class ShoppingcartPage {
   }
   addNum(item: any, num: number) {
     this.pagedatamodle[num].isSelect = true;
-    this.pagedatamodle[num].commQuantity = this.pagedatamodle[num].commQuantity + 1;
-    this.shoppingCartUpdata(item, 1);
-    this.amountPrice = this.amountPrice + Number(item.medianPrice);
+    if (this.pagedatamodle[num].commQuantity > 59999) { 
+      this.appConfigCtrl.popAlertView('购买商品数量不能大于60000');
+    } else {
+      this.pagedatamodle[num].commQuantity = this.pagedatamodle[num].commQuantity + 1;
+      this.shoppingCartUpdata(item, 1);
+      this.amountPrice = this.amountPrice + parseInt(item.medianPrice);
+    }
+
   }
   deductNum(item: any, num: number) {
     if (item.commQuantity > 1) {
       this.pagedatamodle[num].isSelect = true;
       this.pagedatamodle[num].commQuantity = this.pagedatamodle[num].commQuantity - 1;
       this.shoppingCartUpdata(item, -1);
-      this.amountPrice = this.amountPrice - Number(item.medianPrice);
+      this.amountPrice = this.amountPrice - parseInt(item.medianPrice);
     }
   }
   inputNum(item: any, num: number) {
     console.log(num);
     console.log(item.commQuantity);
     this.appConfigCtrl.popPromptNumView('修改购买数量', 'addmun', '', 'number', item.commQuantity, rt => {
-      this.shoppingCartUpdata(item, rt.number-item.commQuantity);
+      if (rt.number > 60000) {
+        this.appConfigCtrl.popAlertView('购买商品数量不能大于60000');
+      } else if (rt.number < 1) {
+        this.appConfigCtrl.popAlertView('购买商品数量不能小于1');
+      } else {
+        this.shoppingCartUpdata(item, parseInt(rt.number) - item.commQuantity);
+      }
     })
   }
   updateCucumber(item: any, num: number, event: any) {
@@ -135,7 +147,7 @@ export class ShoppingcartPage {
       this.appConfigCtrl.popAlertView('请先选择要删除的商品！');
       return;
     }
-    this.appConfigCtrl.popAlertConfirmView('你确定要删除该商品吗？删除后不可恢复。', '我在考虑下', '残忍删除', () => {
+    this.appConfigCtrl.popAlertConfirmView('你确定要删除该商品吗？删除后不可恢复。', '再考虑下', '残忍删除', () => {
       this.isShowEdit = false;
       this.editBtnTxt = "编辑";
       let temparray = [];
@@ -152,7 +164,7 @@ export class ShoppingcartPage {
         }
         if (rs.isSuccess) {
           this.getShoppingCartInfo(this.c_token)
-        }else {
+        } else {
           this.appConfigCtrl.popAlertView(rs.errorMessage);
         }
       }, true)
@@ -170,7 +182,7 @@ export class ShoppingcartPage {
       if (rs.isSuccess) {
         this.getShoppingCartInfo(this.c_token)
       }
-    },true)
+    }, true)
   }
   shoppingCartToOrder(item: any, IsSelect: any) {
     let subimtModel = {

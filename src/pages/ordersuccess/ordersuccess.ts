@@ -12,6 +12,7 @@ import { Storage } from '@ionic/storage';
 })
 export class OrdersuccessPage {
   c_token: any;
+  jumpType: any = "";
   constructor(
     public navCtrl: NavController,
     public app: App,
@@ -20,13 +21,20 @@ export class OrdersuccessPage {
     this.storageCtrl.get('c_token').then((val) => {
       this.c_token = val;
     });
+    if (this.navParams.data != undefined) {
+      this.jumpType = this.navParams.data.item;
+    }
   }
 
   jumphome() {
-    this.navCtrl.setRoot('TabsPage');
+    this.navCtrl.push('TabsPage');
   }
   jumporder() {
     //this.app.getRootNavById().setRoot('OrdermanagePage', { type: 'noaudit' });
-    this.navCtrl.push('OrdermanagePage', { type: 'noaudit', c_token: this.c_token })
+    if (this.jumpType == '1') {
+      this.navCtrl.push('OrdermanagePage', { type: 'nodeliver', c_token: this.c_token })
+    } else {
+      this.navCtrl.push('OrdermanagePage', { type: 'noaudit', c_token: this.c_token })
+    }
   }
 }

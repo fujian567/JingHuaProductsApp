@@ -131,7 +131,7 @@ export class ModifypwdPage {
   postNewPwd() {
     this.appService.httpPost_token(AppGlobal.API.postClientRestPwd, this.c_token, this.FindPwdViewModel, rs => {
       if (rs.isSuccess) {
-        this.appConfigCtrl.popAlertView('修改成功，请重新你登录')
+        this.appConfigCtrl.popAlertView('修改成功，请重新登录')
         this.storageCtrl.clear();
         this.app.getRootNav().setRoot('LoginPage');
       } else {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController, ToastController,App } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController, ToastController,App } from 'ionic-angular'; 
 import { AppConfig } from '../../app/app.config';
 import { AppService, AppGlobal } from './../../app/app.service';
 import { Storage } from '@ionic/storage';

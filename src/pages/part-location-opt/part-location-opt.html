@@ -5,14 +5,28 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
     <ion-title>所在地区</ion-title>
+    <ion-buttons end>
+        <button ion-button icon-only (click)="closePop()">
+          <ion-icon name="close"></ion-icon>
+        </button>
+      </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
 
-<ion-content padding>
-
+<ion-content>
+  <ion-grid style="padding-left:16px;">
+    <ion-row>
+      <ion-col col-3 class="selectopt" (click)="selectP()">{{Province}}</ion-col>
+      <ion-col col-3 class="selectopt" (click)="selectC()">{{City}}</ion-col>
+      <ion-col col-3 class="selectopt">{{County}}</ion-col>
+      <ion-col col-3></ion-col>
+    </ion-row>
+  </ion-grid>
+    <ion-list class="locationscroll">
+      <ion-item *ngFor="let data of showData" (click)="itemClicked(data.itemId,data.isSingleCity,data.name)">{{data.name}}</ion-item>
+    </ion-list>
 </ion-content>
+

@@ -58,6 +58,9 @@ export class TabsPage {
       if(this.navParams.data.jumpage=='shopping'){
         this.tabRef.select(2);
       }
+      // if(this.navParams.data.jumpage=='GoodscategoryPage'){
+      //   this.tabRef.select(1);
+      // }
     }
     
   }

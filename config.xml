@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.jhzxapp.worker" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>精华直销</name>
+<widget id="com.jhzxapp.worker" version="1.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>精华B2B</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
     <content src="index.html" />
@@ -28,6 +28,11 @@
     <feature name="CDVWKWebViewEngine">
         <param name="ios-package" value="CDVWKWebViewEngine" />
     </feature>
+    <platform name="android">
+        <config-file parent="/manifest" target="AndroidManifest.xml" xmlns:android="http://schemas.android.com/apk/res/android">
+            <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+        </config-file>
+    </platform>
     <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
     <platform name="android">
         <allow-intent href="market:*" />
@@ -113,5 +118,11 @@
     <plugin name="cordova-plugin-jcore" spec="^1.1.12" />
     <plugin name="jpush-phonegap-plugin" spec="^3.3.2">
         <variable name="APP_KEY" value="acf39f93b4b509f444cc3697" />
+    </plugin>
+    <plugin name="cordova-plugin-alipay-v2" spec="0.0.4">
+        <variable name="APP_ID" value="2018041602565492" />
+    </plugin>
+    <plugin name="cordova-plugin-wechat" spec="^2.0.0">
+        <variable name="WECHATAPPID" value="wxac5e7e86fb9742e0" />
     </plugin>
 </widget>

@@ -5,13 +5,13 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { NativeService } from '../providers/NativeService'
 import { AppConfig } from '../app/app.config';
 import { JPushService } from 'ionic2-jpush'
+
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage: any;
+  rootPage: any = 'TabsPage';
   //rootPage: any = 'AdminloginPage';
-  //rootPage: any = 'MessagelistPage';
   constructor(
     private platform: Platform,
     private statusBar: StatusBar,
@@ -56,17 +56,10 @@ export class MyApp {
           })
       }
     });
-    //判断启动界面
-    if (this.nativeService.startPage()) {
-      this.rootPage = 'TabsPage'
-    } else {
-      this.rootPage = 'LoginPage';
-    }
   }
   assertNetwork() {
     if (!this.nativeService.isConnecting()) {
       this.appConfig.popToast('未检测到网络,请连接网络', 'bottom');
     }
-
   }
 }

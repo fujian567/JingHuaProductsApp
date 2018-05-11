@@ -25,16 +25,21 @@ export class ScanPage {
     public app: App,
     public viewCtrl: ViewController,
     private qrScanner: QRScanner) {
+    //console.log('已启动2')
     //默认为false
     this.light = false;
     this.frontCamera = false;
     this.storageCtrl.get('c_token').then((val) => {
       this.c_token = val;
     });
-    
-  }
 
-  ionViewDidLoad() {
+  }
+  // ionViewWillEnter(){
+  //   console.log('每次都启动')
+  // }
+  // ionViewDidLoad() {
+  ionViewWillEnter() {
+    console.log('已启动1')
     let item: any = {
       commParamId: ''
     }
@@ -44,6 +49,7 @@ export class ScanPage {
           // camera permission was granted
           // start scanning
           let scanSub = this.qrScanner.scan().subscribe((text: string) => {
+            //this.appConfigCtrl.popAlertView(text);
             this.appService.httpPost_token(AppGlobal.API.postGoodsSQ, this.c_token, { commupc: text }, rs => {
               if (rs.status == 401 || rs.status == 403) {
                 this.app.getRootNav().setRoot('LoginPage');
@@ -52,13 +58,13 @@ export class ScanPage {
                 if (rs.objectData.length > 0) {
                   this.qrScanner.hide(); // hide camera preview
                   scanSub.unsubscribe(); // stop scanning
-                  item.commParamId=rs.objectData[0];
+                  item.commParamId = rs.objectData[0];
                   this.navCtrl.push('GoodsdetailPage', { item: item });
-                }else{
+                } else {
                   this.appConfigCtrl.popAlertView('您扫描的商品不正确，请重新扫描！');
                   this.navCtrl.pop();
                 }
-              }else{
+              } else {
                 this.appConfigCtrl.popAlertView('您扫描的商品不正确，请重新扫描！');
                 this.navCtrl.pop();
               }

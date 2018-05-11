@@ -34,7 +34,7 @@ export class LoginPage {
     private storage: Storage) {
     this.storage.get('c_token').then((val) => {
       if (val != null) {
-        this.accountStatus(val);
+        //this.accountStatus(val);
       }
     });
   }
@@ -58,8 +58,8 @@ export class LoginPage {
   logincallback() {
     this.LandingViewModel.Account = this.params.username;
     this.LandingViewModel.PassWord = this.params.password;
+    this.storage.clear();
     this.appService.httpPostlogin(AppGlobal.API.postlogin, this.LandingViewModel, rs => {
-      console.log(rs)
       if (rs.isSuccess) {
         this.storage.ready().then(() => {
           this.storage.set('c_token', rs.objectData.authorization);

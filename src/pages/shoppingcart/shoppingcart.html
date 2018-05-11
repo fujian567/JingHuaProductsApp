@@ -19,6 +19,7 @@
     </div>
     <div class="gotobtn">
       <button ion-button color="danger" (click)="goHome()">
+          <!-- <button ion-button color="danger" (click)="aliPay()"> -->
         去逛逛
       </button>
     </div>
@@ -37,8 +38,7 @@
             </ion-item>
           </ion-col>
           <ion-col col-4>
-            <!-- <img src="{{item.goodsImg}}" class="goods-img"> -->
-            <img src="{{'data:image/jpeg;base64,'+item.imageData}}" class='goods-img' />
+            <img src="{{imgUrl+item.imagePath}}" class='goods-img' />
           </ion-col>
           <ion-col col-7>
             <ion-row>
@@ -63,7 +63,7 @@
     </ion-item>
   </ion-list>
 </ion-content>
-<ion-footer >
+<ion-footer style="height: 53px;">
   <ion-grid *ngIf="isShowEdit" style="padding: 0;">
     <ion-row>
       <ion-col col-3>

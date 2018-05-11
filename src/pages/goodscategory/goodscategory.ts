@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams,App } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 import { AppConfig } from '../../app/app.config';
 import { AppService, AppGlobal } from '../../app/app.service'
 import { Storage } from '@ionic/storage';
@@ -20,31 +20,53 @@ export class GoodscategoryPage {
   categories: Array<any> = [];
   selectedMenuTarget: any;
   products: Array<any> = [];
+  getClassid: any;
+  getClassTitle: any;
   hasmore = true;
   islock = false;
+  active: any = 'active';
   temp64 = './../../assets/imgs/dchkl.jpg';
   pages = {
     ItemsCount: 0,
     PageIndex: 1,
     PageSize: 24
   }
-  
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private appConfigCtrl: AppConfig,
     private storageCtrl: Storage,
-    public app:App,
+    public app: App,
     public appService: AppService) {
   }
 
   ionViewDidLoad() {
+    if (this.navParams.data.item != undefined) {
+      this.getClassid = this.navParams.data.item;
+      this.getClassTitle = this.navParams.data.title;
+    }
     this.storageCtrl.get('c_token').then((val) => {
       this.c_token = val;
       this.getCategories(val);
     });
     this.addScrollEventListener();
   }
+
+  ionViewDidEnter() {
+    if (this.getClassid != undefined) {
+      let initSelected = document.getElementsByClassName('menuItem');
+      let itemIndex: number = 0;
+      console.log(initSelected.length)
+      for (let i = 0; i < initSelected.length; i++) {
+        initSelected[i].classList.remove('active');
+        if (initSelected[i].id == this.getClassid) {
+          itemIndex = i;
+        }
+      }
+      initSelected[itemIndex].classList.add('active')
+    }
+  }
+
   addScrollEventListener() {
     this.scrollElement._scrollContent.nativeElement.onscroll = event => {
       if (this.spinnerElement) {
@@ -68,7 +90,13 @@ export class GoodscategoryPage {
       if (rs.isSuccess) {
         if (rs.objectData.length > 0) {
           this.categories = rs.objectData;
-          this.getProducts(this.categories[0].classId);
+          if (this.getClassid != undefined) {
+            console.log('首页跳转')
+            this.getProducts(this.getClassid);
+          } else {
+            console.log('分类跳转')
+            this.getProducts(this.categories[0].classId);
+          }
         }
       }
     })
@@ -76,6 +104,7 @@ export class GoodscategoryPage {
   // 选中左侧菜单
   itemClick(c, event) {
     let initSelected: any = document.getElementsByClassName('menuItem');
+    console.log(initSelected.length)
     for (let i = 0; i < initSelected.length; i++) {
       initSelected[i].classList.remove("active");
     }
@@ -89,16 +118,15 @@ export class GoodscategoryPage {
   }
 
   getProducts(classId: any) {
-    console.log(classId)
     this.appService.httpPost_token(AppGlobal.API.postGoodsListInfoC, this.c_token, { classId: classId, pages: this.pages }, rs => {
       if (rs.isSuccess) {
         if (rs.objectData.length > 0) {
           this.products = rs.objectData;
           this.pages.PageIndex += 1;
           this.hasmore = false;
-        }else{
-          if(this.pages.PageIndex==1){
-            this.products =[]
+        } else {
+          if (this.pages.PageIndex == 1) {
+            this.products = []
           }
           this.hasmore = false;
         }
@@ -114,28 +142,6 @@ export class GoodscategoryPage {
       return;
     }
     this.islock = true;
-    // this.appService.httpGet(AppGlobal.API.getProducts, this.pages, d => {
-    //   this.islock = false;
-    //   if (d.data.length > 0) {
-    //     d.data=[
-    //       {"PictUrl":"./assets/imgs/wsbcw.jpg","Title":"王氏保赤丸","ZkFinalPrice":"129","ReservePrice":"199"},
-    //       {"PictUrl":"assets/imgs/dchkl.jpg","Title":"大柴胡颗粒","ZkFinalPrice":"129","ReservePrice":"199"},
-    //       {"PictUrl":"assets/imgs/gbkcp.jpg","Title":"固本咳喘片","ZkFinalPrice":"129","ReservePrice":"199"},
-    //       {"PictUrl":"assets/imgs/jdssyp.jpg","Title":"季德胜蛇药片","ZkFinalPrice":"129","ReservePrice":"199"},
-    //       {"PictUrl":"assets/imgs/jxbp.jpg","Title":"精血补片","ZkFinalPrice":"129","ReservePrice":"199"},
-    //       {"PictUrl":"assets/imgs/nnjqmp.jpg","Title":"宁宁金荞麦片","ZkFinalPrice":"129","ReservePrice":"199"},
-    //       {"PictUrl":"assets/imgs/nnxls.jpg","Title":"宁宁锡类散","ZkFinalPrice":"129","ReservePrice":"199"},
-    //       {"PictUrl":"assets/imgs/nnzchykl.jpg","Title":"正柴胡饮颗粒","ZkFinalPrice":"129","ReservePrice":"199"},
-    //       {"PictUrl":"assets/imgs/nxykpkl.jpg","Title":"宁星晕可平颗粒","ZkFinalPrice":"129","ReservePrice":"199"},
-    //       {"PictUrl":"assets/imgs/ykptj.jpg","Title":"晕可平糖浆","ZkFinalPrice":"129","ReservePrice":"199"},
-    //     ];
-    //     this.products = this.products.concat(d.data);
-    //     this.pages.PageIndex += 1;
-    //   } else {
-    //     this.hasmore = false;
-    //     console.log("没有数据啦！")
-    //   }
-    // });
 
     this.islock = false;
     let d_data = [

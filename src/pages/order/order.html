@@ -11,9 +11,9 @@
 </ion-header>
 <ion-content>
   <button ion-item (click)="changeaddress()">
-      <ion-grid *ngIf="isShowDefaultDelive" style="padding-left:20px;">
-          你还没有添加收货地址
-      </ion-grid>
+    <ion-grid *ngIf="isShowDefaultDelive" style="padding-left:20px;">
+      你还没有添加收货地址
+    </ion-grid>
 
     <ion-grid *ngIf="!isShowDefaultDelive">
       <ion-row>
@@ -22,7 +22,7 @@
         <ion-col col-3>{{deliveryMobile}}</ion-col> 
         <ion-col col-5></ion-col> -->
         <ion-col>{{deliveryName}}</ion-col>
-        <ion-col>{{deliveryMobile}}</ion-col> 
+        <ion-col>{{deliveryMobile}}</ion-col>
       </ion-row>
       <ion-row>
         <ion-col col-12>
@@ -46,7 +46,7 @@
     </ion-grid>
   </button> -->
 
-  <ion-grid class="goods-grid" *ngFor="let item of pagedatamodle, let i = index">
+  <ion-grid style="border-bottom: none;" class="goods-grid" *ngFor="let item of pagedatamodle, let i = index">
     <ion-row>
       <ion-col col-4 class="img-col">
         <!-- <img src="{{item.goodsImg}}" class="goods-img"> -->
@@ -66,12 +66,72 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+  <ion-grid class="list-grid" style="margin-top:0;background-color:#f8f8f8;padding-top:0;padding-bottom:0;">
+    <ion-row>
+      <ion-col col-12 class="list-title">选择支付方式</ion-col>
+    </ion-row>
+  </ion-grid>
   <ion-grid class="list-grid">
     <ion-row>
-      <ion-col col-3 class="list-title">支付方式</ion-col>
-      <ion-col col-3 *ngFor="let item of payMethod, let i = index">
-        <button color="{{item.isDefault}}" ion-button block outline (click)="upVoucher(item,i)">{{item.payMethodName}}</button>
+      <!-- <ion-col col-12>
+        <ion-row>
+          <ion-col col-2 style="text-align: end;">
+            <img src="assets/imgs/WXlogo.png" class="wximg" />
+          </ion-col>
+          <ion-col col-8>
+            <ion-row style="padding: 0;">
+              <ion-col col-12 style="padding: 0;color:#222">微信支付
+                <img src="assets/imgs/icon.png" class="iconimg" />
+              </ion-col>
+              <ion-col col-12 style="font-size: 1.1rem;padding: 0;color:#989898">亿万用户的选择，更快更安全</ion-col>
+            </ion-row>
+          </ion-col>
+          <ion-col col-2>
+            <div *ngIf="!wxPayMethod" class="rodioBtn" (click)="wxPayCheck()"></div>
+            <div *ngIf="wxPayMethod">
+              <ion-icon name="checkmark-circle"></ion-icon>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-col> -->
+      <ion-col col-12>
+        <ion-row>
+          <ion-col col-2 style="text-align: end;">
+            <img src="assets/imgs/alipay.png" class="ailpayimg" />
+          </ion-col>
+          <ion-col col-8>
+            <ion-row style="padding: 0;">
+              <ion-col col-12 style="padding: 0;color:#222">支付宝
+                <img src="assets/imgs/icon.png" class="iconimg" />
+              </ion-col>
+              <ion-col col-12 style="font-size: 1.1rem;padding: 0;color:#989898">亿万用户的选择，更快更安全</ion-col>
+            </ion-row>
+          </ion-col>
+          <ion-col col-2>
+            <div *ngIf="!aliPayMethod" (click)="aliPayCheck()" class="rodioBtn"></div>
+            <div *ngIf="aliPayMethod">
+              <ion-icon name="checkmark-circle"></ion-icon>
+            </div>
+          </ion-col>
+        </ion-row>
       </ion-col>
+      <ion-col col-12>
+        <ion-row>
+          <ion-col col-2 style="text-align: end;padding-top:12px;">
+            <img src="assets/imgs/bank.png" class="ailpayimg" />
+          </ion-col>
+          <ion-col col-8 style="padding-top:12px;">银行转账</ion-col>
+          <ion-col col-2>
+            <div *ngIf="!bankPayMethod" (click)="bankPayCheck()" class="rodioBtn"></div>
+            <div *ngIf="bankPayMethod">
+              <ion-icon name="checkmark-circle"></ion-icon>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+      <!-- <ion-col col-12 *ngFor="let item of payMethod, let i = index">
+        <button color="{{item.isDefault}}" ion-button block outline (click)="upVoucher(item,i)">{{item.payMethodName}}</button>
+      </ion-col> -->
       <!-- <ion-col col-3>
         <button color="danger" ion-button block outline>银行转账</button>
       </ion-col>
@@ -89,11 +149,11 @@
           <ion-row>
             <ion-col col-4>
               <ion-thumbnail tappable (click)="onAddImage()" style="width:100%;" *ngIf="isUpimages">
-                <img  src="assets/imgs/addimg.png" class="auto-image" id="addimgbg" />
+                <img src="assets/imgs/addimg.png" class="auto-image" id="addimgbg" />
               </ion-thumbnail>
               <ion-thumbnail tappable (click)="isDeleteImage()" style="width:100%;" *ngIf="!isUpimages">
-                  <img  src="{{'data:image/jpeg;base64,'+ImagesList[0]}}" width="80" height="80" class="auto-image" id="addimgbg" />
-                </ion-thumbnail>
+                <img src="{{'data:image/jpeg;base64,'+ImagesList[0]}}" width="80" height="80" class="auto-image" id="addimgbg" />
+              </ion-thumbnail>
             </ion-col>
             <ion-col col-12 class="specify">
               请将对应的商品金额转入精华制药银行账户，并在此上传转账凭证，务必保证上传的凭证清晰可见！
@@ -136,9 +196,9 @@
       <ion-col col-6 class="txt-right" style="color: #e4393c;">¥{{totalAmount}}</ion-col>
     </ion-row>
     <ion-row>
-        <ion-col col-6>优惠</ion-col>
-        <ion-col col-6 class="txt-right">¥{{freightAmount}}</ion-col>
-      </ion-row>
+      <ion-col col-6>优惠</ion-col>
+      <ion-col col-6 class="txt-right">¥{{freightAmount}}</ion-col>
+    </ion-row>
     <ion-row>
       <ion-col col-6>商品数量</ion-col>
       <ion-col col-6 class="txt-right">{{totalNumber}}件</ion-col>

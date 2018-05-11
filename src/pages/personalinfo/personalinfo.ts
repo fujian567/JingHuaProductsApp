@@ -5,7 +5,6 @@ import { AppConfig } from './../../app/app.config';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Storage } from '@ionic/storage';
 import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker';
-import { noUndefined } from '@angular/compiler/src/util';
 /**
 客户端：个人信息中心
  */
@@ -19,7 +18,6 @@ export class PersonalinfoPage {
   c_token: any;
   _guid: any = 'ca3b89d1-9ff5-4998-b6d9-972d7a7e80e9';
   userImg: any = 'assets/imgs/userImg.jpg';
-  img64: boolean = false;
   pageModel: any = {
     birthday: '2018/04/08',
     sex: '男',
@@ -94,7 +92,6 @@ export class PersonalinfoPage {
     }
     this.camera.getPicture(options).then((imageData) => {
       this.pageModel.userImg = imageData;
-      this.img64 = true;
     }, (err) => {
       // Handle error
     });
@@ -115,7 +112,6 @@ export class PersonalinfoPage {
         for (let i = 0; i < results.length; i++) {
           this.pageModel.userImg = results[i];
         }
-        this.img64 = true;
       }
     }, (err) => {
       console.log(err)
@@ -139,12 +135,22 @@ export class PersonalinfoPage {
       if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
       }
-      
       if (rs.isSuccess) {
         console.log(rs.isSuccess)
+        this.getUserInfo(this.c_token);
       } else {
         this.appConfig.popAlertView(rs.errorMessage);
       }
     }, true)
+  }
+  getUserInfo(c_token) {
+    this.appService.httpGet_token(AppGlobal.API.getUserInfo, c_token, {}, rs => {
+      if (rs.status == 401 || rs.status == 403) {
+        this.app.getRootNav().setRoot('LoginPage');
+      }
+      if (rs.isSuccess) {
+        this.userImg = AppGlobal.domainimage + rs.objectData.imagePath + rs.objectData.imageName
+      }
+    })
   }
 }

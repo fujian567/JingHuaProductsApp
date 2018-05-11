@@ -37,9 +37,9 @@ export class AdminorderPage {
   pageStatus: any = [
     //{ key: 'all', value: '全部', checked: true },
     { key: 'orderAudit', value: '订单待审核', checked: false },
-    { key: 'orderAllAudit', value: '已审核的订单', checked: false },
+    //{ key: 'orderAllAudit', value: '已审核的订单', checked: false },
     { key: 'deliver', value: '订单待发货', checked: false },
-    { key: 'allAeliver', value: '已发货的订单', checked: false },
+    //{ key: 'allAeliver', value: '已发货的订单', checked: false },
     // { key: 'salesReturn', value: '退货待审核', checked: false },
     // { key: 'returnConfirm', value: '退款待确认', checked: false },
     // { key: 'orderClose', value: '订单关闭', checked: false },
@@ -117,6 +117,7 @@ export class AdminorderPage {
     }
   }
   selectRadio(event: any) {
+    console.log(event)
     switch (event) {
       case 'all': {
         this.showStatus = '全部';
@@ -139,7 +140,6 @@ export class AdminorderPage {
       }
       case 'salesReturn': {
         this.showStatus = '退货待审核';
-        console.log('1111')
         this.getOrderAfterSale(this.u_token);
         break;
       }
@@ -153,6 +153,16 @@ export class AdminorderPage {
       }
       case 'orderOver': {
         this.showStatus = '已完成';
+        break;
+      }
+      case 'orderAllAudit': {
+        this.showStatus = '已审核的订单';
+        this.getOrderAllAudit(this.u_token);
+        break;
+      }
+      case 'allAeliver': {
+        this.showStatus = '已发货的订单';
+        this.getOrderAllDeliver(this.u_token);
         break;
       }
     }
@@ -240,5 +250,28 @@ export class AdminorderPage {
       }
     }, true)
   }
-
+  //已审核的
+  getOrderAllAudit(u_token) {
+    this.appService.httpGet_token(AppGlobal.API.getRefundWaitAuditOrder, u_token, {}, rs => {
+      if (rs.status == 401 || rs.status == 403) {
+        this.app.getRootNav().setRoot('AdminloginPage');
+      }
+      if (rs.isSuccess) {
+        this.datalist = rs.objectData
+        this.processMainID
+      }
+    }, true)
+  }
+//已发货的
+getOrderAllDeliver(u_token) {
+  this.appService.httpGet_token(AppGlobal.API.getRefundWaitAuditOrder, u_token, {}, rs => {
+    if (rs.status == 401 || rs.status == 403) {
+      this.app.getRootNav().setRoot('AdminloginPage');
+    }
+    if (rs.isSuccess) {
+      this.datalist = rs.objectData
+      this.processMainID
+    }
+  }, true)
+}
 }

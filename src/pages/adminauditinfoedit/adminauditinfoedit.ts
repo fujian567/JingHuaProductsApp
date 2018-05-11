@@ -63,20 +63,24 @@ export class AdminauditinfoeditPage {
   ) {
     this.storageCtrl.get('u_token').then((val) => {
       this.u_token = val;
+      this.getCompanyProperty(val);
     });
     console.log(navParams.data.itemData)
-    this.FBAuditViewModel = navParams.data.itemData;
-    this.eTaxIdeNumber = navParams.data.itemData.eTaxIdeNumber;
-    this._imageViewerCtrl = imageViewerCtrl;
+    if(navParams.data.itemData!=undefined){
+      this.FBAuditViewModel = navParams.data.itemData;
+      this.eTaxIdeNumber = navParams.data.itemData.eTaxIdeNumber;
+      this._imageViewerCtrl = imageViewerCtrl;
+      this.FBAuditViewModel.location=this.navParams.data.itemData.pccname;
+    }
     this.getRegion();
-    this.getCompanyProperty();
   }
   ionViewDidEnter() {
     let text = document.getElementsByClassName("multi-picker-placeholder");
     this.tempLocation = this.navParams.data.itemData.pccname;
     if (this.navParams.data.itemData.enterpriseNatureName != '无') {
-      text[0].textContent = this.navParams.data.itemData.enterpriseNatureName;
-      text[0].setAttribute('style','color:#222');
+      this.FBAuditViewModel.enterpriseNatureName=this.navParams.data.itemData.enterpriseNatureName;
+      // text[0].textContent = this.navParams.data.itemData.enterpriseNatureName;
+      // text[0].setAttribute('style','color:#222');
       this.FBAuditViewModel.location = this.navParams.data.itemData.pccname;
     }
     if (this.navParams.data.itemData.salesmanName_OA == '无') {
@@ -86,12 +90,12 @@ export class AdminauditinfoeditPage {
       this.FBAuditViewModel.eACode_ERP = '';
     }
     if (this.navParams.data.itemData.pccname != '无') {
-      text[1].textContent = this.navParams.data.itemData.pccname;
-      text[1].setAttribute('style','color:#222');
+      // text[1].textContent = this.navParams.data.itemData.pccname;
+      // text[1].setAttribute('style','color:#222');
     }
   }
-  getCompanyProperty() {
-    this.appService.httpGet_token(AppGlobal.API.getDataCompanyProperty, this.u_token, {}, rs => {
+  getCompanyProperty(u_token) {
+    this.appService.httpGet_token(AppGlobal.API.getDataCompanyProperty, u_token, {}, rs => {
       if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('AdminloginPage');
       }
@@ -181,8 +185,8 @@ export class AdminauditinfoeditPage {
       this.appConfig.popAlertView('企业详细地址不能为空！')
       return
     } else {
-      this.FBAuditViewModel.pccname = document.getElementById('PCCname').textContent.trim();
-      this.FBAuditViewModel.enterpriseNatureName = document.getElementById('enterpriseNature').textContent.trim();
+      //this.FBAuditViewModel.pccname = document.getElementById('PCCname').textContent.trim();
+      //this.FBAuditViewModel.enterpriseNatureName = document.getElementById('enterpriseNature').textContent.trim();
       let tempLocation: any = this.FBAuditViewModel.location.split(' ');
       this.FBAuditViewModel.ProvinceID = tempLocation[0];
       this.FBAuditViewModel.CityID = tempLocation[1];

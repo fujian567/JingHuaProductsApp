@@ -1,5 +1,8 @@
 <ion-content class="page-config">
+
   <div class="pagetop">
+    <!-- <div style="text-align:right;padding-top: 10px;padding-right:18px;"><ion-icon name="exit"></ion-icon></div> -->
+    <div (click)="exit()" class="exit">退出</div>
     <img src="./assets/imgs/background-top.png">
   </div>
   <div class="pagetitle">资质提交</div>
@@ -16,7 +19,7 @@
       </ion-item>
       <ion-item class="box-right">
         <ion-label>精华业务员</ion-label>
-        <ion-input placeholder="与你联系业务员姓名" clearInput [(ngModel)]="ClientInfoViewModel.SalesmanCode"></ion-input>
+        <ion-input placeholder="与你联系业务员姓名" readonly={{reStatus}} [(ngModel)]="salesmanName_OA"></ion-input>
       </ion-item>
       <!-- <ion-item class="box-right">
         <ion-label style="flex:none;">资质过期日期</ion-label>
@@ -49,3 +52,4 @@
     </ion-row>
   </ion-grid>
 </ion-content>
+

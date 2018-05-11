@@ -16,6 +16,7 @@ import { Storage } from '@ionic/storage';
 export class LogisticsPage {
   c_token: any;
   orderinfo: any;
+  imgUrl: any = AppGlobal.domainimage;
   pagedatamodle: any = {
 
   }

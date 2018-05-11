@@ -45,6 +45,7 @@ export class GoodsdetailPage {
     enterprisesName: '',
     goodsDetail: ''
   }
+  avatarinfo:any='assets/imgs/userImg.jpg';
   imagesList_DetailPage: any[] = [];
   CommParamId: any;
   Goodscomments: any = [];
@@ -53,6 +54,7 @@ export class GoodsdetailPage {
   imageUrl: any = '';
   videoImg: any = '';
   video: any = '';
+  isShowVideo: boolean = false;
   constructor(
     public navCtrl: NavController,
     private appConfigCtrl: AppConfig,
@@ -69,6 +71,12 @@ export class GoodsdetailPage {
         this.c_token = val;
         this.getGoodsComments(val, this.CommParamId)
         this.getGoodsDetail(val, this.CommParamId)
+      });
+    } else if (this.navParams.data.parms != undefined) {
+      this.storageCtrl.get('c_token').then((val) => {
+        this.c_token = val;
+        this.getGoodsComments(val, this.navParams.data.parms)
+        this.getGoodsDetail(val, this.navParams.data.parms)
       });
     } else {
       this.navCtrl.pop();
@@ -87,8 +95,8 @@ export class GoodsdetailPage {
   // backButtonClick = (e: UIEvent) => {
   //   this.navCtrl.push('TabsPage');
   // }
-  back(){
-    this.navCtrl.push('TabsPage');
+  back() {
+    this.navCtrl.pop();
   }
   getGoodsDetail(c_token, commParamId) {
     this.appService.httpPost_token(AppGlobal.API.postGoodsDetailInfoC, c_token, { commParamId: commParamId }, rs => {
@@ -111,8 +119,11 @@ export class GoodsdetailPage {
           this.SCInfoViewModel.address = rs.objectData.address;
           this.SCInfoViewModel.enterprisesName = rs.objectData.enterprisesName;
           this.rate = rs.objectData.transactionScore;
-          this.videoImg = rs.objectData.videoInfo.vpreviewImagePath + rs.objectData.videoInfo.vpreviewImageName;
-          this.video = rs.objectData.videoInfo.videoPath + rs.objectData.videoInfo.videoName;
+          if (rs.objectData.videoInfo != undefined) {
+            this.isShowVideo = true;
+            this.videoImg = rs.objectData.videoInfo.vpreviewImagePath + rs.objectData.videoInfo.vpreviewImageName;
+            this.video = rs.objectData.videoInfo.videoPath + rs.objectData.videoInfo.videoName;
+          }
         }
       }
     }, true);

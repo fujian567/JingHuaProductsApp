@@ -35,12 +35,11 @@ export class ShippingaddresseditPage {
     CityID: '',
     CountyID: '',
     Address: '',
-    PCCName: '',
+    pccName: '',
     DeliveryLabel: '公司',
     DeliveryDefault: false,
     SCDeliveryDefault: false,
   }
-  pccName: any = '';
   constructor(
     public navCtrl: NavController,
     public appService: AppService,
@@ -58,6 +57,7 @@ export class ShippingaddresseditPage {
     //   this.clientDeliveryInfo.AccountID = val;
     // });
     if (this.navParams.data.item != undefined) {
+      console.log(this.navParams.data.item)
       let parmas = this.navParams.data.item;
       this.clientDeliveryInfo.DeliveryAddressId = parmas.deliveryAddressId;
       this.clientDeliveryInfo.AccountID = parmas.accountID;
@@ -67,12 +67,11 @@ export class ShippingaddresseditPage {
       this.clientDeliveryInfo.CityID = parmas.cityID;
       this.clientDeliveryInfo.CountyID = parmas.countyID;
       this.clientDeliveryInfo.Address = parmas.address;
-      this.clientDeliveryInfo.PCCName = parmas.pccName;
+      this.clientDeliveryInfo.pccName = parmas.pccName;
       this.clientDeliveryInfo.DeliveryLabel = parmas.deliveryLabel;
       this.clientDeliveryInfo.DeliveryDefault = parmas.deliveryDefault;
       this.clientDeliveryInfo.SCDeliveryDefault = parmas.scDeliveryDefault;
       this.pageedit = true;
-      this.pccName = parmas.pccName;
     }
     if (navParams.data.imageList != undefined) {
       if (navParams.data.imageList.length > 0) {
@@ -82,10 +81,6 @@ export class ShippingaddresseditPage {
     this.getRegion();
   }
   ionViewDidEnter() {
-    let text = document.getElementsByClassName("multi-picker-placeholder");
-    for (let i = 0; i < text.length; i++) {
-      text[i].textContent = this.pccName
-    }
   }
   ionViewDidLoad() {
     this.navBar.backButtonClick = this.backButtonClick;
@@ -115,14 +110,12 @@ export class ShippingaddresseditPage {
           options: AppStaticConfig.addRegionData(countyData)
         }
         this.dependentColumns.push(this.countyjson);
-        console.log(this.dependentColumns)
         this.ref.detectChanges();
       }, error => {
         console.log(error);
       });
   }
   addnewAddress() {
-    console.log(document.getElementById('PCCname').textContent.trim())
     if (this.clientDeliveryInfo.DeliveryName.length < 1) {
       this.appConfigCtrl.popAlertView('收货人不能为空');
       return
@@ -131,7 +124,7 @@ export class ShippingaddresseditPage {
       this.appConfigCtrl.popAlertView('手机号码不能为空');
       return
     }
-    if (this.pccName.length < 1) {
+    if (this.clientDeliveryInfo.pccName.length < 1) {
       this.appConfigCtrl.popAlertView('收货地址不能为空');
       return
     }
@@ -143,12 +136,6 @@ export class ShippingaddresseditPage {
       this.appConfigCtrl.popAlertView('请填写正确手机号');
       return
     }
-    
-    this.clientDeliveryInfo.PCCName = document.getElementById('PCCname').textContent.trim();
-    let tempLocation: any = this.pccName.split(' ');
-    this.clientDeliveryInfo.ProvinceID = tempLocation[0];
-    this.clientDeliveryInfo.CityID = tempLocation[1];
-    this.clientDeliveryInfo.CountyID = tempLocation[2];
     let previouspage = localStorage.getItem('previouspage');
     let defaultSC = localStorage.getItem('delivercount');
     if (defaultSC == '0') {
@@ -182,16 +169,25 @@ export class ShippingaddresseditPage {
       }
     }, true)
   }
-  selectPcc(){
-    let popover = this.PopoverCtrl.create('PartLocationOptPage', { test: '区域选择' }, {
-      cssClass: 'location-part',
+  selectLocation() {
+    console.log('111')
+    let popover = this.PopoverCtrl.create('PartLocationOptPage', { page: 'AdminauditinfodetailPage' }, {
+      cssClass: 'locationstyle',
       showBackdrop: true,
-      enableBackdropDismiss: true,
+      enableBackdropDismiss: false,
     });
-    popover.present({ animate: false, duration: 500 });
+    popover.present({ animate: false, duration: 0, progressAnimation: false });
     popover.onDidDismiss((data) => {
-      if (data != null) {
+      if (data != undefined) {
         console.log(data)
+        this.clientDeliveryInfo.pccName = data.pccName;
+        this.clientDeliveryInfo.ProvinceID = data.ProvinceID;
+        this.clientDeliveryInfo.CityID = data.CityId;
+        this.clientDeliveryInfo.CountyID = data.CountyId;
+        // this.clientDeliveryInfo.provinceId = data.ProvinceID;
+        // this.clientDeliveryInfo.cityId = data.CityId;
+        // this.clientDeliveryInfo.countyId = data.CountyId;
+
       }
     });
   }

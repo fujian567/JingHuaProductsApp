@@ -253,6 +253,8 @@
 .ion-ios-order-outline:before {
   font-family: "iconfonts" !important;
   content: "\e61d";
+  font-size: 3rem;
+  color: #656565;
 }
 
 .ion-ios-orderaudit:before .ion-ios-orderaudit-outline:before {
@@ -443,4 +445,11 @@
   font-family: "iconfonts" !important;
   content: "\e653"; 
   color: #666;
+}
+.ion-ios-exit:before,
+.ion-ios-exit-outline:before {
+  font-family: "iconfonts" !important;
+  color: #666;
+  font-size: 2.3rem;
+  content: "\e638";
 }

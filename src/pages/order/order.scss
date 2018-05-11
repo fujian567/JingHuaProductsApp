@@ -50,14 +50,13 @@ page-order {
     display: flex;
     display: -webkit-flex;
     align-items: center;
-    
   }
-  .list-img{
-    width:37% !important;
+  .list-img {
+    width: 37% !important;
     padding-right: 5px;
     padding-left: 5px;
   }
-  .list-detail{
+  .list-detail {
     display: flex;
     display: -webkit-flex;
     align-items: center;
@@ -65,31 +64,69 @@ page-order {
     font-size: 1.6rem;
     padding-left: 20px;
   }
-  img.auto-image{
+  img.auto-image {
     width: 100%;
   }
-  .up-voucher{
+  .up-voucher {
     font-size: 1.3rem;
     color: #272727;
-    .specify{
+    .specify {
       font-size: 1.1rem;
       color: #656565;
     }
-    .red{
+    .red {
       color: #e4393c;
     }
   }
-  .img-col{
+  .img-col {
     display: flex;
     display: -webkit-flex;
     align-items: center;
     padding: 0;
   }
-  .footgrid{
+  .footgrid {
     padding: 0px;
     background-color: #fff;
     min-height: 54px;
     height: 54px;
+  }
+  .wximg {
+    width: 85%;
+    padding-top: 3px;
+  }
+  .iconimg {
+    width: 16%;
+  }
+  .ailpayimg {
+    width: 82%;
+  }
+  .rodioBtn {
+    border-color: #e4393c;
+    background-color: #e4393c;
+    border-radius: 50%;
+    position: relative;
+    width: 21px;
+    height: 21px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #c8c7cc;
+    background-color: #fff;
+  }
+  .rodioBtnCheck {
+    border-color: #e4393c !important;
+    background-color: #e4393c !important;
+    border-radius: 50%;
+    position: relative;
+    width: 21px;
+    height: 21px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #c8c7cc;
+    background-color: #fff;
+  }
+  .ion-ios-checkmark-circle:before {
+    color: #e4393c;
+    font-size: 2.7rem;
   }
 }
 

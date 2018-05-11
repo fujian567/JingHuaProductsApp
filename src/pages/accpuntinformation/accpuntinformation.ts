@@ -21,6 +21,9 @@ export class AccpuntinformationPage {
   imagesPath: Array<any> = [];
   width: string;
   c_token: any;
+  reStatus: boolean = false;
+  reStatusNum: any;
+  salesmanName_OA: any;
   _guid: any = 'ca3b89d1-9ff5-4998-b6d9-972d7a7e80e9';
   ClientInfoViewModel: any = {
     ClientName: '',
@@ -55,12 +58,16 @@ export class AccpuntinformationPage {
         this.getClinetStatus(val);
       });
     } else {
-      this.pagestatusdata = navParams.data.pagedata.infodata
-      this.ClientInfoViewModel.ClientName = this.pagestatusdata.clientName;
-      this.ClientInfoViewModel.Mobile = this.pagestatusdata.mobile;
-      this.ClientInfoViewModel.CompanyName = this.pagestatusdata.companyName;
-      this.ClientInfoViewModel.FbusinessId = this.pagestatusdata.fbusinessId;
-      this.ClientInfoViewModel.SalesmanCode = this.pagestatusdata.SalesmanCode;
+      this.storageCtrl.get('c_token').then((val) => {
+        this.getClinetInfo(val);
+      });
+
+      // this.pagestatusdata = navParams.data.pagedata.infodata
+      // this.ClientInfoViewModel.ClientName = this.pagestatusdata.clientName;
+      // this.ClientInfoViewModel.Mobile = this.pagestatusdata.mobile;
+      // this.ClientInfoViewModel.CompanyName = this.pagestatusdata.companyName;
+      // this.ClientInfoViewModel.FbusinessId = this.pagestatusdata.fbusinessId;
+      // this.ClientInfoViewModel.SalesmanCode = this.pagestatusdata.SalesmanCode;
     }
   }
   ionViewWillEnter() {
@@ -74,6 +81,7 @@ export class AccpuntinformationPage {
         this.app.getRootNav().setRoot('LoginPage');
       }
       if (rs.isSuccess) {
+        console.log(rs.objectData)
         let infodata: any;
         if (rs.objectData == 60 || rs.objectData == 2) {//首营待审核
           infodata = ""
@@ -81,7 +89,10 @@ export class AccpuntinformationPage {
             auditStatus: true,
             infodata
           });
-        } else if (rs.objectData == 4) {//不通过
+        } else if (rs.objectData == 63) {//不通过
+
+          this.reStatusNum = 63;
+          console.log(this.reStatusNum)
           infodata = "不通过"
           this.navCtrl.setRoot('InfoauditPage', {
             auditStatus: false,
@@ -106,12 +117,13 @@ export class AccpuntinformationPage {
         this.ClientInfoViewModel.Mobile = rs.objectData.mobile;
         this.ClientInfoViewModel.CompanyName = rs.objectData.companyName;
         this.ClientInfoViewModel.FbusinessId = rs.objectData.fbusinessId;
+        this.salesmanName_OA = rs.objectData.salesmanName_OA;
         this.ClientInfoViewModel.SalesmanCode = rs.objectData.salesmanCode;
       }
     }, true)
   }
   isDeleteImage(index: number) {
-    this.appConfigCtrl.popAlertConfirmView('您确定要删除这张图片?', '我在考虑下', '残忍删除', () => {
+    this.appConfigCtrl.popAlertConfirmView('您确定要删除这张图片?', '再考虑下', '残忍删除', () => {
       this.imagesPath.splice(index, 1);
     });
   }
@@ -185,7 +197,7 @@ export class AccpuntinformationPage {
     });
   }
   submitImg() {
-    console.log(this.c_token)
+    this.ClientInfoViewModel.FbusinessId = this._guid;
     this.imagesTempPath.splice(0, this.imagesTempPath.length)
     if (this.ClientInfoViewModel.CompanyName == "") {
       this.appConfigCtrl.popAlertView('请输入您的公司名称');
@@ -232,6 +244,10 @@ export class AccpuntinformationPage {
         }
       }, true)
     }
+  }
+  exit() {
+    this.storageCtrl.clear();
+    this.app.getRootNav().setRoot('LoginPage');
   }
 }
 

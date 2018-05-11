@@ -15,8 +15,7 @@
     <button ion-item (click)="addUserImg()">头像
       <span item-end>
         <ion-avatar item-left class="avatar">
-            <img *ngIf="!img64" src="{{userImg}}">
-            <img *ngIf="img64" src="{{'data:image/jpeg;base64,'+this.pageModel.userImg}}" />
+            <img src="{{userImg}}">
         </ion-avatar>
       </span>
     </button>

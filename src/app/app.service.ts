@@ -15,15 +15,17 @@ export class AppGlobal {
         Test: "_dress_test"
     }
     //接口基地址
-    //static domain = 'http://www.jhzyapp.com'
-    static domain = 'http://125.74.9.49:7768'
-    static domainimage = 'http://125.74.9.49:7769'
-    //static domainimage = 'http://101.132.106.0:7769/'
+    static domain = 'https://www.jhzyapp.com'
+    static domainimage = 'https://www.jhzyapp.com'
+
+    //static domain = 'http://125.74.9.49:7768'
+    //static domainimage = 'http://125.74.9.49:7769'
+    //static domainimage = 'http://www.jhzyapp.com:7769/'
     static domainvideo = 'http://125.74.9.49:7769/'
 
-    static APK_DOWNLOAD = '/apk/android-jhzx.apk';// 下载地址
+    static APK_DOWNLOAD = '/apk/jhzy_jhzxb2b.apk';// 下载地址
     static APK_ADMIN_DOWNLOAD = '/apk/android-jhzx-admin.apk';// 下载地址
-    static APP_DOWNLOAD = '';//苹果地址
+    static APP_DOWNLOAD = 'itms-apps://itunes.apple.com/lookup?id=1329918420';//苹果地址
     //接口地址
     static API: any = {
         getAccountStatus: '/api/customer/account/state/',//获取账户状态
@@ -81,6 +83,13 @@ export class AppGlobal {
         getUserInfo: '/api/customer/avatar/info/',//获取用户图像
         postUserImg: '/api/customer/avatar/postinfo/',//上传用户图像
         getSystemVersion: '/api/resources/systemversion/postinfo',//获取软件版本
+        getHomePageType: '/api/pages/pagestype/info',//获取首页页面类型
+        getHomePageClass: '/api/pages/pagescategory/info',//获取首页页面分类页
+        getHomePageInfo: '/api/pages/pagesall/info',//获取首页页面信息_所有
+        getHomePageByClassID: '/api/pages/pagesbycategoryId/info',//获取首页页面信息_分类ID
+        postOrderByAliPay: '/api/order/paymentalipay/getinfo',//获取首页页面信息_分类ID
+        postOrderInfoByLine: '/api/order/ordersubmit/postinfo/',//提交订单线上支付
+        getpostOrderInfoAlipay: '/api/order/paymentalipay/getinfo/',//根据订单id获取订单信息（支付宝）
 
         postUeserlogin: '/api/users/login/post/',//管-登录
         getFbenterpriseWait: '/api/enterprise/fbenterprise/minfo/',//管-首营审核
@@ -121,12 +130,15 @@ export class AppGlobal {
         postCustomerMsgjpush: '/api/customer/msgjpush/post/', //极光推送消息
         getSaleManInfo: '/api/users/salesman/info/', //获取业务员信息
         postOrderByStatus: '/api/order/bystateid/manageinfo/', //获取订单根据状态
+        postRegionalinfo:'/api/Resources/systemversion/regionalinfo' ,//获取区域
+
 
         getAppVersion: '/api/AppVersion/fbenterprise/wait/',
         getAppUpdate: '/api/AppUpdate/fbenterprise/info/',
         test: '/api/values',
         test1: '/api/values/5',
-        apk_download: '/images/apk/'// 下载地址
+        apk_download: '/images/apk/',// 下载地址
+        testapi:'/api/erp/erplogin'
     };
     static systemPhone: any = {
         servicePhone: '09318568744', //客服电话

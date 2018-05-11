@@ -17,6 +17,7 @@ import { Storage } from '@ionic/storage';
 export class OrderdetailPage {
   c_token:any;
   imageUrl = AppGlobal.domainimage;
+  isShowVoucherImg: boolean = false;
   pagedatamodle: any = {
     ordernum: '',
     payMethodName: '',
@@ -72,6 +73,7 @@ export class OrderdetailPage {
             this.pagedatamodle.ordernum = rs.objectData[i].orderCode;
             this.pagedatamodle.payMethodName = rs.objectData[i].payMethodName;
             this.pagedatamodle.orderAmount = rs.objectData[i].orderAmount;
+            this.pagedatamodle.payAmount = rs.objectData[i].payAmount;
             this.pagedatamodle.distributionInfoName = rs.objectData[i].distributionInfoName;
             this.pagedatamodle.freightAmount = rs.objectData[i].freightAmount;
             this.pagedatamodle.orderStateId = rs.objectData[i].orderStateId;
@@ -79,7 +81,7 @@ export class OrderdetailPage {
             this.pagedatamodle.address = rs.objectData[i].orderDeliveryAddressInfo.pccname + ' ' + rs.objectData[i].orderDeliveryAddressInfo.address;
             this.pagedatamodle.deliveryInfoName = rs.objectData[i].orderDeliveryAddressInfo.deliveryInfoName;
             this.pagedatamodle.deliveryInfoMobile = rs.objectData[i].orderDeliveryAddressInfo.deliveryInfoMobile;
-            this.pagedatamodle.voucherImg = rs.objectData[i].imagesList[0].imageData;
+            this.pagedatamodle.voucherImg = rs.objectData[i].imagesList;
             this.goodsList = rs.objectData[i].paramsInfo;
             this.pagedatamodle.invoiceTypeId = rs.objectData[i].invoiceTypeId;
             this.pagedatamodle.orderInvoiceInfo = rs.objectData[i].orderInvoiceInfo.isPInvoice;
@@ -91,8 +93,9 @@ export class OrderdetailPage {
             this.pagedatamodle.taxIdeNumber = rs.objectData[i].orderInvoiceInfo.taxIdeNumber;
             this.pagedatamodle.enterpriseName = rs.objectData[i].orderInvoiceInfo.enterpriseName;
             this.pagedatamodle.orderCreateDate= rs.objectData[i].orderCreateDate;
-            this.pagedatamodle.payAmount= rs.objectData[i].payAmount;
-            
+            if (rs.objectData[i].payMethodName == '银行转账') {
+              this.isShowVoucherImg = true
+            }
           }
         }
       }

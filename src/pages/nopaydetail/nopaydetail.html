@@ -1,0 +1,172 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>订单详情</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <!-- <ion-grid class="grid-steps">
+    <ion-row class="item">
+      <ion-col col-4 class="left">
+        <div class="point-l"></div>
+        <div class="line-l"></div>
+      </ion-col>
+      <ion-col col-4 class="center">
+        <div class="point-c"></div>
+        <div class="line-c"></div>
+        <div class="line-c1"></div>
+      </ion-col>
+      <ion-col col-4 class="end">
+        <div class="point-e"></div>
+        <div class="line-e"></div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="item">
+      <ion-col col-4 class="left">下单成功</ion-col>
+      <ion-col col-4 class="center">审核中</ion-col>
+      <ion-col col-4 class="end">发货</ion-col>
+    </ion-row>
+  </ion-grid> -->
+  <ion-grid class="top-bg" *ngIf="pagedatamodle.orderStateId==3">
+    <ion-row>
+      <ion-col col-1 class="icon">
+        <ion-icon name="ios-time-outline"></ion-icon>
+      </ion-col>
+      <ion-col col-3 class="title">待支付</ion-col>
+      <ion-col col-8>您的订单还未支付！</ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="top-bg" *ngIf="pagedatamodle.orderStateId==4">
+    <ion-row>
+      <ion-col col-1 class="icon">
+        <ion-icon name="ios-time-outline"></ion-icon>
+      </ion-col>
+      <ion-col col-3 class="title">审核中</ion-col>
+      <ion-col col-8>我们会在2-3个工作日内进行审核，您可以通过客服查询审核进度</ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="top-bg" *ngIf="pagedatamodle.orderStateId==7">
+    <ion-row>
+      <ion-col col-1 class="icon">
+        <ion-icon name="ios-time-outline"></ion-icon>
+      </ion-col>
+      <ion-col col-3 class="title">待收货</ion-col>
+      <ion-col col-8>您的订单已发货，请关注物流变化！</ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="top-bg" *ngIf="pagedatamodle.orderStateId==5">
+    <ion-row>
+      <ion-col col-1 class="icon">
+        <ion-icon name="ios-time-outline"></ion-icon>
+      </ion-col>
+      <ion-col col-3 class="title">待发货</ion-col>
+      <ion-col col-8>仓库正在为您积极备货！！</ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="loca-grid">
+    <ion-row class="item">
+      <ion-col col-3>{{pagedatamodle.deliveryInfoName}}</ion-col>
+      <ion-col col-5>{{pagedatamodle.deliveryInfoMobile}}</ion-col>
+      <ion-col col-4></ion-col>
+    </ion-row>
+    <ion-row class="loca-item">
+      <ion-col col-12>
+        地址：{{pagedatamodle.address}}</ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="goods-grid">
+    <ion-row class="item com-head">
+      <ion-col col-4>精华制药</ion-col>
+      <ion-col col-5></ion-col>
+      <ion-col col-3 (click)="callService()">联系客服
+        <ion-icon name="headset"></ion-icon>
+      </ion-col>
+    </ion-row>
+    <ion-row class="item" *ngFor="let item of goodsList, let i = index">
+      <ion-col col-4>
+        <img src="{{imageUrl+item.productImagePath+item.productImageName}}" class="goods-img">
+      </ion-col>
+      <ion-col col-8>
+        <ion-row>
+          <ion-col col-12 class="goods-name">{{item.commName}}</ion-col>
+          <ion-col col-12 class="goods-othername">
+            <!-- <ion-col col-12 class="goods-othername">数量：111 -->
+            <span style="padding-left:8px;">规格：{{item.commSpecName}}</span>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="specify-grid">
+    <ion-row class="item">
+      <!-- <ion-col col-12>
+        <ion-row>
+          <ion-col col-2 style="text-align: end;"><img src="assets/imgs/WXlogo.png" class="wximg"/></ion-col>
+          <ion-col col-8>
+            <ion-row style="padding: 0;">
+                <ion-col col-12 style="padding: 0;color:#222">微信支付<img src="assets/imgs/icon.png" class="iconimg"/></ion-col>
+                <ion-col col-12 style="font-size: 1.1rem;padding: 0;color:#989898">亿万用户的选择，更快更安全</ion-col>
+            </ion-row>
+          </ion-col>
+          <ion-col col-2>
+            <div *ngIf="!wxPayMethod" class="rodioBtn" (click)="wxPayCheck()"></div>
+            <div *ngIf="wxPayMethod"><ion-icon name="checkmark-circle"></ion-icon></div>
+          </ion-col>
+        </ion-row>
+      </ion-col> -->
+      <ion-col col-12>
+          <ion-row>
+            <ion-col col-2 style="text-align: end;"><img src="assets/imgs/alipay.png" class="ailpayimg"/></ion-col>
+            <ion-col col-8>
+              <ion-row style="padding: 0;">
+                  <ion-col col-12 style="padding: 0;color:#222">支付宝<img src="assets/imgs/icon.png" class="iconimg"/></ion-col>
+                  <ion-col col-12 style="font-size: 1.1rem;padding: 0;color:#989898">亿万用户的选择，更快更安全</ion-col>
+              </ion-row>
+            </ion-col>
+            <ion-col col-2>
+                <div *ngIf="!aliPayMethod" (click)="aliPayCheck()" class="rodioBtn"></div>
+                <div *ngIf="aliPayMethod"><ion-icon name="checkmark-circle"></ion-icon></div>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+    </ion-row>
+    <ion-row class="item">
+      <ion-col col-12>
+        <ion-row>
+          <ion-col col-6>商品金额</ion-col>
+          <ion-col col-6 class="txt-right" style="color: #e4393c;">¥{{pagedatamodle.orderAmount}}</ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col col-12>
+        <ion-row>
+          <ion-col col-6>运费</ion-col>
+          <ion-col col-6 class="txt-right">¥{{pagedatamodle.freightAmount}}</ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12 class="txt-right">合计：
+        <span class="red">¥
+          <span style="font-size:1.9rem">{{pagedatamodle.payAmount}}</span>
+        </span>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<ion-footer>
+  <ion-grid class="footgrid">
+    <ion-row>
+      <ion-col col-3>
+      </ion-col>
+      <ion-col col-5>
+        <ion-item no-lines>
+          实付款：¥{{pagedatamodle.payAmount}}
+        </ion-item>
+      </ion-col>
+      <ion-col col-4>
+        <ion-item no-lines color="danger" style="text-align:center" (click)="settlement()">
+          提交订单
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

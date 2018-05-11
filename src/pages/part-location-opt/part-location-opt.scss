@@ -1,15 +1,91 @@
-page-part-location-opt {}
+page-part-location-opt {
+  .part-title {
+    background-color: #d6d6d6;
+    padding-left: 20px;
+  }
+  .part-title .toolbar-title-ios {
+    color: #989898 !important;
+    font-weight: normal !important;
+    font-size: 1.7rem !important;
+    text-align: left !important;
+  }
+  .ad-p-c-item {
+    font-size: 2rem;
+  }
+  .locationscroll{
+    height: 400px;
+    overflow: auto;
+  }
+  .selectopt{
+    color: #e4393c;
+    font-size: 1.8rem;
+  }
+}
 
-.location-part .popover-content {
+.locationstyle .alert-wrapper {
+  max-width: 82% !important;
+  background-color: #fff;
+}
+
+.alert-wrapper {
+  min-width: 82%;
+}
+
+.locationstyle .alert-head {
+  text-align: left;
+  padding-left: 23px;
+}
+
+.locationstyle .alert-input-group {
+  font-size: 1.5rem;
+}
+
+.locationstyle .alert-input {
+  margin-top: 10px;
   border-radius: 0px;
-  width: 100%;
-  min-width: 0;
-  min-height: 0;
-  max-height: 70%;
-  color: #222;
-  background: #fff;
-  left:0 !important;
-  bottom:0 !important;
-  height: 70% !important;
+  border: none;
+  background-color: #fff;
+  padding: 6px;
+}
+
+.locationstyle .alert-button {
+  margin: 0;
+  border-radius: 0;
+  overflow: hidden;
+  flex: 1 1 auto;
+  min-width: 50%;
+  height: 44px;
+  border: none;
+  font-size: 1.4rem;
+  color: #999;
+}
+
+.locationstyle .alert-button:first-child {
+  min-width: 65%;
+  text-align: right;
+}
+
+.locationstyle .alert-button:first-child .button-inner {
+  justify-content: flex-end;
+}
+
+.locationstyle .alert-button:last-child {
+  color: #e4393c;
+  min-width: 20%;
+}
+
+.locationstyle {
+  .popover-content {
+    width: 100% !important;
+    top: 30% !important;
+    left: 0 !important;
+    bottom: 0 !important;
+    border-radius: 0 !important;
+    max-height: 70% !important;
+    overflow: hidden;
+  }
+  ion-backdrop {
+    opacity: 0.6 !important;
+  }
 }
 

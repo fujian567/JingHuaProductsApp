@@ -20,7 +20,7 @@
           <ion-row style="padding:0;">
             <ion-col col-12 style="padding:0;">
               <ion-icon name="message"></ion-icon>
-              <ion-badge class="badge" *ngIf="messageCount>0" >{{messageCount}}</ion-badge>
+              <ion-badge class="badge" *ngIf="messageCount>0">{{messageCount}}</ion-badge>
             </ion-col>
             <ion-col col-12 style="padding:0;font-size:1.2rem;color:#fff">消息</ion-col>
           </ion-row>
@@ -42,132 +42,62 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-  <ion-grid class="grid-ad">
+  <ion-grid class="grid-ad" *ngIf="isShowtopAdData">
     <ion-row>
-      <ion-slides loop page paginationType="fraction">
-        <ion-slide>
-          <img src="assets/imgs/head1.jpg" alt="" (click)="goodsDetail()">
-        </ion-slide>
-        <ion-slide>
-          <img src="assets/imgs/head2.jpg" alt="" (click)="goodsDetail()">
-        </ion-slide>
-        <ion-slide>
-          <img src="assets/imgs/head3.jpg" alt="" (click)="goodsDetail()">
+      <ion-slides loop page paginationType="fraction" autoplay=3000 *ngIf="topAdData.length > 1">
+        <ion-slide *ngFor="let item of topAdData">
+          <img (click)="goodsDetail(item.objectId)" src="{{imageUrl+item.imagesList[0].imagePath+item.imagesList[0].imageName}}" alt="">
         </ion-slide>
       </ion-slides>
     </ion-row>
   </ion-grid>
-  <ion-grid class="grid-ad">
+  <ion-grid class="grid-ad" *ngIf="isShowclassAdData">
     <ion-row>
-      <ion-col col-6>
-        <img src="assets/imgs/ad1.jpg" alt="" (click)="goodsDetail1()">
-      </ion-col>
-      <ion-col col-6>
-        <img src="assets/imgs/ad2.jpg" alt="" (click)="goodsDetail1()">
+      <ion-col col-4 *ngFor="let item of classAdData">
+        <img src="{{imageUrl+item.imagesList[0].imagePath+item.imagesList[0].imageName}}" alt="" (click)="classid(item.pageInfoId,item.pageInfoTitle)">
       </ion-col>
     </ion-row>
   </ion-grid>
-  <!-- <ion-grid class="grid-new">
-    <ion-row>
-      <ion-col col-4 class="block-title">精华快讯
-        <span style="color:#e4393c">HOT</span>
-      </ion-col>
-      <ion-col col-6 class="title">
-        <ion-item no-lines>南通精华制药总裁周云中：制传世</ion-item>
-      </ion-col>
-      <ion-col col-2 class="more">更多</ion-col>
-    </ion-row>
-  </ion-grid> -->
-  <ion-grid class="grid-hot">
+  <ion-grid class="grid-hot" *ngIf="isShowseasonProData">
     <ion-row>
       <ion-col class="title">中药
-        <ion-icon style="padding-left:5px;" name="arrow-dropright"></ion-icon>
+        <ion-icon name="arrow-dropright"></ion-icon>
         <span class="subtitle">当季热销中药</span>
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col col-3>
-        <img src="assets/imgs/hot1.jpg" alt="" (click)="goodsDetail2()">
-        <p class="goods-title">王氏保赤丸</p>
-        <p class="red">每120丸重0.3g 每支60丸</p>
+      <ion-col col-3 *ngFor="let item of seasonProData">
+        <img src="{{imageUrl+item.imagesList[0].imagePath+item.imagesList[0].imageName}}" alt="" (click)="goodsDetail(item.objectId)">
+        <p class="goods-title">{{item.pageInfoTitle}}</p>
+        <p class="red">{{item.pageInfoSummary}}</p>
       </ion-col>
-      <ion-col col-3>
-        <img src="assets/imgs/hot2.jpg" alt="" (click)="goodsDetail2()">
-        <p class="goods-title">王氏保赤丸</p>
-        <p class="red">每120丸重0.3g 每支60丸</p>
-      </ion-col>
-      <ion-col col-3>
-        <img src="assets/imgs/hot1.jpg" alt="" (click)="goodsDetail2()">
-        <p class="goods-title">王氏保赤丸</p>
-        <p class="red">每120丸重0.3g 每支60丸</p>
-      </ion-col>
-      <ion-col col-3>
-        <img src="assets/imgs/hot2.jpg" alt="" (click)="goodsDetail2()">
-        <p class="goods-title">王氏保赤丸</p>
-        <p class="red">每120丸重0.3g 每支60丸</p>
+      <ion-col *ngIf="seasonProDataMore" col-3 style="padding-top:25px;padding-left:13px;" (click)="classid1()">
+        <img src="assets/imgs/more.png" class="moreimg" alt="">
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-grid class="grid-mad">
+  <ion-grid class="grid-mad" *ngIf="isShowmiddleAdData">
     <ion-row>
-      <ion-col col-4>
-        <img src="assets/imgs/mad1.jpg" alt="" (click)="goodsDetail3()">
-      </ion-col>
-      <ion-col col-4>
-        <img src="assets/imgs/mad2.jpg" alt="" (click)="goodsDetail3()">
-      </ion-col>
-      <ion-col col-4>
-        <img src="assets/imgs/mad3.jpg" alt="" (click)="goodsDetail3()">
+      <ion-col col-4 *ngFor="let item of middleAdData">
+        <img src="{{imageUrl+item.imagesList[0].imagePath+item.imagesList[0].imageName}}" alt="" (click)="classid(item.pageInfoId,item.pageInfoTitle)">
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-grid class="grid-hot">
+  <ion-grid class="grid-hot" *ngIf="isShowhotSellData">
     <ion-row>
       <ion-col class="title">西药
-        <ion-icon style="padding-left:5px;" name="arrow-dropright"></ion-icon>
+        <ion-icon name="arrow-dropright"></ion-icon>
         <span class="subtitle">当季热销西药</span>
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col col-3>
-        <img src="assets/imgs/hot1.jpg" alt="" (click)="goodsDetail4()">
-        <p class="goods-title">王氏保赤丸</p>
-        <p class="red">每120丸重0.3g 每支60丸</p>
+      <ion-col col-3 *ngFor="let item of hotSellData">
+        <img src="{{imageUrl+item.imagesList[0].imagePath+item.imagesList[0].imageName}}" alt="" (click)="goodsDetail(item.objectId)">
+        <p class="goods-title">{{item.pageInfoTitle}}</p>
+        <p class="red">{{item.pageInfoSummary}}</p>
       </ion-col>
-      <ion-col col-3>
-        <img src="assets/imgs/hot2.jpg" alt="" (click)="goodsDetail4()">
-        <p class="goods-title">王氏保赤丸</p>
-        <p class="red">每120丸重0.3g 每支60丸</p>
-      </ion-col>
-      <ion-col col-3>
-        <img src="assets/imgs/hot1.jpg" alt="" (click)="goodsDetail4()">
-        <p class="goods-title">王氏保赤丸</p>
-        <p class="red">每120丸重0.3g 每支60丸</p>
-      </ion-col>
-      <ion-col col-3>
-        <img src="assets/imgs/hot2.jpg" alt="" (click)="goodsDetail4()">
-        <p class="goods-title">王氏保赤丸</p>
-        <p class="red">每120丸重0.3g 每支60丸</p>
-      </ion-col>
-      <ion-col col-3>
-        <img src="assets/imgs/hot1.jpg" alt="" (click)="goodsDetail4()">
-        <p class="goods-title">王氏保赤丸</p>
-        <p class="red">每120丸重0.3g 每支60丸</p>
-      </ion-col>
-      <ion-col col-3>
-        <img src="assets/imgs/hot2.jpg" alt="" (click)="goodsDetail4()">
-        <p class="goods-title">王氏保赤丸</p>
-        <p class="red">每120丸重0.3g 每支60丸</p>
-      </ion-col>
-      <ion-col col-3>
-        <img src="assets/imgs/hot1.jpg" alt="" (click)="goodsDetail4()">
-        <p class="goods-title">王氏保赤丸</p>
-        <p class="red">每120丸重0.3g 每支60丸</p>
-      </ion-col>
-      <ion-col col-3>
-        <img src="assets/imgs/hot2.jpg" alt="" (click)="goodsDetail4()">
-        <p class="goods-title">王氏保赤丸</p>
-        <p class="red">每120丸重0.3g 每支60丸</p>
+      <ion-col *ngIf="hotSellDataMore" col-3 (click)="classid1()" style="padding-top:25px;padding-left:13px;">
+        <img src="assets/imgs/more.png" alt="" class="moreimg">
       </ion-col>
     </ion-row>
   </ion-grid>

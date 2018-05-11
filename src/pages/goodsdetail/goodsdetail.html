@@ -66,7 +66,8 @@
               <ion-row>
                 <ion-col col-3>
                   <ion-avatar item-left class="avatar">
-                    <img src="{{item.avatarinfo}}">
+                    <!-- <img src="{{item.avatarinfo}}"> -->
+                    <img src="{{avatarinfo}}">
                   </ion-avatar>
                 </ion-col>
                 <ion-col col-8 class="name">{{item.mobile}}</ion-col>
@@ -132,15 +133,15 @@
           </ion-col>
           <ion-col col-12>
             <ion-row class="goods-star">
-              <ion-col col-3 class="title">商品积分</ion-col>
-              <ion-col col-5>
+              <ion-col col-4 class="title">热度</ion-col>
+              <ion-col col-5 style="line-height:32px;">
                 <rating [(ngModel)]="rate" readOnly="true" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star"
                   nullable="false"></rating>
               </ion-col>
-              <ion-col col-2 class="point">{{rate}}分</ion-col>
+              <ion-col col-3 class="point"></ion-col>
             </ion-row>
           </ion-col>
-          <ion-col col-12 style="padding-bottom: 8px;">
+          <ion-col col-12 style="padding-bottom: 8px;" *ngIf="isShowVideo">
             <vg-player>
               <vg-overlay-play></vg-overlay-play>
               <vg-buffering></vg-buffering>
@@ -154,10 +155,11 @@
                 <vg-time-display [vgProperty]="'total'"></vg-time-display>
                 <!-- <vg-fullscreen></vg-fullscreen> -->
               </vg-controls>
-              <video #media [vgMedia]="media" poster="{{imageUrl+videoImg}}" src="{{imageUrl+video}}"></video>
+              <!-- <video #media [vgMedia]="media" poster="{{imageUrl+videoImg}}" src="{{imageUrl+video}}"></video> -->
+              <video #media [vgMedia]="media" poster="{{imageUrl+videoImg}}"  src="{{imageUrl+video}}"></video>
             </vg-player>
           </ion-col>
-          <ion-col col-12 *ngFor="let item of imagesList_DetailPage, let i = index">
+          <ion-col col-12 class="imglist" *ngFor="let item of imagesList_DetailPage, let i = index">
             <img src="{{imageUrl+item.imagePath+item.imageName}}" class='bigimg' />
           </ion-col>
           <!-- <ion-col col-12>
@@ -201,17 +203,18 @@
           </ion-col>
           <ion-col col-12>
             <ion-row class="goods-star">
-              <ion-col col-3 class="title">商品积分</ion-col>
-              <ion-col col-5>
+              <ion-col col-4 class="title">热度</ion-col>
+              <ion-col col-5 style="line-height:32px;">
                 <rating [(ngModel)]="rate" readOnly="true" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star"
                   nullable="false"></rating>
               </ion-col>
-              <ion-col col-2 class="point">{{rate}}分</ion-col>
+              <ion-col col-3 class="point"></ion-col>
+              <!-- <ion-col col-2 class="point">{{rate}}分</ion-col> -->
             </ion-row>
           </ion-col>
           <ion-col col-12 style="padding-bottom: 8px;">
             <ion-row>
-              <ion-col col-12>
+              <ion-col col-12 *ngIf="isShowVideo">
                 <vg-player>
                   <vg-overlay-play></vg-overlay-play>
                   <vg-buffering></vg-buffering>
@@ -225,7 +228,8 @@
                     <vg-time-display [vgProperty]="'total'"></vg-time-display>
                     <!-- <vg-fullscreen></vg-fullscreen> -->
                   </vg-controls>
-                  <video #media [vgMedia]="media" poster="{{imageUrl+videoImg}}" src="{{imageUrl+video}}"></video>
+                  <!-- <video #media [vgMedia]="media" poster="{{imageUrl+videoImg}}" src="{{imageUrl+video}}"></video> -->
+                  <video #media [vgMedia]="media" poster="{{imageUrl+videoImg}}"  src="{{imageUrl+video}}"></video>
                 </vg-player>
               </ion-col>
             </ion-row>
@@ -256,7 +260,8 @@
               <ion-row>
                 <ion-col col-3>
                   <ion-avatar item-left class="avatar">
-                    <img src="{{item.avatarinfo}}">
+                    <!-- <img src="{{item.avatarinfo}}"> -->
+                    <img src="{{avatarinfo}}">
                   </ion-avatar>
                 </ion-col>
                 <ion-col col-8 class="name">{{item.mobile}}</ion-col>
@@ -291,8 +296,9 @@
   </div>
 </ion-content>
 <ion-footer>
-  <ion-grid class="footergrid">
+  <ion-grid class="footergrid" style="background-color:#fff;">
     <ion-row>
+      <ion-col col-4 class="col-btn"></ion-col>
       <ion-col col-3>
         <ion-item no-lines style="text-align:center" (click)="gohoppingcart()">
           <ion-icon name="shoppingcart1"></ion-icon>
@@ -302,15 +308,15 @@
         </ion-item>
       </ion-col>
       <ion-col col-5 class="col-btn">
-        <ion-item no-lines color="cyellow" style="color:#fff;text-align:center" (click)="addshoppingcart()">
+        <ion-item no-lines color="danger" style="color:#fff;text-align:center" (click)="addshoppingcart()">
           加入购物车
         </ion-item>
       </ion-col>
-      <ion-col col-4 class="col-btn">
+      <!-- <ion-col col-4 class="col-btn">
         <ion-item no-lines color="danger" style="text-align:center" (click)="buy()">
           立即购买
         </ion-item>
-      </ion-col>
+      </ion-col> -->
     </ion-row>
   </ion-grid>
 </ion-footer>

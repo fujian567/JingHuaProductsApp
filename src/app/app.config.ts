@@ -45,6 +45,16 @@ export class AppStaticConfig {
         }
         return options
     }
+    //格式化支付宝返回签名
+    public static unescapeHTML(a) {
+        let aNew = "" + a;
+        return aNew.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/\+/g, "%20");
+    }
+    //输入内容格式化
+    public static clearHTML(a) {
+        let aNew = "" + a;
+        return aNew.replace(/</g, "").replace(/>/g, "").replace(/&/g, "").replace(/script/g, '').replace(/div/g, "").replace(/src/g, "");
+    }
 }
 @Injectable()
 export class AppConfig {
@@ -120,6 +130,25 @@ export class AppConfig {
                 text: cancelText,
                 handler: () => {
                     console.log('Cancel clicked');
+                }
+            },
+            {
+                text: doneText,
+                handler: () => {
+                    callback()
+                }
+            }]
+        }).present();
+    }
+    popAlertConfirmViewExit(message: string, cancelText: string, doneText: string, callback: any) {
+        this.alertCtrl.create({
+            title: '提示信息',
+            message: message,
+            cssClass: 'alerClass',
+            buttons: [{
+                text: cancelText,
+                handler: () => {
+                    callback('exit')
                 }
             },
             {
@@ -210,6 +239,27 @@ export class AppConfig {
                 type: 'radio',
                 label: inputItem[i].salesmanName_ERP,
                 value: `${inputItem[i].salesmanCode_ERP},${inputItem[i].salesmanName_ERP},${inputItem[i].userID_ERP},${inputItem[i].eaCode_ERP}`,
+                checked: false
+            });
+        }
+        alert.addButton('取消');
+        alert.addButton({
+            text: '确定',
+            handler: data => {
+                callback(data);
+            }
+        });
+        alert.present();
+    }
+    popRadioOnlyView(title: string, cssClass: string, inputItem: Array<any>, callback: any) {
+        let alert = this.alertCtrl.create();
+        alert.setTitle(title);
+        alert.setCssClass(cssClass);
+        for (let i = 0; i < inputItem.length; i++) {
+            alert.addInput({
+                type: 'radio',
+                label: inputItem[i].enterpriseNatureName,
+                value: `${inputItem[i].enterpriseNatureId},${inputItem[i].enterpriseNatureName}`,
                 checked: false
             });
         }

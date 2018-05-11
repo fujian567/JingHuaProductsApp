@@ -19,6 +19,7 @@ export class PersonalcenterPage {
   c_token: any = '';
   clientName: any = '';
   accountName: any = '';
+  version: any = '1.0.0';
   userImg: any = 'assets/imgs/userImg.jpg';
   constructor(
     public navCtrl: NavController,
@@ -29,6 +30,8 @@ export class PersonalcenterPage {
     private appConfigCtrl: AppConfig,
     public app: App,
     public navParams: NavParams) {
+  }
+  ionViewWillEnter() {
     this.storageCtrl.get('c_token').then((val) => {
       this.c_token = val;
       this.getUserInfo(val);
@@ -39,8 +42,8 @@ export class PersonalcenterPage {
     this.storageCtrl.get('c_accountName').then((val) => {
       this.accountName = AppStaticConfig.hideMobile(val);
     });
+    this.checkVersion();
   }
-
   login() {
     this.navCtrl.push('LoginPage');
   }
@@ -74,9 +77,12 @@ export class PersonalcenterPage {
     this.navCtrl.push('PersonalinfoPage', { img: img });
   }
   checkVersion() {
-    //1、前台，2、后台
-    let versiontype = 1;
-    this.nativeService.detectionUpgrade(this.c_token,versiontype);
+    this.nativeService.getVersionNumber().then(res => {
+      this.version = res;
+    });
+    // //1、前台，2、后台
+    // let versiontype = 1;
+    // this.nativeService.detectionUpgrade(this.c_token, versiontype);
   }
   logOut() {
     this.storageCtrl.clear();

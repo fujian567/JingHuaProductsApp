@@ -129,7 +129,7 @@ export class AdminpublishPage {
   photoAlbum() {
     const options: ImagePickerOptions = {
       maximumImagesCount: 1,
-      quality: 60,
+      quality: 50,
       width: 1000,
       outputType: 1
     };

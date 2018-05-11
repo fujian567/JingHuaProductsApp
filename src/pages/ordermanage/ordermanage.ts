@@ -123,7 +123,9 @@ export class OrdermanagePage {
     }, 500);
   }
   viewlogistics(item: any) {
-    this.navCtrl.push('LogisticsPage', { item: item, c_token: this.c_token })
+    this.navCtrl.push('ExpressPage', { item: item, c_token: this.c_token })
+    
+    //this.navCtrl.push('LogisticsPage', { item: item, c_token: this.c_token })
   }
   confirmOrder(item: any) {
     this.appService.httpPost_token(AppGlobal.API.postOrderConfirm, this.c_token, { orderid: item.orderId }, rs => {
@@ -150,8 +152,8 @@ export class OrdermanagePage {
       }
       if (rs.isSuccess) {
         if (rs.objectData.length > 0) {
-          this.pagedatamodleNoPay = rs.objectData;
-          this.isShowNoPay = false;
+          this.pagedatamodleAll = rs.objectData;
+          this.isShowAll = false;
         }
       }
     }, true)
@@ -278,6 +280,8 @@ export class OrdermanagePage {
   }
   selectedAftersale() {
     this.getOrderInfoAfterSale(this.c_token);
-
+  }
+  payOrder(orderId){
+    this.navCtrl.push('NopaydetailPage', { orderId: orderId, c_token: this.c_token })
   }
 }

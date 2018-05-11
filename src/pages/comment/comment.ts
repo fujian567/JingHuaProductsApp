@@ -32,6 +32,7 @@ export class CommentPage {
     IsEffective: true,
     ImagesList: '',
   }
+  imgUrl: any = AppGlobal.domainimage;
   imagesPath: any = [];
   constructor(
     public navCtrl: NavController,
@@ -61,6 +62,10 @@ export class CommentPage {
     if (this.pagedatamodle.AssessmentContent.length < 1) {
       this.pagedatamodle.AssessmentContent = '用户采用默认评价'
     }
+    if (this.pagedatamodle.AssessmentContent.length > 100) {
+      this.appConfigCtrl.popAlertView('评论内容不能大于100个字');
+      return
+    }
     let imagesTempPath: any = [];
     for (let i = 0; i < this.imagesPath.length; i++) {
       let ImagesViewModel: any = {
@@ -77,30 +82,28 @@ export class CommentPage {
       }
       imagesTempPath.push(ImagesViewModel)
     }
+    this.pagedatamodle.AssessmentContent=AppStaticConfig.clearHTML(this.pagedatamodle.AssessmentContent)
     if (imagesTempPath.length > 0) {
       this.pagedatamodle.ImagesList = imagesTempPath;
     } else {
       this.pagedatamodle.ImagesList = null
     }
-    //console.log(this.pagedatamodle)
+    console.log(this.pagedatamodle)
     this.appService.httpPost_token(AppGlobal.API.postOrderCommentInfo, this.c_token, { ordersassessment: this.pagedatamodle }, rs => {
       if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
       }
       console.log(rs)
       if (rs.isSuccess) {
-        this.navCtrl.push('OrdermanagePage', { type: 'nocomment' });
-      }else {
+        this.navCtrl.pop();
+      } else {
         this.appConfigCtrl.popAlertView(rs.errorMessage);
       }
     }, true)
-
-
     //this.appConfigCtrl.popAlertView('感谢你对本商品的评论');
-
   }
   isDeleteImage(index: number) {
-    this.appConfigCtrl.popAlertConfirmView('您确定要删除这张图片?', '我在考虑下', '残忍删除', () => {
+    this.appConfigCtrl.popAlertConfirmView('您确定要删除这张图片?', '再考虑下', '残忍删除', () => {
       this.imagesPath.splice(index, 1);
     });
   }
