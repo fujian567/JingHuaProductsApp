@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>订单详情</ion-title>
+    <ion-title>订单详情</ion-title> 
   </ion-navbar>
 </ion-header>
 <ion-content>
@@ -98,21 +98,6 @@
   </ion-grid>
   <ion-grid class="specify-grid">
     <ion-row class="item">
-      <!-- <ion-col col-12>
-        <ion-row>
-          <ion-col col-2 style="text-align: end;"><img src="assets/imgs/WXlogo.png" class="wximg"/></ion-col>
-          <ion-col col-8>
-            <ion-row style="padding: 0;">
-                <ion-col col-12 style="padding: 0;color:#222">微信支付<img src="assets/imgs/icon.png" class="iconimg"/></ion-col>
-                <ion-col col-12 style="font-size: 1.1rem;padding: 0;color:#989898">亿万用户的选择，更快更安全</ion-col>
-            </ion-row>
-          </ion-col>
-          <ion-col col-2>
-            <div *ngIf="!wxPayMethod" class="rodioBtn" (click)="wxPayCheck()"></div>
-            <div *ngIf="wxPayMethod"><ion-icon name="checkmark-circle"></ion-icon></div>
-          </ion-col>
-        </ion-row>
-      </ion-col> -->
       <ion-col col-12>
           <ion-row>
             <ion-col col-2 style="text-align: end;"><img src="assets/imgs/alipay.png" class="ailpayimg"/></ion-col>
@@ -125,6 +110,21 @@
             <ion-col col-2>
                 <div *ngIf="!aliPayMethod" (click)="aliPayCheck()" class="rodioBtn"></div>
                 <div *ngIf="aliPayMethod"><ion-icon name="checkmark-circle"></ion-icon></div>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        <ion-col col-12>
+          <ion-row>
+            <ion-col col-2 style="text-align: end;"><img src="assets/imgs/WXlogo.png" class="wximg"/></ion-col>
+            <ion-col col-8>
+              <ion-row style="padding: 0;">
+                  <ion-col col-12 style="padding: 0;color:#222">微信支付</ion-col>
+                  <ion-col col-12 style="font-size: 1.1rem;padding: 0;color:#989898">更快更安全</ion-col>
+              </ion-row>
+            </ion-col>
+            <ion-col col-2>
+              <div *ngIf="!wxPayMethod" class="rodioBtn" (click)="wxPayCheck()"></div>
+              <div *ngIf="wxPayMethod"><ion-icon name="checkmark-circle"></ion-icon></div>
             </ion-col>
           </ion-row>
         </ion-col>

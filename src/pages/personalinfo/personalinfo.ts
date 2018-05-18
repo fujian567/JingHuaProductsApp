@@ -18,6 +18,7 @@ export class PersonalinfoPage {
   c_token: any;
   _guid: any = 'ca3b89d1-9ff5-4998-b6d9-972d7a7e80e9';
   userImg: any = 'assets/imgs/userImg.jpg';
+  userimg64: boolean = false;
   pageModel: any = {
     birthday: '2018/04/08',
     sex: '男',
@@ -92,6 +93,7 @@ export class PersonalinfoPage {
     }
     this.camera.getPicture(options).then((imageData) => {
       this.pageModel.userImg = imageData;
+      this.userimg64 = true;
     }, (err) => {
       // Handle error
     });
@@ -112,6 +114,7 @@ export class PersonalinfoPage {
         for (let i = 0; i < results.length; i++) {
           this.pageModel.userImg = results[i];
         }
+        this.userimg64 = true;
       }
     }, (err) => {
       console.log(err)
@@ -119,6 +122,10 @@ export class PersonalinfoPage {
     });
   }
   saveImg() {
+    if (this.pageModel.userImg.length < 1) {
+      this.appConfig.popAlertView('请选择头像后，再保存！');
+      return;
+    }
     let ImagesViewModel: any = {
       ImageId: this._guid,
       ImageTypeId: 7,
@@ -136,7 +143,7 @@ export class PersonalinfoPage {
         this.app.getRootNav().setRoot('LoginPage');
       }
       if (rs.isSuccess) {
-        console.log(rs.isSuccess)
+        this.userimg64 = false;
         this.getUserInfo(this.c_token);
       } else {
         this.appConfig.popAlertView(rs.errorMessage);
@@ -144,11 +151,15 @@ export class PersonalinfoPage {
     }, true)
   }
   getUserInfo(c_token) {
+    console.log('1111')
     this.appService.httpGet_token(AppGlobal.API.getUserInfo, c_token, {}, rs => {
       if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
       }
+      console.log('2222')
       if (rs.isSuccess) {
+        this.userimg64 = false;
+        console.log(AppGlobal.domainimage + rs.objectData.imagePath + rs.objectData.imageName)
         this.userImg = AppGlobal.domainimage + rs.objectData.imagePath + rs.objectData.imageName
       }
     })

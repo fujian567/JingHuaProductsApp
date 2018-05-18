@@ -19,7 +19,7 @@ page-shoppingcart {
     font-size: 1.6rem;
   }
   .item-block {
-    min-height: 3.6rem;
+    min-height: 4.4rem;
   }
   .goods-grid {
     margin-top: 5px;
@@ -66,10 +66,11 @@ page-shoppingcart {
     line-height: 26px;
     overflow: hidden;
   }
-  .gw_num em {
+  .gw_num span {
     display: block;
     height: 26px;
     width: 26px;
+    line-height: 25px;
     float: left;
     color: #7A7979;
     border-right: 1px solid #dbdbdb;
@@ -86,7 +87,7 @@ page-shoppingcart {
     line-height: 24px;
     border: 0;
   }
-  .gw_num em.add {
+  .gw_num span.add {
     float: right;
     border-right: 0;
     border-left: 1px solid #dbdbdb;

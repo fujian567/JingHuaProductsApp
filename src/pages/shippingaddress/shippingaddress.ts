@@ -32,6 +32,7 @@ export class ShippingaddressPage {
       this.getDelivery(val);
       if (navParams.data.imageList != undefined) {
         this.imageList = navParams.data.imageList
+        console.log(this.imageList)
       }
 
     });

@@ -13,6 +13,7 @@ import { Storage } from '@ionic/storage';
 export class OrdersuccessPage {
   c_token: any;
   jumpType: any = "";
+  orderID: any;
   constructor(
     public navCtrl: NavController,
     public app: App,
@@ -23,6 +24,9 @@ export class OrdersuccessPage {
     });
     if (this.navParams.data != undefined) {
       this.jumpType = this.navParams.data.item;
+      // if (this.navParams.data.item.orderID != undefined) {
+      //   this.orderID = this.navParams.data.item.orderID
+      // }
     }
   }
 
@@ -30,8 +34,12 @@ export class OrdersuccessPage {
     this.navCtrl.push('TabsPage');
   }
   jumporder() {
-    //this.app.getRootNavById().setRoot('OrdermanagePage', { type: 'noaudit' });
-    if (this.jumpType == '1') {
+    if (this.jumpType == '1' || this.jumpType == '2') {
+      // if (this.orderID != undefined) {
+      //   this.navCtrl.push('OrderdetailPage', { orderId: this.orderID, c_token: this.c_token })
+      // } else {
+      //   this.navCtrl.push('OrdermanagePage', { type: 'nodeliver', c_token: this.c_token })
+      // }
       this.navCtrl.push('OrdermanagePage', { type: 'nodeliver', c_token: this.c_token })
     } else {
       this.navCtrl.push('OrdermanagePage', { type: 'noaudit', c_token: this.c_token })

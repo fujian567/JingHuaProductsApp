@@ -46,12 +46,12 @@
               <ion-col col-12 class="goods-othername">{{item.commSpecName}}</ion-col>
               <ion-col col-12 style="height: 43px;">
                 <ion-row>
-                  <ion-col col-5 class="goods-price">¥{{item.medianPrice}}</ion-col>
+                  <ion-col col-5 class="goods-price">¥{{item.coomPrice}}</ion-col>
                   <ion-col col-7>
                     <div class="gw_num">
-                      <em class="jian" (click)="deductNum(item,i)">-</em>
+                      <span class="jian" (click)="deductNum(item,i)">-</span>
                       <input type="num" value="{{item.commQuantity}}" class="num" readonly (click)="inputNum(item,i)" />
-                      <em class="add" (click)="addNum(item,i)">+</em>
+                      <span class="add" (click)="addNum(item,i)">+</span>
                     </div>
                   </ion-col>
                 </ion-row>
@@ -63,7 +63,7 @@
     </ion-item>
   </ion-list>
 </ion-content>
-<ion-footer style="height: 53px;">
+<ion-footer>
   <ion-grid *ngIf="isShowEdit" style="padding: 0;">
     <ion-row>
       <ion-col col-3>

@@ -32,6 +32,7 @@
     "@ionic-native/image-picker": "^4.7.0",
     "@ionic-native/in-app-browser": "^4.7.0",
     "@ionic-native/network": "^4.7.0",
+    "@ionic-native/network-interface": "^4.7.0",
     "@ionic-native/qr-scanner": "^4.7.0",
     "@ionic-native/screen-orientation": "^4.7.0",
     "@ionic-native/splash-screen": "4.6.0",
@@ -56,6 +57,7 @@
     "cordova-plugin-ionic-webview": "^1.1.19",
     "cordova-plugin-jcore": "^1.1.12",
     "cordova-plugin-network-information": "^2.0.1",
+    "cordova-plugin-networkinterface": "^2.0.0",
     "cordova-plugin-qrscanner": "^2.5.0",
     "cordova-plugin-screen-orientation": "^3.0.1",
     "cordova-plugin-splashscreen": "^5.0.2",
@@ -91,12 +93,12 @@
       "cordova-plugin-ionic-webview": {},
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-camera": {
-        "CAMERA_USAGE_DESCRIPTION": " ",
-        "PHOTOLIBRARY_USAGE_DESCRIPTION": " "
+        "CAMERA_USAGE_DESCRIPTION": "App需要您的同意,才能访问相机",
+        "PHOTOLIBRARY_USAGE_DESCRIPTION": "App需要您的同意,才能写入相册"
       },
       "cordova-plugin-qrscanner": {},
       "com.synconset.imagepicker": {
-        "PHOTO_LIBRARY_USAGE_DESCRIPTION": "your usage message"
+        "PHOTO_LIBRARY_USAGE_DESCRIPTION": "App需要您的同意,才能访问相册"
       },
       "mx.ferreyra.callnumber": {},
       "cordova-sqlite-storage": {},
@@ -115,8 +117,9 @@
         "APP_ID": "2018041602565492"
       },
       "cordova-plugin-wechat": {
-        "WECHATAPPID": "wxac5e7e86fb9742e0"
-      }
+        "WECHATAPPID": "wxbeca3d49d91b27d4"
+      },
+      "cordova-plugin-networkinterface": {}
     },
     "platforms": [
       "android",

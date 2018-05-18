@@ -14,6 +14,7 @@ import { Storage } from '@ionic/storage';
 export class OrderfailedPage {
   c_token: any;
   jumpType: any = "";
+  error: any = "";
   constructor(
     public navCtrl: NavController,
     public app: App,
@@ -22,6 +23,9 @@ export class OrderfailedPage {
     this.storageCtrl.get('c_token').then((val) => {
       this.c_token = val;
     });
+    if (this.navParams.data != undefined) {
+      this.error = this.navParams.data.item;
+    }
   }
 
   jumphome() {

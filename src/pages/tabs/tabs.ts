@@ -45,7 +45,7 @@ export class TabsPage {
         tabIcon: 'my'
       }
     ];
-    this.storageCtrl.get('c_token').then((val) => {
+    this.storageCtrl.get('c_token').then((val) => { 
       this.c_token = val;
       //this.getSystemRegional(val);
     });

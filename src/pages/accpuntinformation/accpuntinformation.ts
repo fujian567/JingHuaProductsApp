@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ActionSheetController, App } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ActionSheetController, App } from 'ionic-angular'; 
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker';
 import { AppConfig } from '../../app/app.config';
@@ -119,6 +119,9 @@ export class AccpuntinformationPage {
         this.ClientInfoViewModel.FbusinessId = rs.objectData.fbusinessId;
         this.salesmanName_OA = rs.objectData.salesmanName_OA;
         this.ClientInfoViewModel.SalesmanCode = rs.objectData.salesmanCode;
+        for (let i = 0; i < rs.objectData.imagesList.length; i++) {
+          this.imagesPath.push(rs.objectData.imagesList[i].imageData);
+        }
       }
     }, true)
   }
@@ -179,9 +182,9 @@ export class AccpuntinformationPage {
  */
   photoAlbum() {
     const options: ImagePickerOptions = {
-      maximumImagesCount: 1,
+      maximumImagesCount: 5,
       quality: 60,
-      width: 1000,
+      width: 800,
       outputType: 1
     };
     // 获取图片

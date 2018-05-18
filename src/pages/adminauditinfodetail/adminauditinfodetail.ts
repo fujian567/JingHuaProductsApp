@@ -159,11 +159,14 @@ export class AdminauditinfodetailPage {
       this.FBAuditViewModel.pccname = '无区域';
     }
     if (this.FBAuditViewModel.address.length < 1) {
-
       this.FBAuditViewModel.address = '无详细地址';
     }
     console.log(this.FBAuditViewModel)
     this.appConfig.popPromptView('', 'alert-bg-c', '请输入审核不通过的原因，供用户参考', 'reason', '输入审核不通过的原因', re => {
+      if (re.reason.length < 1) {
+        this.appConfig.popAlertView('请输入审核不通过的原因');
+        return;
+      }
       this.FBAuditViewModel.auditDec = re.reason;
       this.FBAuditViewModel.isAudit = false;
       this.appService.httpPost_token(AppGlobal.API.postFbenterpriseSubmit, this.u_token, this.FBAuditViewModel, rs => {
@@ -292,16 +295,16 @@ export class AdminauditinfodetailPage {
       this.FBAuditViewModel.isAudit = true;
       //this.FBAuditViewModel.eTaxIdeNumber = this.eTaxIdeNumber;
       console.log(this.FBAuditViewModel)
-      // this.appService.httpPost_token(AppGlobal.API.postCompanyDataSaveSubmit, this.u_token, this.FBAuditViewModel, rs => {
-      //   if (rs.status == 401 || rs.status == 403) {
-      //     this.app.getRootNav().setRoot('AdminloginPage');
-      //   }
-      //   if (rs.isSuccess) {
-      //     this.navCtrl.push('AdminauditinfolistPage');
-      //   } else {
-      //     this.appConfig.popAlertView(rs.errorMessage);
-      //   }
-      // }, true)
+      this.appService.httpPost_token(AppGlobal.API.postCompanyDataSaveSubmit, this.u_token, this.FBAuditViewModel, rs => {
+        if (rs.status == 401 || rs.status == 403) {
+          this.app.getRootNav().setRoot('AdminloginPage');
+        }
+        if (rs.isSuccess) {
+          this.navCtrl.push('AdminauditinfolistPage');
+        } else {
+          this.appConfig.popAlertView(rs.errorMessage);
+        }
+      }, true)
     }
   }
   selectSalesman() {

@@ -168,8 +168,7 @@
         </ion-row>
         <ion-row class="spec" *ngSwitchCase="'spec'">
           <ion-col col-12>商品规格：{{SCInfoViewModel.commSpecName}}</ion-col>
-          <ion-col col-12>包装规格：{{SCInfoViewModel.approvedNumName}}</ion-col>
-          <ion-col col-12>商品规格：{{SCInfoViewModel.commSpecName}}</ion-col>
+          <ion-col col-12>包装规格：{{SCInfoViewModel.commPackaging}}</ion-col>
           <ion-col col-12>批准文号：{{SCInfoViewModel.approvedNumName}}</ion-col>
           <ion-col col-12>生产企业：{{SCInfoViewModel.enterprisesName}}</ion-col>
           <ion-col col-12>生产地址：{{SCInfoViewModel.address}}</ion-col>
@@ -240,7 +239,7 @@
         </ion-row>
         <ion-row class="spec" *ngSwitchCase="'spec'">
           <ion-col col-12>商品规格：{{SCInfoViewModel.commSpecName}}</ion-col>
-          <ion-col col-12>包装规格：{{SCInfoViewModel.approvedNumName}}</ion-col>
+          <ion-col col-12>包装规格：{{SCInfoViewModel.commPackaging}}</ion-col>
           <ion-col col-12>批准文号：{{SCInfoViewModel.approvedNumName}}</ion-col>
           <ion-col col-12>生产企业：{{SCInfoViewModel.enterprisesName}}</ion-col>
           <ion-col col-12>生产地址：{{SCInfoViewModel.address}}</ion-col>
@@ -298,9 +297,9 @@
 <ion-footer>
   <ion-grid class="footergrid" style="background-color:#fff;">
     <ion-row>
-      <ion-col col-4 class="col-btn"></ion-col>
-      <ion-col col-3>
-        <ion-item no-lines style="text-align:center" (click)="gohoppingcart()">
+      <ion-col col-3 class="col-btn"></ion-col>
+      <ion-col col-4>
+        <ion-item no-lines class="footer-shoppingcar"  (click)="gohoppingcart()">
           <ion-icon name="shoppingcart1"></ion-icon>
         </ion-item>
         <ion-item no-lines style="text-align:center">

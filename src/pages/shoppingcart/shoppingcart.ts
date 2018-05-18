@@ -17,6 +17,8 @@ export class ShoppingcartPage {
   _guid: any = 'ca3b89d1-9ff5-4998-b6d9-972d7a7e80e9';
   imgUrl: any = AppGlobal.domainimage
   pagedatamodle: any = []
+  checkNum: number = 0;
+  shoppingcarNum: number = 0;
   SCStatisticsInfo: any = {
     TotalAmount: '',// 总计金额
     TotalNumber: '',// 总计数量
@@ -44,7 +46,8 @@ export class ShoppingcartPage {
     });
   }
   goHome() {
-    this.navCtrl.setRoot('TabsPage');
+    this.navCtrl.push('TabsPage');
+    // this.navCtrl.push('TabsPage');
   }
   getShoppingCartInfo(c_token) {
     this.appService.httpGet_token(AppGlobal.API.getShoppingCartAll, c_token, {}, rs => {
@@ -52,19 +55,36 @@ export class ShoppingcartPage {
         this.app.getRootNav().setRoot('LoginPage');
       }
       if (rs.isSuccess) {
+        this.amountPrice = rs.objectData.totalAmount;
+        this.checkNum = 0;
+        this.shoppingcarNum = 0;
         if (rs.objectData.scInfoList.length > 0) {
+          this.shoppingcarNum = rs.objectData.scInfoList.length;
           this.pagedatamodle = rs.objectData.scInfoList;
-          this.amountPrice = rs.objectData.totalAmount;
-          this.isShowShoppingcart = false;
+          this.checkNum = 0;
+          for (let i = 0; i < rs.objectData.scInfoList.length; i++) {
+            if (rs.objectData.scInfoList[i].isSelect) {
+              this.checkNum += 1;
+            }
+          }
+          if (this.checkNum == this.shoppingcarNum) {
+            this.allcheck = true;
+          } else {
+            this.allcheck = false;
+          }
+          console.log(this.checkNum)
+          console.log(this.shoppingcarNum)
+          if (rs.objectData.scInfoList)
+            this.isShowShoppingcart = false;
         } else {
           this.isShowShoppingcart = true;
         }
       }
-    })
+    }, true)
   }
   addNum(item: any, num: number) {
     this.pagedatamodle[num].isSelect = true;
-    if (this.pagedatamodle[num].commQuantity > 59999) { 
+    if (this.pagedatamodle[num].commQuantity > 59999) {
       this.appConfigCtrl.popAlertView('购买商品数量不能大于60000');
     } else {
       this.pagedatamodle[num].commQuantity = this.pagedatamodle[num].commQuantity + 1;
@@ -130,7 +150,10 @@ export class ShoppingcartPage {
   }
   settlement() {
     if (!this.isShowShoppingcart) {
-      this.navCtrl.push('OrderPage');
+      if (this.amountPrice != 0) {
+        this.navCtrl.push('OrderPage');
+      }
+
     }
   }
   editClick() {
@@ -163,6 +186,7 @@ export class ShoppingcartPage {
           this.app.getRootNav().setRoot('LoginPage');
         }
         if (rs.isSuccess) {
+          this.allcheck = false;
           this.getShoppingCartInfo(this.c_token)
         } else {
           this.appConfigCtrl.popAlertView(rs.errorMessage);
@@ -182,7 +206,7 @@ export class ShoppingcartPage {
       if (rs.isSuccess) {
         this.getShoppingCartInfo(this.c_token)
       }
-    }, true)
+    })
   }
   shoppingCartToOrder(item: any, IsSelect: any) {
     let subimtModel = {
@@ -214,6 +238,6 @@ export class ShoppingcartPage {
       if (rs.isSuccess) {
         this.getShoppingCartInfo(this.c_token)
       }
-    })
+    },true)
   }
 }

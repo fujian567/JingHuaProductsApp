@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.jhzxapp.worker" version="1.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.jhzxapp.worker" version="1.0.5" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>精华B2B</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
@@ -99,12 +99,12 @@
     <plugin name="cordova-plugin-ionic-webview" spec="^1.1.19" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
     <plugin name="cordova-plugin-camera" spec="^2.4.1">
-        <variable name="CAMERA_USAGE_DESCRIPTION" value=" " />
-        <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value=" " />
+        <variable name="CAMERA_USAGE_DESCRIPTION" value="App需要您的同意,才能访问相机" />
+        <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="App需要您的同意,才能写入相册" />
     </plugin>
     <plugin name="cordova-plugin-qrscanner" spec="^2.5.0" />
     <plugin name="com.synconset.imagepicker" spec="~2.1.10">
-        <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="your usage message" />
+        <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="App需要您的同意,才能访问相册" />
     </plugin>
     <plugin name="mx.ferreyra.callnumber" spec="~0.0.2" />
     <plugin name="cordova-sqlite-storage" spec="^2.3.0" />
@@ -123,6 +123,7 @@
         <variable name="APP_ID" value="2018041602565492" />
     </plugin>
     <plugin name="cordova-plugin-wechat" spec="^2.0.0">
-        <variable name="WECHATAPPID" value="wxac5e7e86fb9742e0" />
+        <variable name="WECHATAPPID" value="wxbeca3d49d91b27d4" />
     </plugin>
+    <plugin name="cordova-plugin-networkinterface" spec="^2.0.0" />
 </widget>

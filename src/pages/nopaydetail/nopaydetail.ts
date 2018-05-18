@@ -5,6 +5,7 @@ import { ImageViewerController } from 'ionic-img-viewer';
 import { AppConfig, AppStaticConfig } from './../../app/app.config';
 import { AppService, AppGlobal } from './../../app/app.service';
 import { Storage } from '@ionic/storage';
+import { WechatPlugin } from '../../providers/Wechat'
 declare var cordova: any;
 /**
 客户端：未支付订单详情
@@ -30,6 +31,14 @@ export class NopaydetailPage {
     AlipayTotalAmount: '',
     AlipayOutTradeNo: '',
     AlipayProductCode: ''
+  }
+  //微信支付model
+  weChatPayInfoViewModel: any = {
+    WeChatOutTradeNo: '',
+    WeChatBody: '',
+    WeChatTotalAmount: '',
+    AlipayOutTradeNo: '',
+    WeChatSpbillCreateIp: ''
   }
   pagedatamodle: any = {
     ordernum: '',
@@ -132,36 +141,80 @@ export class NopaydetailPage {
   }
   //支付宝
   settlement() {
-    this.alipayOrderInfoViewModel.AlipayBody = '精华直销B2B订单号：' +  this.pagedatamodle.ordernum;
-    this.alipayOrderInfoViewModel.AlipaySubject = '精华直销B2B订单号：' +  this.pagedatamodle.ordernum;
-    this.alipayOrderInfoViewModel.AlipayTotalAmount = this.pagedatamodle.payAmount;
-    this.alipayOrderInfoViewModel.AlipayOutTradeNo = this.orderid;
-    this.alipayOrderInfoViewModel.AlipayProductCode = this.orderid;
-    this.appService.httpPost_token(AppGlobal.API.getpostOrderInfoAlipay, this.c_token, { orderInfoalipay: this.alipayOrderInfoViewModel }, rs => {
-      if (rs.status == 401 || rs.status == 403) {
-        this.app.getRootNav().setRoot('LoginPage');
-      }
-      console.log(rs)
-      if (rs.isSuccess) {
-        this.alipay(rs.objectData)
-      } else {
-        this.appConfig.popAlertView(rs.errorMessage);
-      }
-    }, true);
+    if (this.PayMethodId == 1) {
+      this.alipayOrderInfoViewModel.AlipayBody = '精华直销B2B订单号：' + this.pagedatamodle.ordernum;
+      this.alipayOrderInfoViewModel.AlipaySubject = '精华直销B2B订单号：' + this.pagedatamodle.ordernum;
+      this.alipayOrderInfoViewModel.AlipayTotalAmount = this.pagedatamodle.payAmount;
+      this.alipayOrderInfoViewModel.AlipayOutTradeNo = this.orderid;
+      this.alipayOrderInfoViewModel.AlipayProductCode = this.orderid;
+      this.appService.httpPost_token(AppGlobal.API.getpostOrderInfoAlipay, this.c_token, { orderInfoalipay: this.alipayOrderInfoViewModel }, rs => {
+        if (rs.status == 401 || rs.status == 403) {
+          this.app.getRootNav().setRoot('LoginPage');
+        }
+        console.log(rs)
+        if (rs.isSuccess) {
+          this.alipay(rs.objectData)
+        } else {
+          this.appConfig.popAlertView(rs.errorMessage);
+        }
+      }, true);
+    } else {
+      this.wechatPayPost(this.orderid, this.pagedatamodle.ordernum)
+    }
   }
   alipay(data) {
     let payInfo = AppStaticConfig.unescapeHTML(data);
     cordova.plugins.alipay.payment(payInfo, (success) => {
       if (success.resultStatus == "9000") {
         //支付成功
-        this.navCtrl.setRoot('OrdersuccessPage')
+        this.app.getRootNav().setRoot('OrdersuccessPage', { item: this.PayMethodId, orderID: this.orderid })
       }
-      //success.resultStatus==="9000"?this.paySuccess(sn): this.payFailed();
-
-      //this.paySuccess();
     }, (error) => {
-      //支付失败
-      //this.payFailed();
+      this.app.getRootNav().setRoot('OrderfailedPage', { item: error })
     });
+  }
+  //微信支付
+  wechatPayPost(orderId, orderCode) {
+    sessionStorage.clear();
+    console.log('微信支付---' + orderId)
+    this.weChatPayInfoViewModel.WeChatOutTradeNo = orderId;
+    this.weChatPayInfoViewModel.WeChatBody = '精华直销B2B订单号：' + orderCode;
+    this.weChatPayInfoViewModel.WeChatTotalAmount = this.pagedatamodle.payAmount;
+    this.weChatPayInfoViewModel.WeChatSpbillCreateIp = AppGlobal.domainWechat;
+    sessionStorage.clear();
+    console.log(this.weChatPayInfoViewModel)
+    this.appService.httpPost_token(AppGlobal.API.getpostOrderInfoWechat, this.c_token, { orderInfoWeChat: this.weChatPayInfoViewModel }, rs => {
+      if (rs.status == 401 || rs.status == 403) {
+        this.app.getRootNav().setRoot('LoginPage');
+      }
+      console.log(rs)
+      if (rs.isSuccess) {
+        this.wechatPay(rs.objectData, orderId)
+      } else {
+        this.appConfig.popAlertView(rs.errorMessage);
+      }
+    }, true);
+  }
+  wechatPay(paramsdata, orderId) {
+    let params = JSON.parse(paramsdata)
+    var wechatPayparams = {
+      appid: params.appid,
+      partnerid: params.partnerid, // merchant id
+      prepayid: params.prepayid, // prepay id
+      package: params.package,
+      noncestr: params.noncestr, // nonce
+      timestamp: params.timestamp + '', // timestamp
+      sign: params.sign // signed string
+    };
+    console.log(wechatPayparams)
+    WechatPlugin.sendPaymentRequest(wechatPayparams).then((result) => {
+      console.log(result)
+      //支付成功
+      this.app.getRootNav().setRoot('OrdersuccessPage', { item: this.PayMethodId, orderID: orderId })
+    }, (error) => {
+      console.log(error)
+      //支付失败
+      this.app.getRootNav().setRoot('OrderfailedPage', { item: error })
+    })
   }
 }

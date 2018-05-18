@@ -5,6 +5,8 @@ import { AppService, AppGlobal } from './../../app/app.service';
 import { Storage } from '@ionic/storage';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker';
+import { WechatPlugin } from '../../providers/Wechat'
+import { NetworkInterface } from '@ionic-native/network-interface';
 declare var cordova: any;
 /**
  客户端：提交订单
@@ -29,7 +31,9 @@ export class OrderPage {
   realPaymentAmount: any;//实付金额
   remissionAmount: any;//减免金额
   totalNumber: any;//总计数量
+  orderID: any;//订单id
   isShowDefaultDelive: boolean = true;
+  userIp: any = '';
   DeliveryInfoViewModel: any = {
     DeliveryInfoId: '',
     DeliveryInfoName: '',
@@ -49,6 +53,14 @@ export class OrderPage {
     AlipayTotalAmount: '',
     AlipayOutTradeNo: '',
     AlipayProductCode: ''
+  }
+  //微信支付model
+  weChatPayInfoViewModel: any = {
+    WeChatOutTradeNo: '',
+    WeChatBody: '',
+    WeChatTotalAmount: '',
+    AlipayOutTradeNo: '',
+    WeChatSpbillCreateIp: ''
   }
   PInvoiceInfoViewModel: any = {
     PinvoiceId: this._guid,// 个人发票ID
@@ -94,6 +106,7 @@ export class OrderPage {
     public actionSheetCtrl: ActionSheetController,
     private camera: Camera,
     private imagePicker: ImagePicker,
+    private networkInterface: NetworkInterface,
     public app: App,
     private storageCtrl: Storage,
     public navParams: NavParams) {
@@ -103,6 +116,7 @@ export class OrderPage {
       this.getPayMethod(val);
       this.getDistribution(val);
       this.getDeliveryDef(val);
+      this.getUserIP();
     });
     if (this.navParams.data.InvoiceTypeId != undefined) {
       let parmas = this.navParams.data;
@@ -144,11 +158,52 @@ export class OrderPage {
       this.DeliveryInfoViewModel.DeliveryInfoCreateDate = '2018-04-08';
       this.isShowDefaultDelive = false;
     }
-    if (navParams.data.imageList != undefined) {
-      if (navParams.data.imageList.length > 0) {
-        this.ImagesList = navParams.data.imageList
+    if (sessionStorage.getItem('paymentId') != null) {
+      this.PayMethodId = sessionStorage.getItem('paymentId');
+      this.PayMethodName = sessionStorage.getItem('paymentName');
+      if (this.PayMethodId == '1') {
+        this.aliPayMethod = true;
+        this.wxPayMethod = false;
+        this.bankPayMethod = false;
+      } else if (this.PayMethodId == '2') {
+        this.wxPayMethod = true;
+        this.aliPayMethod = false;
+        this.bankPayMethod = false;
+      } else if (this.PayMethodId == '3') {
+        this.bankPayMethod = true;
+        this.wxPayMethod = false;
+        this.aliPayMethod = false;
+        this.isShowUpVoucher = true;
       }
     }
+    if (navParams.data.imageList != undefined) {
+      if (navParams.data.imageList.length > 0) {
+        console.log(navParams.data.imageList)
+        this.ImagesList = navParams.data.imageList
+        this.isUpimages = false;
+      }
+    }
+  }
+  getUserIP() {
+    this.networkInterface.getIPAddress().then(success => {
+      console.log('获取IP地址：' + success)
+      this.userIp = success;
+    }).catch(error => {
+      console.log('获取IP地址错误：' + error)
+    });
+    this.networkInterface.getCarrierIPAddress().then(success => {
+      console.log('获取Wi-Fi的IP地址：' + success)
+      this.userIp = success;
+    }).catch(error => {
+      console.log('获取Wi-Fi的IP地址错误：' + error)
+    });
+    this.networkInterface.getCarrierIPAddress().then(success => {
+      console.log('获取运营商IP地址：' + success)
+      this.userIp = success;
+    }).catch(error => {
+      console.log('获取运营商IP地址错误：' + error)
+    });
+
   }
   ionViewDidLoad() {
     this.navBar.backButtonClick = this.backButtonClick;
@@ -175,7 +230,7 @@ export class OrderPage {
             let OrderCommodity: any = {
               OrderCid: rs.objectData.scInfoList[i].commId,
               CommParamId: rs.objectData.scInfoList[i].commParamId,
-              OrderCprice: rs.objectData.scInfoList[i].medianPrice,
+              OrderCprice: rs.objectData.scInfoList[i].coomPrice,//商品价格
               OrderCreliefAmount: '0',
               OrderCnumber: rs.objectData.scInfoList[i].commQuantity,
               CpayAmount: rs.objectData.scInfoList[i].subtotal,
@@ -185,8 +240,10 @@ export class OrderPage {
             this.OrderCommodity.push(OrderCommodity);
           }
         }
+      } else {
+        this.appConfigCtrl.popAlertView(rs.errorMessage);
       }
-    })
+    }, true)
   }
   getPayMethod(c_token) {
     this.appService.httpGet_token(AppGlobal.API.getPayMethod, c_token, {}, rs => {
@@ -265,6 +322,8 @@ export class OrderPage {
             this.DeliveryInfoViewModel.Pccname = rs.objectData[0].pccName;
             this.DeliveryInfoViewModel.DeliveryInfoCreateDate = '2018-04-08';
             this.isShowDefaultDelive = false;
+          } else {
+            localStorage.setItem('delivercount', rs.objectData.length)
           }
         }
       })
@@ -302,7 +361,12 @@ export class OrderPage {
     if (this.DeliveryInfoViewModel.DeliveryInfoId == '') {
       this.appConfigCtrl.popAlertConfirmView('你还没有设置收货地址，赶快去设置一个！', '取消', '去设置', rs => {
         localStorage.setItem('previouspage', 'OrderPage')
-        this.navCtrl.push('ShippingaddressPage');
+        sessionStorage.setItem('paymentId', this.PayMethodId)
+        sessionStorage.setItem('paymentName', this.PayMethodName)
+        this.navCtrl.push('ShippingaddressPage', { imageList: this.ImagesList });
+        console.log(this.ImagesList)
+        console.log(this.PayMethodId)
+        console.log(this.PayMethodName)
       });
     } else {
       if (this.ImagesList.length < 1 && this.PayMethodId == 3) {
@@ -350,12 +414,14 @@ export class OrderPage {
           OrderCommodity: this.OrderCommodity,
           ImagesList: imageList
         }
+        sessionStorage.clear();
+        console.log(OrderInfoSubmitViewModel)
         this.appService.httpPost_Img_token(AppGlobal.API.postOrderInfo, this.c_token, { orderInfo: OrderInfoSubmitViewModel }, rs => {
           if (rs.status == 401 || rs.status == 403) {
             this.app.getRootNav().setRoot('LoginPage');
           }
           if (rs.isSuccess) {
-            this.navCtrl.setRoot('OrdersuccessPage')
+            this.app.getRootNav().setRoot('OrdersuccessPage')
           } else {
             this.appConfigCtrl.popAlertView(rs.errorMessage);
           }
@@ -389,8 +455,13 @@ export class OrderPage {
     }
   }
   changeaddress() {
+    sessionStorage.setItem('paymentId', this.PayMethodId)
+    sessionStorage.setItem('paymentName', this.PayMethodName)
     localStorage.setItem('previouspage', 'OrderPage')
     this.navCtrl.push('ShippingaddressPage', { imageList: this.ImagesList });
+    console.log(this.ImagesList)
+    console.log(this.PayMethodId)
+    console.log(this.PayMethodName)
   }
   onAddImage() {
     let actionSheet = this.actionSheetCtrl.create({
@@ -441,7 +512,7 @@ export class OrderPage {
     const options: ImagePickerOptions = {
       maximumImagesCount: 1,
       quality: 60,
-      width: 1000,
+      width: 800,
       outputType: 1
     };
     // 获取图片
@@ -467,6 +538,7 @@ export class OrderPage {
     this.PayMethodName = '微信支付'
     this.wxPayMethod = true;
     this.isShowUpVoucher = false;
+    console.log(this.userIp)
   }
   aliPayCheck() {
     this.wxPayMethod = false;
@@ -490,9 +562,8 @@ export class OrderPage {
       if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
       }
-      console.log(this.PayMethodId)
       if (rs.isSuccess) {
-        console.log(this.PayMethodId)
+        console.log('PayMethodId是：' + this.PayMethodId)
         if (this.PayMethodId == 1) {
           this.aliPayPost(rs.objectData.orderId, rs.objectData.orderCode)
         } else {
@@ -505,40 +576,80 @@ export class OrderPage {
   }
   //支付宝
   aliPayPost(orderId, orderCode) {
-    console.log('支付宝')
     this.alipayOrderInfoViewModel.AlipayBody = '精华直销B2B订单号：' + orderCode;
     this.alipayOrderInfoViewModel.AlipaySubject = '精华直销B2B订单号：' + orderCode;
     this.alipayOrderInfoViewModel.AlipayTotalAmount = this.realPaymentAmount;
     this.alipayOrderInfoViewModel.AlipayOutTradeNo = orderId;
     this.alipayOrderInfoViewModel.AlipayProductCode = orderId;
+    sessionStorage.clear();
     this.appService.httpPost_token(AppGlobal.API.getpostOrderInfoAlipay, this.c_token, { orderInfoalipay: this.alipayOrderInfoViewModel }, rs => {
       if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
       }
       console.log(rs)
       if (rs.isSuccess) {
-        this.alipay(rs.objectData)
+        this.alipay(rs.objectData, orderId)
       } else {
         this.appConfigCtrl.popAlertView(rs.errorMessage);
       }
     }, true);
   }
-  alipay(data) {
+  alipay(data, orderId) {
     let payInfo = AppStaticConfig.unescapeHTML(data);
     cordova.plugins.alipay.payment(payInfo, (success) => {
       if (success.resultStatus == "9000") {
         //支付成功
-        this.navCtrl.setRoot('OrdersuccessPage', { item: this.PayMethodId })
+        this.app.getRootNav().setRoot('OrdersuccessPage', { item: this.PayMethodId, orderID: orderId })
       }
     }, (error) => {
       //支付失败
-      this.navCtrl.setRoot('OrderfailedPage')
+      this.app.getRootNav().setRoot('OrderfailedPage')
     });
   }
 
   //微信支付
   wechatPayPost(orderId, orderCode) {
+    sessionStorage.clear();
+    console.log('微信支付---' + orderId)
+    this.weChatPayInfoViewModel.WeChatOutTradeNo = orderId;
+    this.weChatPayInfoViewModel.WeChatBody = '精华直销B2B订单号：' + orderCode;
+    this.weChatPayInfoViewModel.WeChatTotalAmount = this.realPaymentAmount;
+    this.weChatPayInfoViewModel.WeChatSpbillCreateIp = AppGlobal.domainWechat;
+    sessionStorage.clear();
+    console.log(this.weChatPayInfoViewModel)
+    this.appService.httpPost_token(AppGlobal.API.getpostOrderInfoWechat, this.c_token, { orderInfoWeChat: this.weChatPayInfoViewModel }, rs => {
+      if (rs.status == 401 || rs.status == 403) {
+        this.app.getRootNav().setRoot('LoginPage');
+      }
+      console.log(rs)
+      if (rs.isSuccess) {
+        this.wechatPay(rs.objectData, orderId)
+      } else {
+        this.appConfigCtrl.popAlertView(rs.errorMessage);
+      }
+    }, true);
+  }
+  wechatPay(paramsdata, orderId) {
+    let params = JSON.parse(paramsdata)
 
+    var wechatPayparams = {
+      appid: params.appid,
+      partnerid: params.partnerid, // merchant id
+      prepayid: params.prepayid, // prepay id
+      package: params.package,
+      noncestr: params.noncestr, // nonce
+      timestamp: params.timestamp + '', // timestamp
+      sign: params.sign // signed string
+    };
+    console.log(wechatPayparams)
+    WechatPlugin.sendPaymentRequest(wechatPayparams).then((result) => {
+      console.log(result)
+      //支付成功
+      this.app.getRootNav().setRoot('OrdersuccessPage', { item: this.PayMethodId, orderID: orderId })
+    }, (error) => {
+      //支付失败
+      this.app.getRootNav().setRoot('OrderfailedPage', { item: error })
+    })
   }
   //根据订单ID获取订单信息
   getpostOrderInfo(orderid) {

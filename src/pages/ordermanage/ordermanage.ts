@@ -104,11 +104,12 @@ export class OrdermanagePage {
     }
   }
   ionViewDidLoad() {
-    this.navBar.backButtonClick = this.backButtonClick;
+    this.navBar.backButtonClick = this.backButtonClick; 
   }
 
   backButtonClick = (e: UIEvent) => {
-    this.navCtrl.setRoot('PersonalcenterPage');
+    this.navCtrl.setRoot('TabsPage', { jumpage: 'person' });
+    //this.navCtrl.setRoot('PersonalcenterPage');
   }
   doRefresh(refresher: any) {
     setTimeout(() => {

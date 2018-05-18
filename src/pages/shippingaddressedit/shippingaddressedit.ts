@@ -76,6 +76,7 @@ export class ShippingaddresseditPage {
     if (navParams.data.imageList != undefined) {
       if (navParams.data.imageList.length > 0) {
         this.imageList = navParams.data.imageList
+        console.log(this.imageList)
       }
     }
     this.getRegion();
@@ -146,7 +147,7 @@ export class ShippingaddresseditPage {
     }
     let url = '';
     if (this.pageedit) {
-      url = AppGlobal.API.postDeliveUpdate;
+      url = AppGlobal.API.postDeliveUpdate; 
     } else {
       url = AppGlobal.API.postDelivery;
     }

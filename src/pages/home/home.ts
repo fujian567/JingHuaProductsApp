@@ -13,6 +13,12 @@ enum pageClass {
   middleAd = 'fd2f9cb5-a5a0-47ea-842d-36761556ee82',//中部广告
   seasonPro = 'c2668495-b821-4dd2-8bf7-66cf1c69dc25',//当季用药
   hotSell = '27f9a319-7198-4724-96a8-88776caa8fba',//热销产品
+  HCProducts = '153dae8b-973c-47a0-a013-6d2d67ef7f5e'//保健品
+}
+enum pageClassId {
+  CPMedicine = '419942e6-9303-4c3f-886a-17044f978d2c',//中药
+  medicine = 'b94d5f1e-eef2-44e3-8ba0-13382a3e4ccd',//西药
+  HCProducts = 'c7a59095-8899-44c8-a9c4-9e90b6710a7e'//保健品
 }
 @IonicPage()
 @Component({
@@ -32,6 +38,8 @@ export class HomePage {
   hotSellData: Array<any> = [];
   hotSellDataMore: boolean = false;
   isShowhotSellData: boolean = false;
+  HCProductsData: Array<any> = [];
+  isShowHCProducts: boolean = false;
   c_token: any;
   imageUrl = AppGlobal.domainimage;
   messageCount: any = "0";
@@ -50,10 +58,11 @@ export class HomePage {
       //this.getUserAppTag(val);
       this.accountStatus(val);
       this.myGetMessageCount(val);
-            //this.getUserInfo(val);
-            // this.getHomePageType(val);
-            // this.getHomePageInfo(val);
-            // this.getHomePageClass(val)
+      //this.getUserInfo(val);
+      // this.getHomePageType(val);
+      // this.getHomePageInfo(val);
+      // this.getHomePageClass(val)
+      this.getHomePageByClassID_HCProducts(val);
       this.getHomePageByClassID_classAd(val);
       this.getHomePageByClassID_hotSell(val);
       this.getHomePageByClassID_middleAd(val);
@@ -63,14 +72,27 @@ export class HomePage {
     });
   }
   goodsDetail(item) {
-    console.log(item)
     this.navCtrl.push('GoodsdetailPage', { parms: item });
   }
   classid(item, title) {
+    if (title == '西药') {
+      if (item != pageClassId.medicine) {
+        item = pageClassId.medicine
+      }
+    }
+    if (title == '中药') {
+      if (item != pageClassId.CPMedicine) {
+        item = pageClassId.CPMedicine
+      }
+    } 
+    if (title == '保健品') {
+      if (item != pageClassId.HCProducts) {
+        item = pageClassId.HCProducts
+      }
+    }
+    console.log(title)
+    console.log(item)
     this.navCtrl.push('GoodscategoryPage', { item: item, title: title });
-  }
-  classid1() {
-    this.navCtrl.push('GoodscategoryPage');
   }
   //判断用户是否有极光推送id
   getUserAppTag(c_token) {
@@ -92,10 +114,13 @@ export class HomePage {
       if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
       }
+      if (rs.objectData == '646') {
+        this.app.getRootNav().setRoot('LoginPage');
+      }
       if (rs.objectData == '0') {
         this.app.getRootNav().setRoot('AccpuntinformationPage');
       } else if (rs.objectData == '2') {
-        this.navCtrl.setRoot('InfoauditPage', {
+        this.app.getRootNav().setRoot('InfoauditPage', {
           auditStatus: true
         });
       } else if (rs.objectData == '-1') {
@@ -223,10 +248,41 @@ export class HomePage {
       }
     });
   }
+  //获取首页页面信息_分类ID--保健品
+  getHomePageByClassID_HCProducts(c_token) {
+    this.appService.httpPost_token(AppGlobal.API.getHomePageByClassID, c_token, { categoryid: pageClass.HCProducts }, rs => {
+      if (rs.status == 401 || rs.status == 403) {
+        this.app.getRootNav().setRoot('LoginPage');
+      }
+      if (rs.isSuccess) {
+        if (rs.objectData.length > 0) {
+          this.HCProductsData = rs.objectData;
+          this.isShowHCProducts = true;
+        }
+      }
+    });
+  }
   //检测是否升级
   checkVersion(c_token) {
     //1、前台，2、后台
     let versiontype = 1;
     this.nativeService.detectionUpgrade(c_token, versiontype);
+  }
+  doRefresh(refresher) {
+    setTimeout(() => {
+      this.storage.get('c_token').then((val) => {
+        this.c_token = val;
+        this.accountStatus(val);
+        this.myGetMessageCount(val);
+        this.getHomePageByClassID_HCProducts(val);
+        this.getHomePageByClassID_classAd(val);
+        this.getHomePageByClassID_hotSell(val);
+        this.getHomePageByClassID_middleAd(val);
+        this.getHomePageByClassID_seasonPro(val);
+        this.getHomePageByClassID_topAd(val);
+        this.checkVersion(val);
+      });
+      refresher.complete();
+    }, 1000);
   }
 }

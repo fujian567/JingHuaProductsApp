@@ -30,7 +30,7 @@ import { IonJPushModule } from 'ionic2-jpush'
 import { Logger } from "../providers/Logger";
 import { Device } from '@ionic-native/device';
 import { StreamingMedia } from '@ionic-native/streaming-media';
-
+import { NetworkInterface } from '@ionic-native/network-interface';
 
 @NgModule({
   declarations: [
@@ -82,7 +82,7 @@ import { StreamingMedia } from '@ionic-native/streaming-media';
     NativeService,
     InAppBrowser,
     Logger,
-    Device,StreamingMedia,
+    Device,StreamingMedia,NetworkInterface,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

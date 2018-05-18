@@ -15,7 +15,8 @@
     <button ion-item (click)="addUserImg()">头像
       <span item-end>
         <ion-avatar item-left class="avatar">
-            <img src="{{userImg}}">
+          <img *ngIf="!userimg64" src="{{userImg}}">
+          <img *ngIf="userimg64" src="{{'data:image/jpeg;base64,'+pageModel.userImg}}">
         </ion-avatar>
       </span>
     </button>
@@ -32,8 +33,9 @@
     </button> -->
   </ion-list>
   <div class="bottom-btn">
-      <button ion-button color="danger" block (click)="saveImg()">
-          保存
-      </button>
+    <button ion-button color="danger" block (click)="saveImg()">
+      保存
+    </button>
   </div>
 </ion-content>
+

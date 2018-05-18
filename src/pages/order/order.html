@@ -58,7 +58,7 @@
           <ion-col col-12 class="goods-othername">{{item.commSpecName}}</ion-col>
           <ion-col col-12 style="height: 43px;">
             <ion-row>
-              <ion-col col-5 class="goods-price">¥{{item.medianPrice}}</ion-col>
+              <ion-col col-5 class="goods-price">¥{{item.coomPrice}}</ion-col>
               <ion-col col-7 style="text-align:end">*{{item.commQuantity}}</ion-col>
             </ion-row>
           </ion-col>
@@ -73,27 +73,6 @@
   </ion-grid>
   <ion-grid class="list-grid">
     <ion-row>
-      <!-- <ion-col col-12>
-        <ion-row>
-          <ion-col col-2 style="text-align: end;">
-            <img src="assets/imgs/WXlogo.png" class="wximg" />
-          </ion-col>
-          <ion-col col-8>
-            <ion-row style="padding: 0;">
-              <ion-col col-12 style="padding: 0;color:#222">微信支付
-                <img src="assets/imgs/icon.png" class="iconimg" />
-              </ion-col>
-              <ion-col col-12 style="font-size: 1.1rem;padding: 0;color:#989898">亿万用户的选择，更快更安全</ion-col>
-            </ion-row>
-          </ion-col>
-          <ion-col col-2>
-            <div *ngIf="!wxPayMethod" class="rodioBtn" (click)="wxPayCheck()"></div>
-            <div *ngIf="wxPayMethod">
-              <ion-icon name="checkmark-circle"></ion-icon>
-            </div>
-          </ion-col>
-        </ion-row>
-      </ion-col> -->
       <ion-col col-12>
         <ion-row>
           <ion-col col-2 style="text-align: end;">
@@ -117,6 +96,26 @@
       </ion-col>
       <ion-col col-12>
         <ion-row>
+          <ion-col col-2 style="text-align: end;">
+            <img src="assets/imgs/WXlogo.png" class="wximg" />
+          </ion-col>
+          <ion-col col-8>
+            <ion-row style="padding: 0;">
+              <ion-col col-12 style="padding: 0;color:#222">微信支付
+              </ion-col>
+              <ion-col col-12 style="font-size: 1.1rem;padding: 0;color:#989898">更快更安全</ion-col>
+            </ion-row>
+          </ion-col>
+          <ion-col col-2>
+            <div *ngIf="!wxPayMethod" class="rodioBtn" (click)="wxPayCheck()"></div>
+            <div *ngIf="wxPayMethod">
+              <ion-icon name="checkmark-circle"></ion-icon>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col col-12>
+        <ion-row>
           <ion-col col-2 style="text-align: end;padding-top:12px;">
             <img src="assets/imgs/bank.png" class="ailpayimg" />
           </ion-col>
@@ -129,18 +128,6 @@
           </ion-col>
         </ion-row>
       </ion-col>
-      <!-- <ion-col col-12 *ngFor="let item of payMethod, let i = index">
-        <button color="{{item.isDefault}}" ion-button block outline (click)="upVoucher(item,i)">{{item.payMethodName}}</button>
-      </ion-col> -->
-      <!-- <ion-col col-3>
-        <button color="danger" ion-button block outline>银行转账</button>
-      </ion-col>
-      <ion-col col-3>
-        <button color="cgrayk" ion-button block outline>支付宝</button>
-      </ion-col>
-      <ion-col col-3>
-        <button color="cgrayk" ion-button block outline>微信支付</button>
-      </ion-col> -->
     </ion-row>
     <ion-row *ngIf="isShowUpVoucher">
       <ion-col col-3></ion-col>
@@ -160,10 +147,10 @@
             </ion-col>
             <ion-col col-12>精华制药银行账户：</ion-col>
             <ion-col col-12>开户行：
-              <span class="red">中国工商银行XXX分行</span>
+              <span class="red">中国银行股份有限公司南通分行营业部</span>
             </ion-col>
             <ion-col col-12>账号：
-              <span class="red">123456789123456789</span>
+              <span class="red">515758202603</span>       
             </ion-col>
           </ion-row>
         </ion-grid>

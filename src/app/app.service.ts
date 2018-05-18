@@ -17,11 +17,12 @@ export class AppGlobal {
     //接口基地址
     static domain = 'https://www.jhzyapp.com'
     static domainimage = 'https://www.jhzyapp.com'
-
+    static domainWechat = '101.132.106.0'
     //static domain = 'http://125.74.9.49:7768'
     //static domainimage = 'http://125.74.9.49:7769'
     //static domainimage = 'http://www.jhzyapp.com:7769/'
-    static domainvideo = 'http://125.74.9.49:7769/'
+    //static domainvideo = 'http://125.74.9.49:7769/'
+    //static domainWechat = '125.74.9.49'
 
     static APK_DOWNLOAD = '/apk/jhzy_jhzxb2b.apk';// 下载地址
     static APK_ADMIN_DOWNLOAD = '/apk/android-jhzx-admin.apk';// 下载地址
@@ -53,8 +54,9 @@ export class AppGlobal {
         getPayMethod: '/api/order/paymethod/info/',//获取支付方式
         getDistribution: '/api/order/distribution/info/',//获取支付方式
         getDeliveryDef: '/api/customer/delivery/default/',//获取默认收货地址
+        getDeliveryDefSC: '/api/customer/delivery/default/',//获取默认收货地址
         getDeliveryAll: '/api/customer/delivery/info/',//获取收货地址
-        postDeliveDefault: '/api/customer/delivery/updatascdefault/',//设置默认地址
+        postDeliveDefault: '/api/customer/delivery/updatadefault/',//设置默认地址
         postDeliveDel: '/api/customer/delivery/deleteinfo/',//删除收货地址
         postDeliveUpdate: '/api/customer/delivery/updatainfo/',//修改收货地址
         getInvoiceType: '/api/order/invoicetype/info/',//获取发票类型
@@ -90,7 +92,8 @@ export class AppGlobal {
         postOrderByAliPay: '/api/order/paymentalipay/getinfo',//获取首页页面信息_分类ID
         postOrderInfoByLine: '/api/order/ordersubmit/postinfo/',//提交订单线上支付
         getpostOrderInfoAlipay: '/api/order/paymentalipay/getinfo/',//根据订单id获取订单信息（支付宝）
-
+        getpostOrderInfoWechat: '/api/order/paymentwechat/getinfo/',//根据订单id获取订单信息（微信支付）
+        
         postUeserlogin: '/api/users/login/post/',//管-登录
         getFbenterpriseWait: '/api/enterprise/fbenterprise/minfo/',//管-首营审核
         postEnterpriseInfo: '/api/enterprise/enterprise/minfo',//管- 获取全部首营过的企业
@@ -130,7 +133,7 @@ export class AppGlobal {
         postCustomerMsgjpush: '/api/customer/msgjpush/post/', //极光推送消息
         getSaleManInfo: '/api/users/salesman/info/', //获取业务员信息
         postOrderByStatus: '/api/order/bystateid/manageinfo/', //获取订单根据状态
-        postRegionalinfo:'/api/Resources/systemversion/regionalinfo' ,//获取区域
+        postRegionalinfo: '/api/Resources/systemversion/regionalinfo',//获取区域
 
 
         getAppVersion: '/api/AppVersion/fbenterprise/wait/',
@@ -138,7 +141,7 @@ export class AppGlobal {
         test: '/api/values',
         test1: '/api/values/5',
         apk_download: '/images/apk/',// 下载地址
-        testapi:'/api/erp/erplogin'
+        testapi: '/api/erp/erplogin'
     };
     static systemPhone: any = {
         servicePhone: '09318568744', //客服电话
@@ -193,6 +196,9 @@ export class AppService {
             });
     }
     httpGet_token(url, token, params, callback, loader: boolean = false) {
+        if (token == null) {
+            token = '123'
+        }
         let loading = this.loadingCtrl.create({});
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -218,6 +224,9 @@ export class AppService {
             });
     }
     httpGet_token_noparams(url, token, callback, loader: boolean = false) {
+        if (token == null) {
+            token = '123'
+        }
         let loading = this.loadingCtrl.create({});
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -288,6 +297,9 @@ export class AppService {
             });
     }
     httpPost_token(url, token, params, callback, loader: boolean = false) {
+        if (token == null) {
+            token = '123'
+        }
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('authorization', token);

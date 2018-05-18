@@ -44,10 +44,13 @@ export class AdminPartPublishPage {
   }
 
   getgoodsParmas(u_token, ) {
+    // this._commId='a67698d4-33f6-4910-93ae-6e81cf526003'
+    // console.log('111')
     this.appService.httpPost_token(AppGlobal.API.postGoodsPublishParmas, u_token, { commId: this._commId, publish: this._publish, pages: this.PagesInfoViewModel }, rs => {
       if (rs.status == 401 || rs.status == 403) {
         this.navCtrl.setRoot('AdminloginPage');
       }
+      console.log(rs)
       if (rs.isSuccess) {
         if (rs.objectData.length > 0) {
           this.goodsParmas = rs.objectData;

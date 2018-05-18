@@ -64,7 +64,7 @@ page-goodsdetail {
       padding: 0px;
     }
     .imglist{
-      margin-bottom: -3px;
+      margin-bottom: -5px;
     }
     .segment-ios .segment-button.segment-activated {
       background-color: #fff;
@@ -199,6 +199,12 @@ page-goodsdetail {
       color: #e4393c;
       font-size: 1.4rem;
       line-height: 23px;
+    }
+  }
+  .footer-shoppingcar{
+    text-align:center;
+    .label-ios{
+      margin: -2px 0 0 0;
     }
   }
 }
