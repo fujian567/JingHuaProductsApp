@@ -5,7 +5,8 @@
       <!-- <ion-icon name="location"></ion-icon> -->
     </ion-title>
     <ion-buttons end *ngIf="!isShowShoppingcart">
-      <button ion-button (click)="editClick()">{{editBtnTxt}}</button>
+      <button ion-button *ngIf="!isShowEdit" (click)="editClick()">编辑</button>
+      <button ion-button *ngIf="isShowEdit" (click)="overClick()">返回</button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
@@ -43,12 +44,13 @@
           <ion-col col-7>
             <ion-row>
               <ion-col col-12 class="goods-name">{{item.commName}}</ion-col>
-              <ion-col col-12 class="goods-othername">{{item.commSpecName}}</ion-col>
+              <ion-col col-12 class="goods-othername">{{item.commSpecName}}({{item.commPackaging}})</ion-col>
+              <!-- <ion-col col-12 class="goods-othername">{{item.commPackaging}}</ion-col> -->
               <ion-col col-12 style="height: 43px;">
                 <ion-row>
                   <ion-col col-5 class="goods-price">¥{{item.coomPrice}}</ion-col>
                   <ion-col col-7>
-                    <div class="gw_num">
+                    <div class="gw_num" *ngIf="!isShowEdit">
                       <span class="jian" (click)="deductNum(item,i)">-</span>
                       <input type="num" value="{{item.commQuantity}}" class="num" readonly (click)="inputNum(item,i)" />
                       <span class="add" (click)="addNum(item,i)">+</span>

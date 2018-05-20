@@ -1,0 +1,64 @@
+<!--
+  Generated template for the VideoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>关于我们</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <vg-player>
+          <vg-overlay-play></vg-overlay-play>
+          <vg-buffering></vg-buffering>
+          <vg-controls [vgAutohide]="true" [vgAutohideTime]="5">
+            <vg-play-pause></vg-play-pause>
+            <vg-time-display [vgProperty]="'current'"></vg-time-display>
+            <vg-scrub-bar>
+              <vg-scrub-bar-current-time [vgSlider]="true"></vg-scrub-bar-current-time>
+              <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+            </vg-scrub-bar>
+            <vg-time-display [vgProperty]="'total'"></vg-time-display>
+            <!-- <vg-fullscreen></vg-fullscreen> -->
+          </vg-controls>
+          <video #media [vgMedia]="media" poster="assets/imgs/videoimg.jpg" src="{{videoUrl}}"></video>
+        </vg-player>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12 style="color:#666;font-size: 1.4rem;">精华制药集团股份有限公司作为一家综合性的现代化GMP制药上市公司(股票代码:002349)，正成为国家在原料药、医药中间体和西药与中成药制剂生产销售和研发方面的主力企业，并涉足生物医药领域。公司有中西药品种200余种。精华B2B手机平台是精华与时俱进自主研发针对医药流通领域，优化专业采购环节、加快周转效率、节约销售成本、提升企业竞争力的医药APP专业采购交易平台。为企业客户、渠道商提供一站式线上便捷服务</ion-col>
+      <ion-col col-12>
+        <img src="assets/imgs/v1.jpg" class="goods-img">
+      </ion-col>
+      <!-- <ion-col col-12>【功能特色】</ion-col>
+      <ion-col col-12>1.便捷服务：有手机就可以在线采购定制，符合标准电商操作模式。</ion-col>
+      <ion-col col-12>2.即时推送：资料审核、订单追踪、物流发货等即时信息推送。</ion-col>
+      <ion-col col-12>3.条码扫描：通过商品条形码扫描查询真伪、信息获取、秒速成交。</ion-col>
+      <ion-col col-12>4.正品保证：所有商品均来自精华制药，保质、保价、省心、省力。</ion-col>
+      <ion-col col-12> 5.专业物流：顺丰物流合作，准时到达。</ion-col>
+      <ion-col col-12>6.一票制：无中间环节，官方直营。</ion-col>
+      <ion-col col-12>7.多种支付：支付宝、微信支付、银行转账供您选择。</ion-col>
+      <ion-col col-12>8.优质客服：专业客服为您提供保驾护航。</ion-col>
+      <ion-col col-12>9.技术支持：精华技术团队为您解决后顾之忧。</ion-col>-->
+      <ion-col col-12> 
+        <img src="assets/imgs/v2.jpg" class="goods-img">
+      </ion-col>
+      <ion-col col-12>
+        <img src="assets/imgs/v3.png" class="goods-img">
+      </ion-col>
+      <ion-col col-12>
+        <img src="assets/imgs/v4.jpg" class="goods-img">
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+</ion-content>

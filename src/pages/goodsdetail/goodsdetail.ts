@@ -44,7 +44,7 @@ export class GoodsdetailPage {
     address: '',
     enterprisesName: '',
     goodsDetail: '',
-    commPackaging:''
+    commPackaging: ''
   }
   avatarinfo: any = 'assets/imgs/userImg.jpg';
   imagesList_DetailPage: any[] = [];
@@ -56,6 +56,7 @@ export class GoodsdetailPage {
   videoImg: any = '';
   video: any = '';
   isShowVideo: boolean = false;
+  activePage: any;
   constructor(
     public navCtrl: NavController,
     private appConfigCtrl: AppConfig,
@@ -65,6 +66,7 @@ export class GoodsdetailPage {
     private domSanitizer: DomSanitizer,
     public app: App,
     public navParams: NavParams) {
+    this.activePage = navCtrl.getActive()
     this.imageUrl = AppGlobal.domainimage;
     if (this.navParams.get('item') != undefined) {
       this.CommParamId = this.navParams.get('item').commParamId;
@@ -82,7 +84,7 @@ export class GoodsdetailPage {
     } else {
       this.navCtrl.pop();
     }
-
+    this._imageViewerCtrl = imageViewerCtrl;
     // this.storageCtrl.get('c_account').then((val) => {
     //   this.SCInfoViewModel.AccountId = val;
     // });
@@ -97,9 +99,15 @@ export class GoodsdetailPage {
   //   this.navCtrl.push('TabsPage');
   // }
   back() {
-    this.navCtrl.pop();
+    if(this.activePage.id=='CommentPage'){
+      this.navCtrl.push('OrdermanagePage', { type: 'all', c_token: this.c_token });
+    }else{
+      this.navCtrl.pop();
+    }
+    //this.navCtrl.pop();
   }
   getGoodsDetail(c_token, commParamId) {
+    console.log(commParamId)
     this.appService.httpPost_token(AppGlobal.API.postGoodsDetailInfoC, c_token, { commParamId: commParamId }, rs => {
       if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
@@ -120,7 +128,7 @@ export class GoodsdetailPage {
           this.SCInfoViewModel.address = rs.objectData.address;
           this.SCInfoViewModel.enterprisesName = rs.objectData.enterprisesName;
           this.SCInfoViewModel.commPackaging = rs.objectData.commPackaging;
-          
+
           this.rate = rs.objectData.transactionScore;
           if (rs.objectData.videoInfo != undefined) {
             this.isShowVideo = true;
@@ -130,7 +138,7 @@ export class GoodsdetailPage {
         } else {
           this.navCtrl.pop();
         }
-      }else{
+      } else {
         this.navCtrl.pop();
       }
     }, true);
@@ -173,6 +181,7 @@ export class GoodsdetailPage {
       if (rs.status == 401 || rs.status == 403) {
         this.app.getRootNav().setRoot('LoginPage');
       }
+      console.log(rs)
       if (rs.isSuccess) {
         if (rs.objectData != null) {
           if (rs.objectData.length > 0) {
@@ -192,6 +201,7 @@ export class GoodsdetailPage {
               Goodscomment.assessmentCreateDate = new Date(rs.objectData[i].assessmentCreateDate).toLocaleDateString();
               Goodscomment.mobile = AppStaticConfig.hideMobile(rs.objectData[i].mobile);
               Goodscomment.avatarinfo = rs.objectData[i].avatarinfo;
+              Goodscomment.ImageList = rs.objectData[i].imagesList;
               this.Goodscomments.push(Goodscomment);
             }
             if (this.Goodscomments.length > 2) {

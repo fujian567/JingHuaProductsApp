@@ -34,15 +34,19 @@
   <div [ngSwitch]="allorder">
     <ion-list *ngSwitchCase="'all'">
       <ion-item *ngIf="isShowAll">暂时没有订单</ion-item>
-      <ion-grid class="goods-grid" *ngFor="let item of pagedatamodleAll, let i = index" (click)="viewOrder(item.orderId)">
+      <ion-grid class="goods-grid" *ngFor="let item of pagedatamodleAll, let i = index">
         <ion-row>
           <ion-col col-9>订单编号：{{item.orderCode}}</ion-col>
           <ion-col col-3 style="text-align:end;color:#e4393c" *ngIf="item.orderStateId==3">待付款</ion-col>
           <ion-col col-3 style="text-align:end;color:#e4393c" *ngIf="item.orderStateId==4">待审核</ion-col>
           <ion-col col-3 style="text-align:end;color:#e4393c" *ngIf="item.orderStateId==5">待发货</ion-col>
+          <ion-col col-3 style="text-align:end;color:#e4393c" *ngIf="item.orderStateId==7">待收货</ion-col>
           <ion-col col-3 style="text-align:end;color:#e4393c" *ngIf="item.orderStateId==9">待评价</ion-col>
+          <ion-col col-3 style="text-align:end;color:#e4393c" *ngIf="item.orderStateId==70">已完成</ion-col>
+          <ion-col col-3 style="text-align:end;color:#e4393c" *ngIf="item.orderStateId==71">已关闭</ion-col>
+          <ion-col col-3 style="text-align:end;color:#e4393c" *ngIf="item.orderStateId==72">已取消</ion-col>
         </ion-row>
-        <ion-row class="goods-line" *ngFor="let goodsinfo of item.paramsInfo" (click)="viewOrder(item.orderId)">
+        <ion-row class="goods-line" *ngFor="let goodsinfo of item.paramsInfo" (click)="viewOrder(item.orderId,'all')">
           <ion-col col-4 class="border-padding">
             <img src="{{imageUrl+goodsinfo.productImagePath+goodsinfo.productImageName}}" class="goods-img">
           </ion-col>
@@ -55,20 +59,20 @@
           </ion-col>
         </ion-row>
         <ion-row>
-          <ion-col col-9 class="list-title">共{{item.orderNumber}}件商品 合计¥{{item.orderAmount}}（含运费¥{{item.freightAmount}}）</ion-col>
+          <ion-col col-9 class="list-title">共{{item.orderNumber}}件商品 合计¥{{item.orderAmount}}</ion-col>
           <ion-col col-3 class="red-btn">
             <button color="danger" ion-button block outline class="pay-btn" (click)="payOrder(item.orderId)" *ngIf="item.orderStateId==3">去支付</button>
             <button color="danger" ion-button block outline class="pay-btn" (click)="goComment(item)" *ngIf="item.orderStateId==9">去评价</button>
           </ion-col>
-          <!-- <ion-row>
-              <ion-col col-6></ion-col>
-              <ion-col col-3>
-                <button color="cblock" ion-button block outline class="pay-btn" (click)="viewlogistics(item)">查看物流</button>
-              </ion-col>
-              <ion-col col-3 class="red-btn">
-                <button color="danger" (click)="confirmOrder(item)" ion-button block outline class="pay-btn">确认收货</button>
-              </ion-col>
-            </ion-row> -->
+        </ion-row>
+        <ion-row *ngIf="item.orderStateId==7">
+          <ion-col col-6></ion-col>
+          <ion-col col-3>
+            <button color="cblock" ion-button block outline class="pay-btn" (click)="viewlogistics(item)">查看物流</button>
+          </ion-col>
+          <ion-col col-3 class="red-btn">
+            <button color="danger" (click)="confirmOrder(item)" ion-button block outline class="pay-btn">确认收货</button>
+          </ion-col>
         </ion-row>
       </ion-grid>
     </ion-list>
@@ -80,7 +84,7 @@
             <ion-col col-8>订单编号：{{item.orderCode}}</ion-col>
             <ion-col col-4 style="text-align:end;color:#e4393c">待付款</ion-col>
           </ion-row>
-          <ion-row class="goods-line" *ngFor="let goodsinfo of item.paramsInfo" (click)="viewOrder(item.orderId)">
+          <ion-row class="goods-line" *ngFor="let goodsinfo of item.paramsInfo" (click)="viewOrder(item.orderId,'nopay')">
             <ion-col col-4 class="border-padding">
               <img src="{{imageUrl+goodsinfo.productImagePath+goodsinfo.productImageName}}" class="goods-img">
             </ion-col>
@@ -93,7 +97,7 @@
             </ion-col>
           </ion-row>
           <ion-row>
-            <ion-col col-9 class="list-title">共{{item.orderNumber}}件商品 合计¥{{item.orderAmount}}（含运费¥{{item.freightAmount}}）</ion-col>
+            <ion-col col-9 class="list-title">共{{item.orderNumber}}件商品 合计¥{{item.orderAmount}}</ion-col>
             <ion-col col-3 class="red-btn">
               <button color="danger" ion-button block outline class="pay-btn" (click)="payOrder(item.orderId)">去支付</button>
             </ion-col>
@@ -109,7 +113,7 @@
             <ion-col col-8>订单编号：{{item.orderCode}}</ion-col>
             <ion-col col-4 style="text-align:end;color:#e4393c">待审核</ion-col>
           </ion-row>
-          <ion-row class="goods-line" *ngFor="let goodsinfo of item.paramsInfo" (click)="viewOrder(item.orderId)">
+          <ion-row class="goods-line" *ngFor="let goodsinfo of item.paramsInfo" (click)="viewOrder(item.orderId,'noaudit')">
             <ion-col col-4 class="border-padding">
               <img src="{{imageUrl+goodsinfo.productImagePath+goodsinfo.productImageName}}" class="goods-img">
             </ion-col>
@@ -122,7 +126,7 @@
             </ion-col>
           </ion-row>
           <ion-row>
-            <ion-col col-9 class="list-title">共{{item.orderNumber}}件商品 合计¥{{item.orderAmount}}（含运费¥{{item.freightAmount}}）</ion-col>
+            <ion-col col-9 class="list-title">共{{item.orderNumber}}件商品 合计¥{{item.orderAmount}}</ion-col>
           </ion-row>
         </ion-grid>
       </div>
@@ -135,7 +139,7 @@
             <ion-col col-8>订单编号：{{item.orderCode}}</ion-col>
             <ion-col col-4 style="text-align:end;color:#e4393c">待发货</ion-col>
           </ion-row>
-          <ion-row class="goods-line" *ngFor="let goodsinfo of item.paramsInfo" (click)="viewOrder(item.orderId)">
+          <ion-row class="goods-line" *ngFor="let goodsinfo of item.paramsInfo" (click)="viewOrder(item.orderId,'nodeliver')">
             <ion-col col-4 class="border-padding">
               <img src="{{imageUrl+goodsinfo.productImagePath+goodsinfo.productImageName}}" class="goods-img">
             </ion-col>
@@ -148,7 +152,7 @@
             </ion-col>
           </ion-row>
           <ion-row>
-            <ion-col col-9 class="list-title">共{{item.orderNumber}}件商品 合计¥{{item.orderAmount}}（含运费¥{{item.freightAmount}}）</ion-col>
+            <ion-col col-9 class="list-title">共{{item.orderNumber}}件商品 合计¥{{item.orderAmount}}</ion-col>
           </ion-row>
         </ion-grid>
       </div>
@@ -161,7 +165,7 @@
             <ion-col col-8>订单编号：{{item.orderCode}}</ion-col>
             <ion-col col-4 style="text-align:end;color:#e4393c">待收货</ion-col>
           </ion-row>
-          <ion-row class="goods-line" *ngFor="let goodsinfo of item.paramsInfo" (click)="viewOrder(item.orderId)">
+          <ion-row class="goods-line" *ngFor="let goodsinfo of item.paramsInfo" (click)="viewOrder(item.orderId,'notakedelivery')">
             <ion-col col-4 class="border-padding">
               <img src="{{imageUrl+goodsinfo.productImagePath+goodsinfo.productImageName}}" class="goods-img">
             </ion-col>
@@ -174,7 +178,7 @@
             </ion-col>
           </ion-row>
           <ion-row>
-            <ion-col col-9 class="list-title">共{{item.orderNumber}}件商品 合计¥{{item.orderAmount}}（含运费¥{{item.freightAmount}}）</ion-col>
+            <ion-col col-9 class="list-title">共{{item.orderNumber}}件商品 合计¥{{item.orderAmount}}</ion-col>
           </ion-row>
           <ion-row>
             <ion-col col-6></ion-col>
@@ -196,7 +200,7 @@
             <ion-col col-8>订单编号：{{item.orderCode}}</ion-col>
             <ion-col col-4 style="text-align:end;color:#e4393c">待评价</ion-col>
           </ion-row>
-          <ion-row class="goods-line" *ngFor="let goodsinfo of item.paramsInfo" (click)="viewOrder(item.orderId)">
+          <ion-row class="goods-line" *ngFor="let goodsinfo of item.paramsInfo" (click)="viewOrder(item.orderId,'nocomment')">
             <ion-col col-4 class="border-padding">
               <img src="{{imageUrl+goodsinfo.productImagePath+goodsinfo.productImageName}}" class="goods-img">
             </ion-col>
@@ -209,7 +213,7 @@
             </ion-col>
           </ion-row>
           <ion-row>
-            <ion-col col-9 class="list-title">共{{item.orderNumber}}件商品 合计¥{{item.orderAmount}}（含运费¥{{item.freightAmount}}）</ion-col>
+            <ion-col col-9 class="list-title">共{{item.orderNumber}}件商品 合计¥{{item.orderAmount}}</ion-col>
             <ion-col col-3 style="text-align:end;color:danger">
               <button color="danger" ion-button block outline class="pay-btn" (click)="goComment(item)">去评价</button>
             </ion-col>
@@ -225,7 +229,7 @@
             <ion-col col-8>订单编号：{{item.orderCode}}</ion-col>
             <ion-col col-4 style="text-align:end;color:#e4393c">{{item.orderstatus}}</ion-col>
           </ion-row>
-          <ion-row class="goods-line" *ngFor="let goodsinfo of item.paramsInfo" (click)="viewOrder(item.orderId)">
+          <ion-row class="goods-line" *ngFor="let goodsinfo of item.paramsInfo" (click)="viewOrder(item.orderId,'aftersale')">
             <ion-col col-4 class="border-padding">
               <img src="{{imageUrl+goodsinfo.productImagePath+goodsinfo.productImageName}}" class="goods-img">
             </ion-col>
@@ -238,7 +242,7 @@
             </ion-col>
           </ion-row>
           <ion-row>
-            <ion-col col-9 class="list-title">共{{item.orderNumber}}件商品 合计¥{{item.orderAmount}}（含运费¥{{item.freightAmount}}）</ion-col>
+            <ion-col col-9 class="list-title">共{{item.orderNumber}}件商品 合计¥{{item.orderAmount}}</ion-col>
             <ion-col col-3 style="text-align:end;color:danger">
               <button color="danger" ion-button block outline class="pay-btn" (click)="aftersale(item)">申请售后</button>
             </ion-col>

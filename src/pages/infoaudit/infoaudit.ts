@@ -20,9 +20,11 @@ export class InfoauditPage {
     private storage: Storage, 
     public app: App,
     public navParams: NavParams) {
-    console.log(navParams.data.auditStatus)
-    this.pageConfig.pagedata=navParams.data;
-    this.pageConfig.isAuto = navParams.data.auditStatus;
+    console.log(this.navParams.get("auditStatus"))
+    console.log(this.navParams.data.infodata)
+    //this.pageConfig.pagedata=navParams.data;
+     this.pageConfig.isAuto = this.navParams.data.auditStatus;
+     this.pageConfig.infodata = navParams.data.infodata;
   }
 
   reRubmit(){

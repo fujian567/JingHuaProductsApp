@@ -29,6 +29,9 @@
         <ion-col col-12>
           感谢您使用精华制药直销APP！您的资料审核未通过。请重新提交。
         </ion-col>
+        <ion-col col-12> 
+            原因：{{pageConfig.infodata}}
+          </ion-col>
         <ion-col col-12 style="padding-top:15px">
           <button ion-button block outline color="danger" (click)="reRubmit()">
             重新提交

@@ -61,6 +61,11 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+  <ion-grid class="grid-mad">
+    <ion-row>
+        <ion-col><img src="assets/imgs/video.jpg" alt="视频" (click)="video()"></ion-col>
+    </ion-row>
+</ion-grid>
   <ion-grid class="grid-hot" *ngIf="isShowseasonProData">
     <ion-row>
       <ion-col class="title" (click)="classid('419942e6-9303-4c3f-886a-17044f978d2c','中药')">中药
@@ -86,6 +91,7 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+
   <ion-grid class="grid-hot" *ngIf="isShowhotSellData">
     <ion-row>
       <ion-col class="title" (click)="classid('b94d5f1e-eef2-44e3-8ba0-13382a3e4ccd','西药')">西药

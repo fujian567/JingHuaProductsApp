@@ -1,100 +1,100 @@
 <ion-header>
-    <ion-navbar hideBackButton="true">
-        <ion-title>
-            个人中心
-        </ion-title>
-    </ion-navbar>
+  <ion-navbar hideBackButton="true">
+    <ion-title>
+      个人中心
+    </ion-title>
+  </ion-navbar>
 </ion-header>
 <ion-content class="bg-color">
-    <ion-list class="top-list" *ngIf="!isLogin">
-        <button ion-item (click)="login()" class="top-item">
-            <ion-icon class="icon-photo" name="adminaccount1"></ion-icon>
-            <span style="font-size:2.3rem;padding-left:20px;">登录</span>
-        </button>
-    </ion-list>
-    <ion-list class="top-list" *ngIf="isLogin">
-        <button ion-item (click)="personalinfo(userImg)" class="top-item">
-            <ion-avatar item-left class="avatar" *ngIf="img64">
-                <img [src]="'data:image/jpeg;base64,'+pageModel.userImg" />
-            </ion-avatar>
-            <ion-avatar item-left class="avatar" *ngIf="!img64">
-                <img src="{{userImg}}">
-            </ion-avatar>
-            <h2>{{clientName}}</h2>
-            <p>账号：{{accountName}}</p>
-        </button>
-    </ion-list>
-    <ion-list class="order-list">
-        <ion-item class="item">
-            <ion-grid>
-                <ion-row>
-                    <ion-col>
-                        <ion-row (click)="viewOrder('nopay')">
-                            <ion-col col-12 class="center">
-                                <ion-icon name="pay"></ion-icon>
-                                <!-- <ion-badge class="badge" color="danger">2</ion-badge> -->
-                            </ion-col>
-                            <ion-col col-12 class="center">待支付</ion-col>
-                        </ion-row>
-                    </ion-col>
-                    <ion-col>
-                        <ion-row (click)="viewOrder('noaudit')">
-                            <ion-col col-12 class="center">
-                                <ion-icon name="aftersale"></ion-icon>
-                            </ion-col>
-                            <ion-col col-12 class="center">待审核</ion-col>
-                        </ion-row>
-                    </ion-col>
-                    <ion-col>
-                        <ion-row (click)="viewOrder('notakedelivery')">
-                            <ion-col col-12 class="center">
-                                <ion-icon name="takedelivery"></ion-icon>
-                            </ion-col>
-                            <ion-col col-12 class="center">待收货</ion-col>
-                        </ion-row>
-                    </ion-col>
-                    <ion-col>
-                        <ion-row (click)="viewOrder('nocomment')">
-                            <ion-col col-12 class="center">
-                                <ion-icon name="comment"></ion-icon>
-                            </ion-col>
-                            <ion-col col-12 class="center">待评价</ion-col>
-                        </ion-row>
-                    </ion-col>
-                    <ion-col>
-                            <ion-row (click)="viewOrder('all')">
-                                <ion-col col-12 class="center">
-                                    <ion-icon name="order"></ion-icon>
-                                </ion-col>
-                                <ion-col col-12 class="center">全部</ion-col>
-                            </ion-row>
-                        </ion-col>
-                </ion-row>
-            </ion-grid>
-        </ion-item>
-    </ion-list>
-    <ion-list class="page-list">
-        <button ion-item (click)="address()">地址管理</button>
-    </ion-list>
-    <ion-list class="page-list">
-        <button ion-item (click)="mypoint()"> 我的积分</button>
-    </ion-list>
-    <ion-list class="page-list">
-        <button ion-item (click)="accountSecurity()">账户安全</button>
-    </ion-list>
-    <ion-list class="page-list">
-        <button ion-item (click)="callServies()">联系客服</button>
-    </ion-list>
-    <ion-list>
-        <ion-item>
-            当前版本号
-            <span item-end>{{version}}</span>
-        </ion-item>
-        <!-- <button ion-item>
+  <ion-list class="top-list" *ngIf="!isLogin">
+    <button ion-item (click)="login()" class="top-item">
+      <ion-icon class="icon-photo" name="adminaccount1"></ion-icon>
+      <span style="font-size:2.3rem;padding-left:20px;">登录</span>
+    </button>
+  </ion-list>
+  <ion-list class="top-list" *ngIf="isLogin">
+    <button ion-item (click)="personalinfo(userImg)" class="top-item">
+      <ion-avatar item-left class="avatar" *ngIf="img64">
+        <img [src]="'data:image/jpeg;base64,'+pageModel.userImg" />
+      </ion-avatar>
+      <ion-avatar item-left class="avatar" *ngIf="!img64">
+        <img src="{{userImg}}">
+      </ion-avatar>
+      <h2>{{clientName}}</h2>
+      <p>账号：{{accountName}}</p>
+    </button>
+  </ion-list>
+  <ion-list class="order-list">
+    <ion-item class="item">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-row (click)="viewOrder('all')">
+              <ion-col col-12 class="center">
+                <ion-icon name="order"></ion-icon>
+              </ion-col>
+              <ion-col col-12 class="center">全部</ion-col>
+            </ion-row>
+          </ion-col>
+          <ion-col>
+            <ion-row (click)="viewOrder('nopay')">
+              <ion-col col-12 class="center">
+                <ion-icon name="pay"></ion-icon>
+                <!-- <ion-badge class="badge" color="danger">2</ion-badge> -->
+              </ion-col>
+              <ion-col col-12 class="center">待支付</ion-col>
+            </ion-row>
+          </ion-col>
+          <ion-col>
+            <ion-row (click)="viewOrder('noaudit')">
+              <ion-col col-12 class="center">
+                <ion-icon name="aftersale"></ion-icon>
+              </ion-col>
+              <ion-col col-12 class="center">待审核</ion-col>
+            </ion-row>
+          </ion-col>
+          <ion-col>
+            <ion-row (click)="viewOrder('notakedelivery')">
+              <ion-col col-12 class="center">
+                <ion-icon name="takedelivery"></ion-icon>
+              </ion-col>
+              <ion-col col-12 class="center">待收货</ion-col>
+            </ion-row>
+          </ion-col>
+          <ion-col>
+            <ion-row (click)="viewOrder('nocomment')">
+              <ion-col col-12 class="center">
+                <ion-icon name="comment"></ion-icon>
+              </ion-col>
+              <ion-col col-12 class="center">待评价</ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+  <ion-list class="page-list">
+    <button ion-item (click)="address()">地址管理</button>
+  </ion-list>
+  <ion-list class="page-list">
+    <button ion-item (click)="mypoint()"> 我的积分</button>
+  </ion-list>
+  <ion-list class="page-list">
+    <button ion-item (click)="accountSecurity()">账户安全</button>
+  </ion-list>
+  <ion-list class="page-list">
+    <button ion-item (click)="callServies()">联系客服</button>
+  </ion-list>
+  <ion-list>
+    <ion-item>
+      当前版本号
+      <span item-end>{{version}}</span>
+    </ion-item>
+    <!-- <button ion-item>
             关于
         </button>-->
-    </ion-list>
-    <ion-list class="page-list">
-        <ion-item class="item-logout" (click)="logOut()"> 退出登录</ion-item>
-    </ion-list>
+  </ion-list>
+  <ion-list class="page-list">
+    <ion-item class="item-logout" (click)="logOut()"> 退出登录</ion-item>
+  </ion-list>
 </ion-content>

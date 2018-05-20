@@ -285,4 +285,7 @@ export class HomePage {
       refresher.complete();
     }, 1000);
   }
+  video(){
+    this.navCtrl.push('VideoPage');
+  }
 }

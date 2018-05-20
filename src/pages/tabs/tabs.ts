@@ -1,7 +1,7 @@
-import { Component, Injectable,ViewChild } from '@angular/core';
-import { IonicPage, NavController,NavParams } from 'ionic-angular';
+import { Component, Injectable, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import {Tabs} from 'ionic-angular';
+import { Tabs } from 'ionic-angular';
 
 /**
 客户端：主界面底部tab页面
@@ -45,24 +45,23 @@ export class TabsPage {
         tabIcon: 'my'
       }
     ];
-    this.storageCtrl.get('c_token').then((val) => { 
+    this.storageCtrl.get('c_token').then((val) => {
       this.c_token = val;
       //this.getSystemRegional(val);
     });
   }
-  ionViewDidEnter() {
-    if(this.navParams.data.jumpage!=undefined){
-      if(this.navParams.data.jumpage=='person'){
+  ionViewWillEnter() {
+    if (this.navParams.data.jumpage != undefined) {
+      if (this.navParams.data.jumpage == 'person') {
         this.tabRef.select(3);
       }
-      if(this.navParams.data.jumpage=='shopping'){
+      if (this.navParams.data.jumpage == 'shopping') {
         this.tabRef.select(2);
       }
-      // if(this.navParams.data.jumpage=='GoodscategoryPage'){
+      // if (this.navParams.data.jumpage == 'GoodscategoryPage') {
       //   this.tabRef.select(1);
       // }
     }
-    
   }
   getSystemRegional(u_token) {
     // this.appService.httpGet_token(AppGlobal.API.getSystemRegional, u_token, {}, rs => {

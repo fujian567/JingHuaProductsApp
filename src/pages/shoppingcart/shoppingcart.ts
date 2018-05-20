@@ -158,12 +158,16 @@ export class ShoppingcartPage {
   }
   editClick() {
     this.isShowEdit = true;
-    this.editBtnTxt = "完成";
+    this.editBtnTxt = "";
     this.amountPrice = 0;
     this.allcheck = false;
     for (let i = 0; i < this.pagedatamodle.length; i++) {
       this.pagedatamodle[i].isSelect = false;
     }
+  }
+  overClick(){
+    this.isShowEdit = false;
+    this.getShoppingCartInfo(this.c_token);
   }
   deletegoods() {
     if (this.deleteGoodsArray.length < 1) {

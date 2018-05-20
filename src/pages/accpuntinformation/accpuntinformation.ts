@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ActionSheetController, App } from 'ionic-angular'; 
+import { IonicPage, NavController, NavParams, ActionSheetController, App } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker';
 import { AppConfig } from '../../app/app.config';
@@ -52,6 +52,7 @@ export class AccpuntinformationPage {
     this.storageCtrl.get('c_token').then((val) => {
       this.c_token = val;
     });
+    console.log(this.pagestatus)
     if (this.pagestatus != "reRubmit") {
       this.storageCtrl.get('c_token').then((val) => {
         this.c_token = val;
@@ -83,24 +84,19 @@ export class AccpuntinformationPage {
       if (rs.isSuccess) {
         console.log(rs.objectData)
         let infodata: any;
-        if (rs.objectData == 60 || rs.objectData == 2) {//首营待审核
+        if (rs.objectData.typeId == 60 || rs.objectData.typeId == 2) {//首营待审核
           infodata = ""
           this.navCtrl.setRoot('InfoauditPage', {
             auditStatus: true,
             infodata
           });
-        } else if (rs.objectData == 63) {//不通过
-
+        } else if (rs.objectData.typeId == 63) {//不通过
           this.reStatusNum = 63;
-          console.log(this.reStatusNum)
-          infodata = "不通过"
-          this.navCtrl.setRoot('InfoauditPage', {
-            auditStatus: false,
-            infodata
-          });
-        } else if (rs.objectData == 3) {//通过
+          infodata = rs.objectData.fBusinessReason
+          this.navCtrl.setRoot('InfoauditPage', { auditStatus: false, infodata });
+        } else if (rs.objectData.typeId == 3) {//通过
           this.navCtrl.setRoot('TabsPage');
-        } else if (rs.objectData == 61) {//未首营
+        } else if (rs.objectData.typeId == 61) {//未首营
           this.getClinetInfo(this.c_token)
         }
       }

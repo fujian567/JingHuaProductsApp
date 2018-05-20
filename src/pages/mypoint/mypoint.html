@@ -20,7 +20,7 @@
                 <!-- <ion-col col-12 style="padding:0 0 0 15px;" *ngIf="item.integralTypeId==1">购物获得积分({{item.integralDec}})</ion-col>
                 <ion-col col-12 style="padding:0 0 0 15px;" *ngIf="item.integralTypeId==2">评价获得积分({{item.integralDec}})</ion-col> -->
               <!-- <ion-col col-12 style="padding:0 0 0 15px;">{{item.IntegralTypeId}}({{item.IntegralDec}})</ion-col> -->
-              <ion-col col-12 class="page-date" style="padding:5px 0 2px 15px;">{{item.integralCreateDate}}</ion-col>
+              <ion-col col-12 class="page-date" style="padding:5px 0 2px 15px;">{{item.integralCreateDate | date:'yyyy-MM-dd HH:mm:ss'}}</ion-col>
             </ion-row>
           </ion-grid>
       </ion-col>

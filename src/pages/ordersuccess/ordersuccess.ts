@@ -23,10 +23,11 @@ export class OrdersuccessPage {
       this.c_token = val;
     });
     if (this.navParams.data != undefined) {
+      console.log(this.navParams.data)
       this.jumpType = this.navParams.data.item;
-      // if (this.navParams.data.item.orderID != undefined) {
-      //   this.orderID = this.navParams.data.item.orderID
-      // }
+      if (this.navParams.data.orderID != undefined) {
+        this.orderID = this.navParams.data.orderID
+      }
     }
   }
 
@@ -35,12 +36,12 @@ export class OrdersuccessPage {
   }
   jumporder() {
     if (this.jumpType == '1' || this.jumpType == '2') {
-      // if (this.orderID != undefined) {
-      //   this.navCtrl.push('OrderdetailPage', { orderId: this.orderID, c_token: this.c_token })
-      // } else {
-      //   this.navCtrl.push('OrdermanagePage', { type: 'nodeliver', c_token: this.c_token })
-      // }
-      this.navCtrl.push('OrdermanagePage', { type: 'nodeliver', c_token: this.c_token })
+      if (this.orderID != undefined) {
+        this.navCtrl.push('OrderdetailPage', { orderId: this.orderID, c_token: this.c_token, orderType: 'nodeliver' })
+      } else {
+        this.navCtrl.push('OrdermanagePage', { type: 'nodeliver', c_token: this.c_token })
+      }
+      //this.navCtrl.push('OrdermanagePage', { type: 'nodeliver', c_token: this.c_token })
     } else {
       this.navCtrl.push('OrdermanagePage', { type: 'noaudit', c_token: this.c_token })
     }

@@ -89,15 +89,13 @@
           <ion-row>
             <ion-col col-3 align-self-center *ngFor="let itemImg of item.ImageList">
               <ion-thumbnail>
-                <img src="{{itemImg}}" class="auto-image" #myImage (click)="showOriginal(myImage)" />
-                <!-- <img src="{{'data:image/jpeg;base64,'+item.imageData}}" class="auto-image" #myImage (click)="showOriginal(myImage)" class="auto-image"
-                                 height="80" width="80" />  -->
+                <img src="{{imageUrl+itemImg.imagePath+itemImg.imageName}}" class="auto-image" #myImage (click)="showOriginal(myImage)" width="80" height="80" />
               </ion-thumbnail>
             </ion-col>
           </ion-row>
         </ion-col>
         <ion-col col-12 class="comment-goods">
-          购买日期：{{item.assessmentCreateDate}}
+          购买日期：{{item.assessmentCreateDate | date:'yyyy-MM-dd'}}
         </ion-col>
       </ion-row>
       <ion-row>
@@ -282,7 +280,7 @@
           <ion-row>
             <ion-col col-3 align-self-center *ngFor="let itemImg of item.ImageList">
               <ion-thumbnail>
-                <img src="{{itemImg}}" class="auto-image" #myImage (click)="showOriginal(myImage)" />
+                <img src="{{imageUrl+itemImg.imagePath+itemImg.imageName}}" class="auto-image" #myImage (click)="showOriginal(myImage)" width="80" height="80" />
               </ion-thumbnail>
             </ion-col>
           </ion-row>

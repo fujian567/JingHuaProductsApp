@@ -55,7 +55,6 @@ export class OrdermanagePage {
     public app: App,
     private storageCtrl: Storage,
     public navParams: NavParams) {
-
     this.storageCtrl.get('c_token').then((val) => {
       this.c_token = val;
     });
@@ -104,12 +103,13 @@ export class OrdermanagePage {
     }
   }
   ionViewDidLoad() {
-    this.navBar.backButtonClick = this.backButtonClick; 
+    this.navBar.backButtonClick = this.backButtonClick;
   }
 
   backButtonClick = (e: UIEvent) => {
     this.navCtrl.setRoot('TabsPage', { jumpage: 'person' });
     //this.navCtrl.setRoot('PersonalcenterPage');
+    //this.navCtrl.i
   }
   doRefresh(refresher: any) {
     setTimeout(() => {
@@ -125,7 +125,7 @@ export class OrdermanagePage {
   }
   viewlogistics(item: any) {
     this.navCtrl.push('ExpressPage', { item: item, c_token: this.c_token })
-    
+
     //this.navCtrl.push('LogisticsPage', { item: item, c_token: this.c_token })
   }
   confirmOrder(item: any) {
@@ -134,9 +134,10 @@ export class OrdermanagePage {
         this.app.getRootNav().setRoot('LoginPage');
       }
       if (rs.isSuccess) {
+        this.navCtrl.push('OrdermanagePage', { type: 'nocomment', c_token: this.c_token });
         this.getOrderInfoNoTakeDelivery(this.c_token)
       }
-    }, true)
+    })
   }
   goComment(item: any) {
     this.navCtrl.push('CommentPage', { item: item, c_token: this.c_token })
@@ -257,11 +258,12 @@ export class OrdermanagePage {
       }
     }, true)
   }
-  viewOrder(orderId: any) {
-    this.navCtrl.push('OrderdetailPage', { orderId: orderId, c_token: this.c_token })
+  viewOrder(orderId: any, type: any) {
+    console.log(orderId)
+    console.log(type)
+    this.navCtrl.push('OrderdetailPage', { orderId: orderId, c_token: this.c_token, orderType: type })
   }
   selectedAll() {
-    console.log('1111')
     this.getAllOrder(this.c_token)
   }
   selectedNopay() {
@@ -282,7 +284,7 @@ export class OrdermanagePage {
   selectedAftersale() {
     this.getOrderInfoAfterSale(this.c_token);
   }
-  payOrder(orderId){
+  payOrder(orderId) {
     this.navCtrl.push('NopaydetailPage', { orderId: orderId, c_token: this.c_token })
   }
 }

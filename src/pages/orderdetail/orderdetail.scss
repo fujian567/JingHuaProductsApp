@@ -1,4 +1,7 @@
 page-orderdetail {
+  .bg-content{
+    background-color: #fff;
+  }
   .grid-steps {
     padding-top: 2px;
     height: 57px;
@@ -139,21 +142,21 @@ page-orderdetail {
     color: #e4393c;
     font-size: 1.8rem;
   }
-  .specify-grid{
+  .specify-grid {
     color: #666;
     font-size: 1.6rem;
     .item {
-        padding-top: 5px;
-        padding-bottom: 10px;
-        border-bottom: 0.55px solid #c8c7cc;
-      }
+      padding-top: 5px;
+      padding-bottom: 10px;
+      border-bottom: 0.55px solid #c8c7cc;
+    }
   }
   .txt-right {
     text-align: end;
     padding-right: 32px;
-    .red{
-        color: #e4393c;
-      }
+    .red {
+      color: #e4393c;
+    }
   }
 }
 

@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { CallNumber } from '@ionic-native/call-number';
-import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App, Navbar } from 'ionic-angular';
 import { ImageViewerController } from 'ionic-img-viewer';
 import { AppConfig, AppStaticConfig } from './../../app/app.config';
 import { AppService, AppGlobal } from './../../app/app.service';
@@ -15,7 +15,8 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'orderdetail.html',
 })
 export class OrderdetailPage {
-  c_token:any;
+  @ViewChild(Navbar) navBar: Navbar;
+  c_token: any;
   imageUrl = AppGlobal.domainimage;
   isShowVoucherImg: boolean = false;
   pagedatamodle: any = {
@@ -27,7 +28,7 @@ export class OrderdetailPage {
     deliveryInfoMobile: '',
     freightAmount: '',
     orderAmount: '',
-    payAmount:'',
+    payAmount: '',
     orderStateId: '',
     voucherImg: '',
     invoiceTypeId: '',
@@ -38,8 +39,10 @@ export class OrderdetailPage {
     invoiceTypeName: '',
     enterpriseName: '',
     taxIdeNumber: '',
-    orderCreateDate:'',
+    orderCreateDate: '',
+    orderRecordsInfo: ''
   }
+  orderType: any;
   goodsList: any = [];
   orderid: any = '';
   constructor(
@@ -58,8 +61,16 @@ export class OrderdetailPage {
     });
     if (this.navParams.data.orderId != undefined) {
       this.orderid = this.navParams.data.orderId;
+      this.orderType = this.navParams.data.orderType;
       this.getOrderDetail(this.orderid, this.navParams.data.c_token)
     }
+  }
+  ionViewDidLoad() {
+    this.navBar.backButtonClick = this.backButtonClick;
+  }
+  backButtonClick = (e: UIEvent) => {
+    this.navCtrl.push('OrdermanagePage', { type:  this.orderType, c_token: this.c_token });
+    // this.navCtrl.push('OrdermanagePage', { jumpage: 'person' });
   }
   getOrderDetail(orderid: any, c_token: any) {
     this.appService.httpPost_token(AppGlobal.API.postOrderInfoByID, c_token, { orderid: orderid }, rs => {
@@ -92,21 +103,22 @@ export class OrderdetailPage {
             this.pagedatamodle.orderInvoiceEmail = rs.objectData[i].orderInvoiceInfo.orderInvoiceEmail;
             this.pagedatamodle.taxIdeNumber = rs.objectData[i].orderInvoiceInfo.taxIdeNumber;
             this.pagedatamodle.enterpriseName = rs.objectData[i].orderInvoiceInfo.enterpriseName;
-            this.pagedatamodle.orderCreateDate= rs.objectData[i].orderCreateDate;
+            this.pagedatamodle.orderCreateDate = rs.objectData[i].orderCreateDate //new Date()() ;
+            this.pagedatamodle.orderRecordsInfo = rs.objectData[i].orderRecordsInfo;
             if (rs.objectData[i].payMethodName == '银行转账') {
               this.isShowVoucherImg = true
             }
           }
         }
       }
-    },true);
+    }, true);
   }
   callService() {
     this.callNumber.callNumber(AppGlobal.systemPhone.servicePhone, true)
       .then(res => console.log('Launched dialer!', res))
       .catch(err => console.log('Error launching dialer', err));
   }
-
-
-
+  viewGoods(item: any) {
+    this.navCtrl.push('GoodsdetailPage', { parms: item });
+  }
 }

@@ -63,7 +63,9 @@ export class PersonalcenterPage {
   }
   viewOrder(type: any) {
     if (this.isLogin) {
-      this.navCtrl.push('OrdermanagePage', { type: type, c_token: this.c_token });
+      //this.navCtrl.push();
+      
+      this.app.getRootNav().push('OrdermanagePage', { type: type, c_token: this.c_token });  
     }
   }
   callServies() {

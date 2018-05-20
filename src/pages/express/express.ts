@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, App, Navbar } from 'ionic-angular';
 import { ImageViewerController } from 'ionic-img-viewer';
 import { AppConfig, AppStaticConfig } from './../../app/app.config';
 import { AppService, AppGlobal } from './../../app/app.service';
@@ -15,6 +15,7 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'express.html',
 })
 export class ExpressPage {
+  @ViewChild(Navbar) navBar: Navbar;
   c_token: any;
   orderinfo: any;
   pagedatamodle: any = {
@@ -53,6 +54,13 @@ export class ExpressPage {
       this.c_token = val;
     });
   }
+  ionViewDidLoad() {
+    this.navBar.backButtonClick = this.backButtonClick;
+  }
+  backButtonClick = (e: UIEvent) => {
+    this.navCtrl.push('OrdermanagePage', { type: 'notakedelivery', c_token: this.c_token });
+    // this.navCtrl.push('OrdermanagePage', { jumpage: 'person' });
+  }
   getLogisticsDetail(orderid: any, c_token: any) {
     this.appService.httpPost_token(AppGlobal.API.postExpressInfo, c_token, { orderId: orderid }, rs => {
       if (rs.status == 401 || rs.status == 403) {
@@ -60,7 +68,7 @@ export class ExpressPage {
       }
       console.log(rs.objectData)
       this.pagedatamodle.logisticsNum=rs.objectData.orderLogisticsNumber;
-      this.pagedatamodle.logistics=rs.objectData.orderCourierCompanyName;
+      this.pagedatamodle.logistics=rs.objectData.orderCourierCompanyName; 
       this.getExpressInfo(rs.objectData.orderLogisticsNumber,rs.objectData.orderCourierCompanyCode);
 
     }, true);
@@ -76,7 +84,7 @@ export class ExpressPage {
       this.logisticsData=express.Traces.reverse();
       this.expressStatus=express.State
       console.log(express)
-    }, true);
+    });
   }
 }
 

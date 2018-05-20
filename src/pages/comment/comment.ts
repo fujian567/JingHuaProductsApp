@@ -95,7 +95,8 @@ export class CommentPage {
       }
       console.log(rs)
       if (rs.isSuccess) {
-        this.navCtrl.pop();
+        this.navCtrl.push('GoodsdetailPage', { parms: this.pagedatamodle.CommParamId });
+        // this.navCtrl.pop(); 
       } else {
         this.appConfigCtrl.popAlertView(rs.errorMessage);
       }
