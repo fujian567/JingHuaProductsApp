@@ -111,13 +111,13 @@
       "cordova-plugin-network-information": {},
       "cordova-plugin-jcore": {},
       "jpush-phonegap-plugin": {
-        "APP_KEY": "acf39f93b4b509f444cc3697"
+        "APP_KEY": "你的极光id"
       },
       "cordova-plugin-alipay-v2": {
-        "APP_ID": "2018041602565492"
+        "APP_ID": "你的支付宝ID"
       },
       "cordova-plugin-wechat": {
-        "WECHATAPPID": "wxbeca3d49d91b27d4"
+        "WECHATAPPID": "你的微信appid"
       },
       "cordova-plugin-networkinterface": {}
     },
